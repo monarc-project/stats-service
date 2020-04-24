@@ -29,7 +29,7 @@ $ curl http://0.0.0.0:5000/stats/
 $ curl http://0.0.0.0:5000/organization/
 {"data": [], "has_more": false}
 
-# Create an organization (let's say with just a token):
+# Create an organization (let's say with have just a token - same on MONARC side):
 $ curl -H "Content-Type: application/json" -X POST -d \
 '{"token": "UhdSAdTIoBT18r9Fa3W26iN9RRGlknkO62YkWY-yyqn3c_6-hEfIDX0DkF8JvupxfEw"}' http://0.0.0.0:5000/organization/
 
