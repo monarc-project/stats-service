@@ -18,7 +18,7 @@ $ poetry shell
 $ python app.py
 ```
 
-Test:
+## Test
 
 ```bash
 # Get all stats
