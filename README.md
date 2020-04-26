@@ -21,24 +21,22 @@ $ python app.py
 ## Test
 
 ```bash
-# Get all stats
-$ curl -H "AUTHORIZATION: basic <TOKEN>" http://0.0.0.0:5000/stats/
-{"data": [], "has_more": false}
-
 # Get all organizations
-$ curl -H "AUTHORIZATION: basic <TOKEN>" http://0.0.0.0:5000/organization/
+$ curl http://0.0.0.0:5000/organization/
 {"data": [], "has_more": false}
 
 # Create an organization (let's say with only a token for the moment - same token for the MONARC client/organization):
-$ curl -H "AUTHORIZATION: basic <TOKEN>" -H "Content-Type: application/json" -X POST -d \
+$ curl -H "Content-Type: application/json" -X POST -d \
 '{"token": "UhdSAdTIoBT18r9Fa3W26iN9RRGlknkO62YkWY-yyqn3c_6-hEfIDX0DkF8JvupxfEw"}' http://0.0.0.0:5000/organization/
 
-
 # List again the organizations:
-$ curl -H "AUTHORIZATION: basic <TOKEN>" http://0.0.0.0:5000/organization/
+$ curl http://0.0.0.0:5000/organization/
 # Result:
 {"data": [{"token": "UhdSAdTIoBT18r9Fa3W26iN9RRGlknkO62YkWY-yyqn3c_6-hEfIDX0DkF8JvupxfEw", "id": "5ea3717b0cdd5b63ad17b6ce"}], "has_more": false}
 
+# Get all stats
+$ curl -H "AUTHORIZATION: basic <TOKEN>" http://0.0.0.0:5000/stats/
+{"data": [], "has_more": false}
 
 # Create a stat (we could also submit the token in header with -H)
 # data is a DynamicField
@@ -53,6 +51,9 @@ $ curl -H "AUTHORIZATION: basic <TOKEN>" -H "Content-Type: application/json" -X 
 $ curl -H "AUTHORIZATION: basic <TOKEN>" http://0.0.0.0:5000/stats/5ea378728f826c539837436a/
 # Result:
 {"organization": "5ea3717b0cdd5b63ad17b6ce", "type": "risk", "day": 1, "week": 1, "month": 1, "data": {"what": "you want", "super": "cool"}, "created_at": "2020-04-24T23:38:26.326000", "updated_at": "2020-04-24T23:38:26.326000", "id": "5ea378728f826c539837436a"}
+
+# Get stats for a specific organization:
+$ curl -H "AUTHORIZATION: basic UhdSAdTIoBT18r9Fa3W26iN9RRGlknkO62YkWY-yyqn3c_6-hEfIDX0DkF8JvupxfEw"  http://127.0.0.1:5000/stats/?organization__exact=5ea3717b0cdd5b63ad17b6ce
 ```
 
 
