@@ -49,7 +49,13 @@ class Stats(db.Document):
 # Stats
 class StatsResource(Resource):
     document = Stats
-    filters = {"created_at": [ops.Exact]}
+    filters = {
+        'type': [ops.Exact, ops.IExact, ops.Contains, ops.IContains],
+        'organization': [ops.Exact],
+        'created_at': [ops.Exact, ops.IExact, ops.Contains, ops.IContains],
+    }
+    # fields = ['type']
+    # filters = {"created_at": [ops.Exact]}
 
 
 @api.register()
