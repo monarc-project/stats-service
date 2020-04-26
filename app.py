@@ -3,13 +3,15 @@
 
 import os
 import datetime
-from flask import Flask
+from flask import Flask, request
 from flask_mongoengine import MongoEngine
 from flask_mongorest import MongoRest
 from flask_mongorest.views import ResourceView
 from flask_mongorest.resources import Resource
 from flask_mongorest import operators as ops
 from flask_mongorest import methods
+from flask_mongorest.authentication import AuthenticationBase
+
 
 application = Flask(__name__)
 
@@ -43,6 +45,29 @@ class Stats(db.Document):
 
 
 #
+# Authentication
+#
+
+class ApiKeyAuthentication(AuthenticationBase):
+    """Custom token based authentication. To be inproved."""
+    def authorized(self):
+        if 'AUTHORIZATION' in request.headers:
+            authorization = request.headers['AUTHORIZATION'].split()
+            if len(authorization) == 2 and authorization[0].lower() == 'basic':
+                try:
+                    token = authorization[1]
+                    token_key = Organization.objects.get(token__exact=token)
+                    print(token_key)
+                    # if token_key.user:
+                    #     login_user(token_key.user)
+                    #     setattr(current_user, 'token_key', token_key)
+                    return True
+                except (TypeError, UnicodeDecodeError, Organization.DoesNotExist):
+                    pass
+        return False
+
+
+#
 # Resources
 #
 
@@ -68,6 +93,7 @@ class StatsView(ResourceView):
         methods.List,
         methods.Delete,
     ]
+    authentication_methods = [ApiKeyAuthentication]
 
 
 # Organization
