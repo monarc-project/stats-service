@@ -38,7 +38,7 @@ $ curl http://0.0.0.0:5000/organization/
 $ curl -H "AUTHORIZATION: basic <TOKEN>" http://0.0.0.0:5000/stats/
 {"data": [], "has_more": false}
 
-# Create a stat (we could also submit the token in header with -H)
+# Create a stat
 # data is a DynamicField
 # note that we are using the MongoDB id of the created org:
 $ curl -H "AUTHORIZATION: basic <TOKEN>" -H "Content-Type: application/json" -X POST -d \
