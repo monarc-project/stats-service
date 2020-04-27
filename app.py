@@ -81,6 +81,10 @@ class StatsResource(Resource):
     }
     # fields = ['type']
     # filters = {"created_at": [ops.Exact]}
+    paginate = True
+    default_limit = 100
+    max_limit = 100
+    bulk_update_limit = 100
 
 
 @api.register()
