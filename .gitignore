@@ -24,3 +24,5 @@ venv
 build
 
 .coverage
+
+docs/_build/
