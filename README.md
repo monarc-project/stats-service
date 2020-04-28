@@ -15,7 +15,7 @@ $ git clone https://github.com/monarc-project/stats-api
 $ cd stats-api/
 $ poetry install
 $ poetry shell
-$ python app.py
+$ python runserver.py
 ```
 
 ## Test
