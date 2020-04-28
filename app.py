@@ -83,7 +83,7 @@ class StatsResource(Resource):
     # filters = {"created_at": [ops.Exact]}
     paginate = True
     default_limit = 100
-    max_limit = 100
+    max_limit = 1000
     bulk_update_limit = 100
 
 
@@ -97,7 +97,7 @@ class StatsView(ResourceView):
         methods.List,
         methods.Delete,
     ]
-    authentication_methods = [ApiKeyAuthentication]
+    # authentication_methods = [ApiKeyAuthentication]
 
 
 # Organization
