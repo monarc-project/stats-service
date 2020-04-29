@@ -8,16 +8,6 @@ Presentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    api-v1
    command-line-interface
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
