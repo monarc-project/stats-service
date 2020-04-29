@@ -1,5 +1,10 @@
 # Stats API for MONARC
 
+[![License](https://img.shields.io/github/license/monarc-project/stats-api.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.html)
+[![Contributors](https://img.shields.io/github/contributors/monarc-project/stats-api.svg?style=flat-square)](https://github.com/monarc-project/stats-api/graphs/contributors)
+[![Workflow](https://github.com/monarc-project/stats-api/workflows/Python%20application/badge.svg?style=flat-square)](https://github.com/monarc-project/stats-api/actions?query=workflow%3A%22Python+application%22)
+[![Documentation Status](https://readthedocs.org/projects/monarc-stats-api/badge/?version=latest&style=flat-square)](https://monarc-stats-api.readthedocs.io/en/latest/?badge=latest)
+
 ## Presentation
 
 Proof of concept for a stats API.
@@ -21,10 +26,9 @@ $ python runserver.py
 For production you can use [Gunicorn](https://gunicorn.org) or ``mod_wsgi``.
 
 
-## License
+## Documentation
 
-A [documentation is available](docs) and can be build in HTML or PDF with
-Sphinx.
+A [documentation is available](https://monarc-stats-api.readthedocs.io).
 
 
 ## License
