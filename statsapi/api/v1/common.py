@@ -1,6 +1,8 @@
 from flask import request
 from flask_mongorest.authentication import AuthenticationBase
 
+from statsapi.models import Organization
+
 
 class ApiKeyAuthentication(AuthenticationBase):
     """Custom token based authentication. To be inproved."""
