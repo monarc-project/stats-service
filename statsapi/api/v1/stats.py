@@ -5,6 +5,7 @@ from flask_mongorest import methods
 
 from statsapi.bootstrap import api
 from statsapi.documents import Stats
+from statsapi.api.v1.common import ApiKeyAuthentication
 
 
 class StatsResource(Resource):
@@ -32,4 +33,4 @@ class StatsView(ResourceView):
         methods.List,
         methods.Delete,
     ]
-    # authentication_methods = [ApiKeyAuthentication]
+    authentication_methods = [ApiKeyAuthentication]
