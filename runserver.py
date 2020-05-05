@@ -22,10 +22,18 @@
 
 
 from statsapi.bootstrap import application
+from statsapi import commands
+
+
+def register_commands(app):
+    """Register Click commands."""
+    app.cli.add_command(commands.push_stats)
 
 
 with application.app_context():
     from statsapi.api import v1
+
+    register_commands(application)
 
 
 if __name__ == "__main__":

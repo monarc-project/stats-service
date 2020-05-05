@@ -21,7 +21,16 @@ $ cd stats-api/
 $ cp instance/production.py.cfg instance/production.py
 $ poetry install
 $ poetry shell
-$ python runserver.py
+$ export FLASK_APP=runserver.py
+$ export FLASK_ENV=development
+$ flask run
+ * Serving Flask app "runserver.py" (lazy loading)
+ * Environment: development
+ * Debug mode: on
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 268-178-811
 ```
 
 For production you can use [Gunicorn](https://gunicorn.org) or ``mod_wsgi``.
