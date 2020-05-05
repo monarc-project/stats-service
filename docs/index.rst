@@ -6,6 +6,18 @@
 Presentation
 ============
 
+`This component <https://github.com/monarc-project/stats-api>`_ provides an API
+in order to collect statistics from one or several
+`MONARC <https://github.com/monarc-project/MonarcAppFO>`_ instances. It can be
+deployed just next to MONARC (eventually in a virtual machine) or on a
+dedicated server.
+
+These aggregated statistics can then be sent to a central instance.
+
+
+Table of contents
+=================
+
 .. toctree::
    :maxdepth: 2
 

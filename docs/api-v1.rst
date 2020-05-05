@@ -8,6 +8,9 @@ Endpoints
 - /api/v1/stats/
 
 
+Authentication
+--------------
+
 
 Examples
 --------
