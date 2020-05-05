@@ -4,7 +4,7 @@ Command Line Interface
 Pushing data
 ------------
 
-Pushing data to another stats server.
+Pushing data to a central stats server.
 
 .. code-block:: bash
 
