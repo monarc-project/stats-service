@@ -25,4 +25,5 @@ build
 
 .coverage
 
+instance/production.py
 docs/_build/

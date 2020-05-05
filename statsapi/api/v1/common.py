@@ -1,6 +1,7 @@
 from flask import request
 from flask_mongorest.authentication import AuthenticationBase
 
+from statsapi.bootstrap import application
 from statsapi.models import Organization
 
 
@@ -8,6 +9,8 @@ class ApiKeyAuthentication(AuthenticationBase):
     """Custom token based authentication. To be inproved."""
 
     def authorized(self):
+        if not application.config["API_KEY_AUTHENTICATION"]:
+            return True
         if "AUTHORIZATION" in request.headers:
             authorization = request.headers["AUTHORIZATION"].split()
             if len(authorization) == 2 and authorization[0].lower() == "basic":

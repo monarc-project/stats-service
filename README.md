@@ -18,6 +18,7 @@ The following assumes you have already installed ``git``, ``poetry``,  and
 $ sudo apt install mongodb
 $ git clone https://github.com/monarc-project/stats-api
 $ cd stats-api/
+$ cp instance/production.py.cfg instance/production.py
 $ poetry install
 $ poetry shell
 $ python runserver.py
