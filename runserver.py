@@ -22,13 +22,14 @@
 
 
 from statsapi.bootstrap import application
-from statsapi.commands import push_stats, pull_stats
+from statsapi.commands import push_stats, pull_stats, drop_all_collections
 
 
 def register_commands(app):
     """Register Click commands."""
     app.cli.add_command(push_stats)
     app.cli.add_command(pull_stats)
+    app.cli.add_command(drop_all_collections)
 
 
 with application.app_context():
