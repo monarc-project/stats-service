@@ -28,9 +28,7 @@ class StatsView(ResourceView):
     resource = StatsResource
     methods = [
         methods.Create,
-        methods.Update,
         methods.Fetch,
         methods.List,
-        methods.Delete,
     ]
     authentication_methods = [ApiKeyAuthentication]
