@@ -38,5 +38,3 @@ def push_stats(uuid):
         )
 
         r = requests.post(STATS_API_ENDPOINT, data=payload)
-
-        print(r.content)
