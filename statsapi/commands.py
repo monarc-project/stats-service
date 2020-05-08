@@ -5,8 +5,13 @@ import json
 import click
 import requests
 
+from urllib.parse import urljoin
 from statsapi.bootstrap import application, db
 from statsapi.documents import Stats, Organization
+
+STATS_API_ENDPOINT = urljoin(
+    application.config["REMOTE_STATS_SERVER"], "/api/v1/stats/"
+)
 
 
 @application.cli.command("push-stats")
@@ -32,6 +37,6 @@ def push_stats(uuid):
             }
         )
 
-        r = requests.post(application.config["REMOTE_STATS_SERVER"], data=payload)
+        r = requests.post(STATS_API_ENDPOINT, data=payload)
 
         print(r.content)
