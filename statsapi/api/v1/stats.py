@@ -15,12 +15,15 @@ class StatsResource(Resource):
         "organization": [ops.Exact],
         "created_at": [ops.Exact, ops.IExact, ops.Contains, ops.IContains],
     }
-    # fields = ['type']
+    # fields = ['type', 'uuid']
     # filters = {"created_at": [ops.Exact]}
     paginate = True
     default_limit = 100
     max_limit = 1000
     bulk_update_limit = 100
+
+    def uuid(self, obj):
+        return str(obj.uuid)
 
 
 @api.register()

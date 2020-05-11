@@ -9,7 +9,7 @@ from statsapi.documents import Organization
 
 
 class Stats(db.Document):
-    uuid = db.UUIDField(binary=True, default=lambda: str(uuid.uuid4()), primary_key=True)
+    uuid = db.UUIDField(binary=True, default=uuid.uuid4, primary_key=True)
     organization = db.ReferenceField(Organization, required=True)
     type = db.StringField(max_length=120, required=True)
     day = db.IntField(required=True)
