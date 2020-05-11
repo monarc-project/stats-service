@@ -11,5 +11,5 @@ def drop_all_collections():
     if click.confirm("Do you want to drop all collections?"):
         db = _get_db()
         db.stats.drop()
-        # db.organization.drop()
+        db.organization.drop()
         print("All collections dropped.")
