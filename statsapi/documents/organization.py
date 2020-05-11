@@ -2,4 +2,8 @@ from statsapi.bootstrap import db
 
 
 class Organization(db.Document):
-    token = db.DynamicField(unique=True, required=True)
+    name = db.StringField(primary_key=True) # or maybe UUID
+    token = db.StringField(required=True)
+
+    def __str__(self):
+        return "Name: {}\nToken: {}".format(self.name, self.token)
