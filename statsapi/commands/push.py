@@ -28,6 +28,7 @@ def push_stats(uuid):
         # payload = stat.to_json()
         payload = json.dumps(
             {
+                "uuid": str(stat.uuid),
                 "organization": uuid,
                 "type": stat.type,
                 "data": stat.data,
