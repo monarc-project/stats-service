@@ -95,20 +95,23 @@ More advanced usage
 Stats
 ~~~~~
 
-Filtering on attribute:
+Filtering on attributes:
 
 .. code-block:: bash
 
-    curl 'http://127.0.0.1:5000/api/v1/stats/?day=1&month=1
+    $ curl http://127.0.0.1:5000/api/v1/stats/?day=1&month=1
 
 
-you must be warned that this is a shortcut, the more precise query is:
-
-.. code-block:: bash
-
-    curl 'http://127.0.0.1:5000/api/v1/stats/?day__exact=1&month__exact=1
+You must be warned that this is a shortcut, the more precise query is:
 
 
 .. code-block:: bash
 
-    curl http://127.0.0.1:5000/api/v1/stats/?organization__exact=5ea37b17be573f8d57d8a0b3
+    $ curl http://127.0.0.1:5000/api/v1/stats/?day__exact=1&month__exact=1
+
+
+Getting all stats from the month of February of type *risk* for an organization:
+
+.. code-block:: bash
+
+    $ curl http://127.0.0.1:5000/api/v1/stats/?organization=5ea37b17be573f8d57d8a0b3&type=risk&month=2
