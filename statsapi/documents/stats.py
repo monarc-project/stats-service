@@ -1,3 +1,4 @@
+import uuid
 import datetime
 
 from statsapi.bootstrap import db
@@ -8,7 +9,8 @@ from statsapi.documents import Organization
 
 
 class Stats(db.Document):
-    organization = db.ReferenceField(Organization)
+    uuid = db.UUIDField(binary=True, default=lambda: str(uuid.uuid4()), primary_key=True)
+    organization = db.ReferenceField(Organization, required=True)
     type = db.StringField(max_length=120, required=True)
     day = db.IntField(required=True)
     week = db.IntField(required=True)
