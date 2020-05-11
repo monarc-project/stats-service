@@ -13,6 +13,9 @@ class StatsResource(Resource):
     filters = {
         "type": [ops.Exact, ops.IExact, ops.Contains, ops.IContains],
         "organization": [ops.Exact],
+        "day": [ops.Exact],
+        "month": [ops.Exact],
+        "year": [ops.Exact],
         "created_at": [ops.Exact, ops.IExact, ops.Contains, ops.IContains],
     }
     # fields = ['type', 'uuid']
