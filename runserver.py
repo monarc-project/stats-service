@@ -22,7 +22,7 @@
 
 
 from statsapi.bootstrap import application
-from statsapi.commands import push_stats, pull_stats, drop_all_collections
+from statsapi.commands import push_stats, pull_stats, drop_all_collections, create_organization
 
 
 def register_commands(app):
@@ -30,6 +30,7 @@ def register_commands(app):
     app.cli.add_command(push_stats)
     app.cli.add_command(pull_stats)
     app.cli.add_command(drop_all_collections)
+    app.cli.add_command(create_organization)
 
 
 with application.app_context():

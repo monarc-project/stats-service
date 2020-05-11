@@ -30,16 +30,9 @@ Create an organization (let's say with only a token for the moment - same token 
 .. code-block:: bash
 
     $ curl -H "Content-Type: application/json" -X POST -d \
-    '{"token": "UhdSAdTIoBT18r9Fa3W26iN9RRGlknkO62YkWY-yyqn3c_6-hEfIDX0DkF8JvupxfEw"}' http://127.0.0.1:5000/api/v1/organizations/
+    '{"name":"CASES","token": "oypvIaGU7uvuJbR4wgYrB7ef1HeXc9sh5g-zrH9WjmHbWHDk3L36lycYEgJevQ9wo-Wv_5PvxNlbIgZTBXVaMw"}' http://127.0.0.1:5000/api/v1/organizations/
 
-
-
-List again the organizations:
-
-.. code-block:: bash
-
-    $ curl http://127.0.0.1:5000/api/v1/organizations/
-    {"data": [{"token": "UhdSAdTIoBT18r9Fa3W26iN9RRGlknkO62YkWY-yyqn3c_6-hEfIDX0DkF8JvupxfEw", "id": "5ea3717b0cdd5b63ad17b6ce"}], "has_more": false}
+This should be done via the dedicated command. This method will be probably removed.
 
 
 
@@ -59,8 +52,8 @@ Create a stat
     # data is a DynamicField
     # note that we are using the MongoDB id of the created org:
     $ curl -H "AUTHORIZATION: basic <TOKEN>" -H "Content-Type: application/json" -X POST -d \
-    '{"type": "risk", "organization": "5ea3717b0cdd5b63ad17b6ce", "data": {"what": "you want", "super": "cool"}, "day":1, "week":1, "month":1}' http://127.0.0.1:5000/api/v1/stats/
-    {"organization": "5ea3717b0cdd5b63ad17b6ce", "type": "risk", "day": 1, "week": 1, "month": 1, "data": {"what": "you want", "super": "cool"}, "created_at": "2020-04-24T23:38:26.326000", "updated_at": "2020-04-24T23:38:26.326000", "id": "5ea378728f826c539837436a"}
+    '{"type": "risk", "organization": "CASES", "data": {"what": "you want", "super": "cool"}, "day":1, "week":1, "month":1}' http://127.0.0.1:5000/api/v1/stats/
+    {"uuid": "76a3999f-ab22-4008-a540-f68082f44cb2", "organization": "CASES", "type": "risk", "day": 1, "week": 1, "month": 1, "data": {"what": "you want", "super": "cool"}, "created_at": "2020-05-11T21:56:49.584000", "updated_at": "2020-05-11T21:56:49.584000", "id": "5eb9ca210381f6f321022ae6"}
 
 
 
@@ -68,16 +61,8 @@ Get the last stat with the id returned previously:
 
 .. code-block:: bash
 
-    $ curl -H "AUTHORIZATION: basic <TOKEN>" http://127.0.0.1:5000/api/v1/stats/5ea378728f826c539837436a/
+    $ curl -H "AUTHORIZATION: basic <TOKEN>" http://127.0.0.1:5000/api/v1/stats/5eb9ca210381f6f321022ae6/
     {"organization": "5ea3717b0cdd5b63ad17b6ce", "type": "risk", "day": 1, "week": 1, "month": 1, "data": {"what": "you want", "super": "cool"}, "created_at": "2020-04-24T23:38:26.326000", "updated_at": "2020-04-24T23:38:26.326000", "id": "5ea378728f826c539837436a"}
-
-
-
-Get stats for a specific organization:
-
-.. code-block:: bash
-
-    $ curl -H "AUTHORIZATION: basic UhdSAdTIoBT18r9Fa3W26iN9RRGlknkO62YkWY-yyqn3c_6-hEfIDX0DkF8JvupxfEw"  http://127.0.0.1:5000/api/v1/stats/?organization__exact=5ea3717b0cdd5b63ad17b6ce
 
 
 
@@ -114,4 +99,4 @@ Getting all stats from the month of February of type *risk* for an organization:
 
 .. code-block:: bash
 
-    $ curl http://127.0.0.1:5000/api/v1/stats/?organization=5ea37b17be573f8d57d8a0b3&type=risk&month=2
+    $ curl http://127.0.0.1:5000/api/v1/stats/?organization=CASES&type=risk&month=2
