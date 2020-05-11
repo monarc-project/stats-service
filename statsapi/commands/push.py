@@ -23,7 +23,7 @@ def push_stats(uuid):
     organization = Organization.objects.get(id__exact=uuid)
     stats = Stats.objects(organization__exact=organization)
     for stat in stats:
-        print("{} {}".format(stat.created_at, stat.type))
+        print("Pushing stats {} {}".format(stat.created_at, stat.type))
 
         # payload = stat.to_json()
         payload = json.dumps(
@@ -39,3 +39,6 @@ def push_stats(uuid):
         )
 
         r = requests.post(STATS_API_ENDPOINT, data=payload)
+
+        if r.status_code != 200:
+            print("Impossible to push the stat.")
