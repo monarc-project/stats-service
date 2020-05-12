@@ -8,8 +8,13 @@ Endpoints
 - /api/v1/stats/
 
 
+.. _section_authentication:
+
 Authentication
 --------------
+
+The authentication can be disabled via the configuration file by setting the
+value of ``API_KEY_AUTHENTICATION`` to ``False``.
 
 
 Simple Examples
@@ -74,8 +79,11 @@ You can also use pagination:
 
 
 
+
 More advanced usage
 -------------------
+
+.. _section_stats_api:
 
 Stats
 ~~~~~

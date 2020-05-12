@@ -1,6 +1,7 @@
 Command Line Interface
 ======================
 
+
 Creating an organization
 ------------------------
 
@@ -15,8 +16,8 @@ Creating an organization
       --name TEXT  Organization name (or UUID)
       --help       Show this message and exit.
 
-Actually here an organization name must be specified which is unique.
-Maybe we should use a UUID instead?
+Actually an organization name must be specified and is unique.
+*Maybe we should use a UUID instead?*
 
 
 Example:
@@ -28,10 +29,11 @@ Example:
     Token: SylsDTZTBk2zAkg016vW_aCuO1XQDXPsxrLuI1TG7z5sYvUfRlVf5R4g6kDnLI_o-c5iqrswrWzPANDKXmtV7Q
 
 The token is automatically generated. It will be required when using the
-_Stats_ API if the authentication is enabled (for example with basic auth).
+``Stats`` API (:ref:`section_stats_api`) if the authentication is enabled
+(:ref:`section_authentication`).
 
 
-TODO: Add a command to update a token (which can be done with the API...)
+TODO: Add a command to update a token (For the moment this can still be done with the API.)
 
 
 Drop all collections from the database
@@ -48,7 +50,7 @@ Drop all collections from the database
       --help  Show this message and exit.
 
 
-Will ask for confirmations and eventually drop all collections.
+Will ask for confirmation and eventually drop all collections.
 
 
 Pushing data
@@ -58,15 +60,15 @@ Pushing data to a central stats server.
 
 .. code-block:: bash
 
-    $ flask push-stats --help
     Usage: flask push-stats [OPTIONS]
 
       Push stats for the organization specified in parameter to an other stats
       server.
 
     Options:
-      --uuid TEXT  Organization UUID
+      --name TEXT  Organization name
       --help       Show this message and exit.
+
 
 This command can be executed for example with cron.
 
