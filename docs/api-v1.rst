@@ -94,7 +94,7 @@ Create a stat
     # data is a DynamicField
     # note that we are using the MongoDB id of the created org:
     $ curl -H "Content-Type: application/json" -X POST -d \
-    '{"type": "risk", "organization": "CASES", "data": {"what": "you want", "super": "cool"}, "day":1, "week":1, "month":1}' http://127.0.0.1:5000/api/v1/stats/
+    '{"type": "risk", "data": {"what": "you want", "super": "cool"}, "day":1, "week":1, "month":1}' http://127.0.0.1:5000/api/v1/stats/
     {"uuid": "76a3999f-ab22-4008-a540-f68082f44cb2", "organization": "CASES", "type": "risk", "day": 1, "week": 1, "month": 1, "data": {"what": "you want", "super": "cool"}, "created_at": "2020-05-11T21:56:49.584000", "updated_at": "2020-05-11T21:56:49.584000", "id": "5eb9ca210381f6f321022ae6"}
 
 
