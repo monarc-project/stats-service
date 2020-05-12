@@ -15,12 +15,12 @@ STATS_API_ENDPOINT = urljoin(
 
 
 @application.cli.command("push-stats")
-@click.option("--uuid", default="", help="Organization UUID")
-def push_stats(uuid):
+@click.option("--name", default="", help="Organization name")
+def push_stats(name):
     """Push stats for the organization specified in parameter to an other stats
     server.
     """
-    organization = Organization.objects.get(id__exact=uuid)
+    organization = Organization.objects.get(name__exact=name)
     stats = Stats.objects(organization__exact=organization)
     for stat in stats:
         print("Pushing stats {} {}".format(stat.created_at, stat.type))
@@ -29,7 +29,7 @@ def push_stats(uuid):
         payload = json.dumps(
             {
                 "uuid": str(stat.uuid),
-                "organization": uuid,
+                "organization": name,
                 "type": stat.type,
                 "data": stat.data,
                 "day": stat.day,

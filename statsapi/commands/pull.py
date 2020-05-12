@@ -11,8 +11,8 @@ STATS_API_ENDPOINT = urljoin(
 
 
 @application.cli.command("pull-stats")
-@click.option("--uuid", default="", help="Organization UUID")
-def pull_stats(uuid):
+@click.option("--name", default="", help="Organization name")
+def pull_stats(name):
     """Pull stats from an other stats instance for the organization specified
     in parameter.
     """
