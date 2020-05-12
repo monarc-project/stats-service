@@ -27,7 +27,7 @@ This token enable to identify an organization.
 By default when creating a new organization
 (:ref:`section_creating_an_organization`) Stats API will use the
 `secrets.token_urlsafe <https://docs.python.org/3/library/secrets.html#secrets.token_urlsafe>`_
-function to generate a token. It also to specify it manually.
+function to generate a token. It is possible to specify it manually.
 
 
 Example of a failed authentication:
