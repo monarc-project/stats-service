@@ -2,6 +2,8 @@ Command Line Interface
 ======================
 
 
+.. _section_creating_an_organization:
+
 Creating an organization
 ------------------------
 
@@ -17,7 +19,6 @@ Creating an organization
       --help       Show this message and exit.
 
 Actually an organization name must be specified and is unique.
-*Maybe we should use a UUID instead?*
 
 
 Example:

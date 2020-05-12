@@ -4,7 +4,7 @@ API v1
 Endpoints
 ---------
 
-- /api/v1/organizations/  ``will be removed``
+- /api/v1/organizations/  ``(will be removed)``
 - /api/v1/stats/
 
 
@@ -12,11 +12,6 @@ Endpoints
 
 Authentication
 --------------
-
-The authentication can be disabled via the configuration file by setting the
-value of ``API_KEY_AUTHENTICATION`` to ``False``.
-
-For clarity in the following documentation we will ignore the authentication.
 
 When the authentication is enabled, the client must send a token in the headers
 of the request with the key ``X-API-KEY``. Here is an example:
@@ -29,13 +24,34 @@ of the request with the key ``X-API-KEY``. Here is an example:
 
 
 This token enable to identify an organization.
+By default when creating a new organization
+(:ref:`section_creating_an_organization`) Stats API will use the
+`secrets.token_urlsafe <https://docs.python.org/3/library/secrets.html#secrets.token_urlsafe>`_
+function to generate a token. It also to specify it manually.
 
+
+Example of a failed authentication:
 
 .. code-block:: bash
 
     $ curl -H "X-API-KEY: BAD-TOKEN"  http://127.0.0.1:5000/api/v1/stats/
     {"error": "Unauthorized"}
 
+    $ curl -i -H "X-API-KEY: BAD-TOKEN"  http://127.0.0.1:5000/api/v1/stats/
+    HTTP/1.0 401 Unauthorized
+    Vary: Accept
+    Content-Type: application/json
+    Content-Length: 25
+    Server: Werkzeug/1.0.1 Python/3.8.0
+    Date: Tue, 12 May 2020 21:52:15 GMT
+
+    {"error": "Unauthorized"}
+
+
+The authentication can be disabled via the configuration file by setting the
+value of ``API_KEY_AUTHENTICATION`` to ``False``.
+
+For clarity in the following documentation we will ignore the authentication.
 
 
 Simple Examples
