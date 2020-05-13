@@ -1,2 +1,2 @@
-from .organization import OrganizationView
+from .organization import OrganizationsView
 from .stats import StatsView
