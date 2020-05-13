@@ -15,3 +15,13 @@ class Stats(db.Document):
     data = db.DynamicField()
     created_at = db.DateTimeField(default=datetime.datetime.utcnow)
     updated_at = db.DateTimeField(default=datetime.datetime.utcnow)
+
+    def __str__(self):
+        return """Organization: {}
+        Type: {}
+        Day: {}
+        Week: {}
+        Month: {}
+        """.format(
+            self.organization, self.type, self.day, self.week, self.month
+        )
