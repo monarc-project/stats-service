@@ -6,14 +6,13 @@ from statsapi.bootstrap import api
 from statsapi.documents.organization import Organization
 from statsapi.api.v1.stats import StatsResource
 
+
 class OrganizationResource(Resource):
     document = Organization
-    related_resources = {
-        'stats': StatsResource
-    }
+    related_resources = {"stats": StatsResource}
 
 
-@api.register(name='organizations', url='organizations/')
+@api.register(name="organizations", url="organizations/")
 class OrganizationsView(ResourceView):
     resource = OrganizationResource
     methods = [
@@ -25,7 +24,7 @@ class OrganizationsView(ResourceView):
 
 
 # The following is a test
-@api.register(name='organization', url='organization/')
+@api.register(name="organization", url="organization/")
 class OrganizationView(ResourceView):
     resource = OrganizationResource
     methods = [

@@ -30,10 +30,10 @@ class StatsResource(Resource):
         return str(obj.uuid)
 
     def save_object(self, obj, **kwargs):
-        #TODO: improve the way we retrieve this token
+        # TODO: improve the way we retrieve this token
         token = request.headers.get("X-API-KEY", False)
         organization = Organization.objects.get(token__exact=token)
-        obj.organization=organization
+        obj.organization = organization
         return super(StatsResource, self).save_object(obj, **kwargs)
 
     # def get_objects(self, **kwargs):

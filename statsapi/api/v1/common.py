@@ -8,6 +8,7 @@ from statsapi.documents import Organization
 class ApiKeyAuthentication(AuthenticationBase):
     """Custom token based authentication.
     """
+
     def authorized(self):
         if not application.config["API_KEY_AUTHENTICATION"]:
             return True
