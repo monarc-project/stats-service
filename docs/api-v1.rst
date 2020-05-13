@@ -145,3 +145,19 @@ Getting all stats from the month of February of type *risk* for an organization:
 .. code-block:: bash
 
     $ curl http://127.0.0.1:5000/api/v1/stats/?organization=CASES&type=risk&month=2
+
+
+Filtering on attributes with methods:
+
+.. code-block:: bash
+
+    $ curl http://127.0.0.1:5000/api/v1/stats/?created_at__gt=2020-05-12T22:29:42.362000
+
+Of course not only ```__gt``` is available. Available methods are:
+
+- todo :-)
+
+
+.. code-block:: bash
+
+    curl http://127.0.0.1:5000/api/v1/stats/?type=risk&month__gt=2
