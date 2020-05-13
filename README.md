@@ -7,7 +7,14 @@
 
 ## Presentation
 
-Proof of concept for a stats API.
+[This component](https://github.com/monarc-project/stats-api) provides an API
+in order to collect statistics from one or several
+[MONARC](https://github.com/monarc-project/MonarcAppFO) instances. It can be
+deployed just next to MONARC (eventually in a virtual machine) or on a
+dedicated server.
+
+These aggregated statistics can then be sent to a central instance.
+
 
 ## Deployment
 
