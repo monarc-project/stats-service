@@ -10,6 +10,7 @@ from statsapi.api.v1.stats import StatsResource
 class OrganizationResource(Resource):
     document = Organization
     related_resources = {"stats": StatsResource}
+    fields = ['name']
 
 
 @api.register(name="organizations", url="organizations/")
@@ -24,9 +25,9 @@ class OrganizationsView(ResourceView):
 
 
 # The following is a test
-@api.register(name="organization", url="organization/")
-class OrganizationView(ResourceView):
-    resource = OrganizationResource
-    methods = [
-        methods.Delete,
-    ]
+# @api.register(name="organization", url="organization/")
+# class OrganizationView(ResourceView):
+#     resource = OrganizationResource
+#     methods = [
+#         methods.Delete,
+#     ]

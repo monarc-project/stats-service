@@ -38,7 +38,7 @@ $ flask run
  * Debugger PIN: 268-178-811
 
 $ curl http://127.0.0.1:5000/api/v1/organizations/
-{"data": [{"name": "CASES", "token": "SylsDTZTBk2zAkg016vW_aCuO1XQDXPsxrLuI1TG7z5sYvUfRlVf5R4g6kDnLI_o", "id": "5eb9c876c5b0d7218e202f79"}], "has_more": false}
+{"data": [{"name": "CASES", "id": "5eb9c876c5b0d7218e202f79"}], "has_more": false}
 ```
 
 For production you can use [Gunicorn](https://gunicorn.org) or ``mod_wsgi``.
