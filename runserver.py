@@ -35,8 +35,11 @@ def register_commands(app):
 
 with application.app_context():
     from statsapi.api import v1
-    from statsapi import views
 
+    from statsapi.api import v2
+    application.register_blueprint(v2.api)
+
+    from statsapi import views
     application.register_blueprint(views.stats_bp)
 
     register_commands(application)
