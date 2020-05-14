@@ -22,4 +22,5 @@ Table of contents
    :maxdepth: 2
 
    api-v1
+   stats
    command-line-interface
