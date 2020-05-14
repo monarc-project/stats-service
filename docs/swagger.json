@@ -1,0 +1,267 @@
+{
+    "swagger": "2.0",
+    "basePath": "/api/v2/stats",
+    "paths": {
+        "/": {
+            "post": {
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Stats"
+                        }
+                    }
+                },
+                "summary": "Create a new stats",
+                "operationId": "create_stats",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Stats"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "default"
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StatsList"
+                            }
+                        }
+                    }
+                },
+                "summary": "List all stats",
+                "operationId": "list_stats",
+                "parameters": [
+                    {
+                        "name": "organization",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Organization of the stats"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Type of the stats"
+                    },
+                    {
+                        "name": "day",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Type of the stats"
+                    },
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Type of the stats"
+                    },
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Type of the stats"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "default"
+                ]
+            }
+        },
+        "/{uuid}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "The stats identifier",
+                    "name": "uuid",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "404": {
+                        "description": "Stats not found"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Stats"
+                        }
+                    }
+                },
+                "summary": "Fetch a given resource",
+                "operationId": "get_stats",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "default"
+                ]
+            },
+            "put": {
+                "responses": {
+                    "404": {
+                        "description": "Stats not found"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Stats"
+                        }
+                    }
+                },
+                "summary": "Update a stats given its identifier",
+                "operationId": "put_stats_item",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Stats"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "default"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "404": {
+                        "description": "Stats not found"
+                    },
+                    "204": {
+                        "description": "Stats deleted"
+                    }
+                },
+                "summary": "Delete a stats given its identifier",
+                "operationId": "delete_stats",
+                "tags": [
+                    "default"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "MONARC Stats service - API v2",
+        "version": "2.0",
+        "description": "API v2 of the MONARC Stats service"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "tags": [
+        {
+            "name": "default",
+            "description": "Default namespace"
+        }
+    ],
+    "definitions": {
+        "Stats": {
+            "properties": {
+                "uuid": {
+                    "type": "string",
+                    "description": "The stats unique identifier",
+                    "readOnly": true
+                },
+                "organization.name": {
+                    "type": "string",
+                    "description": "The stats organization",
+                    "readOnly": true
+                },
+                "anr": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "day": {
+                    "type": "integer"
+                },
+                "week": {
+                    "type": "integer"
+                },
+                "month": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "type": "object"
+        },
+        "StatsList": {
+            "properties": {
+                "metadata": {
+                    "type": "object"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Stats"
+                    }
+                }
+            },
+            "type": "object"
+        }
+    },
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    }
+}

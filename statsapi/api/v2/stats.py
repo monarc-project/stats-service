@@ -9,6 +9,7 @@ api = Api(blueprint,
     title='MONARC Stats service - API v2',
     version='2.0',
     description='API v2 of the MONARC Stats service',
+    doc='/swagger/',
     # All API metadatas
 )
 
@@ -62,7 +63,7 @@ class StatsList(Resource):
 
         try:
             stats = Stats.objects(**args)
-        except Exception:
+        except Organization.DoesNotExist:
             return result, 200
         finally:
             if not stats:
