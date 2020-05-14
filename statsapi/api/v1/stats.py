@@ -30,6 +30,9 @@ class StatsResource(Resource):
         return str(obj.uuid)
 
     def save_object(self, obj, **kwargs):
+        """Overrides save_object in order to set obj.organization with the
+        organization associated to the submitted token.
+        """
         # TODO: improve the way we retrieve this token
         token = request.headers.get("X-API-KEY", False)
         organization = Organization.objects.get(token__exact=token)
