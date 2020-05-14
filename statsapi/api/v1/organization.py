@@ -10,7 +10,7 @@ from statsapi.api.v1.stats import StatsResource
 class OrganizationResource(Resource):
     document = Organization
     related_resources = {"stats": StatsResource}
-    fields = ['name']
+    fields = ["name"]
 
 
 @api.register(name="organizations", url="organizations/")

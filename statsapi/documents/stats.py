@@ -8,6 +8,7 @@ from statsapi.documents import Organization
 class Stats(db.Document):
     uuid = db.UUIDField(binary=True, default=uuid.uuid4, required=True, unique=True)
     organization = db.ReferenceField(Organization, required=True)
+    anr = db.IntField(required=True)
     type = db.StringField(max_length=120, required=True)
     day = db.IntField(required=True)
     week = db.IntField(required=True)
@@ -18,10 +19,11 @@ class Stats(db.Document):
 
     def __str__(self):
         return """Organization: {}
+        ANR: {}
         Type: {}
         Day: {}
         Week: {}
         Month: {}
         """.format(
-            self.organization, self.type, self.day, self.week, self.month
+            self.organization, self.anr, self.type, self.day, self.week, self.month
         )
