@@ -20,31 +20,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from flask import Blueprint, render_template, jsonify
 
-from statsapi.bootstrap import application
-from statsapi.commands import push_stats, pull_stats, drop_all_collections, create_organization
-
-
-def register_commands(app):
-    """Register Click commands."""
-    app.cli.add_command(push_stats)
-    app.cli.add_command(pull_stats)
-    app.cli.add_command(drop_all_collections)
-    app.cli.add_command(create_organization)
+stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 
 
-with application.app_context():
-    from statsapi.api import v1
-    from statsapi import views
-
-    application.register_blueprint(views.stats_bp)
-
-    register_commands(application)
-
-
-if __name__ == "__main__":
-    application.run(
-        host=application.config["HOST"],
-        port=application.config["PORT"],
-        debug=application.config["DEBUG"],
-    )
+@stats_bp.route("/risks.json", methods=["GET"])
+def risks():
+    """
+    """
+    result = {}
+    return jsonify(dict(result))
