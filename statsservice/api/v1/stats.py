@@ -15,6 +15,7 @@ class StatsResource(Resource):
         "type": [ops.Exact, ops.IExact, ops.Contains, ops.IContains],
         "organization": [ops.Exact],
         "day": [ops.Exact],
+        "week": [ops.Exact],
         "month": [ops.Exact],
         "year": [ops.Exact],
         "created_at": [ops.Exact, ops.IExact, ops.Contains, ops.IContains],
