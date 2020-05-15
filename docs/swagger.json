@@ -57,28 +57,51 @@
                         "description": "Organization of the stats"
                     },
                     {
+                        "name": "anr",
+                        "in": "query",
+                        "type": "string",
+                        "description": "UUID of the Anr of the stats"
+                    },
+                    {
                         "name": "type",
                         "in": "query",
                         "type": "string",
-                        "description": "Type of the stats"
+                        "description": "Type of the stats (risk, vulnerability, threat)"
                     },
                     {
                         "name": "day",
                         "in": "query",
                         "type": "integer",
-                        "description": "Type of the stats"
+                        "description": "Day of the stats"
+                    },
+                    {
+                        "name": "week",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Week of the stats"
                     },
                     {
                         "name": "month",
                         "in": "query",
                         "type": "integer",
-                        "description": "Type of the stats"
+                        "description": "Month of the stats"
                     },
                     {
                         "name": "year",
                         "in": "query",
                         "type": "integer",
-                        "description": "Type of the stats"
+                        "description": "Year of the stats"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "type": "integer"
                     },
                     {
                         "name": "X-Fields",
@@ -103,6 +126,21 @@
                     "type": "string"
                 }
             ],
+            "delete": {
+                "responses": {
+                    "404": {
+                        "description": "Stats not found"
+                    },
+                    "204": {
+                        "description": "Stats deleted"
+                    }
+                },
+                "summary": "Delete a stats given its identifier",
+                "operationId": "delete_stats",
+                "tags": [
+                    "default"
+                ]
+            },
             "get": {
                 "responses": {
                     "404": {
@@ -164,28 +202,13 @@
                 "tags": [
                     "default"
                 ]
-            },
-            "delete": {
-                "responses": {
-                    "404": {
-                        "description": "Stats not found"
-                    },
-                    "204": {
-                        "description": "Stats deleted"
-                    }
-                },
-                "summary": "Delete a stats given its identifier",
-                "operationId": "delete_stats",
-                "tags": [
-                    "default"
-                ]
             }
         }
     },
     "info": {
         "title": "MONARC Stats service - API v2",
         "version": "2.0",
-        "description": "API v2 of the MONARC Stats service"
+        "description": "API v2 of the MONARC Stats service."
     },
     "produces": [
         "application/json"
@@ -207,36 +230,48 @@
                     "description": "The stats unique identifier",
                     "readOnly": true
                 },
-                "organization.name": {
+                "organization": {
                     "type": "string",
-                    "description": "The stats organization",
+                    "description": "The organization related to this stats.",
                     "readOnly": true
                 },
                 "anr": {
-                    "type": "integer"
+                    "type": "string",
+                    "description": "The ANR related to this stats."
                 },
                 "type": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The type of this stats (risk, vulnerability, threat)."
                 },
                 "day": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Day of the stats."
                 },
                 "week": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Week of the stats."
                 },
                 "month": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Month of the stats."
+                },
+                "year": {
+                    "type": "integer",
+                    "description": "Year of the stats."
                 },
                 "data": {
-                    "type": "object"
+                    "type": "object",
+                    "description": "The stats as a dynamic JSON object."
                 },
                 "created_at": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "description": "Created time of the stats."
                 },
                 "updated_at": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "description": "Updated time of the stats."
                 }
             },
             "type": "object"
@@ -244,10 +279,12 @@
         "StatsList": {
             "properties": {
                 "metadata": {
-                    "type": "object"
+                    "type": "object",
+                    "description": "Metada related to the result (number of page, current page, total number of objects.)."
                 },
                 "data": {
                     "type": "array",
+                    "description": "List of stats objects",
                     "items": {
                         "$ref": "#/definitions/Stats"
                     }

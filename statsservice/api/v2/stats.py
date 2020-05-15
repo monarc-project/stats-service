@@ -9,7 +9,7 @@ api = Api(
     blueprint,
     title="MONARC Stats service - API v2",
     version="2.0",
-    description="API v2 of the MONARC Stats service",
+    description="API v2 of the MONARC Stats service.",
     doc="/swagger/",
     # All API metadatas
 )
@@ -18,8 +18,10 @@ api = Api(
 # Argument Parsing
 parser = reqparse.RequestParser()
 parser.add_argument("organization", type=str, help="Organization of the stats")
-parser.add_argument("anr", type=str, help="Anr of the stats")
-parser.add_argument("type", type=str, help="Type of the stats")
+parser.add_argument("anr", type=str, help="UUID of the Anr of the stats")
+parser.add_argument(
+    "type", type=str, help="Type of the stats (risk, vulnerability, threat)"
+)
 parser.add_argument("day", type=int, help="Day of the stats")
 parser.add_argument("week", type=int, help="Week of the stats")
 parser.add_argument("month", type=int, help="Month of the stats")
@@ -36,22 +38,30 @@ stats = api.model(
         "organization": fields.String(
             readonly=True,
             attribute=lambda x: x.organization.name,
-            description="The stats organization",
+            description="The organization related to this stats.",
         ),
-        "anr": fields.String(),
-        "type": fields.String(),
-        "day": fields.Integer(),
-        "week": fields.Integer(),
-        "month": fields.Integer(),
-        "year": fields.Integer(),
-        "data": fields.Raw(),
-        "created_at": fields.DateTime(),
-        "updated_at": fields.DateTime(),
+        "anr": fields.String(description="The ANR related to this stats."),
+        "type": fields.String(
+            description="The type of this stats (risk, vulnerability, threat)."
+        ),
+        "day": fields.Integer(description="Day of the stats."),
+        "week": fields.Integer(description="Week of the stats."),
+        "month": fields.Integer(description="Month of the stats."),
+        "year": fields.Integer(description="Year of the stats."),
+        "data": fields.Raw(description="The stats as a dynamic JSON object."),
+        "created_at": fields.DateTime(description="Created time of the stats."),
+        "updated_at": fields.DateTime(description="Updated time of the stats."),
     },
 )
 
 stats_list_fields = api.model(
-    "StatsList", {"metadata": fields.Raw(), "data": fields.List(fields.Nested(stats))}
+    "StatsList",
+    {
+        "metadata": fields.Raw(
+            description="Metada related to the result (number of page, current page, total number of objects.)."
+        ),
+        "data": fields.List(fields.Nested(stats), description="List of stats objects"),
+    },
 )
 
 
