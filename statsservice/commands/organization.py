@@ -1,8 +1,8 @@
 import click
 import secrets
 
-from statsapi.bootstrap import application
-from statsapi.documents import Organization
+from statsservice.bootstrap import application
+from statsservice.documents import Organization
 
 
 @application.cli.command("create_organization")

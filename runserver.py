@@ -21,8 +21,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from statsapi.bootstrap import application
-from statsapi.commands import push_stats, pull_stats, drop_all_collections, create_organization
+from statsservice.bootstrap import application
+from statsservice.commands import push_stats, pull_stats, drop_all_collections, create_organization
 
 
 def register_commands(app):
@@ -34,12 +34,12 @@ def register_commands(app):
 
 
 with application.app_context():
-    from statsapi.api import v1
+    from statsservice.api import v1
 
-    from statsapi.api import v2
+    from statsservice.api import v2
     application.register_blueprint(v2.api)
 
-    from statsapi import views
+    from statsservice import views
     application.register_blueprint(views.stats_bp)
 
     register_commands(application)

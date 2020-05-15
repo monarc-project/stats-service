@@ -4,9 +4,9 @@ from flask_mongorest.resources import Resource
 from flask_mongorest import operators as ops
 from flask_mongorest import methods
 
-from statsapi.bootstrap import api
-from statsapi.documents import Stats, Organization
-from statsapi.api.v1.common import ApiKeyAuthentication
+from statsservice.bootstrap import api
+from statsservice.documents import Stats, Organization
+from statsservice.api.v1.common import ApiKeyAuthentication
 
 
 class StatsResource(Resource):

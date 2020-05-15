@@ -1,8 +1,8 @@
 import uuid
 import datetime
 
-from statsapi.bootstrap import db
-from statsapi.documents import Organization
+from statsservice.bootstrap import db
+from statsservice.documents import Organization
 
 
 class Stats(db.Document):

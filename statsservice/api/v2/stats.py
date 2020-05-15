@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restx import Api, Resource, fields, reqparse
 
-from statsapi.documents import Stats, Organization
+from statsservice.documents import Stats, Organization
 
 
 blueprint = Blueprint('api', __name__, url_prefix='/api/v2/stats')
@@ -17,6 +17,7 @@ api = Api(blueprint,
 # Argument Parsing
 parser = reqparse.RequestParser()
 parser.add_argument('organization', type=str, help='Organization of the stats')
+parser.add_argument('anr', type=int, help='Anr of the stats')
 parser.add_argument('type', type=str, help='Type of the stats')
 parser.add_argument('day', type=int, help='Type of the stats')
 parser.add_argument('month', type=int, help='Type of the stats')
