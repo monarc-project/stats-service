@@ -22,6 +22,8 @@ parser.add_argument('type', type=str, help='Type of the stats')
 parser.add_argument('day', type=int, help='Type of the stats')
 parser.add_argument('month', type=int, help='Type of the stats')
 parser.add_argument('year', type=int, help='Type of the stats')
+parser.add_argument('page', type=int, location='args')
+parser.add_argument('per_page', type=int, location='args')
 
 
 # Response marshalling
@@ -55,23 +57,32 @@ class StatsList(Resource):
         args = parser.parse_args()
         args = {k: v for k, v in args.items() if v is not None}
 
+        page = args.pop("page", 0)
+        per_page = args.pop("per_page", 10)
+
         result = {
             "data": [{}],
             "metadata": {
-                "total": 0
+                "total": 0,
+                "count": 0,
+                "page": page,
+                "per_page": per_page,
             },
         }
 
         try:
-            stats = Stats.objects(**args)
+            total = Stats.objects(**args).count()
+            stats = Stats.objects(**args).paginate(page=page, per_page=per_page)
+            count = 2
         except Organization.DoesNotExist:
             return result, 200
         finally:
             if not stats:
                 return result, 200
 
-        result["data"] = list(stats)
-        result["metadata"] = {"total": len(stats)}
+        result["data"] = stats.items
+        result["metadata"]["total"] = total
+        result["metadata"]["count"] = count
 
         return result, 200
 
