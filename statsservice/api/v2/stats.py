@@ -17,12 +17,12 @@ api = Api(blueprint,
 # Argument Parsing
 parser = reqparse.RequestParser()
 parser.add_argument('organization', type=str, help='Organization of the stats')
-parser.add_argument('anr', type=int, help='Anr of the stats')
+parser.add_argument('anr', type=str, help='Anr of the stats')
 parser.add_argument('type', type=str, help='Type of the stats')
 parser.add_argument('day', type=int, help='Type of the stats')
 parser.add_argument('month', type=int, help='Type of the stats')
 parser.add_argument('year', type=int, help='Type of the stats')
-parser.add_argument('page', type=int, location='args')
+parser.add_argument('page', type=int, default=1, location='args')
 parser.add_argument('per_page', type=int, location='args')
 
 
@@ -30,7 +30,7 @@ parser.add_argument('per_page', type=int, location='args')
 stats = api.model('Stats', {
     'uuid': fields.String(readonly=True, description='The stats unique identifier'),
     'organization.name': fields.String(readonly=True, description='The stats organization'),
-    'anr': fields.Integer(),
+    'anr': fields.String(),
     'type': fields.String(),
     'day': fields.Integer(),
     'week': fields.Integer(),
@@ -57,7 +57,7 @@ class StatsList(Resource):
         args = parser.parse_args()
         args = {k: v for k, v in args.items() if v is not None}
 
-        page = args.pop("page", 0)
+        page = args.pop("page", 1)
         per_page = args.pop("per_page", 10)
 
         result = {

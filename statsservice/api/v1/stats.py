@@ -29,6 +29,9 @@ class StatsResource(Resource):
     def uuid(self, obj):
         return str(obj.uuid)
 
+    def anr(self, obj):
+        return str(obj.anr)
+
     def save_object(self, obj, **kwargs):
         # TODO: improve the way we retrieve this token
         token = request.headers.get("X-API-KEY", False)
