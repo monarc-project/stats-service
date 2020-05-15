@@ -73,7 +73,7 @@ class StatsList(Resource):
         try:
             total = Stats.objects(**args).count()
             stats = Stats.objects(**args).paginate(page=page, per_page=per_page)
-            count = 2
+            count = len(stats.items)
         except Organization.DoesNotExist:
             return result, 200
         finally:
