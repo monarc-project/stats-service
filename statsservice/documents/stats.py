@@ -8,7 +8,7 @@ from statsservice.documents import Organization
 class Stats(db.Document):
     uuid = db.UUIDField(binary=True, default=uuid.uuid4, required=True, unique=True)
     organization = db.ReferenceField(Organization, required=True)
-    anr = db.UUIDField(binary=True, required=True, unique=True)
+    anr = db.UUIDField(binary=True, required=True)
     type = db.StringField(max_length=120, required=True)
     day = db.IntField(required=True)
     week = db.IntField(required=True)
