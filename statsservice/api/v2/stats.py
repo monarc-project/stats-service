@@ -39,6 +39,7 @@ stats = api.model(
             readonly=True,
             attribute=lambda x: x.organization.name,
             description="The organization related to this stats.",
+            skip_none=True,
         ),
         "anr": fields.String(description="The ANR related to this stats."),
         "type": fields.String(
@@ -60,7 +61,7 @@ stats_list_fields = api.model(
         "metadata": fields.Raw(
             description="Metada related to the result (number of page, current page, total number of objects.)."
         ),
-        "data": fields.List(fields.Nested(stats), description="List of stats objects"),
+        "data": fields.List(fields.Nested(stats, skip_none=True), description="List of stats objects"),
     },
 )
 
@@ -81,7 +82,7 @@ class StatsList(Resource):
         per_page = args.pop("per_page", 10)
 
         result = {
-            "data": [{}],
+            "data": [],
             "metadata": {"total": 0, "count": 0, "page": page, "per_page": per_page,},
         }
 
@@ -91,8 +92,11 @@ class StatsList(Resource):
             count = len(stats.items)
         except Organization.DoesNotExist:
             return result, 200
+        except Exception as e:
+            print(e)
         finally:
-            if not stats:
+            if not total:
+                print(result)
                 return result, 200
 
         result["data"] = stats.items
@@ -106,7 +110,6 @@ class StatsList(Resource):
     @api.marshal_with(stats, code=201)
     def post(self):
         """Create a new stats"""
-        print(api.payload)
         new_stat = Stats(**api.payload)
         return new_stat.save(), 201
 
