@@ -13,6 +13,7 @@ Flask-MongoRest = "^0.3.0"
 mimerender = "^0.6.0"
 cleancat = "^0.7.12"
 requests = "^2.23.0"
+flask_restx = "^0.2.0"
 
 [tool.poetry.dev-dependencies]
 sphinx = "^3.0.3"

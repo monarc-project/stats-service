@@ -1,4 +1,4 @@
-from statsapi.bootstrap import db
+from statsservice.bootstrap import db
 
 
 class Organization(db.Document):

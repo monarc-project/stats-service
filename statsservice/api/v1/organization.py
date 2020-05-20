@@ -2,15 +2,15 @@ from flask_mongorest.views import ResourceView
 from flask_mongorest.resources import Resource
 from flask_mongorest import methods
 
-from statsapi.bootstrap import api
-from statsapi.documents.organization import Organization
-from statsapi.api.v1.stats import StatsResource
+from statsservice.bootstrap import api
+from statsservice.documents.organization import Organization
+from statsservice.api.v1.stats import StatsResource
 
 
 class OrganizationResource(Resource):
     document = Organization
     related_resources = {"stats": StatsResource}
-    fields = ['name']
+    fields = ["name"]
 
 
 @api.register(name="organizations", url="organizations/")

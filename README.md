@@ -1,13 +1,13 @@
-# Stats API for MONARC
+# Stats Service for MONARC
 
-[![License](https://img.shields.io/github/license/monarc-project/stats-api.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.html)
-[![Contributors](https://img.shields.io/github/contributors/monarc-project/stats-api.svg?style=flat-square)](https://github.com/monarc-project/stats-api/graphs/contributors)
-[![Workflow](https://github.com/monarc-project/stats-api/workflows/Python%20application/badge.svg?style=flat-square)](https://github.com/monarc-project/stats-api/actions?query=workflow%3A%22Python+application%22)
-[![Documentation Status](https://readthedocs.org/projects/monarc-stats-api/badge/?version=latest&style=flat-square)](https://monarc-stats-api.readthedocs.io/en/latest/?badge=latest)
+[![License](https://img.shields.io/github/license/monarc-project/stats-service.svg?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.html)
+[![Contributors](https://img.shields.io/github/contributors/monarc-project/stats-service.svg?style=flat-square)](https://github.com/monarc-project/stats-service/graphs/contributors)
+[![Workflow](https://github.com/monarc-project/stats-service/workflows/Python%20application/badge.svg?style=flat-square)](https://github.com/monarc-project/stats-service/actions?query=workflow%3A%22Python+application%22)
+[![Documentation Status](https://readthedocs.org/projects/monarc-stats-service/badge/?version=latest&style=flat-square)](https://monarc-stats-service.readthedocs.io/en/latest/?badge=latest)
 
 ## Presentation
 
-[This component](https://github.com/monarc-project/stats-api) provides an API
+[This component](https://github.com/monarc-project/stats-service) provides an API
 in order to collect statistics from one or several
 [MONARC](https://github.com/monarc-project/MonarcAppFO) instances. It can be
 deployed just next to MONARC (eventually in a virtual machine) or on a
@@ -23,8 +23,8 @@ The following assumes you have already installed ``git``, ``poetry``,  and
 
 ```bash
 $ sudo apt install mongodb
-$ git clone https://github.com/monarc-project/stats-api
-$ cd stats-api/
+$ git clone https://github.com/monarc-project/stats-service
+$ cd stats-service/
 $ cp instance/production.py.cfg instance/production.py
 $ poetry install
 $ poetry shell
@@ -53,10 +53,10 @@ For production you can use [Gunicorn](https://gunicorn.org) or ``mod_wsgi``.
 
 ## Documentation
 
-A [documentation is available](https://monarc-stats-api.readthedocs.io).
+A [documentation is available](https://monarc-stats-service.readthedocs.io).
 
 
 ## License
 
-[Stats API](https://github.com/monarc-project/stats-api) is under the
+[Stats Service](https://github.com/monarc-project/stats-service) is under the
 [GNU Affero General Public License version 3](https://www.gnu.org/licenses/agpl-3.0.html).

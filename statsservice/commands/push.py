@@ -6,8 +6,8 @@ import click
 import requests
 
 from urllib.parse import urljoin
-from statsapi.bootstrap import application, db
-from statsapi.documents import Stats, Organization
+from statsservice.bootstrap import application, db
+from statsservice.documents import Stats, Organization
 
 STATS_API_ENDPOINT = urljoin(
     application.config["REMOTE_STATS_SERVER"], "/api/v1/stats/"

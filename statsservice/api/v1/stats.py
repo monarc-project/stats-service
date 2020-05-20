@@ -4,9 +4,9 @@ from flask_mongorest.resources import Resource
 from flask_mongorest import operators as ops
 from flask_mongorest import methods
 
-from statsapi.bootstrap import api
-from statsapi.documents import Stats, Organization
-from statsapi.api.v1.common import ApiKeyAuthentication
+from statsservice.bootstrap import api
+from statsservice.documents import Stats, Organization
+from statsservice.api.v1.common import ApiKeyAuthentication
 
 
 class StatsResource(Resource):
@@ -15,6 +15,7 @@ class StatsResource(Resource):
         "type": [ops.Exact, ops.IExact, ops.Contains, ops.IContains],
         "organization": [ops.Exact],
         "day": [ops.Exact],
+        "week": [ops.Exact],
         "month": [ops.Exact],
         "year": [ops.Exact],
         "created_at": [ops.Exact, ops.IExact, ops.Contains, ops.IContains],
@@ -28,6 +29,9 @@ class StatsResource(Resource):
 
     def uuid(self, obj):
         return str(obj.uuid)
+
+    def anr(self, obj):
+        return str(obj.anr)
 
     def save_object(self, obj, **kwargs):
         """Overrides save_object in order to set obj.organization with the

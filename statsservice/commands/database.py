@@ -1,7 +1,7 @@
 import click
 
 from mongoengine.connection import _get_db
-from statsapi.bootstrap import application
+from statsservice.bootstrap import application
 
 
 @application.cli.command("drop_all_collections")

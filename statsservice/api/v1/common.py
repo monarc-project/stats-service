@@ -1,8 +1,8 @@
 from flask import request
 from flask_mongorest.authentication import AuthenticationBase
 
-from statsapi.bootstrap import application
-from statsapi.documents import Organization
+from statsservice.bootstrap import application
+from statsservice.documents import Organization
 
 
 class ApiKeyAuthentication(AuthenticationBase):

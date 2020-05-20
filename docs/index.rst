@@ -6,7 +6,7 @@
 Presentation
 ============
 
-`This component <https://github.com/monarc-project/stats-api>`_ provides an API
+`This component <https://github.com/monarc-project/stats-service>`_ provides an API
 in order to collect statistics from one or several
 `MONARC <https://github.com/monarc-project/MonarcAppFO>`_ instances. It can be
 deployed just next to MONARC (eventually in a virtual machine) or on a
@@ -22,4 +22,6 @@ Table of contents
    :maxdepth: 2
 
    api-v1
+   api-v2
+   stats
    command-line-interface
