@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask_restx import Api, Resource, fields, reqparse
 
 from statsservice.documents import Stats, Organization
+from statsservice.api.v2.common import auth_func
 
 
 blueprint = Blueprint("api", __name__, url_prefix="/api/v2/stats")
@@ -26,8 +27,14 @@ parser.add_argument("day", type=int, help="Day of the stats")
 parser.add_argument("week", type=int, help="Week of the stats")
 parser.add_argument("month", type=int, help="Month of the stats")
 parser.add_argument("year", type=int, help="Year of the stats")
-parser.add_argument("page", type=int, default=1, location="args")
-parser.add_argument("per_page", type=int, location="args")
+
+pagination_parser = reqparse.RequestParser()
+pagination_parser.add_argument(
+    "page", type=int, required=False, default=1, help="Page number"
+)
+pagination_parser.add_argument(
+    "per_page", type=int, required=False, default=10, help="Page size"
+)
 
 
 # Response marshalling
@@ -71,14 +78,16 @@ class StatsList(Resource):
 
     @api.doc("list_stats")
     @api.expect(parser)
+    @api.expect(pagination_parser)
     @api.marshal_list_with(stats_list_fields, skip_none=True)
     def get(self):
         """List all stats"""
         args = parser.parse_args()
         args = {k: v for k, v in args.items() if v is not None}
 
-        page = args.pop("page", 1)
-        per_page = args.pop("per_page", 10)
+        pagination_args = pagination_parser.parse_args()
+        page = pagination_args.get("page", 1)
+        per_page = pagination_args.get("per_page", 10)
 
         result = {
             "data": [],
