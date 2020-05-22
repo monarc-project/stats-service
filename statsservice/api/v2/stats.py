@@ -39,7 +39,6 @@ stats = api.model(
             readonly=True,
             attribute=lambda x: x.organization.name,
             description="The organization related to this stats.",
-            skip_none=True,
         ),
         "anr": fields.String(description="The ANR related to this stats."),
         "type": fields.String(
