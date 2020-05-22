@@ -14,7 +14,7 @@ class Stats(db.Document):
     week = db.IntField(required=True)
     month = db.IntField(required=True)
     year = db.IntField(required=True)
-    data = db.DynamicField()
+    data = db.DynamicField(required=True)
     created_at = db.DateTimeField(default=datetime.datetime.utcnow)
     updated_at = db.DateTimeField(default=datetime.datetime.utcnow)
 
