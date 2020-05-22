@@ -61,7 +61,7 @@ stats_list_fields = api.model(
         "metadata": fields.Raw(
             description="Metada related to the result (number of page, current page, total number of objects.)."
         ),
-        "data": fields.List(fields.Nested(stats, skip_none=True), description="List of stats objects"),
+        "data": fields.List(fields.Nested(stats), description="List of stats objects"),
     },
 )
 
