@@ -13,8 +13,7 @@ stats_ns = Namespace("stats", description="stats related operations")
 
 # Argument Parsing
 parser = reqparse.RequestParser()
-parser.add_argument("organization", type=str, help="Organization of the stats")
-parser.add_argument("anr", type=str, help="The ANR UUID  of this stats.")
+parser.add_argument("anr", type=str, help="The ANR UUID related to this stats.")
 parser.add_argument(
     "type",
     type=str,
@@ -29,12 +28,10 @@ parser.add_argument(
 parser.add_argument(
     "year", type=int, help="Year of the stats. In full format e.g. 2020."
 )
-
-pagination_parser = reqparse.RequestParser()
-pagination_parser.add_argument(
+parser.add_argument(
     "page", type=int, required=False, default=1, help="Page number"
 )
-pagination_parser.add_argument(
+parser.add_argument(
     "per_page", type=int, required=False, default=10, help="Page size"
 )
 
@@ -63,13 +60,20 @@ stats = stats_ns.model(
     },
 )
 
+metadata = stats_ns.model(
+    "metadata",
+    {
+        "count": fields.String(readonly=True, description="Total number of the items of the data."),
+        "offset": fields.String(readonly=True, description="Position of the first element of the data from the total data amount."),
+        "limit": fields.String(readonly=True, description="Requested limit data."),
+    },
+)
+
 stats_list_fields = stats_ns.model(
     "StatsList",
     {
-        "metadata": fields.Raw(
-            description="Metada related to the result (number of page, current page, total number of objects.).",
-        ),
-        "data": fields.List(fields.Nested(stats), description="List of stats objects"),
+        "metadata": fields.Nested(metadata, description="Metada related to the result."),
+        "data": fields.List(fields.Nested(stats), description="List of stats objects."),
     },
 )
 
@@ -80,8 +84,7 @@ class StatsList(Resource):
 
     @stats_ns.doc("list_stats")
     @stats_ns.expect(parser)
-    @stats_ns.expect(pagination_parser)
-    @stats_ns.marshal_list_with(stats_list_fields, skip_none=True)
+    @stats_ns.marshal_list_with(stats_list_fields)
     @stats_ns.response(401, "Authorization needed")
     @auth_func
     def get(self):
@@ -91,33 +94,27 @@ class StatsList(Resource):
         organization = Organization.objects.get(token__exact=token)
 
         args = parser.parse_args()
+        offset = args.pop("page", 1)
+        limit = args.pop("per_page", 10)
         args = {k: v for k, v in args.items() if v is not None}
         args["organization"] = organization
 
-        pagination_args = pagination_parser.parse_args()
-        offset = pagination_args.get("offset", 1)
-        limit = pagination_args.get("limit", 10)
-
         result = {
             "data": [],
-            "metadata": {"total": 0, "count": 0, "offset": offset, "limit": limit,},
+            "metadata": {"count": 0, "offset": offset, "limit": limit,},
         }
 
         try:
-            total = Stats.objects(**args).count()
+            #total = Stats.objects(**args).count()
             stats = Stats.objects(**args).paginate(page=offset, per_page=limit)
             count = len(stats.items)
         except Organization.DoesNotExist:
             return result, 200
         except Exception as e:
             print(e)
-        finally:
-            if not total:
-                print(result)
-                return result, 200
 
         result["data"] = stats.items
-        result["metadata"]["total"] = total
+        #result["metadata"]["total"] = total
         result["metadata"]["count"] = count
 
         return result, 200
