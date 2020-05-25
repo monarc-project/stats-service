@@ -10,8 +10,6 @@ class ApiKeyAuthentication(AuthenticationBase):
     """
 
     def authorized(self):
-        if not application.config["API_KEY_AUTHENTICATION"]:
-            return True
         if "X-API-KEY" in request.headers:
             token = request.headers.get("X-API-KEY", False)
             if token:
