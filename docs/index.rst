@@ -21,6 +21,7 @@ Table of contents
 .. toctree::
    :maxdepth: 2
 
+   deployment
    api-v1
    api-v2
    stats
