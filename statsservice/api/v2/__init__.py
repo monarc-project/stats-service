@@ -4,7 +4,7 @@ from flask_restx import Api
 from statsservice.bootstrap import application
 
 
-api_blueprint = Blueprint("api", __name__, url_prefix="/api/v2")
+api_blueprint = Blueprint("api", __name__, url_prefix="/api/v1")
 
 
 def setup_api(application):
@@ -20,7 +20,7 @@ def setup_api(application):
         api_blueprint,
         title="MONARC Stats service - API v2",
         version="2.0",
-        description="API v2 of the MONARC Stats service.",
+        description="API v1 of the MONARC Stats service.",
         license="GNU Affero General Public License version 3",
         license_url="https://www.gnu.org/licenses/agpl-3.0.html",
         doc="/",
@@ -32,7 +32,7 @@ def setup_api(application):
 
     from statsservice.api.v2 import stats
 
-    api.add_namespace(stats.stats_ns, path="/api/v2/stats")
+    api.add_namespace(stats.stats_ns, path="/api/v1/stats")
 
     return api
 
