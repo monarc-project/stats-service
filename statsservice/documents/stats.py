@@ -13,6 +13,7 @@ class Stats(db.Document):
     day = db.IntField(required=True)
     week = db.IntField(required=True)
     month = db.IntField(required=True)
+    quarter = db.IntField(required=True)
     year = db.IntField(required=True)
     data = db.DynamicField(required=True)
     created_at = db.DateTimeField(default=datetime.datetime.utcnow)
@@ -25,6 +26,7 @@ class Stats(db.Document):
         Day: {}
         Week: {}
         Month: {}
+        Quarter: {}
         Year: {}
         """.format(
             self.organization,
@@ -33,5 +35,6 @@ class Stats(db.Document):
             self.day,
             self.week,
             self.month,
+            self.quarter,
             self.year,
         )

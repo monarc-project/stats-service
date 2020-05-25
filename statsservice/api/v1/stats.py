@@ -38,11 +38,6 @@ stats = stats_ns.model(
     "Stats",
     {
         "uuid": fields.String(readonly=True, description="The stats unique identifier"),
-        "organization": fields.String(
-            readonly=True,
-            attribute=lambda x: x.organization.name,
-            description="The organization related to this stats.",
-        ),
         "anr": fields.String(description="The ANR UUID related to this stats."),
         "type": fields.String(
             description="The type of this stats (risk, vulnerability, threat, cartography or compliance)."
