@@ -8,7 +8,7 @@ from statsservice.api.v1.common import auth_func
 from statsservice.documents import Stats, Organization
 
 
-stats_ns = Namespace('stats', description='stats related operations')
+stats_ns = Namespace("stats", description="stats related operations")
 
 
 # Argument Parsing
@@ -16,13 +16,19 @@ parser = reqparse.RequestParser()
 parser.add_argument("organization", type=str, help="Organization of the stats")
 parser.add_argument("anr", type=str, help="The ANR UUID  of this stats.")
 parser.add_argument(
-    "type", type=str, help="Type of the stats (risk, vulnerability, threat, cartography or compliance)"
+    "type",
+    type=str,
+    help="Type of the stats (risk, vulnerability, threat, cartography or compliance)",
 )
 parser.add_argument("day", type=int, help="Number of the day of the year.")
 parser.add_argument("week", type=int, help="Week of the stats")
 parser.add_argument("month", type=int, help="Month of the stats. From 1 to 12.")
-parser.add_argument("quarter", type=int, help="Number of quarter of a year. Possible values [1,2,3,4]")
-parser.add_argument("year", type=int, help="Year of the stats. In full format e.g. 2020.")
+parser.add_argument(
+    "quarter", type=int, help="Number of quarter of a year. Possible values [1,2,3,4]"
+)
+parser.add_argument(
+    "year", type=int, help="Year of the stats. In full format e.g. 2020."
+)
 
 pagination_parser = reqparse.RequestParser()
 pagination_parser.add_argument(
@@ -45,8 +51,12 @@ stats = stats_ns.model(
         "day": fields.Integer(description="Number of the day of the year."),
         "week": fields.Integer(description="Week of the stats."),
         "month": fields.Integer(description="Month of the stats. From 1 to 12."),
-        "quarter": fields.Integer(description="Number of quarter of a year. Possible values [1,2,3,4]"),
-        "year": fields.Integer(description="Year of the stats. In full format e.g. 2020."),
+        "quarter": fields.Integer(
+            description="Number of quarter of a year. Possible values [1,2,3,4]"
+        ),
+        "year": fields.Integer(
+            description="Year of the stats. In full format e.g. 2020."
+        ),
         "data": fields.Raw(description="The stats as a dynamic JSON object."),
         "created_at": fields.DateTime(description="Created time of the stats."),
         "updated_at": fields.DateTime(description="Updated time of the stats."),
@@ -58,7 +68,6 @@ stats_list_fields = stats_ns.model(
     {
         "metadata": fields.Raw(
             description="Metada related to the result (number of page, current page, total number of objects.).",
-
         ),
         "data": fields.List(fields.Nested(stats), description="List of stats objects"),
     },
@@ -73,7 +82,7 @@ class StatsList(Resource):
     @stats_ns.expect(parser)
     @stats_ns.expect(pagination_parser)
     @stats_ns.marshal_list_with(stats_list_fields, skip_none=True)
-    @stats_ns.response(401, 'Authorization needed')
+    @stats_ns.response(401, "Authorization needed")
     @auth_func
     def get(self):
         """List all stats"""

@@ -9,11 +9,7 @@ api_blueprint = Blueprint("api", __name__, url_prefix="/api/v1")
 
 def setup_api(application):
     authorizations = {
-        'apikey': {
-            'type': 'apiKey',
-            'in': 'header',
-            'name': 'X-API-KEY',
-        }
+        "apikey": {"type": "apiKey", "in": "header", "name": "X-API-KEY",}
     }
 
     api = Api(
@@ -24,10 +20,10 @@ def setup_api(application):
         license="GNU Affero General Public License version 3",
         license_url="https://www.gnu.org/licenses/agpl-3.0.html",
         doc="/",
-        security='apikey',
+        security="apikey",
         authorizations=authorizations,
         contact_email=application.config["ADMIN_EMAIL"],
-        contact_url=application.config["ADMIN_URL"]
+        contact_url=application.config["ADMIN_URL"],
     )
 
     from statsservice.api.v1 import stats
