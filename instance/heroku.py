@@ -1,4 +1,4 @@
-HOST = "127.0.0.1"
+HOST = "0.0.0.0"
 PORT = 5000
 DEBUG = False
 TESTING = False
@@ -7,7 +7,5 @@ ADMIN_EMAIL = "info@cases.lu"
 ADMIN_URL = "https://www.cases.lu"
 
 MONGODB_HOST = "localhost"
-MONGODB_PORT = 27017
-MONGODB_DB = "stats_api_dev"
 
-REMOTE_STATS_SERVER = 'https://dashboard.monarc.lu'
+REMOTE_STATS_SERVER = 'http://127.0.0.1:5000'
