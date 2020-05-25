@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
-    "basePath": "/api/v2/stats",
+    "basePath": "/api/v1",
     "paths": {
-        "/": {
+        "/api/v1/stats/": {
             "post": {
                 "responses": {
                     "201": {
@@ -32,11 +32,14 @@
                     }
                 ],
                 "tags": [
-                    "default"
+                    "stats"
                 ]
             },
             "get": {
                 "responses": {
+                    "401": {
+                        "description": "Authorization needed"
+                    },
                     "200": {
                         "description": "Success",
                         "schema": {
@@ -51,28 +54,22 @@
                 "operationId": "list_stats",
                 "parameters": [
                     {
-                        "name": "organization",
-                        "in": "query",
-                        "type": "string",
-                        "description": "Organization of the stats"
-                    },
-                    {
                         "name": "anr",
                         "in": "query",
                         "type": "string",
-                        "description": "UUID of the Anr of the stats"
+                        "description": "The ANR UUID related to this stats."
                     },
                     {
                         "name": "type",
                         "in": "query",
                         "type": "string",
-                        "description": "Type of the stats (risk, vulnerability, threat)"
+                        "description": "Type of the stats (risk, vulnerability, threat, cartography or compliance)"
                     },
                     {
                         "name": "day",
                         "in": "query",
                         "type": "integer",
-                        "description": "Day of the stats"
+                        "description": "Number of the day of the year."
                     },
                     {
                         "name": "week",
@@ -84,24 +81,33 @@
                         "name": "month",
                         "in": "query",
                         "type": "integer",
-                        "description": "Month of the stats"
+                        "description": "Month of the stats. From 1 to 12."
+                    },
+                    {
+                        "name": "quarter",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Number of quarter of a year. Possible values [1,2,3,4]"
                     },
                     {
                         "name": "year",
                         "in": "query",
                         "type": "integer",
-                        "description": "Year of the stats"
+                        "description": "Year of the stats. In full format e.g. 2020."
                     },
                     {
                         "name": "page",
                         "in": "query",
                         "type": "integer",
+                        "description": "Page number",
                         "default": 1
                     },
                     {
                         "name": "per_page",
                         "in": "query",
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Page size",
+                        "default": 10
                     },
                     {
                         "name": "X-Fields",
@@ -112,11 +118,11 @@
                     }
                 ],
                 "tags": [
-                    "default"
+                    "stats"
                 ]
             }
         },
-        "/{uuid}": {
+        "/api/v1/stats/{uuid}": {
             "parameters": [
                 {
                     "in": "path",
@@ -126,21 +132,6 @@
                     "type": "string"
                 }
             ],
-            "delete": {
-                "responses": {
-                    "404": {
-                        "description": "Stats not found"
-                    },
-                    "204": {
-                        "description": "Stats deleted"
-                    }
-                },
-                "summary": "Delete a stats given its identifier",
-                "operationId": "delete_stats",
-                "tags": [
-                    "default"
-                ]
-            },
             "get": {
                 "responses": {
                     "404": {
@@ -165,7 +156,7 @@
                     }
                 ],
                 "tags": [
-                    "default"
+                    "stats"
                 ]
             },
             "put": {
@@ -200,15 +191,34 @@
                     }
                 ],
                 "tags": [
-                    "default"
+                    "stats"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "404": {
+                        "description": "Stats not found"
+                    },
+                    "204": {
+                        "description": "Stats deleted"
+                    }
+                },
+                "summary": "Delete a stats given its identifier",
+                "operationId": "delete_stats",
+                "tags": [
+                    "stats"
                 ]
             }
         }
     },
     "info": {
-        "title": "MONARC Stats service - API v2",
-        "version": "2.0",
-        "description": "API v2 of the MONARC Stats service."
+        "title": "MONARC Stats service - API v1",
+        "version": "1.0",
+        "description": "API v1 of the MONARC Stats service.",
+        "license": {
+            "name": "GNU Affero General Public License version 3",
+            "url": "https://www.gnu.org/licenses/agpl-3.0.html"
+        }
     },
     "produces": [
         "application/json"
@@ -216,10 +226,22 @@
     "consumes": [
         "application/json"
     ],
+    "securityDefinitions": {
+        "apikey": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "X-API-KEY"
+        }
+    },
+    "security": [
+        {
+            "apikey": []
+        }
+    ],
     "tags": [
         {
-            "name": "default",
-            "description": "Default namespace"
+            "name": "stats",
+            "description": "stats related operations"
         }
     ],
     "definitions": {
@@ -230,22 +252,17 @@
                     "description": "The stats unique identifier",
                     "readOnly": true
                 },
-                "organization": {
-                    "type": "string",
-                    "description": "The organization related to this stats.",
-                    "readOnly": true
-                },
                 "anr": {
                     "type": "string",
-                    "description": "The ANR related to this stats."
+                    "description": "The ANR UUID related to this stats."
                 },
                 "type": {
                     "type": "string",
-                    "description": "The type of this stats (risk, vulnerability, threat)."
+                    "description": "The type of this stats (risk, vulnerability, threat, cartography or compliance)."
                 },
                 "day": {
                     "type": "integer",
-                    "description": "Day of the stats."
+                    "description": "Number of the day of the year."
                 },
                 "week": {
                     "type": "integer",
@@ -253,11 +270,15 @@
                 },
                 "month": {
                     "type": "integer",
-                    "description": "Month of the stats."
+                    "description": "Month of the stats. From 1 to 12."
+                },
+                "quarter": {
+                    "type": "integer",
+                    "description": "Number of quarter of a year. Possible values [1,2,3,4]"
                 },
                 "year": {
                     "type": "integer",
-                    "description": "Year of the stats."
+                    "description": "Year of the stats. In full format e.g. 2020."
                 },
                 "data": {
                     "type": "object",
@@ -279,15 +300,39 @@
         "StatsList": {
             "properties": {
                 "metadata": {
-                    "type": "object",
-                    "description": "Metada related to the result (number of page, current page, total number of objects.)."
+                    "description": "Metada related to the result.",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/metadata"
+                        }
+                    ]
                 },
                 "data": {
                     "type": "array",
-                    "description": "List of stats objects",
+                    "description": "List of stats objects.",
                     "items": {
                         "$ref": "#/definitions/Stats"
                     }
+                }
+            },
+            "type": "object"
+        },
+        "metadata": {
+            "properties": {
+                "count": {
+                    "type": "string",
+                    "description": "Total number of the items of the data.",
+                    "readOnly": true
+                },
+                "offset": {
+                    "type": "string",
+                    "description": "Position of the first element of the data from the total data amount.",
+                    "readOnly": true
+                },
+                "limit": {
+                    "type": "string",
+                    "description": "Requested limit data.",
+                    "readOnly": true
                 }
             },
             "type": "object"
