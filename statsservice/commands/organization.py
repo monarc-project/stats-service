@@ -14,3 +14,12 @@ def create_organization(name):
     new_org = Organization(name=name, token=token)
     new_org.save()
     print(new_org)
+
+
+@application.cli.command("list_organizations")
+def list_organizations():
+    """List organizations.
+    """
+    for organization in Organization.objects():
+        print(organization)
+        print()
