@@ -1,19 +1,14 @@
-from flask import Blueprint
-from flask_restx import Api, Resource, fields, reqparse
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
-from statsservice.documents import Stats, Organization
+from flask import request
+from flask_restx import Namespace, Resource, fields, reqparse
+
 from statsservice.api.v2.common import auth_func
+from statsservice.documents import Stats, Organization
 
 
-blueprint = Blueprint("api", __name__, url_prefix="/api/v2/stats")
-api = Api(
-    blueprint,
-    title="MONARC Stats service - API v2",
-    version="2.0",
-    description="API v2 of the MONARC Stats service.",
-    doc="/swagger/",
-    # All API metadatas
-)
+stats_ns = Namespace('stats', description='stats related operations')
 
 
 # Argument Parsing
@@ -38,7 +33,7 @@ pagination_parser.add_argument(
 
 
 # Response marshalling
-stats = api.model(
+stats = stats_ns.model(
     "Stats",
     {
         "uuid": fields.String(readonly=True, description="The stats unique identifier"),
@@ -61,42 +56,50 @@ stats = api.model(
     },
 )
 
-stats_list_fields = api.model(
+stats_list_fields = stats_ns.model(
     "StatsList",
     {
         "metadata": fields.Raw(
-            description="Metada related to the result (number of page, current page, total number of objects.)."
+            description="Metada related to the result (number of page, current page, total number of objects.).",
+
         ),
         "data": fields.List(fields.Nested(stats), description="List of stats objects"),
     },
 )
 
 
-@api.route("/")
+@stats_ns.route("/")
 class StatsList(Resource):
     """Shows a list of all stats, and lets you POST to add new stats"""
 
-    @api.doc("list_stats")
-    @api.expect(parser)
-    @api.expect(pagination_parser)
-    @api.marshal_list_with(stats_list_fields, skip_none=True)
+    @stats_ns.doc("list_stats")
+    @stats_ns.expect(parser)
+    @stats_ns.expect(pagination_parser)
+    @stats_ns.marshal_list_with(stats_list_fields, skip_none=True)
+    @stats_ns.response(401, 'Authorization needed')
+    @auth_func
     def get(self):
         """List all stats"""
+        # get the organization token
+        token = request.headers.get("X-API-KEY", False)
+        organization = Organization.objects.get(token__exact=token)
+
         args = parser.parse_args()
         args = {k: v for k, v in args.items() if v is not None}
+        args["organization"] = organization
 
         pagination_args = pagination_parser.parse_args()
-        page = pagination_args.get("page", 1)
-        per_page = pagination_args.get("per_page", 10)
+        offset = pagination_args.get("offset", 1)
+        limit = pagination_args.get("limit", 10)
 
         result = {
             "data": [],
-            "metadata": {"total": 0, "count": 0, "page": page, "per_page": per_page,},
+            "metadata": {"total": 0, "count": 0, "offset": offset, "limit": limit,},
         }
 
         try:
             total = Stats.objects(**args).count()
-            stats = Stats.objects(**args).paginate(page=page, per_page=per_page)
+            stats = Stats.objects(**args).paginate(page=offset, per_page=limit)
             count = len(stats.items)
         except Organization.DoesNotExist:
             return result, 200
@@ -113,37 +116,46 @@ class StatsList(Resource):
 
         return result, 200
 
-    @api.doc("create_stats")
-    @api.expect(stats)
-    @api.marshal_with(stats, code=201)
+    @stats_ns.doc("create_stats")
+    @stats_ns.expect(stats)
+    @stats_ns.marshal_with(stats, code=201)
+    @auth_func
     def post(self):
         """Create a new stats"""
-        new_stat = Stats(**api.payload)
+        # set the appropriate organization thanks to the token
+        token = request.headers.get("X-API-KEY", False)
+        organization = Organization.objects.get(token__exact=token)
+        stats_ns.payload["organization"] = organization
+        # create the stats
+        new_stat = Stats(**stats_ns.payload)
         return new_stat.save(), 201
 
 
-@api.route("/<string:uuid>")
-@api.response(404, "Stats not found")
-@api.param("uuid", "The stats identifier")
+@stats_ns.route("/<string:uuid>")
+@stats_ns.response(404, "Stats not found")
+@stats_ns.param("uuid", "The stats identifier")
 class StatsItem(Resource):
     """Show a single stats item and lets you delete them"""
 
-    @api.doc("get_stats")
-    @api.marshal_with(stats)
+    @stats_ns.doc("get_stats")
+    @stats_ns.marshal_with(stats)
+    @auth_func
     def get(self, uuid):
         """Fetch a given resource"""
         return Stats.objects.get(uuid__exact=uuid), 200
 
-    @api.doc("delete_stats")
-    @api.response(204, "Stats deleted")
+    @stats_ns.doc("delete_stats")
+    @stats_ns.response(204, "Stats deleted")
+    @auth_func
     def delete(self, uuid):
         """Delete a stats given its identifier"""
         # DAO.delete(id)
         return "", 204
 
-    @api.expect(stats)
-    @api.marshal_with(stats)
+    @stats_ns.expect(stats)
+    @stats_ns.marshal_with(stats)
+    @auth_func
     def put(self, uuid):
         """Update a stats given its identifier"""
-        # return DAO.update(id, api.payload)
+        # return DAO.update(id, stats_ns.payload)
         pass

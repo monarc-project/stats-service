@@ -22,7 +22,7 @@
 
 
 from statsservice.bootstrap import application
-from statsservice.commands import push_stats, pull_stats, drop_all_collections, create_organization
+from statsservice.commands import push_stats, pull_stats, drop_all_collections, create_organization, list_organizations
 
 
 def register_commands(app):
@@ -31,13 +31,14 @@ def register_commands(app):
     app.cli.add_command(pull_stats)
     app.cli.add_command(drop_all_collections)
     app.cli.add_command(create_organization)
+    app.cli.add_command(list_organizations)
 
 
 with application.app_context():
     from statsservice.api import v1
 
     from statsservice.api import v2
-    application.register_blueprint(v2.api)
+    application.register_blueprint(v2.api_blueprint)
 
     from statsservice import views
     application.register_blueprint(views.stats_bp)

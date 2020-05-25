@@ -4,7 +4,6 @@
 from flask import request
 from flask_restx import abort
 
-from statsservice.bootstrap import application
 from statsservice.documents import Organization
 
 
