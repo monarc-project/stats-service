@@ -26,6 +26,16 @@ def setup_api(application):
         contact_url=application.config["ADMIN_URL"],
     )
 
+    @api.documentation
+    def custom_ui():
+        return render_template(
+            "swagger-ui.html",
+            title=api.title,
+            specs_url="{}/api/v1/swagger.json".format(
+                application.config["INSTANCE_URL"]
+            ),
+        )
+
     from statsservice.api.v1 import stats
 
     api.add_namespace(stats.stats_ns, path="/api/v1/stats")

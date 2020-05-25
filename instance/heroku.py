@@ -4,6 +4,7 @@ HOST = "0.0.0.0"
 PORT = os.environ.get("PORT")
 DEBUG = False
 TESTING = False
+INSTANCE_URL = ""
 
 ADMIN_EMAIL = "info@cases.lu"
 ADMIN_URL = "https://www.cases.lu"
