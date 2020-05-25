@@ -18,8 +18,8 @@ def setup_api(application):
 
     api = Api(
         api_blueprint,
-        title="MONARC Stats service - API v2",
-        version="2.0",
+        title="MONARC Stats service - API v1",
+        version="1.0",
         description="API v1 of the MONARC Stats service.",
         license="GNU Affero General Public License version 3",
         license_url="https://www.gnu.org/licenses/agpl-3.0.html",

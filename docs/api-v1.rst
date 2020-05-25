@@ -4,9 +4,9 @@ API v1
 Swagger
 -------
 
-http://127.0.0.1:5000/api/v2/stats/swagger.json
+http://127.0.0.1:5000/api/v1/swagger.json
 
-Swagger UI: http://127.0.0.1:5000/api/v2/stats/swagger/
+Swagger UI: http://127.0.0.1:5000/api/v1
 
 
 .. literalinclude:: swagger.json
