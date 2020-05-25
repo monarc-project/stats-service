@@ -16,9 +16,13 @@ Heroku
     $ heroku config:set FLASK_ENV='development'
     $ git push heroku master
 
+A demo instance is available
+`here <https://monarc-stats-service.herokuapp.com/api/v1/>`_.
 
 Create a new organization:
 
 .. code-block:: bash
 
     heroku run flask create_organization --name <name-of-the-organization>
+
+All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.

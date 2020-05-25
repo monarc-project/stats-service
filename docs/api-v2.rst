@@ -48,9 +48,6 @@ Example of a failed authentication:
     {"error": "Unauthorized"}
 
 
-The authentication can be disabled via the configuration file by setting the
-value of ``API_KEY_AUTHENTICATION`` to ``False``.
-
 For clarity in the following documentation we will ignore the authentication.
 
 
