@@ -43,9 +43,6 @@ $ flask run
  * Restarting with stat
  * Debugger is active!
  * Debugger PIN: 268-178-811
-
-$ curl http://127.0.0.1:5000/api/v1/organizations/
-{"data": [{"name": "CASES", "id": "5eb9c876c5b0d7218e202f79"}], "has_more": false}
 ```
 
 For production you can use [Gunicorn](https://gunicorn.org) or ``mod_wsgi``.

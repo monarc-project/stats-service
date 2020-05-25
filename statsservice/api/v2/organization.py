@@ -4,7 +4,7 @@ from flask_mongorest import methods
 
 from statsservice.bootstrap import api
 from statsservice.documents.organization import Organization
-from statsservice.api.v1.stats import StatsResource
+from statsservice.api.v2.stats import StatsResource
 
 
 class OrganizationResource(Resource):
