@@ -37,6 +37,19 @@ The token is automatically generated. It will be required when using the
 TODO: Add a command to update a token (For the moment this can still be done with the API.)
 
 
+Listing organizations
+---------------------
+
+.. code-block:: bash
+
+    $ flask list_organizations
+    Name: CASES
+    Token: xL3F5M-g1HISeAccX_SrYG8ng3vPRbTByhwXIQufkBv1yCLG2eyc7Sl4cOtnDuGFMPQhniIFNIrZ6x-WRi9dNg
+
+    Name: CIRCL
+    Token: uJn2zUA361NANAz6dbtstAaAjq3hL28dscxzCjeUOHpIYC87K8nfOAPtRsTGAqT0iwzs7TEgq5DdD0kkwQDhmw
+
+
 Drop all collections from the database
 --------------------------------------
 

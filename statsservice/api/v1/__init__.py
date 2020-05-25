@@ -30,7 +30,7 @@ def setup_api(application):
         contact_url=application.config["ADMIN_URL"]
     )
 
-    from statsservice.api.v2 import stats
+    from statsservice.api.v1 import stats
 
     api.add_namespace(stats.stats_ns, path="/api/v1/stats")
 
