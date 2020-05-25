@@ -1,0 +1,28 @@
+{
+    "name": "monarc-stats-service",
+    "description": "Stats Service for MONARC",
+    "keywords": [
+        "MONARC"
+    ],
+    "website": "https://github.com/monarc-project/stats-service",
+    "repository": "https://github.com/monarc-project/stats-service",
+    "scripts": {
+        "postdeploy": "pybabel compile -d mosp/translations && python manager.py db_init && flask create_admin admin password && flask import_licenses_from_spdx"
+    },
+    "addons": [
+        "mongolab"
+    ],
+    "buildpacks": [
+        {
+            "url": "https://github.com/moneymeets/python-buildpack"
+        }
+    ],
+    "env": {
+        "HEROKU": "1",
+        "APPLICATION_SETTINGS": {
+            "description": "Configuration file for Heroku",
+            "required": true,
+            "value": "heroku.py"
+        }
+    }
+}
