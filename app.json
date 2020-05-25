@@ -6,9 +6,6 @@
     ],
     "website": "https://github.com/monarc-project/stats-service",
     "repository": "https://github.com/monarc-project/stats-service",
-    "scripts": {
-        "postdeploy": "pybabel compile -d mosp/translations && python manager.py db_init && flask create_admin admin password && flask import_licenses_from_spdx"
-    },
     "addons": [
         "mongolab:sandbox"
     ],
