@@ -10,7 +10,7 @@
         "postdeploy": "pybabel compile -d mosp/translations && python manager.py db_init && flask create_admin admin password && flask import_licenses_from_spdx"
     },
     "addons": [
-        "mongolab"
+        "mongolab:sandbox"
     ],
     "buildpacks": [
         {
