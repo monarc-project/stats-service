@@ -1,1 +1,1 @@
-web: export FLASK_APP=runserver.py ; python runserver.py
+web: python runserver.py
