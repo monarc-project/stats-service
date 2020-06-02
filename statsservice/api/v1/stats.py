@@ -160,12 +160,12 @@ class StatsItem(Resource):
             Stats.objects(uuid__exact=uuid).delete()
             return "", 204
         except:
-            abort(404, Error="Impossible to delete.")
+            abort(404, Error="Impossible to delete the stats.")
 
     @stats_ns.expect(stats)
     @stats_ns.marshal_with(stats)
     @auth_func
     def put(self, uuid):
         """Update a stats given its identifier"""
-        # return Stats.objects(uuid__exact=uuid).update(stats_ns.payload)
+        # return Stats.objects(uuid__exact=uuid).update(**stats_ns.payload)
         pass
