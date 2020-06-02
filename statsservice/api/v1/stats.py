@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import request
-from flask_restx import Namespace, Resource, fields, reqparse
+from flask_restx import Namespace, Resource, fields, reqparse, abort
 
 from statsservice.api.v1.common import auth_func
 from statsservice.documents import Stats, Organization
@@ -28,12 +28,8 @@ parser.add_argument(
 parser.add_argument(
     "year", type=int, help="Year of the stats. In full format e.g. 2020."
 )
-parser.add_argument(
-    "page", type=int, required=False, default=1, help="Page number"
-)
-parser.add_argument(
-    "per_page", type=int, required=False, default=10, help="Page size"
-)
+parser.add_argument("page", type=int, required=False, default=1, help="Page number")
+parser.add_argument("per_page", type=int, required=False, default=10, help="Page size")
 
 
 # Response marshalling
@@ -63,8 +59,13 @@ stats = stats_ns.model(
 metadata = stats_ns.model(
     "metadata",
     {
-        "count": fields.String(readonly=True, description="Total number of the items of the data."),
-        "offset": fields.String(readonly=True, description="Position of the first element of the data from the total data amount."),
+        "count": fields.String(
+            readonly=True, description="Total number of the items of the data."
+        ),
+        "offset": fields.String(
+            readonly=True,
+            description="Position of the first element of the data from the total data amount.",
+        ),
         "limit": fields.String(readonly=True, description="Requested limit data."),
     },
 )
@@ -72,7 +73,9 @@ metadata = stats_ns.model(
 stats_list_fields = stats_ns.model(
     "StatsList",
     {
-        "metadata": fields.Nested(metadata, description="Metada related to the result."),
+        "metadata": fields.Nested(
+            metadata, description="Metada related to the result."
+        ),
         "data": fields.List(fields.Nested(stats), description="List of stats objects."),
     },
 )
@@ -105,7 +108,7 @@ class StatsList(Resource):
         }
 
         try:
-            #total = Stats.objects(**args).count()
+            # total = Stats.objects(**args).count()
             stats = Stats.objects(**args).paginate(page=offset, per_page=limit)
             count = len(stats.items)
         except Organization.DoesNotExist:
@@ -114,7 +117,7 @@ class StatsList(Resource):
             print(e)
 
         result["data"] = stats.items
-        #result["metadata"]["total"] = total
+        # result["metadata"]["total"] = total
         result["metadata"]["count"] = count
 
         return result, 200
@@ -152,13 +155,17 @@ class StatsItem(Resource):
     @auth_func
     def delete(self, uuid):
         """Delete a stats given its identifier"""
-        # DAO.delete(id)
-        return "", 204
+        # TODO: check permissions
+        try:
+            Stats.objects(uuid__exact=uuid).delete()
+            return "", 204
+        except:
+            abort(404, Error="Impossible to delete.")
 
     @stats_ns.expect(stats)
     @stats_ns.marshal_with(stats)
     @auth_func
     def put(self, uuid):
         """Update a stats given its identifier"""
-        # return DAO.update(id, stats_ns.payload)
+        # return Stats.objects(uuid__exact=uuid).update(stats_ns.payload)
         pass
