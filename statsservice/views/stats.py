@@ -22,6 +22,8 @@
 
 from flask import Blueprint, render_template, jsonify
 
+from statsservice.documents import Stats
+
 stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 
 
@@ -29,5 +31,7 @@ stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 def risks():
     """
     """
-    result = {}
-    return jsonify(dict(result))
+    risks = Stats.objects(type__exact="risk")
+    # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
+    # risks = Stats.objects(data__anr__exact=2)
+    return risks.to_json()
