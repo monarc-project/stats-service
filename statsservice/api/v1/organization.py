@@ -8,7 +8,9 @@ from statsservice.api.v1.common import auth_func
 from statsservice.documents import Organization
 
 
-organization_ns = Namespace("organization", description="organization related operations")
+organization_ns = Namespace(
+    "organization", description="organization related operations"
+)
 
 
 # Response marshalling
@@ -16,7 +18,9 @@ orgs = organization_ns.model(
     "Orgs",
     {
         "name": fields.String(description="The organization name."),
-        "token": fields.String(readonly=True, description="The token of the organization.")
+        "token": fields.String(
+            readonly=True, description="The token of the organization."
+        ),
     },
 )
 
