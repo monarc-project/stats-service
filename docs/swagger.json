@@ -2,25 +2,25 @@
     "swagger": "2.0",
     "basePath": "/api/v1",
     "paths": {
-        "/api/v1/stats/": {
+        "/api/v1/organization/": {
             "post": {
                 "responses": {
                     "201": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/Stats"
+                            "$ref": "#/definitions/Orgs"
                         }
                     }
                 },
-                "summary": "Create a new stats",
-                "operationId": "create_stats",
+                "summary": "Create a new organization",
+                "operationId": "create_organization",
                 "parameters": [
                     {
                         "name": "payload",
                         "required": true,
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/Stats"
+                            "$ref": "#/definitions/Orgs"
                         }
                     },
                     {
@@ -32,9 +32,11 @@
                     }
                 ],
                 "tags": [
-                    "stats"
+                    "organization"
                 ]
-            },
+            }
+        },
+        "/api/v1/stats/": {
             "get": {
                 "responses": {
                     "401": {
@@ -108,6 +110,38 @@
                         "type": "integer",
                         "description": "Page size",
                         "default": 10
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "stats"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Stats"
+                        }
+                    }
+                },
+                "summary": "Create a new stats",
+                "operationId": "create_stats",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Stats"
+                        }
                     },
                     {
                         "name": "X-Fields",
@@ -240,11 +274,29 @@
     ],
     "tags": [
         {
+            "name": "organization",
+            "description": "organization related operations"
+        },
+        {
             "name": "stats",
             "description": "stats related operations"
         }
     ],
     "definitions": {
+        "Orgs": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The organization name."
+                },
+                "token": {
+                    "type": "string",
+                    "description": "The token of the organization.",
+                    "readOnly": true
+                }
+            },
+            "type": "object"
+        },
         "Stats": {
             "properties": {
                 "uuid": {
