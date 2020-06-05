@@ -13,6 +13,6 @@ class Organization(db.Document):
     updated_at = db.DateTimeField(default=datetime.datetime.utcnow)
 
     def __str__(self):
-        return "Name: {}\nToken: {}\nCreated at:{}".format(
+        return "Name: {}\nToken: {}\nCreated at: {}".format(
             self.name, self.token, self.created_at
         )
