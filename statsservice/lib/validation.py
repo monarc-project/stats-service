@@ -16,5 +16,5 @@ def validate_data(type='', data):
     schema = {}
     try:
         jsonschema.validate(data, schema)
-    except Exception e:
+    except Exception as e:
         raise e
