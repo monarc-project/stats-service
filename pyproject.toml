@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "stats-api"
+name = "stats-service"
 version = "0.1.0"
 description = "Stats API for MONARC."
 authors = ["Cédric Bonhomme <cedric@cedricbonhomme.org>"]
@@ -14,6 +14,7 @@ mimerender = "^0.6.0"
 cleancat = "^0.7.12"
 requests = "^2.23.0"
 flask_restx = "^0.2.0"
+pandas = "^1.0.4"
 
 [tool.poetry.dev-dependencies]
 sphinx = "^3.0.3"
