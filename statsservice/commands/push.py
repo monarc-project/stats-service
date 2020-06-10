@@ -16,14 +16,15 @@ STATS_API_ENDPOINT = urljoin(
 
 @application.cli.command("push-stats")
 @click.option("--name", default="", help="Organization name")
-def push_stats(name):
+@click.option("--token", default="", help="Organization token on remote side")
+def push_stats(name, token):
     """Push stats for the organization specified in parameter to an other stats
     server.
     """
     organization = Organization.objects.get(name__exact=name)
 
     headers = {
-        "X-API-KEY": organization.token,
+        "X-API-KEY": token,
         "content-type": "application/json"
     }
 
@@ -35,12 +36,14 @@ def push_stats(name):
         payload = json.dumps(
             {
                 "uuid": str(stat.uuid),
-                "organization": name,
+                "anr": str(stat.anr),
                 "type": stat.type,
-                "data": stat.data,
                 "day": stat.day,
                 "week": stat.week,
                 "month": stat.month,
+                "quarter": stat.month,
+                "year": stat.year,
+                "data": stat.data
             }
         )
 
