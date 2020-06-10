@@ -77,14 +77,17 @@ Pushing data to a central stats server.
 
 .. code-block:: bash
 
+    $ flask push-stats --help
     Usage: flask push-stats [OPTIONS]
 
       Push stats for the organization specified in parameter to an other stats
       server.
 
     Options:
-      --name TEXT  Organization name
-      --help       Show this message and exit.
+      --name TEXT   Organization name
+      --token TEXT  Organization token on remote side
+      --help        Show this message and exit.
+
 
 
 This command can be executed for example with cron.
