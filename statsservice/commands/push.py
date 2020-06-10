@@ -21,6 +21,12 @@ def push_stats(name):
     server.
     """
     organization = Organization.objects.get(name__exact=name)
+
+    headers = {
+        "X-API-KEY": organization.token,
+        "content-type": "application/json"
+    }
+
     stats = Stats.objects(organization__exact=organization)
     for stat in stats:
         print("Pushing stats {} {}".format(stat.created_at, stat.type))
@@ -38,7 +44,7 @@ def push_stats(name):
             }
         )
 
-        r = requests.post(STATS_API_ENDPOINT, data=payload)
+        r = requests.post(STATS_API_ENDPOINT, data=payload, headers=headers)
 
         if r.status_code != 200:
             print("Impossible to push the stat.")
