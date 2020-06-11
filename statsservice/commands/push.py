@@ -47,7 +47,9 @@ def push_stats(name, token):
             }
         )
 
-        r = requests.post(STATS_API_ENDPOINT, data=payload, headers=headers)
-
-        if r.status_code != 200:
-            print("Impossible to push the stat.")
+        try:
+            r = requests.post(STATS_API_ENDPOINT, data=payload, headers=headers)
+            if r.status_code != 200:
+                print("Impossible to push the stat.")
+        except:
+            pass
