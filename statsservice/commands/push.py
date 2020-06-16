@@ -7,7 +7,7 @@ import requests
 
 from urllib.parse import urljoin
 from statsservice.bootstrap import application, db
-from statsservice.documents import Stats, Organization
+from statsservice.models import Stats, Organization
 
 STATS_API_ENDPOINT = urljoin(
     application.config["REMOTE_STATS_SERVER"], "/api/v1/stats/"
@@ -23,10 +23,7 @@ def push_stats(name, token):
     """
     organization = Organization.objects.get(name__exact=name)
 
-    headers = {
-        "X-API-KEY": token,
-        "content-type": "application/json"
-    }
+    headers = {"X-API-KEY": token, "content-type": "application/json"}
 
     stats = Stats.objects(organization__exact=organization)
     for stat in stats:
@@ -43,7 +40,7 @@ def push_stats(name, token):
                 "month": stat.month,
                 "quarter": stat.month,
                 "year": stat.year,
-                "data": stat.data
+                "data": stat.data,
             }
         )
 

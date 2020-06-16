@@ -8,7 +8,7 @@
 import jsonschema
 
 
-def validate_data(data={}, type=''):
+def validate_data(data={}, type=""):
     """Check the validity of the submitted stats data.
     Note: an empty JSON object is validated by any schema but we do not accept
     empty stats.

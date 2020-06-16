@@ -22,7 +22,7 @@
 
 from flask import Blueprint
 
-from statsservice.documents import Stats
+from statsservice.models import Stats
 
 stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 
@@ -31,7 +31,7 @@ stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 def risks():
     """
     """
-    risks = Stats.objects(type__exact="risk")
+    risks = Stats.query.filter(Stats.type == "risk").all()
     # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
     # risks = Stats.objects(data__anr__exact=2)
     return risks.to_json()

@@ -3,8 +3,7 @@
 
 import os
 from flask import Flask
-from flask_mongoengine import MongoEngine
-from flask_mongorest import MongoRest
+from flask_sqlalchemy import SQLAlchemy
 
 
 ON_HEROKU = int(os.environ.get("HEROKU", 0)) == 1
@@ -21,5 +20,4 @@ if ON_HEROKU:
 else:
     application.config.from_pyfile("production.py", silent=False)
 
-db = MongoEngine(application)
-api = MongoRest(application, url_prefix="/api/v2/")
+db = SQLAlchemy(application)

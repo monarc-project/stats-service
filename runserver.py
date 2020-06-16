@@ -22,14 +22,16 @@
 
 
 from statsservice.bootstrap import application
-from statsservice.commands import push_stats, pull_stats, drop_all_collections, create_organization, list_organizations
+from statsservice.commands import push_stats, pull_stats, db_empty, db_create, db_init, create_organization, list_organizations
 
 
 def register_commands(app):
     """Register Click commands."""
     app.cli.add_command(push_stats)
     app.cli.add_command(pull_stats)
-    app.cli.add_command(drop_all_collections)
+    app.cli.add_command(db_empty)
+    app.cli.add_command(db_create)
+    app.cli.add_command(db_init)
     app.cli.add_command(create_organization)
     app.cli.add_command(list_organizations)
 
@@ -37,8 +39,6 @@ def register_commands(app):
 with application.app_context():
     from statsservice.api import v1
     application.register_blueprint(v1.api_blueprint)
-
-    from statsservice.api import v2
 
     from statsservice import views
     application.register_blueprint(views.stats_bp)

@@ -22,7 +22,7 @@ The following assumes you have already installed ``git``, ``poetry``,  and
 ``Python >= 3.8``.
 
 ```bash
-$ sudo apt install mongodb
+$ sudo apt install postgresql
 $ git clone https://github.com/monarc-project/stats-service
 $ cd stats-service/
 $ cp instance/production.py.cfg instance/production.py
@@ -30,6 +30,8 @@ $ poetry install
 $ poetry shell
 $ export FLASK_APP=runserver.py
 $ export FLASK_ENV=development
+$ flask db_create
+$ flask db_init
 
 $ flask create_organization --name CASES
 Name: CASES

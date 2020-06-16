@@ -5,7 +5,6 @@
         "MONARC",
         "stats",
         "Flask",
-        "MongoDB",
         "API",
         "Swagger",
         "Swagger-UI"
@@ -13,7 +12,7 @@
     "website": "https://github.com/monarc-project/stats-service",
     "repository": "https://github.com/monarc-project/stats-service",
     "addons": [
-        "mongolab:sandbox"
+        "heroku-postgresql:hobby-dev"
     ],
     "buildpacks": [
         {

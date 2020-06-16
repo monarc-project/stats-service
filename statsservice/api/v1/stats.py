@@ -4,8 +4,9 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 
+from statsservice.bootstrap import db
+from statsservice.models import Stats, Organization
 from statsservice.api.v1.common import auth_func
-from statsservice.documents import Stats, Organization
 
 
 stats_ns = Namespace("stats", description="stats related operations")
@@ -94,13 +95,13 @@ class StatsList(Resource):
         """List all stats"""
         # get the organization token
         token = request.headers.get("X-API-KEY", False)
-        organization = Organization.objects.get(token__exact=token)
+        organization = Organization.query.filter(Organization.token == token).first()
 
         args = parser.parse_args()
         offset = args.pop("page", 1)
         limit = args.pop("per_page", 10)
         args = {k: v for k, v in args.items() if v is not None}
-        args["organization"] = organization
+        args["org_id"] = organization.id
 
         result = {
             "data": [],
@@ -108,15 +109,17 @@ class StatsList(Resource):
         }
 
         try:
-            # total = Stats.objects(**args).count()
-            stats = Stats.objects(**args).paginate(page=offset, per_page=limit)
-            count = len(stats.items)
-        except Organization.DoesNotExist:
-            return result, 200
+            query = Stats.query
+            for arg in args:
+                if hasattr(Stats, arg):
+                    query = query.filter(getattr(Stats, arg) == args[arg])
+            total = query.count()
+            stats = query.all()
+            count = total
         except Exception as e:
             print(e)
 
-        result["data"] = stats.items
+        result["data"] = stats
         # result["metadata"]["total"] = total
         result["metadata"]["count"] = count
 
@@ -130,11 +133,13 @@ class StatsList(Resource):
         """Create a new stats"""
         # set the appropriate organization thanks to the token
         token = request.headers.get("X-API-KEY", False)
-        organization = Organization.objects.get(token__exact=token)
-        stats_ns.payload["organization"] = organization
+        organization = Organization.query.filter(Organization.token == token).first()
+        stats_ns.payload["org_id"] = organization.id
         # create the stats
         new_stat = Stats(**stats_ns.payload)
-        return new_stat.save(), 201
+        db.session.add(new_stat)
+        db.session.commit()
+        return new_stat, 201
 
 
 @stats_ns.route("/<string:uuid>")
@@ -148,7 +153,7 @@ class StatsItem(Resource):
     @auth_func
     def get(self, uuid):
         """Fetch a given resource"""
-        return Stats.objects.get(uuid__exact=uuid), 200
+        return Stats.query.filter(Stats.uuid == uuid).first(), 200
 
     @stats_ns.doc("delete_stats")
     @stats_ns.response(204, "Stats deleted")
