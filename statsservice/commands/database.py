@@ -1,15 +1,32 @@
 import click
 
-from mongoengine.connection import _get_db
-from statsservice.bootstrap import application
+from statsservice import models
+from statsservice.bootstrap import application, db
 
 
-@application.cli.command("drop_all_collections")
-def drop_all_collections():
-    """Drop all collections from the database.
+@application.cli.command("db_empty")
+def db_empty():
+    """Drop all the database.
     """
-    if click.confirm("Do you want to drop all collections?"):
-        db = _get_db()
-        db.stats.drop()
-        db.organization.drop()
-        print("All collections dropped.")
+    if click.confirm("Do you want to drop all the database?"):
+        with application.app_context():
+            models.db_empty(db)
+            print("Database dropped.")
+
+
+@application.cli.command("db_create")
+def db_create():
+    "Will create the database."
+    with application.app_context():
+        models.db_create(
+            db,
+            application.config["DB_CONFIG_DICT"],
+            application.config["DATABASE_NAME"],
+        )
+
+
+@application.cli.command("db_init")
+def db_init():
+    "Will create the database from conf parameters."
+    with application.app_context():
+        models.db_init(db)

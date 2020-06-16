@@ -4,8 +4,9 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 
+from statsservice.bootstrap import db
+from statsservice.models import Organization
 from statsservice.api.v1.common import auth_func
-from statsservice.documents import Organization
 
 
 organization_ns = Namespace(
@@ -35,4 +36,6 @@ class OrganizationsList(Resource):
     def post(self):
         """Create a new organization."""
         new_organization = Organization(**organization_ns.payload)
-        return new_organization.save(), 201
+        db.session.add(new_organization)
+        db.session.commit()
+        return new_organization, 201

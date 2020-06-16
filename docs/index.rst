@@ -31,6 +31,5 @@ Table of contents
 
    deployment
    api-v1
-   api-v2
    stats
    command-line-interface

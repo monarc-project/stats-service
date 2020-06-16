@@ -8,14 +8,13 @@ license = "AGPL-3.0-or-later"
 [tool.poetry.dependencies]
 python = "^3.8"
 Flask = "^1.1.2"
-flask-mongoengine = "^0.9.5"
-Flask-MongoRest = "^0.3.0"
 mimerender = "^0.6.0"
-cleancat = "^0.7.12"
 requests = "^2.23.0"
-flask_restx = "^0.2.0"
 pandas = "^1.0.4"
+flask_restx = "^0.2.0"
 jsonschema = "^3.2.0"
+Flask-SQLAlchemy = "^2.4.3"
+psycopg2-binary = "^2.8.5"
 
 [tool.poetry.dev-dependencies]
 sphinx = "^3.0.3"

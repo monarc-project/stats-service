@@ -1,8 +1,8 @@
 import click
 import secrets
 
-from statsservice.bootstrap import application
-from statsservice.documents import Organization
+from statsservice.bootstrap import application, db
+from statsservice.models import Organization
 
 
 @application.cli.command("create_organization")
@@ -12,7 +12,8 @@ def create_organization(name):
     """
     token = secrets.token_urlsafe(64)
     new_org = Organization(name=name, token=token)
-    new_org.save()
+    db.session.add(new_org)
+    db.session.commit()
     print(new_org)
 
 
@@ -20,6 +21,6 @@ def create_organization(name):
 def list_organizations():
     """List organizations.
     """
-    for organization in Organization.objects():
+    for organization in Organization.query.all():
         print(organization)
         print()
