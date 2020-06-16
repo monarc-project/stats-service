@@ -19,6 +19,9 @@
             "url": "https://github.com/heroku/heroku-buildpack-python"
         }
     ],
+    "scripts": {
+        "postdeploy": "flask db_init"
+    },
     "env": {
         "HEROKU": "1",
         "FLASK_APP": "runserver.py",
