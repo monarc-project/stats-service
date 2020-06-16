@@ -9,7 +9,7 @@ Heroku
     $ git clone https://github.com/monarc-project/stats-service
     $ cd stats-service/
     $ heroku create --region eu <name-of-your-instance>
-    $ heroku addons:add mongolab:sandbox
+    $ heroku addons:add heroku-postgresql:hobby-dev
     $ heroku config:set HEROKU=1
     $ heroku config:set INSTANCE_URL=https://<name-of-your-instance>.herokuapp.com
     $ heroku config:set FLASK_APP='runserver.py'
