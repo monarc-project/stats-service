@@ -32,13 +32,6 @@ Example:
     Name: CASES
     Token: SylsDTZTBk2zAkg016vW_aCuO1XQDXPsxrLuI1TG7z5sYvUfRlVf5R4g6kDnLI_o-c5iqrswrWzPANDKXmtV7Q
 
-The token is automatically generated. It will be required when using the
-``Stats`` API (:ref:`section_stats_api`) if the authentication is enabled
-(:ref:`section_authentication`).
-
-
-TODO: Add a command to update a token (For the moment this can still be done with the API.)
-
 
 Listing organizations
 ---------------------

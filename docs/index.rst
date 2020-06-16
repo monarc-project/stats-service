@@ -3,13 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: https://readthedocs.org/projects/monarc-stats-service/badge/?version=latest
-   :target: https://monarc-stats-service.readthedocs.io/en/latest/?badge=latest
-   :alt: Documentation Status
+.. only:: html
 
-.. image:: https://github.com/monarc-project/stats-service/workflows/Python%20application/badge.svg?style=flat-square
-   :target: https://github.com/monarc-project/stats-service/actions?query=workflow%3A%22Python+application%22
-   :alt: Workflow
+   .. image:: https://readthedocs.org/projects/monarc-stats-service/badge/?version=latest
+      :target: https://monarc-stats-service.readthedocs.io/en/latest/?badge=latest
+      :alt: Documentation Status
+
+   .. image:: https://github.com/monarc-project/stats-service/workflows/Python%20application/badge.svg?style=flat-square
+      :target: https://github.com/monarc-project/stats-service/actions?query=workflow%3A%22Python+application%22
+      :alt: Workflow
 
 Presentation
 ============
