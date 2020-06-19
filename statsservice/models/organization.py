@@ -25,6 +25,6 @@ class Organization(db.Model):
     )
 
     def __str__(self):
-        return "Name: {}\nToken: {}\nCreated at: {}".format(
-            self.name, self.token, self.created_at
+        return "UUID: {}\nName: {}\nToken: {}\nCreated at: {}".format(
+            self.uuid, self.name, self.token, self.created_at
         )
