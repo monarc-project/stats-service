@@ -98,7 +98,7 @@ class StatsList(Resource):
         organization = Organization.query.filter(Organization.token == token).first()
 
         args = parser.parse_args()
-        offset = args.pop("page", 1)
+        offset = args.pop("page", 1) - 1
         limit = args.pop("per_page", 10)
         args = {k: v for k, v in args.items() if v is not None}
         args["org_id"] = organization.id
@@ -113,14 +113,13 @@ class StatsList(Resource):
             for arg in args:
                 if hasattr(Stats, arg):
                     query = query.filter(getattr(Stats, arg) == args[arg])
-            total = query.count()
-            stats = query.all()
-            count = total
+            count = query.count()
+            query = query.limit(limit)
+            stats = query.offset(offset * limit)
         except Exception as e:
             print(e)
 
         result["data"] = stats
-        # result["metadata"]["total"] = total
         result["metadata"]["count"] = count
 
         return result, 200
