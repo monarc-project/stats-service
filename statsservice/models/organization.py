@@ -9,10 +9,7 @@ from statsservice.bootstrap import db
 class Organization(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(
-        UUID(as_uuid=True),
-        default=uuid.uuid4,
-        unique=True,
-        nullable=False,
+        UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False,
     )
     name = db.Column(db.String(100), unique=True)
     token = db.Column(db.String(100), unique=True, default=secrets.token_urlsafe(64))
