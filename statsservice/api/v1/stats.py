@@ -7,6 +7,7 @@ from flask_restx import Namespace, Resource, fields, reqparse, abort
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Organization
 from statsservice.api.v1.common import auth_func
+from statsservice.lib.processors import aggregate_risks
 
 
 stats_ns = Namespace("stats", description="stats related operations")
@@ -115,11 +116,11 @@ class StatsList(Resource):
                     query = query.filter(getattr(Stats, arg) == args[arg])
             count = query.count()
             query = query.limit(limit)
-            stats = query.offset(offset * limit)
+            results = query.offset(offset * limit)
         except Exception as e:
             print(e)
 
-        result["data"] = stats
+        result["data"] = results
         result["metadata"]["count"] = count
 
         return result, 200
