@@ -30,15 +30,16 @@ class Stats(db.Model):
 
     def __str__(self):
         return """Organization: {}
-        ANR: {}
-        Type: {}
-        Day: {}
-        Week: {}
-        Month: {}
-        Quarter: {}
-        Year: {}
-        """.format(
-            self.organization,
+ANR: {}
+Type: {}
+Day: {}
+Week: {}
+Month: {}
+Quarter: {}
+Year: {}
+Create at: {}
+""".format(
+            self.organization.name,
             self.anr,
             self.type,
             self.day,
@@ -46,4 +47,5 @@ class Stats(db.Model):
             self.month,
             self.quarter,
             self.year,
+            self.created_at,
         )
