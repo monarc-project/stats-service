@@ -13,6 +13,10 @@
       :target: https://github.com/monarc-project/stats-service/actions?query=workflow%3A%22Python+application%22
       :alt: Workflow
 
+   .. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
+      :target: https://pypi.org/project/statsservice
+      :alt: PyPi version
+
 Presentation
 ============
 

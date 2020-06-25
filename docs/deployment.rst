@@ -31,6 +31,10 @@ All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 Python Package Index
 --------------------
 
+.. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
+   :target: https://pypi.org/project/statsservice
+   :alt: PyPi version
+
 MONARC Stats service is available on `PyPI <https://pypi.org/project/statsservice>`_.
 
 
@@ -49,3 +53,10 @@ Then install the application:
     $ export FLASK_CONFIG=~/stats-conf.py
     $ pipx install statsservice
     $ monarc-stats-service
+     * Serving Flask app "runserver.py" (lazy loading)
+     * Environment: development
+     * Debug mode: on
+     * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+     * Restarting with stat
+     * Debugger is active!
+     * Debugger PIN: 289-989-890
