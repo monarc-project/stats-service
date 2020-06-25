@@ -1,8 +1,37 @@
 Deployment
 ==========
 
-Heroku
-------
+MONARC Stats service can be deployed via several ways:
+
+
+From the source
+---------------
+
+.. code-block:: bash
+
+    $ sudo apt install postgresql
+    $ git clone https://github.com/monarc-project/stats-service
+    $ cd stats-service/
+    $ cp instance/production.py.cfg instance/production.py
+    $ poetry install
+    $ poetry shell
+    $ export FLASK_APP=runserver.py
+    $ export FLASK_ENV=development
+    $ flask db_create
+    $ flask db_init
+
+
+
+To Heroku
+---------
+
+You can use this button:
+
+.. image:: https://www.herokucdn.com/deploy/button.png
+   :target: https://heroku.com/deploy?template=https://github.com/CASES-LU/MOSP
+   :alt: Documentation Status
+
+or via command line:
 
 .. code-block:: bash
 
@@ -28,7 +57,8 @@ Create a new organization:
 All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 
 
-Python Package Index
+
+From the Python Package Index
 --------------------
 
 .. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
