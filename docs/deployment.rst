@@ -3,6 +3,9 @@ Deployment
 
 MONARC Stats service can be deployed via several ways:
 
+.. contents::
+    :local:
+
 
 From the source
 ---------------
@@ -59,7 +62,7 @@ All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 
 
 From the Python Package Index
---------------------
+-----------------------------
 
 .. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
    :target: https://pypi.org/project/statsservice
