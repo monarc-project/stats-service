@@ -5,9 +5,15 @@
 # Utilities to generate aggregated data.
 #
 
+from collections import defaultdict
+
+
 def aggregate_risks():
     pass
 
 def aggregate_threats(threats):
-    for threat in threats:
-        print(threat.data)
+    groups = defaultdict(list)
+    for threat_stats in threats:
+        for data in threat_stats.data:
+            print(data)
+            groups[data['anr']].append(data)
