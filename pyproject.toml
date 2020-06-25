@@ -1,9 +1,37 @@
 [tool.poetry]
-name = "stats-service"
-version = "0.1.0"
-description = "Stats API for MONARC."
+name = "statsservice"
+version = "0.1.4"
+description = "Stats Service for MONARC."
 authors = ["Cédric Bonhomme <cedric@cedricbonhomme.org>"]
 license = "AGPL-3.0-or-later"
+
+readme = "README.md"
+
+homepage = "https://github.com/monarc-project/stats-service"
+repository = "https://github.com/monarc-project/stats-service"
+documentation = "https://monarc-stats-service.readthedocs.io"
+
+keywords = ["monarc", "security", "stats", "flask", "api"]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Topic :: Security",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)"
+]
+
+include = [
+    "README.md",
+    "COPYING",
+    "runserver.py",
+    "instance/production.py.cfg"
+]
+
+[tool.poetry.scripts]
+monarc-stats-service = "runserver:run"
 
 [tool.poetry.dependencies]
 python = "^3.8"

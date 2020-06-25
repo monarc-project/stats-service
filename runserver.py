@@ -46,9 +46,12 @@ with application.app_context():
     register_commands(application)
 
 
-if __name__ == "__main__":
+def run():
     application.run(
         host=application.config["HOST"],
         port=application.config["PORT"],
         debug=application.config["DEBUG"],
     )
+
+if __name__ == "__main__":
+    run()

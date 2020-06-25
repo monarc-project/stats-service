@@ -7,7 +7,7 @@ from flask_restx import Namespace, Resource, fields, reqparse, abort
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Organization
 from statsservice.api.v1.common import auth_func
-from statsservice.lib.processors import aggregate_risks, aggregate_threats
+from statsservice.lib.processors import aggregate_risks, groups_threats
 
 
 stats_ns = Namespace("stats", description="stats related operations")
@@ -126,7 +126,7 @@ class StatsList(Resource):
 
         # TODO: define something that will let the client asks for 'aggregated' results
         if args.get("type", "") == "threat":
-            groups = aggregate_threats(results)
+            groups = groups_threats(results)
 
 
         return result, 200

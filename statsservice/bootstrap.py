@@ -18,6 +18,10 @@ if ON_HEROKU:
     )
     application.config["INSTANCE_URL"] = os.environ.get("INSTANCE_URL", "")
 else:
-    application.config.from_pyfile("production.py", silent=False)
+    try:
+        application.config.from_pyfile("production.py", silent=False)
+    except:
+        config_file = os.environ.get("FLASK_CONFIG", "")
+        application.config.from_pyfile(config_file, silent=False)
 
 db = SQLAlchemy(application)

@@ -18,7 +18,8 @@ def aggregate_risks():
     pass
 
 
-def aggregate_threats(threats):
+def groups_threats(threats):
+    """Groups stats about threats per ANR (UUID) then per threat UUID."""
     groups = tree()
     for threat_stats in threats:
         for data in threat_stats.data:

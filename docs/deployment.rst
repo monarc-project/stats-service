@@ -26,3 +26,26 @@ Create a new organization:
     heroku run flask create_organization --name <name-of-the-organization>
 
 All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
+
+
+Python Package Index
+--------------------
+
+MONARC Stats service is available on `PyPI <https://pypi.org/project/statsservice>`_.
+
+
+First install and configure PostgreSQL:
+
+.. code-block:: bash
+
+    sudo apt install postgresql
+
+
+Then install the application:
+
+.. code-block:: bash
+
+    $ curl https://raw.githubusercontent.com/monarc-project/stats-service/master/instance/production.py.cfg -o stats-conf.py
+    $ export FLASK_CONFIG=~/stats-conf.py
+    $ pipx install statsservice
+    $ monarc-stats-service
