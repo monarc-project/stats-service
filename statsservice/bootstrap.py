@@ -13,9 +13,6 @@ application = Flask(__name__, instance_relative_config=True)
 
 if ON_HEROKU:
     application.config.from_pyfile("heroku.py", silent=False)
-    application.config["MONGODB_HOST"] = (
-        os.environ.get("MONGODB_URI", "") + "?retryWrites=false"
-    )
     application.config["INSTANCE_URL"] = os.environ.get("INSTANCE_URL", "")
 else:
     try:
