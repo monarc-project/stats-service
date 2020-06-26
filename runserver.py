@@ -41,6 +41,7 @@ with application.app_context():
     application.register_blueprint(v1.api_blueprint)
 
     from statsservice import views
+    application.register_blueprint(views.root_bp)
     application.register_blueprint(views.stats_bp)
 
     register_commands(application)
