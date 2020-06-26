@@ -30,4 +30,4 @@ root_bp = Blueprint("root_bp", __name__, url_prefix="")
 def home():
     """For the moment simply redirects to the documentation of the API.
     """
-    return redirect(url_for('api.doc'))
+    return redirect(url_for("api.doc"))

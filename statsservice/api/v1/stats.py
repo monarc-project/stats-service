@@ -123,11 +123,9 @@ class StatsList(Resource):
         result["data"] = results
         result["metadata"]["count"] = count
 
-
         # TODO: define something that will let the client asks for 'aggregated' results
         if args.get("type", "") == "threat":
             groups = groups_threats(results)
-
 
         return result, 200
 

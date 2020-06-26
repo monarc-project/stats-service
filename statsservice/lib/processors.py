@@ -23,7 +23,7 @@ def groups_threats(threats):
     groups = tree()
     for threat_stats in threats:
         for data in threat_stats.data:
-            #groups[threat_stats.anr].append(data)
+            # groups[threat_stats.anr].append(data)
             if data["uuid"] not in groups[threat_stats.anr].keys():
                 groups[threat_stats.anr][data["uuid"]] = []
             groups[threat_stats.anr][data["uuid"]].append(data)
