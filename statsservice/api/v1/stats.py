@@ -31,8 +31,8 @@ parser.add_argument(
 parser.add_argument(
     "year", type=int, help="Year of the stats. In full format e.g. 2020."
 )
-parser.add_argument("date_from", type=date_from_iso8601, help="The date of the stats is bigger or equal than this value.")
-parser.add_argument("date_to", type=date_from_iso8601, help="The date of the stats is smaller or equal than this value.")
+parser.add_argument("date_from", type=date_from_iso8601, help="The date of the stats must be bigger or equal than this value.")
+parser.add_argument("date_to", type=date_from_iso8601, help="The date of the stats must be smaller or equal than this value.")
 parser.add_argument("page", type=int, required=False, default=1, help="Page number")
 parser.add_argument("per_page", type=int, required=False, default=10, help="Page size")
 
