@@ -101,7 +101,7 @@ class StatsList(Resource):
         args = parser.parse_args()
         offset = args.pop("page", 1) - 1
         limit = args.pop("per_page", 10)
-        args = {k: v for k, v in args.items() if v is not None}
+        args = {k: v for k, v in args.items() if v not in [None, '']}
         args["org_id"] = organization.id
 
         result = {
