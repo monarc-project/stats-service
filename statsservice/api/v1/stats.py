@@ -3,6 +3,7 @@
 
 from flask import request
 from flask_restx import Namespace, Resource, fields, reqparse, abort
+from flask_restx.inputs import date_from_iso8601
 
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Organization
@@ -30,6 +31,8 @@ parser.add_argument(
 parser.add_argument(
     "year", type=int, help="Year of the stats. In full format e.g. 2020."
 )
+parser.add_argument("date_from", type=date_from_iso8601, help="The date of the stats must be bigger or equal than this value.")
+parser.add_argument("date_to", type=date_from_iso8601, help="The date of the stats must be smaller or equal than this value.")
 parser.add_argument("page", type=int, required=False, default=1, help="Page number")
 parser.add_argument("per_page", type=int, required=False, default=10, help="Page size")
 
@@ -101,8 +104,11 @@ class StatsList(Resource):
         args = parser.parse_args()
         offset = args.pop("page", 1) - 1
         limit = args.pop("per_page", 10)
-        args = {k: v for k, v in args.items() if v is not None}
+        date_from = args.pop("date_from", False)
+        date_to = args.pop("date_to", False)
+        args = {k: v for k, v in args.items() if v not in [None, ""]}
         args["org_id"] = organization.id
+
 
         result = {
             "data": [],
@@ -111,9 +117,26 @@ class StatsList(Resource):
 
         try:
             query = Stats.query
+            # Filter on defined object attributes:
             for arg in args:
                 if hasattr(Stats, arg):
                     query = query.filter(getattr(Stats, arg) == args[arg])
+
+            # Filter on URL defined attributes (not present in the object attributes)
+            if date_from:
+                query = query.filter(
+                    Stats.year >= date_from.year,
+                    Stats.month >= date_from.month,
+                    Stats.day >= date_from.day,
+                )
+            if date_to:
+                query = query.filter(
+                    Stats.year <= date_to.year,
+                    Stats.month <= date_to.month,
+                    Stats.day <= date_to.day,
+                )
+
+            # Count the result, then paginate
             count = query.count()
             query = query.limit(limit)
             results = query.offset(offset * limit)
