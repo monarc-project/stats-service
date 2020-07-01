@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "statsservice"
-version = "0.1.5"
+version = "0.1.6"
 description = "Stats Service for MONARC."
 authors = ["Cédric Bonhomme <cedric@cedricbonhomme.org>"]
 license = "AGPL-3.0-or-later"
@@ -26,8 +26,12 @@ classifiers = [
 include = [
     "README.md",
     "COPYING",
-    "runserver.py",
-    "instance/production.py.cfg"
+    "runserver.py"
+]
+
+packages = [
+    { include = "statsservice" },
+    { include = "instance" },
 ]
 
 [tool.poetry.scripts]
