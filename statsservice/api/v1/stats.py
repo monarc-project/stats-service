@@ -21,6 +21,8 @@ parser.add_argument(
     "type",
     type=str,
     help="Type of the stats (risk, vulnerability, threat, cartography or compliance)",
+    required=True,
+    choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
 )
 parser.add_argument("day", type=int, help="Number of the day of the year.")
 parser.add_argument("week", type=int, help="Week of the stats")
