@@ -6,13 +6,14 @@ Prerequisites
 
 Generally speaking, requirements are the following:
 
+- A GNU/Linux distribution (tested on Debian and Ubuntu);
 - Python: version >= 3.8;
-- A PostgreSQL server: persistent storage;
+- A PostgreSQL server 12.x: persistent storage;
 
 
 Additionally:
 
-- A cron daemon: running scheduled tasks for pushing or pulling data.
+- A cron daemon: running scheduled tasks for pushing or pulling stats data.
 
 
 Deployment
@@ -50,7 +51,7 @@ To Heroku
 You can use this button:
 
 .. image:: https://www.herokucdn.com/deploy/button.png
-   :target: https://heroku.com/deploy?template=https://github.com/CASES-LU/MOSP
+   :target: https://heroku.com/deploy?template=https://github.com/monarc-project/stats-service
    :alt: Documentation Status
 
 or via command line:
@@ -83,9 +84,11 @@ All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 From the Python Package Index
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
-   :target: https://pypi.org/project/statsservice
-   :alt: PyPi version
+.. only:: html
+
+    .. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
+       :target: https://pypi.org/project/statsservice
+       :alt: PyPi version
 
 MONARC Stats service is available on `PyPI <https://pypi.org/project/statsservice>`_.
 
