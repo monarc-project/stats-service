@@ -82,11 +82,17 @@ Then install the application:
 
 .. code-block:: bash
 
-    $ curl https://raw.githubusercontent.com/monarc-project/stats-service/master/instance/production.py.cfg -o stats-conf.py
-    $ export FLASK_CONFIG=~/stats-conf.py
     $ pipx install statsservice
     $ monarc-stats-service
      * Serving Flask app "statsservice.bootstrap" (lazy loading)
-     * Environment: development
+     * Environment: production
      * Debug mode: off
      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+
+
+If you want to use a custom configuration file:
+
+.. code-block:: bash
+
+    $ curl https://raw.githubusercontent.com/monarc-project/stats-service/master/instance/production.py.cfg -o production.py
+    $ export STATS_CONFIG=~/production.py
