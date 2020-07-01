@@ -7,7 +7,7 @@ from flask_restx.inputs import date_from_iso8601
 
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Organization
-from statsservice.api.v1.common import auth_func
+from statsservice.api.v1.common import auth_func, uuid_type
 from statsservice.lib.processors import aggregate_risks, groups_threats
 
 
@@ -16,7 +16,7 @@ stats_ns = Namespace("stats", description="stats related operations")
 
 # Argument Parsing
 parser = reqparse.RequestParser()
-parser.add_argument("anr", type=str, help="The ANR UUID related to this stats.")
+parser.add_argument("anr", type=uuid_type, help="The ANR UUID related to this stats.")
 parser.add_argument(
     "type",
     type=str,
@@ -25,10 +25,10 @@ parser.add_argument(
     choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
 )
 parser.add_argument("day", type=int, help="Number of the day of the year.")
-parser.add_argument("week", type=int, help="Week of the stats")
-parser.add_argument("month", type=int, help="Month of the stats. From 1 to 12.")
+parser.add_argument("week", type=int, help="Week of the stats", choices=tuple(range(1,54)))
+parser.add_argument("month", type=int, help="Month of the stats.", choices=tuple(range(1,13)))
 parser.add_argument(
-    "quarter", type=int, help="Number of quarter of a year. Possible values [1,2,3,4]"
+    "quarter", type=int, help="Number of quarter of a year.", choices=(1, 2, 3, 4)
 )
 parser.add_argument(
     "year", type=int, help="Year of the stats. In full format e.g. 2020."

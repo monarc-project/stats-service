@@ -1,10 +1,23 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import uuid
 from flask import request
 from flask_restx import abort
 
 from statsservice.models import Organization
+
+
+def uuid_type(value):
+    """Parse UUID"""
+    try:
+        val = uuid.UUID(value)
+    except ValueError:
+        raise ValueError('This is not a valid UUID.')
+    return val
+
+# Swagger documentation
+uuid_type.__schema__ = {'type': 'string', 'format': 'uuid_type'}
 
 
 def auth_func(func):
