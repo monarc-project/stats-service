@@ -5,6 +5,7 @@ MONARC Stats service can be deployed via several ways:
 
 .. contents::
     :local:
+    :depth: 1
 
 
 From the source
@@ -23,6 +24,7 @@ From the source
     $ flask db_create
     $ flask db_init
 
+For production you can use `Gunicorn <https://gunicorn.org>`_ or ``mod_wsgi``.
 
 
 To Heroku
@@ -96,3 +98,58 @@ If you want to use a custom configuration file:
 
     $ curl https://raw.githubusercontent.com/monarc-project/stats-service/master/instance/production.py.cfg -o production.py
     $ export STATS_CONFIG=~/production.py
+
+
+
+With systemd
+------------
+
+Get the code and configure the application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ sudo apt install postgresql
+    $ git clone https://github.com/monarc-project/stats-service
+    $ cd stats-service/
+    $ cp instance/production.py.cfg instance/production.py  # configure appropriately
+    $ poetry install # install the application
+    $ poetry run db_create # database creation
+    $ poetry run db_init # database initialization
+
+Write a systemd configuration file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Create the file ``/etc/systemd/system/statsservice.service`` with the following contents:
+
+.. code-block:: ini
+
+    [Unit]
+    Description=Stats Service for MONARC.
+    After=network.target
+
+    [Service]
+    User=<username>
+    Environment=FLASK_ENV=production
+    Environment=STATS_CONFIG=production.py
+    WorkingDirectory=/home/ubuntu/stats-service
+    ExecStart=/home/ubuntu/stats-service/venv/bin/gunicorn -b localhost:5000 -w 4 runserver
+    Restart=always
+
+    [Install]
+    WantedBy=multi-user.target
+
+
+After adding this file to your system, you can start the service with these commands:
+
+.. code-block:: bash
+
+    $ sudo systemctl daemon-reload
+    $ sudo systemctl start statsservice
+
+Accessing logs
+~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ journalctl -u statsservice
