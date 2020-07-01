@@ -35,7 +35,7 @@ Table of contents
 .. toctree::
    :maxdepth: 2
 
-   deployment
+   installation
    api-v1
    stats
    command-line-interface

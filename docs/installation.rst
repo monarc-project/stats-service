@@ -1,7 +1,24 @@
-Deployment
-==========
+Installation
+============
 
-MONARC Stats service can be deployed via several ways:
+Prerequisites
+-------------
+
+Generally speaking, requirements are the following:
+
+- Python: version >= 3.8;
+- A PostgreSQL server: persistent storage;
+
+
+Additionally:
+
+- A cron daemon: running scheduled tasks for pushing or pulling data.
+
+
+Deployment
+----------
+
+The service can be deployed via several ways:
 
 .. contents::
     :local:
@@ -9,7 +26,7 @@ MONARC Stats service can be deployed via several ways:
 
 
 From the source
----------------
+~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -28,7 +45,7 @@ For production you can use `Gunicorn <https://gunicorn.org>`_ or ``mod_wsgi``.
 
 
 To Heroku
----------
+~~~~~~~~~
 
 You can use this button:
 
@@ -64,7 +81,7 @@ All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 
 
 From the Python Package Index
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
    :target: https://pypi.org/project/statsservice
@@ -102,10 +119,10 @@ If you want to use a custom configuration file:
 
 
 With systemd
-------------
+~~~~~~~~~~~~
 
 Get the code and configure the application
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``````````````````````````````````````````
 
 .. code-block:: bash
 
@@ -118,7 +135,7 @@ Get the code and configure the application
     $ poetry run db_init # database initialization
 
 Write a systemd configuration file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``````````````````````````````````
 
 Create the file ``/etc/systemd/system/statsservice.service`` with the following contents:
 
@@ -148,7 +165,7 @@ After adding this file to your system, you can start the service with these comm
     $ sudo systemctl start statsservice
 
 Accessing logs
-~~~~~~~~~~~~~~
+``````````````
 
 .. code-block:: bash
 

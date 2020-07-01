@@ -1,8 +1,14 @@
 API v1
 ======
 
-Swagger
--------
+Security model
+--------------
+
+First, an overview of the security model.
+
+
+OpenAPI Specification
+---------------------
 
 https://monarc-stats-service.herokuapp.com/api/v1/swagger.json
 
@@ -13,20 +19,11 @@ Swagger UI: https://monarc-stats-service.herokuapp.com/api/v1
   :language: JSON
 
 
-Creating a new organization
----------------------------
-
-.. code-block:: bash
-
-    $ curl -X POST "http://127.0.0.1:5000/api/v1/api/v1/organization/" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{  \"name\": \"Company\"}"
-    {
-      "name": "Company",
-      "token": "rddPRk9_t-Z4GOgmY2UL2blKB1DxWB_0yhDlqcsF9p63eXs-oLCdm2c9YgP7cOqGz71GK1tc8lrCenD8AvEr-g"
-    }
-
+Examples
+--------
 
 Getting stats for an organization
----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
