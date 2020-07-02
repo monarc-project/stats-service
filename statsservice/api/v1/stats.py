@@ -20,15 +20,15 @@ parser.add_argument("anr", type=uuid_type, help="The ANR UUID related to this st
 parser.add_argument(
     "type",
     type=str,
-    help="Type of the stats (risk, vulnerability, threat, cartography or compliance)",
+    help="The type of the stats.",
     required=True,
     choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
 )
-parser.add_argument("day", type=int, help="Number of the day of the year.")
-parser.add_argument("week", type=int, help="Week of the stats", choices=tuple(range(1,54)))
-parser.add_argument("month", type=int, help="Month of the stats.", choices=tuple(range(1,13)))
+parser.add_argument("day", type=int, help="The number of the day of the year.")
+parser.add_argument("week", type=int, help="The week of the stats", choices=tuple(range(1,54)))
+parser.add_argument("month", type=int, help="The month of the stats.", choices=tuple(range(1,13)))
 parser.add_argument(
-    "quarter", type=int, help="Number of quarter of a year.", choices=(1, 2, 3, 4)
+    "quarter", type=int, help="The quarter of a year.", choices=(1, 2, 3, 4)
 )
 parser.add_argument(
     "year", type=int, help="Year of the stats. In full format e.g. 2020."
