@@ -21,6 +21,6 @@ elif os.environ.get("STATS_CONFIG", ""):
     application.config.from_pyfile(config_file, silent=False)
 else:
     # default configuration file
-    application.config.from_object('instance.config.ProductionConfig')
+    application.config.from_object("instance.config.ProductionConfig")
 
 db = SQLAlchemy(application)

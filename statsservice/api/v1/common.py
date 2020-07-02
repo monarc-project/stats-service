@@ -13,11 +13,12 @@ def uuid_type(value):
     try:
         val = uuid.UUID(value)
     except ValueError:
-        raise ValueError('This is not a valid UUID.')
+        raise ValueError("This is not a valid UUID.")
     return val
 
+
 # Swagger documentation
-uuid_type.__schema__ = {'type': 'string', 'format': 'uuid_type'}
+uuid_type.__schema__ = {"type": "string", "format": "uuid_type"}
 
 
 def auth_func(func):

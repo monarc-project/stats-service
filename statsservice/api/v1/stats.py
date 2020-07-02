@@ -25,16 +25,28 @@ parser.add_argument(
     choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
 )
 parser.add_argument("day", type=int, help="The number of the day of the year.")
-parser.add_argument("week", type=int, help="The week of the stats", choices=tuple(range(1,54)))
-parser.add_argument("month", type=int, help="The month of the stats.", choices=tuple(range(1,13)))
+parser.add_argument(
+    "week", type=int, help="The week of the stats", choices=tuple(range(1, 54))
+)
+parser.add_argument(
+    "month", type=int, help="The month of the stats.", choices=tuple(range(1, 13))
+)
 parser.add_argument(
     "quarter", type=int, help="The quarter of a year.", choices=(1, 2, 3, 4)
 )
 parser.add_argument(
     "year", type=int, help="Year of the stats. In full format e.g. 2020."
 )
-parser.add_argument("date_from", type=date_from_iso8601, help="The date of the stats must be bigger or equal than this value.")
-parser.add_argument("date_to", type=date_from_iso8601, help="The date of the stats must be smaller or equal than this value.")
+parser.add_argument(
+    "date_from",
+    type=date_from_iso8601,
+    help="The date of the stats must be bigger or equal than this value.",
+)
+parser.add_argument(
+    "date_to",
+    type=date_from_iso8601,
+    help="The date of the stats must be smaller or equal than this value.",
+)
 parser.add_argument("page", type=int, required=False, default=1, help="Page number")
 parser.add_argument("per_page", type=int, required=False, default=10, help="Page size")
 
@@ -110,7 +122,6 @@ class StatsList(Resource):
         date_to = args.pop("date_to", False)
         args = {k: v for k, v in args.items() if v not in [None, ""]}
         args["org_id"] = organization.id
-
 
         result = {
             "data": [],
