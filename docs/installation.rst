@@ -150,9 +150,9 @@ Several solutions are available:
 Daemon
 ~~~~~~
 
-Whichever way you installed, you can choose to use systemd to start the service.
-Simply create a file ``/etc/systemd/system/statsservice.service`` with the following
-contents:
+Whichever way you installed the service, you can choose to use systemd to start
+it. Simply create a file ``/etc/systemd/system/statsservice.service`` with the
+following contents:
 
 .. code-block:: ini
 
