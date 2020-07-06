@@ -7,13 +7,31 @@ Prerequisites
 Generally speaking, requirements are the following:
 
 - A GNU/Linux distribution (tested on Debian and Ubuntu);
-- Python: version >= 3.8;
+- Python: version >= 3.8 and a dependency manager (for example `Poetry <https://python-poetry.org>`_);
 - A PostgreSQL server 12.x: persistent storage;
 
 
 Additionally:
 
 - A cron daemon: running scheduled tasks for pushing or pulling stats data.
+
+
+Creation of a PostgreSQL user:
+
+.. code-block:: bash
+
+    $ sudo apt install postgresql
+    $ sudo -u postgres createuser <username>
+    $ sudo -u postgres psql
+    psql (11.2 (Ubuntu 11.2-1))
+    Type "help" for help.
+    postgres=# alter user <username> with encrypted password '<password>';
+    postgres=# ALTER USER <username> WITH SUPERUSER;
+    ALTER ROLE
+    postgres-# \q
+
+The user name and password chosen must be specified later in the configuration file.
+
 
 
 Deployment
@@ -31,7 +49,6 @@ From the source
 
 .. code-block:: bash
 
-    $ sudo apt install postgresql
     $ git clone https://github.com/monarc-project/stats-service
     $ cd stats-service/
     $ cp instance/production.py.cfg instance/production.py
@@ -93,15 +110,6 @@ From the Python Package Index
 MONARC Stats service is available on `PyPI <https://pypi.org/project/statsservice>`_.
 
 
-First install and configure PostgreSQL:
-
-.. code-block:: bash
-
-    sudo apt install postgresql
-
-
-Then install the application:
-
 .. code-block:: bash
 
     $ pipx install statsservice
@@ -129,7 +137,6 @@ Get the code and configure the application
 
 .. code-block:: bash
 
-    $ sudo apt install postgresql
     $ git clone https://github.com/monarc-project/stats-service
     $ cd stats-service/
     $ cp instance/production.py.cfg instance/production.py  # configure appropriately
