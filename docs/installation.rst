@@ -7,8 +7,8 @@ Prerequisites
 Generally speaking, requirements are the following:
 
 - A GNU/Linux distribution (tested on Debian and Ubuntu);
-- Python: version >= 3.8 and a dependency manager (for example `Poetry <https://python-poetry.org>`_);
-- A PostgreSQL server 12.x: persistent storage;
+- Python: version >= 3.6.1 and a dependency manager (for example `Poetry <https://python-poetry.org>`_);
+- A PostgreSQL server 12.x: persistent storage.
 
 
 Additionally:
@@ -49,17 +49,24 @@ From the source
 
 .. code-block:: bash
 
+    $ sudo apt install python3-pip python3-venv
+    $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
+    $ echo  'export PATH="$PATH:$HOME/.poetry/bin"' >> ~/.bashrc 
+    $ . ~/.bashrc
+
     $ git clone https://github.com/monarc-project/stats-service
     $ cd stats-service/
-    $ cp instance/production.py.cfg instance/production.py
-    $ poetry install
-    $ poetry shell
-    $ export FLASK_APP=runserver.py
-    $ export FLASK_ENV=development
-    $ flask db_create
-    $ flask db_init
+    $ cp instance/production.py.cfg instance/production.py  # configure appropriately
+    $ poetry install # install the application
+    $ export STATS_CONFIG=production.py
+    $ FLASK_APP=runserver.py poetry run flask db_create # database creation
+    $ FLASK_APP=runserver.py poetry run flask db_init # database initialization
 
-For production you can use `Gunicorn <https://gunicorn.org>`_ or ``mod_wsgi``.
+    $ FLASK_APP=runserver.py FLASK_ENV=development poetry run flask run
+
+
+For production you should use `Gunicorn <https://gunicorn.org>`_ or ``mod_wsgi``.
+Please read the :ref:`service-management` section.
 
 
 To Heroku
@@ -128,33 +135,24 @@ If you want to use a custom configuration file:
     $ export STATS_CONFIG=~/production.py
 
 
+.. _service-management:
 
-With systemd
-~~~~~~~~~~~~
+Service management
+------------------
 
-Get the code and configure the application
-``````````````````````````````````````````
+Several solutions are available:
 
-.. code-block:: bash
+.. contents::
+    :local:
+    :depth: 1
 
-    $ sudo apt install python3-pip python3-venv
 
-    $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
+Daemon
+~~~~~~
 
-    $ echo  'export PATH="$PATH:$HOME/.poetry/bin"' >> ~/.bashrc 
-    $ . ~/.bashrc
-
-    $ git clone https://github.com/monarc-project/stats-service
-    $ cd stats-service/
-    $ cp instance/production.py.cfg instance/production.py  # configure appropriately
-    $ poetry install # install the application
-    $ FLASK_APP=runserver.py poetry run flask db_create # database creation
-    $ FLASK_APP=runserver.py poetry run flask db_init # database initialization
-
-Write a systemd configuration file
-``````````````````````````````````
-
-Create the file ``/etc/systemd/system/statsservice.service`` with the following contents:
+Whichever way you installed, you can choose to use systemd to start the service.
+Simply create a file ``/etc/systemd/system/statsservice.service`` with the following
+contents:
 
 .. code-block:: ini
 
@@ -174,8 +172,8 @@ Create the file ``/etc/systemd/system/statsservice.service`` with the following 
     [Install]
     WantedBy=multi-user.target
 
-
-After adding this file to your system, you can start the service with these commands:
+You may need to adjust it a bit (for example if you want to use Gunicorn). After adding
+this file to your system, you can start the new systemd service with these commands:
 
 .. code-block:: bash
 
@@ -190,3 +188,67 @@ Accessing logs
 .. code-block:: bash
 
     $ journalctl -u statsservice
+
+
+mod_wsgi
+~~~~~~~~
+
+Create a file ``/etc/apache2/sites-available/statsservice.monarc.lu.conf``
+with a content similar to:
+
+
+.. code-block:: apacheconf
+
+    <VirtualHost *:80>
+            ServerName stats.monarc.lu
+
+            ServerAdmin webmaster@localhost
+            DocumentRoot /home/monarc/stats-service
+
+            WSGIDaemonProcess statsservice user=www-data group=www-data threads=5 python-home=/home/monarc/.local/share/virtualenvs/statsservice-_tH16p6s/ python-path=/home/monarc/stats-service
+            WSGIScriptAlias / /home/monarc/stats-service/webserver.wsgi
+
+            <Directory /home/monarc/stats-service>
+                WSGIApplicationGroup %{GLOBAL}
+                WSGIProcessGroup statsservice
+                WSGIPassAuthorization On
+
+                Options Indexes FollowSymLinks
+                Require all granted
+            </Directory>
+
+            SetEnv STATS_CONFIG production.py
+
+
+            # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+            # error, crit, alert, emerg.
+            # It is also possible to configure the loglevel for particular
+            # modules, e.g.
+            #LogLevel info ssl:warn
+            CustomLog /var/log/apache2/stats-service/access.log combined
+            ErrorLog /var/log/apache2/stats-service/error.log
+
+            # For most configuration files from conf-available/, which are
+            # enabled or disabled at a global level, it is possible to
+            # include a line for only one particular virtual host. For example the
+            # following line enables the CGI configuration for this host only
+            # after it has been globally disabled with "a2disconf".
+            #Include conf-available/serve-cgi-bin.conf
+    </VirtualHost>
+
+
+And a file:
+
+
+.. code-block:: bash
+
+    $ cat stats-service/webserver.wsgi
+    #! /usr/bin/env python
+
+    python_home = '/home/monarc/.local/share/virtualenvs/statsservice-_tH16p6s'
+
+    activate_this = python_home + '/bin/activate_this.py'
+    with open(activate_this) as file_:
+        exec(file_.read(), dict(__file__=activate_this))
+
+    from runserver import application
