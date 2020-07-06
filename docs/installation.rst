@@ -25,7 +25,7 @@ Creation of a PostgreSQL user:
     $ sudo -u postgres psql
     psql (11.2 (Ubuntu 11.2-1))
     Type "help" for help.
-    postgres=# alter user <username> with encrypted password '<password>';
+    postgres=# ALTER USER <username> WITH encrypted password '<password>';
     postgres=# ALTER USER <username> WITH SUPERUSER;
     ALTER ROLE
     postgres-# \q
