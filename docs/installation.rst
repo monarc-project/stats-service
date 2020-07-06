@@ -137,15 +137,13 @@ Get the code and configure the application
 
 .. code-block:: bash
 
-    $ sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev \
-    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-    xz-utils tk-dev libffi-dev liblzma-dev python-openssl python3-pip python3-venv
+    $ sudo apt install python3-pip python3-venv
 
     $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
 
     $ echo  'export PATH="$PATH:$HOME/.poetry/bin"' >> ~/.bashrc 
     $ . ~/.bashrc
-    $
+
     $ git clone https://github.com/monarc-project/stats-service
     $ cd stats-service/
     $ cp instance/production.py.cfg instance/production.py  # configure appropriately
@@ -172,7 +170,6 @@ Create the file ``/etc/systemd/system/statsservice.service`` with the following 
     WorkingDirectory=/home/monarc/stats-service
     ExecStart=/home/monarc/.poetry/bin/poetry run flask run
     Restart=always
-
 
     [Install]
     WantedBy=multi-user.target
