@@ -137,12 +137,21 @@ Get the code and configure the application
 
 .. code-block:: bash
 
+    $ sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev \
+    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+    xz-utils tk-dev libffi-dev liblzma-dev python-openssl python3-pip python3-venv
+
+    $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
+
+    $ echo  'export PATH="$PATH:$HOME/.poetry/bin"' >> ~/.bashrc 
+    $ . ~/.bashrc
+    $
     $ git clone https://github.com/monarc-project/stats-service
     $ cd stats-service/
     $ cp instance/production.py.cfg instance/production.py  # configure appropriately
     $ poetry install # install the application
-    $ poetry run db_create # database creation
-    $ poetry run db_init # database initialization
+    $ FLASK_APP=runserver.py poetry run flask db_create # database creation
+    $ FLASK_APP=runserver.py poetry run flask db_init # database initialization
 
 Write a systemd configuration file
 ``````````````````````````````````
@@ -152,16 +161,19 @@ Create the file ``/etc/systemd/system/statsservice.service`` with the following 
 .. code-block:: ini
 
     [Unit]
-    Description=Stats Service for MONARC.
+    Description=Stats
     After=network.target
 
     [Service]
-    User=<username>
+    User=monarc
+    Environment=FLASK_APP=runserver.py
     Environment=FLASK_ENV=production
     Environment=STATS_CONFIG=production.py
-    WorkingDirectory=/home/ubuntu/stats-service
-    ExecStart=/home/ubuntu/stats-service/venv/bin/gunicorn -b localhost:5000 -w 4 runserver
+    WorkingDirectory=/home/monarc/stats-service
+    ExecStart=
+    ExecStart=/home/monarc/.poetry/bin/poetry run flask run
     Restart=always
+
 
     [Install]
     WantedBy=multi-user.target
@@ -172,7 +184,9 @@ After adding this file to your system, you can start the service with these comm
 .. code-block:: bash
 
     $ sudo systemctl daemon-reload
+    $ sudo systemctl enable statsservice.service
     $ sudo systemctl start statsservice
+    $ systemctl status statsservice.service
 
 Accessing logs
 ``````````````

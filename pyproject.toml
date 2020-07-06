@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "statsservice"
-version = "0.1.7"
+version = "0.1.9"
 description = "Stats Service for MONARC."
 authors = ["Cédric Bonhomme <cedric@cedricbonhomme.org>"]
 license = "AGPL-3.0-or-later"
@@ -18,7 +18,7 @@ classifiers = [
     "Environment :: Web Environment",
     "Topic :: Security",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)"
 ]
 
@@ -37,7 +37,7 @@ packages = [
 monarc-stats-service = "runserver:run"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.6.1"
 Flask = "^1.1.2"
 requests = "^2.23.0"
 pandas = "^1.0.4"
