@@ -170,7 +170,6 @@ Create the file ``/etc/systemd/system/statsservice.service`` with the following 
     Environment=FLASK_ENV=production
     Environment=STATS_CONFIG=production.py
     WorkingDirectory=/home/monarc/stats-service
-    ExecStart=
     ExecStart=/home/monarc/.poetry/bin/poetry run flask run
     Restart=always
 
