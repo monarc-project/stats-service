@@ -14,7 +14,7 @@ from statsservice.bootstrap import application
 MOSP_API_OBJECT_ENDPOINT = urljoin(application.config["MOSP_URL"], "/object/")
 
 
-def is_objects_published(uuid):
+def is_object_published(uuid):
     """Check if an object has been published on MOSP."""
     r = requests.get(urljoin(MOSP_API_OBJECT_ENDPOINT, uuid))
     if r.status_code == 200:

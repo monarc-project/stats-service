@@ -30,7 +30,7 @@ from statsservice.commands import (
     db_init,
     create_organization,
     list_organizations,
-    is_objects_published,
+    is_object_published,
 )
 
 
@@ -47,7 +47,7 @@ def register_commands(app):
     app.cli.add_command(create_organization)
     app.cli.add_command(list_organizations)
     # mosp
-    app.cli.add_command(is_objects_published)
+    app.cli.add_command(is_object_published)
 
 
 with application.app_context():
