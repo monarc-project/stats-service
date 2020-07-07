@@ -6,13 +6,17 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 from statsservice.bootstrap import db
 
 
+def my_secret():
+        return secrets.token_urlsafe(64)[:64]
+
+
 class Organization(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(
         UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False,
     )
     name = db.Column(db.String(100), unique=True)
-    token = db.Column(db.String(100), unique=True, default=secrets.token_urlsafe(64))
+    token = db.Column(db.String(100), unique=True, default=my_secret)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_at = db.Column(db.DateTime(), default=datetime.utcnow)
 
