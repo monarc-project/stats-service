@@ -16,6 +16,9 @@ class Config(object):
 
     REMOTE_STATS_SERVER = "http://127.0.0.1:5000"
 
+    # Connection with MOSP
+    MOSP_URL = "https://objects.monarc.lu"
+
 
 class ProductionConfig(Config):
     DB_CONFIG_DICT = {

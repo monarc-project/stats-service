@@ -22,25 +22,41 @@
 
 
 from statsservice.bootstrap import application
-from statsservice.commands import push_stats, pull_stats, db_empty, db_create, db_init, create_organization, list_organizations
+from statsservice.commands import (
+    push_stats,
+    pull_stats,
+    db_empty,
+    db_create,
+    db_init,
+    create_organization,
+    list_organizations,
+    is_objects_published,
+)
 
 
 def register_commands(app):
     """Register Click commands."""
-    app.cli.add_command(push_stats)
-    app.cli.add_command(pull_stats)
+    # database
     app.cli.add_command(db_empty)
     app.cli.add_command(db_create)
     app.cli.add_command(db_init)
+    # pull and push
+    app.cli.add_command(push_stats)
+    app.cli.add_command(pull_stats)
+    # organization
     app.cli.add_command(create_organization)
     app.cli.add_command(list_organizations)
+    # mosp
+    app.cli.add_command(is_objects_published)
 
 
 with application.app_context():
     from statsservice.api import v1
+
     application.register_blueprint(v1.api_blueprint)
 
     from statsservice import views
+
     application.register_blueprint(views.root_bp)
     application.register_blueprint(views.stats_bp)
 
@@ -53,6 +69,7 @@ def run():
         port=application.config["PORT"],
         debug=application.config["DEBUG"],
     )
+
 
 if __name__ == "__main__":
     run()

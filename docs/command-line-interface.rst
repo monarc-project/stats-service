@@ -4,6 +4,12 @@
 Command Line Interface
 ======================
 
+Listing of the available commands:
+
+.. contents::
+    :local:
+    :depth: 1
+
 
 .. _section_creating_an_organization:
 
@@ -93,3 +99,18 @@ Pulling data
 ------------
 
 Pulling data from a central stats server.
+
+
+Interactions with MOSP
+----------------------
+
+.. code-block:: bash
+
+    $ flask is_objects_published --help
+    Usage: flask is_objects_published [OPTIONS]
+
+      Check if an object has been published on MOSP. Returns a boolean.
+
+    Options:
+      --uuid TEXT  UUID of the object  [required]
+      --help       Show this message and exit.
