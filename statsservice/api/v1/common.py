@@ -30,7 +30,7 @@ def auth_func(func):
                     Organization.token == token
                 ).first()
                 if not organization:
-                    abort(401, Error="Authentication required.")
+                    abort(403, Error="Authentication failed.")
         else:
             abort(401, Error="Authentication required.")
         return func(*args, **kwargs)
