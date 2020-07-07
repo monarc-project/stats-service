@@ -38,8 +38,8 @@ def setup_api(application):
 
     from statsservice.api.v1 import stats, organization
 
-    api.add_namespace(organization.organization_ns, path="/api/v1/organization")
-    api.add_namespace(stats.stats_ns, path="/api/v1/stats")
+    api.add_namespace(organization.organization_ns, path="/organization")
+    api.add_namespace(stats.stats_ns, path="/stats")
 
     return api
 
