@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "basePath": "/api/v1",
     "paths": {
-        "/api/v1/organization/": {
+        "/organization/": {
             "post": {
                 "responses": {
                     "201": {
@@ -36,7 +36,7 @@
                 ]
             }
         },
-        "/api/v1/stats/": {
+        "/stats/": {
             "get": {
                 "responses": {
                     "401": {
@@ -67,7 +67,7 @@
                         "in": "query",
                         "type": "string",
                         "required": true,
-                        "description": "Type of the stats (risk, vulnerability, threat, cartography or compliance)",
+                        "description": "The type of the stats.",
                         "enum": [
                             "risk",
                             "vulnerability",
@@ -81,13 +81,13 @@
                         "name": "day",
                         "in": "query",
                         "type": "integer",
-                        "description": "Number of the day of the year."
+                        "description": "The number of the day of the year."
                     },
                     {
                         "name": "week",
                         "in": "query",
                         "type": "integer",
-                        "description": "Week of the stats",
+                        "description": "The week of the stats",
                         "enum": [
                             1,
                             2,
@@ -149,7 +149,7 @@
                         "name": "month",
                         "in": "query",
                         "type": "integer",
-                        "description": "Month of the stats.",
+                        "description": "The month of the stats.",
                         "enum": [
                             1,
                             2,
@@ -170,7 +170,7 @@
                         "name": "quarter",
                         "in": "query",
                         "type": "integer",
-                        "description": "Number of quarter of a year.",
+                        "description": "The quarter of a year.",
                         "enum": [
                             1,
                             2,
@@ -242,7 +242,10 @@
                         "required": true,
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/Stats"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Stats"
+                            }
                         }
                     },
                     {
@@ -258,7 +261,7 @@
                 ]
             }
         },
-        "/api/v1/stats/{uuid}": {
+        "/stats/{uuid}": {
             "parameters": [
                 {
                     "in": "path",
@@ -268,29 +271,17 @@
                     "type": "string"
                 }
             ],
-            "get": {
+            "delete": {
                 "responses": {
                     "404": {
                         "description": "Stats not found"
                     },
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/Stats"
-                        }
+                    "204": {
+                        "description": "Stats deleted"
                     }
                 },
-                "summary": "Fetch a given resource",
-                "operationId": "get_stats",
-                "parameters": [
-                    {
-                        "name": "X-Fields",
-                        "in": "header",
-                        "type": "string",
-                        "format": "mask",
-                        "description": "An optional fields mask"
-                    }
-                ],
+                "summary": "Delete a stats given its identifier",
+                "operationId": "delete_stats",
                 "tags": [
                     "stats"
                 ]
@@ -330,17 +321,29 @@
                     "stats"
                 ]
             },
-            "delete": {
+            "get": {
                 "responses": {
                     "404": {
                         "description": "Stats not found"
                     },
-                    "204": {
-                        "description": "Stats deleted"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Stats"
+                        }
                     }
                 },
-                "summary": "Delete a stats given its identifier",
-                "operationId": "delete_stats",
+                "summary": "Fetch a given resource",
+                "operationId": "get_stats",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
                 "tags": [
                     "stats"
                 ]
@@ -441,12 +444,14 @@
                 "created_at": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "Created time of the stats."
+                    "description": "Created time of the stats.",
+                    "readOnly": true
                 },
                 "updated_at": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "Updated time of the stats."
+                    "description": "Updated time of the stats.",
+                    "readOnly": true
                 }
             },
             "type": "object"
