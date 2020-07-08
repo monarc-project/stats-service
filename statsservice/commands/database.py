@@ -30,5 +30,7 @@ def db_create():
 @application.cli.command("db_init")
 def db_init():
     "Will initialize the database."
-    with application.app_context():
+    try:
         models.db_init(db)
+    except Exception as e:
+        print(e)
