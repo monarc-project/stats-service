@@ -5,6 +5,10 @@
 
 .. only:: html
 
+   .. image:: https://img.shields.io/github/release/monarc-project/stats-service.svg?style=flat-square
+      :target: https://github.com/monarc-project/stats-service/releases/latest
+      :alt: Latest release
+
    .. image:: https://readthedocs.org/projects/monarc-stats-service/badge/?version=latest
       :target: https://monarc-stats-service.readthedocs.io/en/latest/?badge=latest
       :alt: Documentation Status
