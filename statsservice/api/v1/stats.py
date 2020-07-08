@@ -70,8 +70,8 @@ stats = stats_ns.model(
             description="Year of the stats. In full format e.g. 2020."
         ),
         "data": fields.Raw(description="The stats as a dynamic JSON object."),
-        "created_at": fields.DateTime(description="Created time of the stats."),
-        "updated_at": fields.DateTime(description="Updated time of the stats."),
+        "created_at": fields.DateTime(readonly=True, description="Created time of the stats."),
+        "updated_at": fields.DateTime(readonly=True, description="Updated time of the stats."),
     },
 )
 
@@ -166,7 +166,7 @@ class StatsList(Resource):
         return result, 200
 
     @stats_ns.doc("create_stats")
-    @stats_ns.expect(stats)
+    @stats_ns.expect([stats])
     @stats_ns.marshal_with(stats, code=201)
     @auth_func
     def post(self):
