@@ -174,11 +174,12 @@ class StatsList(Resource):
         # set the appropriate organization thanks to the token
         token = request.headers.get("X-API-KEY", False)
         organization = Organization.query.filter(Organization.token == token).first()
-        stats_ns.payload["org_id"] = organization.id
         # create the stats
-        new_stat = Stats(**stats_ns.payload)
-        db.session.add(new_stat)
-        db.session.commit()
+        for stats in stats_ns.payload:
+            stats["org_id"] = organization.id
+            new_stat = Stats(**stats)
+            db.session.add(new_stat)
+            db.session.commit()
         return new_stat, 201
 
 
