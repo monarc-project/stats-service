@@ -174,13 +174,13 @@ class StatsList(Resource):
         # set the appropriate organization thanks to the token
         token = request.headers.get("X-API-KEY", False)
         organization = Organization.query.filter(Organization.token == token).first()
-        # create the stats
+        # create the new stats
+        news_stats = []
         for stats in stats_ns.payload:
-            stats["org_id"] = organization.id
-            new_stat = Stats(**stats)
-            db.session.add(new_stat)
-            db.session.commit()
-        return new_stat, 201
+            news_stats.append(Stats(**stats, org_id=organization.id))
+        db.session.bulk_save_objects(news_stats)
+        db.session.commit()
+        return {}, 204
 
 
 @stats_ns.route("/<string:uuid>")
