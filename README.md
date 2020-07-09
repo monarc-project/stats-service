@@ -21,7 +21,7 @@ These aggregated statistics can then be sent to a central instance.
 ## Deployment
 
 The following assumes you have already installed ``git``, ``poetry``,  and
-``Python >= 3.8``.
+``Python >= 3.6.1``.
 
 ```bash
 $ sudo apt install postgresql
@@ -32,6 +32,7 @@ $ poetry install
 $ poetry shell
 $ export FLASK_APP=runserver.py
 $ export FLASK_ENV=development
+$ export STATS_CONFIG=production.py
 $ flask db_create
 $ flask db_init
 
@@ -49,8 +50,6 @@ $ flask run
  * Debugger is active!
  * Debugger PIN: 268-178-811
 ```
-
-For production you can use [Gunicorn](https://gunicorn.org) or ``mod_wsgi``.
 
 
 ## Documentation
