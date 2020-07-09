@@ -20,8 +20,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from flask import Blueprint, redirect, url_for
-
+from flask import Blueprint, redirect, url_for, jsonify
+from statsservice import __version__
 
 root_bp = Blueprint("root_bp", __name__, url_prefix="")
 
@@ -31,3 +31,24 @@ def home():
     """For the moment simply redirects to the documentation of the API.
     """
     return redirect(url_for("api.doc"))
+
+
+@root_bp.route("about.json", methods=["GET"])
+def about_json():
+    """Provide information about the instance.
+    """
+    version = __version__.split("-")
+    if len(version) == 1:
+        stats_version = version[0]
+        version_url = "https://github.com/monarc-project/stats-service/releases/tag/{}".format(
+            version[0]
+        )
+    else:
+        stats_version = "{} - {}".format(version[0], version[2][1:])
+        version_url = "https://github.com/monarc-project/stats-service/commits/{}".format(
+            version[2][1:]
+        )
+
+    return jsonify(
+        version=stats_version, version_url=version_url, api_v1_root=url_for("api.doc")
+    )
