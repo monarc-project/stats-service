@@ -51,7 +51,7 @@ From the source
 
     $ sudo apt install python3-pip python3-venv
     $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
-    $ echo  'export PATH="$PATH:$HOME/.poetry/bin"' >> ~/.bashrc 
+    $ echo  'export PATH="$PATH:$HOME/.poetry/bin"' >> ~/.bashrc
     $ . ~/.bashrc
 
     $ git clone https://github.com/monarc-project/stats-service
@@ -67,6 +67,18 @@ From the source
 
 For production you should use `Gunicorn <https://gunicorn.org>`_ or ``mod_wsgi``.
 Please read the :ref:`service-management` section.
+
+
+Check the version:
+
+.. code-block:: bash
+
+    $ curl http://127.0.0.1:5000/about.json
+    {
+      "api_v1_root": "/api/v1/",
+      "version": "v0.1.9 - 05abfe1",
+      "version_url": "https://github.com/monarc-project/stats-service/commits/05abfe1"
+    }
 
 
 To Heroku
