@@ -9,6 +9,7 @@ from statsservice.bootstrap import db
 from statsservice.models import Stats, Organization
 from statsservice.api.v1.common import auth_func, uuid_type
 from statsservice.lib.processors import aggregate_risks, groups_threats
+from statsservice.lib.stats import average_threats
 
 
 stats_ns = Namespace("stats", description="stats related operations")
@@ -165,7 +166,8 @@ class StatsList(Resource):
 
         # TODO: define something that will let the client asks for 'aggregated' results
         if args.get("type", "") == "threat":
-            groups = groups_threats(results)
+            #groups = groups_threats(results)
+            average_threats(results)
 
         return result, 200
 

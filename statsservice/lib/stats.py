@@ -6,3 +6,26 @@
 #
 
 import pandas as pd
+from collections import defaultdict
+from statsservice.lib.processors import groups_threats
+
+
+def tree():
+    """Autovivification.
+    """
+    return defaultdict(tree)
+
+
+def average_threats(threats):
+    """filter, group, and then process the result depends on the stats type.
+    """
+    grouped_threats = groups_threats(threats)
+    frames = defaultdict(list)
+
+    for anr_uuid in grouped_threats:
+        for threat_uuid, stats in grouped_threats[anr_uuid].items():
+            frames[threat_uuid].append(stats)
+            df = pd.DataFrame(stats)
+            result = dict(df.mean())
+            if threat_uuid == 'b402d4e0-4576-11e9-9173-0800277f0571':
+                print(result)
