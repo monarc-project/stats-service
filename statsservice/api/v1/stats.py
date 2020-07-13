@@ -36,11 +36,13 @@ parser.add_argument(
 parser.add_argument(
     "date_from",
     type=date_from_iso8601,
+    required=False,
     help="The date of the stats must be bigger or equal than this value.",
 )
 parser.add_argument(
     "date_to",
     type=date_from_iso8601,
+    required=False,
     help="The date of the stats must be smaller or equal than this value.",
 )
 parser.add_argument("page", type=int, required=False, default=1, help="Page number")
@@ -111,7 +113,7 @@ class StatsList(Resource):
         )
         date_to = args.pop(
             "date_to",
-            date.today().strftime("%Y-%m-%d"))
+            date.today().strftime("%Y-%m-%d")
         )
         type = args.pop("type")
 
@@ -129,9 +131,9 @@ class StatsList(Resource):
 
             # TODO: perform aggregation of the results if needed.
             # TODO: group by anr always by default, will see later for BO, if there should be a separate param.
-#             if args.get("type", "") == "threat":
-#                 groups = groups_threats(results)
-#                 average_threats(results)
+            #if args.get("type", "") == "threat":
+            #    groups = groups_threats(results)
+            #    average_threats(results)
 
 
             # Count the result, then paginate

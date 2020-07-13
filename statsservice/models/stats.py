@@ -30,7 +30,8 @@ ANR: {}
 Type: {}
 Date: {}
 Data: {}
-Create at: {}
+Created at: {}
+Updated at: {}
 """.format(
             self.client.name,
             self.anr,
