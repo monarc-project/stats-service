@@ -166,7 +166,7 @@ class StatsList(Resource):
 
         # TODO: define something that will let the client asks for 'aggregated' results
         if args.get("type", "") == "threat":
-            #groups = groups_threats(results)
+            # groups = groups_threats(results)
             average_threats(results)
 
         return result, 200

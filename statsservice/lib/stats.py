@@ -28,6 +28,6 @@ def average_threats(threats):
             frames[threat_uuid].append(stats)
             df = pd.DataFrame(stats)
             result = dict(df.mean())
-            if True:#threat_uuid == 'b402d4e0-4576-11e9-9173-0800277f0571':
+            if True:  # threat_uuid == 'b402d4e0-4576-11e9-9173-0800277f0571':
                 print("{} : {}".format(threat_uuid, result))
         print()
