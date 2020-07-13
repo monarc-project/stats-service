@@ -42,15 +42,15 @@ Initialization of the database
       --help  Show this message and exit.
 
 
-Drop all collections from the database
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Drop all the database
+~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-    $ flask drop_all_collections --help
-    Usage: flask drop_all_collections [OPTIONS]
+    $ flask db_empty --help
+    Usage: flask db_empty [OPTIONS]
 
-      Drop all collections from the database.
+      Drop all the database.
 
     Options:
       --help  Show this message and exit.
@@ -61,10 +61,10 @@ Will ask for confirmation and eventually drop all collections.
 
 
 Clients
--------------
+-------
 
 Creating an client
-~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -90,7 +90,7 @@ Example:
 
 
 Listing clients
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
