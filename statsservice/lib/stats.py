@@ -10,12 +10,6 @@ from collections import defaultdict
 from statsservice.lib.processors import groups_threats
 
 
-def tree():
-    """Autovivification.
-    """
-    return defaultdict(tree)
-
-
 def average_threats(threats):
     """filter, group, and then process the result depends on the stats type.
     """
