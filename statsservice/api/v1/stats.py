@@ -124,7 +124,7 @@ class StatsList(Resource):
 
         try:
             query = Stats.query.filter(
-                Stats.type = type,
+                Stats.type == type,
                 Stats.date >= date_from,
                 Stats.date <= date_to,
             )
