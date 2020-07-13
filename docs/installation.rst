@@ -107,11 +107,11 @@ or via command line:
 A demo instance is available
 `here <https://monarc-stats-service.herokuapp.com/api/v1/>`_.
 
-Create a new organization:
+Create a new client:
 
 .. code-block:: bash
 
-    heroku run flask create_organization --name <name-of-the-organization>
+    heroku run flask create_client --name <name-of-the-client>
 
 All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 

@@ -36,9 +36,9 @@ def setup_api(application):
             ),
         )
 
-    from statsservice.api.v1 import stats, organization
+    from statsservice.api.v1 import stats, client
 
-    api.add_namespace(organization.organization_ns, path="/organization")
+    api.add_namespace(client.client_ns, path="/client")
     api.add_namespace(stats.stats_ns, path="/stats")
 
     return api

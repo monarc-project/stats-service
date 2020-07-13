@@ -28,8 +28,8 @@ from statsservice.commands import (
     db_empty,
     db_create,
     db_init,
-    create_organization,
-    list_organizations,
+    create_client,
+    list_clients,
     is_object_published,
 )
 
@@ -43,9 +43,9 @@ def register_commands(app):
     # pull and push
     app.cli.add_command(push_stats)
     app.cli.add_command(pull_stats)
-    # organization
-    app.cli.add_command(create_organization)
-    app.cli.add_command(list_organizations)
+    # client
+    app.cli.add_command(create_client)
+    app.cli.add_command(list_clients)
     # mosp
     app.cli.add_command(is_object_published)
 

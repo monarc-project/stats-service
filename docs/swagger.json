@@ -2,25 +2,25 @@
     "swagger": "2.0",
     "basePath": "/api/v1",
     "paths": {
-        "/organization/": {
+        "/client/": {
             "post": {
                 "responses": {
                     "201": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/Orgs"
+                            "$ref": "#/definitions/Clients"
                         }
                     }
                 },
-                "summary": "Create a new organization",
-                "operationId": "create_organization",
+                "summary": "Create a new client",
+                "operationId": "create_client",
                 "parameters": [
                     {
                         "name": "payload",
                         "required": true,
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/Orgs"
+                            "$ref": "#/definitions/Clients"
                         }
                     },
                     {
@@ -32,7 +32,7 @@
                     }
                 ],
                 "tags": [
-                    "organization"
+                    "client"
                 ]
             }
         },
@@ -52,7 +52,7 @@
                         }
                     }
                 },
-                "summary": "List all stats",
+                "summary": "List of the stats",
                 "operationId": "list_stats",
                 "parameters": [
                     {
@@ -78,112 +78,19 @@
                         "collectionFormat": "multi"
                     },
                     {
-                        "name": "day",
+                        "name": "aggregation_period",
                         "in": "query",
-                        "type": "integer",
-                        "description": "The number of the day of the year."
-                    },
-                    {
-                        "name": "week",
-                        "in": "query",
-                        "type": "integer",
-                        "description": "The week of the stats",
+                        "type": "string",
+                        "required": false,
+                        "description": "The stats aggregation period.",
                         "enum": [
-                            1,
-                            2,
-                            3,
-                            4,
-                            5,
-                            6,
-                            7,
-                            8,
-                            9,
-                            10,
-                            11,
-                            12,
-                            13,
-                            14,
-                            15,
-                            16,
-                            17,
-                            18,
-                            19,
-                            20,
-                            21,
-                            22,
-                            23,
-                            24,
-                            25,
-                            26,
-                            27,
-                            28,
-                            29,
-                            30,
-                            31,
-                            32,
-                            33,
-                            34,
-                            35,
-                            36,
-                            37,
-                            38,
-                            39,
-                            40,
-                            41,
-                            42,
-                            43,
-                            44,
-                            45,
-                            46,
-                            47,
-                            48,
-                            49,
-                            50,
-                            51,
-                            52,
-                            53
+                            "day",
+                            "week",
+                            "month",
+                            "quarter",
+                            "year"
                         ],
                         "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "month",
-                        "in": "query",
-                        "type": "integer",
-                        "description": "The month of the stats.",
-                        "enum": [
-                            1,
-                            2,
-                            3,
-                            4,
-                            5,
-                            6,
-                            7,
-                            8,
-                            9,
-                            10,
-                            11,
-                            12
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "quarter",
-                        "in": "query",
-                        "type": "integer",
-                        "description": "The quarter of a year.",
-                        "enum": [
-                            1,
-                            2,
-                            3,
-                            4
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "year",
-                        "in": "query",
-                        "type": "integer",
-                        "description": "Year of the stats. In full format e.g. 2020."
                     },
                     {
                         "name": "date_from",
@@ -379,8 +286,8 @@
     ],
     "tags": [
         {
-            "name": "organization",
-            "description": "organization related operations"
+            "name": "client",
+            "description": "client related operations"
         },
         {
             "name": "stats",
@@ -388,15 +295,15 @@
         }
     ],
     "definitions": {
-        "Orgs": {
+        "Clients": {
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": "The organization name."
+                    "description": "The client name."
                 },
                 "token": {
                     "type": "string",
-                    "description": "The token of the organization.",
+                    "description": "The token of the client.",
                     "readOnly": true
                 }
             },
@@ -404,11 +311,6 @@
         },
         "Stats": {
             "properties": {
-                "uuid": {
-                    "type": "string",
-                    "description": "The stats unique identifier",
-                    "readOnly": true
-                },
                 "anr": {
                     "type": "string",
                     "description": "The ANR UUID related to this stats."
@@ -417,41 +319,13 @@
                     "type": "string",
                     "description": "The type of this stats (risk, vulnerability, threat, cartography or compliance)."
                 },
-                "day": {
-                    "type": "integer",
-                    "description": "Number of the day of the year."
-                },
-                "week": {
-                    "type": "integer",
-                    "description": "Week of the stats."
-                },
-                "month": {
-                    "type": "integer",
-                    "description": "Month of the stats. From 1 to 12."
-                },
-                "quarter": {
-                    "type": "integer",
-                    "description": "Number of quarter of a year. Possible values [1,2,3,4]"
-                },
-                "year": {
-                    "type": "integer",
-                    "description": "Year of the stats. In full format e.g. 2020."
+                "date": {
+                    "type": "string",
+                    "description": "Stats date in format 'd-m-Y'."
                 },
                 "data": {
                     "type": "object",
                     "description": "The stats as a dynamic JSON object."
-                },
-                "created_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "Created time of the stats.",
-                    "readOnly": true
-                },
-                "updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "Updated time of the stats.",
-                    "readOnly": true
                 }
             },
             "type": "object"
@@ -459,7 +333,7 @@
         "StatsList": {
             "properties": {
                 "metadata": {
-                    "description": "Metada related to the result.",
+                    "description": "Metadata related to the result.",
                     "allOf": [
                         {
                             "$ref": "#/definitions/metadata"

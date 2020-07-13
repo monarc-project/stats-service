@@ -11,9 +11,9 @@ STATS_API_ENDPOINT = urljoin(
 
 
 @application.cli.command("pull-stats")
-@click.option("--name", default="", help="Organization name")
+@click.option("--name", default="", help="Client name")
 def pull_stats(name):
-    """Pull stats from an other stats instance for the organization specified
+    """Pull stats from an other stats instance for the client specified
     in parameter.
     """
     r = requests.get(STATS_API_ENDPOINT)

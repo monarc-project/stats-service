@@ -36,7 +36,7 @@ $ export STATS_CONFIG=production.py
 $ flask db_create
 $ flask db_init
 
-$ flask create_organization --name CASES
+$ flask create_client --name CASES
 Name: CASES
 Token: SylsDTZTBk2zAkg016vW_aCuO1XQDXPsxrLuI1TG7z5sYvUfRlVf5R4g6kDnLI_o-c5iqrswrWzPANDKXmtV7Q
 Created at: 2020-06-16 14:25:32.947745

@@ -5,7 +5,7 @@ import uuid
 from flask import request
 from flask_restx import abort
 
-from statsservice.models import Organization
+from statsservice.models import Client
 
 
 def uuid_type(value):
@@ -26,10 +26,10 @@ def auth_func(func):
         if "X-API-KEY" in request.headers:
             token = request.headers.get("X-API-KEY", False)
             if token:
-                organization = Organization.query.filter(
-                    Organization.token == token
+                client = Client.query.filter(
+                    Client.token == token
                 ).first()
-                if not organization:
+                if not client:
                     abort(403, Error="Forbidden - Authentication failed.")
         else:
             abort(401, Error="Unauthorized - Authentication required.")

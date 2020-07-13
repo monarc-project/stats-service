@@ -22,7 +22,7 @@ Swagger UI: https://monarc-stats-service.herokuapp.com/api/v1
 Examples
 --------
 
-Getting stats for an organization
+Getting stats for a client
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash

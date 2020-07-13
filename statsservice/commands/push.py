@@ -7,7 +7,7 @@ import requests
 
 from urllib.parse import urljoin
 from statsservice.bootstrap import application, db
-from statsservice.models import Stats, Organization
+from statsservice.models import Stats, Client
 
 STATS_API_ENDPOINT = urljoin(
     application.config["REMOTE_STATS_SERVER"], "/api/v1/stats/"
@@ -15,17 +15,17 @@ STATS_API_ENDPOINT = urljoin(
 
 
 @application.cli.command("push-stats")
-@click.option("--name", default="", help="Organization name")
-@click.option("--token", default="", help="Organization token on remote side")
+@click.option("--name", default="", help="Client name")
+@click.option("--token", default="", help="Client token on remote side")
 def push_stats(name, token):
-    """Push stats for the organization specified in parameter to an other stats
+    """Push stats for the client specified in parameter to an other stats
     server.
     """
-    organization = Organization.objects.get(name__exact=name)
+    client = Client.objects.get(name__exact=name)
 
     headers = {"X-API-KEY": token, "content-type": "application/json"}
 
-    stats = Stats.objects(organization__exact=organization)
+    stats = Stats.objects(client__exact=client)
     for stat in stats:
         print("Pushing stats {} {}".format(stat.created_at, stat.type))
 
@@ -35,11 +35,7 @@ def push_stats(name, token):
                 "uuid": str(stat.uuid),
                 "anr": str(stat.anr),
                 "type": stat.type,
-                "day": stat.day,
-                "week": stat.week,
-                "month": stat.month,
-                "quarter": stat.month,
-                "year": stat.year,
+                "date": stat.date,
                 "data": stat.data,
             }
         )

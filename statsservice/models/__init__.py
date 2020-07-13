@@ -1,11 +1,11 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from .organization import Organization
+from .client import Client
 from .stats import Stats
 
 
-__all__ = ["Organization", "Stats"]
+__all__ = ["Client", "Stats"]
 
 from sqlalchemy.engine import reflection
 from sqlalchemy import create_engine
@@ -29,7 +29,7 @@ def uml_graph(db):
     import sqlalchemy_schemadisplay as sasd
 
     graph = sasd.create_uml_graph(
-        mappers(Organization, Stats,),
+        mappers(Client, Stats,),
         show_operations=False,
         show_multiplicity_one=True,
     )

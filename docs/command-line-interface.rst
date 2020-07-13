@@ -60,41 +60,41 @@ Will ask for confirmation and eventually drop all collections.
 
 
 
-Organizations
+Clients
 -------------
 
-Creating an organization
+Creating an client
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-    $ flask create_organization --help
-    Usage: flask create_organization [OPTIONS]
+    $ flask create_client --help
+    Usage: flask create_client [OPTIONS]
 
-      Create an organization.
+      Create an client.
 
     Options:
-      --name TEXT  Organization name (or UUID)
+      --name TEXT  Client name (or UUID)
       --help       Show this message and exit.
 
-Actually an organization name must be specified and is unique.
+Actually an client name must be specified and is unique.
 
 
 Example:
 
 .. code-block:: bash
 
-    $ flask create_organization --name CASES
+    $ flask create_client --name CASES
     Name: CASES
     Token: SylsDTZTBk2zAkg016vW_aCuO1XQDXPsxrLuI1TG7z5sYvUfRlVf5R4g6kDnLI_o-c5iqrswrWzPANDKXmtV7Q
 
 
-Listing organizations
+Listing clients
 ~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-    $ flask list_organizations
+    $ flask list_clients
     Name: CASES
     Token: xL3F5M-g1HISeAccX_SrYG8ng3vPRbTByhwXIQufkBv1yCLG2eyc7Sl4cOtnDuGFMPQhniIFNIrZ6x-WRi9dNg
 
@@ -116,12 +116,12 @@ Pushing data to a central stats server.
     $ flask push-stats --help
     Usage: flask push-stats [OPTIONS]
 
-      Push stats for the organization specified in parameter to an other stats
+      Push stats for the client specified in parameter to an other stats
       server.
 
     Options:
-      --name TEXT   Organization name
-      --token TEXT  Organization token on remote side
+      --name TEXT   Client name
+      --token TEXT  Client token on remote side
       --help        Show this message and exit.
 
 

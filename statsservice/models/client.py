@@ -10,7 +10,7 @@ def my_secret():
     return secrets.token_urlsafe(64)
 
 
-class Organization(db.Model):
+class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(
         UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False,
@@ -22,7 +22,7 @@ class Organization(db.Model):
 
     # relationship
     stats = db.relationship(
-        "Stats", backref="organization", lazy="dynamic", cascade="all,delete-orphan"
+        "Stats", backref="client", lazy="dynamic", cascade="all,delete-orphan"
     )
 
     def __str__(self):

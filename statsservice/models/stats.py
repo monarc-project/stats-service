@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, date
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 
 from statsservice.bootstrap import db
@@ -15,37 +15,28 @@ class Stats(db.Model):
         nullable=False,
     )
     anr = db.Column(UUID(as_uuid=True), nullable=False)
-    type = db.Column(db.String(), nullable=False)
-    day = db.Column(db.Integer())
-    week = db.Column(db.Integer())
-    month = db.Column(db.Integer())
-    quarter = db.Column(db.Integer())
-    year = db.Column(db.Integer())
-    data = db.Column(JSONB, default={})
+    type = db.Column(db.String(), index=True, nullable=False)
+    date = db.Column(db.Date(), index=True, nullable=False)
+    data = db.Column(JSONB, default={}, nullable=False)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime(), default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime(), onupdate=datetime.utcnow)
 
     # foreign keys
-    org_id = db.Column(db.Integer(), db.ForeignKey("organization.id"), default=None)
+    client_id = db.Column(db.Integer(), db.ForeignKey("client.id"), default=None)
 
     def __str__(self):
-        return """Organization: {}
+        return """Client {}
 ANR: {}
 Type: {}
-Day: {}
-Week: {}
-Month: {}
-Quarter: {}
-Year: {}
+Date: {}
+Data: {}
 Create at: {}
 """.format(
-            self.organization.name,
+            self.client.name,
             self.anr,
             self.type,
-            self.day,
-            self.week,
-            self.month,
-            self.quarter,
-            self.year,
+            self.date,
+            self.data,
             self.created_at,
+            self.updated_at,
         )
