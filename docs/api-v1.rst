@@ -23,7 +23,7 @@ Examples
 --------
 
 Getting stats for a client
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
