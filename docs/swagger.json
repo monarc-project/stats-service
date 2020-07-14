@@ -364,7 +364,7 @@
                 },
                 "limit": {
                     "type": "string",
-                    "description": "Requested limit data.",
+                    "description": "Requested limit data. Default is 0 (unlimited)",
                     "readOnly": true
                 }
             },

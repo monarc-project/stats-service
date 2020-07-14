@@ -45,8 +45,8 @@ parser.add_argument(
     required=False,
     help="The date of the stats must be smaller or equal than this value.",
 )
-parser.add_argument("page", type=int, required=False, default=1, help="Page number")
-parser.add_argument("per_page", type=int, required=False, default=10, help="Page size")
+parser.add_argument("offset", type=int, required=False, default=0, help="Start position")
+parser.add_argument("limit", type=int, required=False, default=0, help="Limit of records")
 
 
 # Response marshalling
@@ -103,19 +103,17 @@ class StatsList(Resource):
         token = request.headers.get("X-API-KEY", False)
         client = Client.query.filter(Client.token == token).first()
 
-        args = parser.parse_args()
-        offset = args.pop("page", 1) - 1
-        limit = args.pop("per_page", 10)
-
-        date_from = args.pop(
-            "date_from",
-            (date.today() + relativedelta(months=-3)).strftime('%Y-%m-%d')
-        )
-        date_to = args.pop(
-            "date_to",
-            date.today().strftime("%Y-%m-%d")
-        )
-        type = args.pop("type")
+        args = parser.parse_args(strict=True)
+        limit = args.get("limit", 0)
+        offset = args.get("offset", 0)
+        type = args.get("type")
+        aggregation_period = args.get("aggregation_period")
+        date_from = args.get("date_from")
+        date_to = args.get("date_to")
+        if date_from is None:
+            date_from = (date.today() + relativedelta(months=-3)).strftime('%Y-%m-%d')
+        if date_to is None:
+            date_to = date.today().strftime("%Y-%m-%d")
 
         result = {
             "data": [],
@@ -135,16 +133,18 @@ class StatsList(Resource):
             #    groups = groups_threats(results)
             #    average_threats(results)
 
-
-            # Count the result, then paginate
-            count = query.count()
-            query = query.limit(limit)
-            results = query.offset(offset * limit)
+            if aggregation_period is None and limit > 0:
+                query = query.limit(limit)
+                results = query.offset(offset)
+            else:
+                results = query.all()
+                # TODO: 1. we go for the aggregation here in case if aggregation_period is set and then apply the limit if limit > 0.
         except Exception as e:
             print(e)
 
         result["data"] = results
-        result["metadata"]["count"] = count
+        # We count already aggregated results, if they are aggregated.
+        result["metadata"]["count"] = len(results)
 
         return result, 200
 

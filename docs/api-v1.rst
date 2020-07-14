@@ -31,8 +31,8 @@ Getting stats for a client
     {
       "metadata": {
         "count": "0",
-        "offset": "1",
-        "limit": "10"
+        "offset": "0",
+        "limit": "0"
       },
       "data": []
     }
