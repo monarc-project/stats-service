@@ -135,10 +135,10 @@ class StatsList(Resource):
                 results = query.all()
                 # TODO: 1. we go for the aggregation here in case if aggregation_period is set and then apply the limit if limit > 0.
 
-                try:
-                    getattr(statsservice.lib.processors, 'process_'+type)(results)
-                except AttributeError:
-                    print('No process defined for the type.')
+            try:
+                getattr(statsservice.lib.processors, 'process_'+type)(results)
+            except AttributeError:
+                print('No process defined for the type.')
 
         except Exception as e:
             print(e)
