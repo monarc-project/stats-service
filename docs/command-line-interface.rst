@@ -149,5 +149,123 @@ Interactions with MOSP
       Check if an object has been published on MOSP. Returns a boolean.
 
     Options:
-      --uuid TEXT  UUID of the object  [required]
-      --help       Show this message and exit.
+      --uuid TEXT    UUID of the object  [required]
+      -v, --verbose  Display the object
+      --help         Show this message and exit.
+
+Examples:
+
+.. code-block:: bash
+
+    $ flask is_object_published --uuid f3caa83b-28fb-49fd-b7ad-6e4cd1aaad06
+    False
+    $ flask is_object_published --uuid f3caa83b-28fb-49fd-b7ad-6e4cd1aaad07 
+    True
+    $ flask is_object_published --uuid f3caa83b-28fb-49fd-b7ad-6e4cd1aaad07 -v
+    {
+        "data": [
+            {
+                "description": "Mobile Mitigations  from MITRE ATT&CK® \r\n© 2020 The MITRE Corporation. This work is reproduced and distributed with the permission of The MITRE Corporation.",
+                "json_object": {
+                    "authors": [
+                        "MITRE ATT&CK®"
+                    ],
+                    "label": "MITRE ATT&CK - Mobile Mitigations",
+                    "language": "EN",
+                    "refs": [
+                        "https://attack.mitre.org/mitigations/mobile/"
+                    ],
+                    "uuid": "f3caa83b-28fb-49fd-b7ad-6e4cd1aaad07",
+                    "values": [
+                        {
+                            "code": "M1013 - Application Developer Guidance",
+                            "description": "This mitigation describes any guidance or training given to developers of applications to avoid introducing security weaknesses that an adversary may be able to take advantage of.",
+                            "importance": 0,
+                            "uuid": "90624dfc-21b6-4172-8848-a4042860656b"
+                        },
+                        {
+                            "code": "M1005 - Application Vetting",
+                            "description": "Enterprises can vet applications for exploitable vulnerabilities or unwanted (privacy-invasive or malicious) behaviors. Enterprises can inspect applications themselves or use a third-party service.",
+                            "importance": 0,
+                            "uuid": "7fd9df45-7351-420c-8116-57d48fa23c40"
+                        },
+                        {
+                            "code": "M1002 - Attestation",
+                            "description": "Enable remote attestation capabilities when available (such as Android SafetyNet or Samsung Knox TIMA Attestation) and prohibit devices that fail the attestation from accessing enterprise resources.",
+                            "importance": 0,
+                            "uuid": "5617161e-a40d-461a-ae8e-6a0650392e3a"
+                        },
+                        {
+                            "code": "M1007 - Caution with Device Administrator Access",
+                            "description": "Warn device users not to accept requests to grant Device Administrator access to applications without good reason.",
+                            "importance": 0,
+                            "uuid": "63138250-3821-45f3-a820-55d0ffa30367"
+                        },
+                        {
+                            "code": "M1010 - Deploy Compromised Device Detection Method",
+                            "description": "A variety of methods exist that can be used to enable enterprises to identify compromised (e.g. rooted/jailbroken) devices, whether using security mechanisms built directly into the device, third-party mobile security applications, enterprise mobility management (EMM)/mobile device management (MDM) capabilities, or other methods. Some methods may be trivial to evade while others may be more sophisticated.",
+                            "importance": 0,
+                            "uuid": "6501d616-1a60-4b38-a40a-847ad5d28058"
+                        },
+                        {
+                            "code": "M1009 - Encrypt Network Traffic",
+                            "description": "Application developers should encrypt all of their application network traffic using the Transport Layer Security (TLS) protocol to ensure protection of sensitive data and deter network-based attacks. If desired, application developers could perform message-based encryption of data before passing it for TLS encryption.",
+                            "importance": 0,
+                            "uuid": "c591b8fd-5f57-4064-b5c5-f0acd38ae41f"
+                        },
+                        {
+                            "code": "M1012 - Enterprise Policy",
+                            "description": "An enterprise mobility management (EMM), also known as mobile device management (MDM), system can be used to provision policies to mobile devices to control aspects of their allowed behavior.",
+                            "importance": 0,
+                            "uuid": "b141135f-2c2f-4588-9d4c-6c7abd243e23"
+                        },
+                        {
+                            "code": "M1014 - Interconnection Filtering",
+                            "description": "In order to mitigate Signaling System 7 (SS7) exploitation, the Communications, Security, Reliability, and Interoperability Council (CSRIC) describes filtering interconnections between network operators to block inappropriate requests.",
+                            "importance": 0,
+                            "uuid": "6066f816-7914-4228-96b6-155f4501d70c"
+                        },
+                        {
+                            "code": "M1003 - Lock Bootloader",
+                            "description": "On devices that provide the capability to unlock the bootloader (hence allowing any operating system code to be flashed onto the device), perform periodic checks to ensure that the bootloader is locked.",
+                            "importance": 0,
+                            "uuid": "148c35e1-7837-42a2-9884-4e475a48e6a3"
+                        },
+                        {
+                            "code": "M1001 - Security Updates",
+                            "description": "Install security updates in response to discovered vulnerabilities.",
+                            "importance": 0,
+                            "uuid": "057adb3d-1eeb-4f04-a9c6-c08b514bc785"
+                        },
+                        {
+                            "code": "M1004 - System Partition Integrity",
+                            "description": "Ensure that Android devices being used include and enable the Verified Boot capability, which cryptographically ensures the integrity of the system partition.",
+                            "importance": 0,
+                            "uuid": "daa42611-836d-464e-aab5-80d41da314cf"
+                        },
+                        {
+                            "code": "M1006 - Use Recent OS Version",
+                            "description": "New mobile operating system versions bring not only patches against discovered vulnerabilities but also often bring security architecture improvements that provide resilience against potential vulnerabilities or weaknesses that have not yet been discovered. They may also bring improvements that block use of observed adversary techniques.",
+                            "importance": 0,
+                            "uuid": "f4bbe273-dc6c-4b5d-8c66-286effded2c7"
+                        },
+                        {
+                            "code": "M1011 - User Guidance",
+                            "description": "Describes any guidance or training given to users to set particular configuration settings or avoid specific potentially risky behaviors.",
+                            "importance": 0,
+                            "uuid": "8f023e31-b83d-4323-ba0e-888ec025b35f"
+                        }
+                    ],
+                    "version": 6.3
+                },
+                "last_updated": "2020-05-27T09:54:06.727943",
+                "name": "MITRE ATT&CK - Mobile Mitigations "
+            }
+        ],
+        "metadata": {
+            "count": "1",
+            "limit": "10",
+            "offset": "0"
+        }
+    }
+    True
