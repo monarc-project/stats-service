@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Utilities to process data for the different kind of stats (threats, risks, etc.).
+# Utilities to process data for the different kind of stats (threat, risk, etc.).
 #
 
 from collections import defaultdict
@@ -12,7 +12,7 @@ from statsservice.lib.utils import groups_threats
 
 
 def process_threat(threats):
-    """Groups stats about threats per ANR (UUID) then per threat UUID."""
+    """Launch the process for stats of type threat."""
     grouped_threats = groups_threats(threats)
     frames = defaultdict(list)
 
@@ -25,3 +25,8 @@ def process_threat(threats):
             if True:  # threat_uuid == 'b402d4e0-4576-11e9-9173-0800277f0571':
                 print("{} : {}".format(threat_uuid, result))
         print()
+
+
+def process_risk(threats):
+    """Launch the process for stats of type risk."""
+    pass
