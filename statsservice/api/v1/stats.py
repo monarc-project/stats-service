@@ -7,11 +7,12 @@ from flask_restx.inputs import date_from_iso8601
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
+import statsservice.lib.processors
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Client
 from statsservice.api.v1.common import auth_func, uuid_type
-from statsservice.lib.processors import aggregate_risks, groups_threats
-from statsservice.lib.stats import average_threats
+
+
 
 stats_ns = Namespace("stats", description="stats related operations")
 
@@ -127,18 +128,18 @@ class StatsList(Resource):
                 Stats.date <= date_to,
             )
 
-            # TODO: perform aggregation of the results if needed.
-            # TODO: group by anr always by default, will see later for BO, if there should be a separate param.
-            #if args.get("type", "") == "threat":
-            #    groups = groups_threats(results)
-            #    average_threats(results)
-
             if aggregation_period is None and limit > 0:
                 query = query.limit(limit)
                 results = query.offset(offset)
             else:
                 results = query.all()
                 # TODO: 1. we go for the aggregation here in case if aggregation_period is set and then apply the limit if limit > 0.
+
+                try:
+                    getattr(statsservice.lib.processors, 'process_'+type)(results)
+                except AttributeError as e:
+                    print('No process defined for the type.')
+
         except Exception as e:
             print(e)
 
