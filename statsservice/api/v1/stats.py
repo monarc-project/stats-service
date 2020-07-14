@@ -137,7 +137,7 @@ class StatsList(Resource):
 
                 try:
                     getattr(statsservice.lib.processors, 'process_'+type)(results)
-                except AttributeError as e:
+                except AttributeError:
                     print('No process defined for the type.')
 
         except Exception as e:
