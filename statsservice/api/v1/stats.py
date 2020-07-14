@@ -59,7 +59,7 @@ stats = stats_ns.model(
         "type": fields.String(
             description="The type of this stats (risk, vulnerability, threat, cartography or compliance)."
         ),
-        "date": fields.Raw(description="The stats date in format 'Y-m-d'"),
+        "date": fields.Date(description="The stats date in format 'Y-m-d'"),
         "data": fields.Raw(description="The stats as a dynamic JSON object."),
     },
 )
