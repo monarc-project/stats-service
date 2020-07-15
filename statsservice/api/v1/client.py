@@ -9,19 +9,15 @@ from statsservice.models import Client
 from statsservice.api.v1.common import auth_func
 from statsservice.api.v1.identity import admin_permission
 
-client_ns = Namespace(
-    "client", description="client related operations"
-)
+client_ns = Namespace("client", description="client related operations")
 
 # Response marshalling
 clients = client_ns.model(
     "Clients",
     {
         "name": fields.String(description="The client name."),
-        "token": fields.String(
-            readonly=True, description="The token of the client."
-        ),
-        "role": fields.String(readonly=True, description="The client role.")
+        "token": fields.String(readonly=True, description="The token of the client."),
+        "role": fields.String(readonly=True, description="The client role."),
     },
 )
 

@@ -9,6 +9,7 @@ from statsservice.bootstrap import db
 ROLE_USER = 1
 ROLE_ADMIN = 2
 
+
 def my_secret():
     return secrets.token_urlsafe(64)
 

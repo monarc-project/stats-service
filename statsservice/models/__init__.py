@@ -29,9 +29,7 @@ def uml_graph(db):
     import sqlalchemy_schemadisplay as sasd
 
     graph = sasd.create_uml_graph(
-        mappers(Client, Stats,),
-        show_operations=False,
-        show_multiplicity_one=True,
+        mappers(Client, Stats,), show_operations=False, show_multiplicity_one=True,
     )
     graph.write_png("uml_graph.png")  # write out the file
 

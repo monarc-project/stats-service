@@ -31,10 +31,5 @@ Date: {}
 Data: {}
 Created at: {}
 """.format(
-            self.client.name,
-            self.anr,
-            self.type,
-            self.date,
-            self.data,
-            self.created_at
+            self.client.name, self.anr, self.type, self.date, self.data, self.created_at
         )

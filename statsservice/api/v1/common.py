@@ -27,9 +27,7 @@ def auth_func(func):
         if "X-API-KEY" in request.headers:
             token = request.headers.get("X-API-KEY", False)
             if token:
-                client = Client.query.filter(
-                    Client.token == token
-                ).first()
+                client = Client.query.filter(Client.token == token).first()
                 login_user_bundle(client)
                 if not client:
                     abort(403, Error="Forbidden - Authentication failed.")

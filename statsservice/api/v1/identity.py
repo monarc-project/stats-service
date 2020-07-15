@@ -12,7 +12,7 @@ from flask_principal import (
     RoleNeed,
     session_identity_loader,
     identity_changed,
-    identity_loaded
+    identity_loaded,
 )
 
 from statsservice.models.client import ROLE_USER, ROLE_ADMIN
