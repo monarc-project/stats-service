@@ -28,38 +28,12 @@ def process_threat(threats_stats, aggregation_period, group_by_anr):
 
 
 def process_risk(risks_stats, aggregation_period, group_by_anr):
-    aggregated_data = defaultdict(list)
-
     if group_by_anr == 0:
+        # TODO: group the results for all the anrs and calculate the average.
+        aggregated_data = defaultdict(list)
+
         return aggregated_data
+    # TODO: we will see later with the evolution graph requests,
+    # if we need to perform aggregation per week, month etc.
 
-    for risk_stats in risks_stats:
-        if aggregated_data[risk_stats.anr] not in aggregated_data.keys():
-            if aggregation_period == "day":
-                # TODO: get day
-                aggregation_value = risk_stats.date
-            elif aggregation_period == "week":
-                # TODO:
-                aggregation_value = risk_stats.date
-            elif aggregation_period == "month":
-                # TODO:
-                aggregation_value = risk_stats.date
-            elif aggregation_period == "month":
-                # TODO:
-                aggregation_value = risk_stats.date
-            elif aggregation_period == "quarter":
-                # TODO:
-                aggregation_value = risk_stats.date
-            elif aggregation_period == "year":
-                # TODO:
-                aggregation_value = risk_stats.date
-
-            aggregated_data[risk_stats.anr] = {
-                "anr": risk_stats.anr,
-                "type": risk_stats.type,
-                "date": aggregation_value,
-                "data": []
-            }
-        for data in risk_stats.data:
-            # TODO: calculate average based on aggregation_period.
-            groups[risk_stats.anr]['data'].append(data)
+    return risks_stats
