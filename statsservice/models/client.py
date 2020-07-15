@@ -40,10 +40,9 @@ class Client(db.Model, UserMixin):
         return self.id
 
     def __str__(self):
-        return "UUID: {}\nName: {}\nToken: {}\nCreated at: {}".format(
-            self.uuid, self.name, self.token, self.created_at
+        return "UUID: {}\nName: {}\nRole: {}\nToken: {}\nCreated at: {}".format(
+            self.uuid, self.name, self.role, self.token, self.created_at
         )
 
     def is_admin(self):
-        print(self.role)
         return self.role == ROLE_ADMIN
