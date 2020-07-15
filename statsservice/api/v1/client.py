@@ -3,8 +3,6 @@
 
 from flask import request, abort
 from flask_restx import Namespace, Resource, fields, reqparse, abort
-from flask_principal import PermissionDenied
-
 
 from statsservice.bootstrap import db
 from statsservice.models import Client
