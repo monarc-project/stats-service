@@ -74,7 +74,8 @@ Creating an client
       Create an client.
 
     Options:
-      --name TEXT  Client name (or UUID)
+      --name TEXT  Client name (or UUID)  [required]
+      --role TEXT  Role of the client (user or admin)  [default: user]
       --help       Show this message and exit.
 
 Actually an client name must be specified and is unique.
@@ -85,8 +86,11 @@ Example:
 .. code-block:: bash
 
     $ flask create_client --name CASES
+    UUID: fb9b4d21-4082-445c-a6e6-5d42a1cd9202
     Name: CASES
-    Token: SylsDTZTBk2zAkg016vW_aCuO1XQDXPsxrLuI1TG7z5sYvUfRlVf5R4g6kDnLI_o-c5iqrswrWzPANDKXmtV7Q
+    Role: 1
+    Token: fB5odBNDwzgia7SRm_Q-7tuiLtvIVHBZ2yOc9MopNMWzzoxdrF9K2cBo8rgS4eP_0Xsr0E0QCA_jsQyjhXGaaQ
+    Created at: 2020-07-15 09:27:51.701245
 
 
 Listing clients
