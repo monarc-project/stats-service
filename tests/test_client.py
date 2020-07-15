@@ -9,6 +9,6 @@ def test_client(session):
     session.add(client)
     session.commit()
 
-    assert client.is_active is False
+    assert client.is_active is True
     assert client.is_admin() is False
     assert client.token != ""
