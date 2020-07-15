@@ -5,6 +5,8 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 
 from statsservice.bootstrap import db
 
+ROLE_USER = 1
+ROLE_ADMIN = 2
 
 def my_secret():
     return secrets.token_urlsafe(64)
@@ -17,8 +19,9 @@ class Client(db.Model):
     )
     name = db.Column(db.String(100), unique=True)
     token = db.Column(db.String(100), unique=True, default=my_secret)
+    role = db.Column(db.Integer, default=ROLE_USER)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime(), default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime(), onupdate=datetime.utcnow)
 
     # relationship
     stats = db.relationship(
@@ -29,3 +32,6 @@ class Client(db.Model):
         return "UUID: {}\nName: {}\nToken: {}\nCreated at: {}".format(
             self.uuid, self.name, self.token, self.created_at
         )
+
+    def is_admin(self):
+        return self.role == ROLE_ADMIN

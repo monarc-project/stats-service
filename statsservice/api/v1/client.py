@@ -3,16 +3,15 @@
 
 from flask import request
 from flask_restx import Namespace, Resource, fields, reqparse, abort
+from flask_user import roles_required
 
 from statsservice.bootstrap import db
 from statsservice.models import Client
 from statsservice.api.v1.common import auth_func
 
-
 client_ns = Namespace(
     "client", description="client related operations"
 )
-
 
 # Response marshalling
 clients = client_ns.model(
@@ -22,6 +21,7 @@ clients = client_ns.model(
         "token": fields.String(
             readonly=True, description="The token of the client."
         ),
+        "role": field.string(readonly=True, description="The client role.")
     },
 )
 
@@ -33,6 +33,7 @@ class ClientsList(Resource):
     @client_ns.doc("create_client")
     @client_ns.expect(clients)
     @client_ns.marshal_with(clients, code=201)
+    @roles_required(Client.ROLE_ADMIN)
     def post(self):
         """Create a new client."""
         new_client = Client(**client_ns.payload)

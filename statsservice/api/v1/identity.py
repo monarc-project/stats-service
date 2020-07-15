@@ -13,13 +13,13 @@ from flask_principal import (
     identity_loaded
 )
 
+from statsservice.models.client import ROLE_USER, ROLE_ADMIN
 
-client_role = RoleNeed("client")
-bo_role = RoleNeed("bo")
+client_role = RoleNeed(ROLE_USER)
+bo_role = RoleNeed(ROLE_ADMIN)
 
 client_permission = Permission(client_role)
 bo_permission = Permission(bo_role)
-
 
 def login_user_bundle(user):
     login_user(user)
@@ -35,7 +35,7 @@ def on_identity_loaded(sender, identity):
     # Add the UserNeed to the identity
     if current_user.is_authenticated:
         identity.provides.add(UserNeed(current_user.id))
-        if current_user.role == "client":
+        if current_user.role == ROLE_CLIENT:
             identity.provides.add(client_role)
-        if current_user.role == "bo":
+        if current_user.role == ROLE_ADMIN:
             identity.provides.add(bo_role)

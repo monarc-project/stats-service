@@ -19,7 +19,6 @@ class Stats(db.Model):
     date = db.Column(db.Date(), index=True, nullable=False)
     data = db.Column(JSONB, default={}, nullable=False)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime(), onupdate=datetime.utcnow)
 
     # foreign keys
     client_id = db.Column(db.Integer(), db.ForeignKey("client.id"), default=None)
@@ -31,13 +30,11 @@ Type: {}
 Date: {}
 Data: {}
 Created at: {}
-Updated at: {}
 """.format(
             self.client.name,
             self.anr,
             self.type,
             self.date,
             self.data,
-            self.created_at,
-            self.updated_at,
+            self.created_at
         )

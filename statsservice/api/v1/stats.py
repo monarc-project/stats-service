@@ -6,13 +6,13 @@ from flask_restx import Namespace, Resource, fields, reqparse, abort
 from flask_restx.inputs import date_from_iso8601
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from flask_user import current_user, roles_required
 
 import statsservice.lib.processors
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Client
 from statsservice.api.v1.common import auth_func, uuid_type
-
-
+from statsservice.api.v1.identity import get_identity
 
 stats_ns = Namespace("stats", description="stats related operations")
 
@@ -33,6 +33,14 @@ parser.add_argument(
     help="The period of the stats aggregation.",
     required=False,
     choices=("day", "week", "month", "quarter", "year"),
+)
+parser.add_argument(
+    "group_by_anr",
+    type=int,
+    help="If the result should be grouped by anr or not.",
+    required=False,
+    default=1
+    choices=(0, 1),
 )
 parser.add_argument(
     "date_from",
@@ -100,15 +108,12 @@ class StatsList(Resource):
     @auth_func
     def get(self):
         """List all stats"""
-        # get the client token
-        token = request.headers.get("X-API-KEY", False)
-        client = Client.query.filter(Client.token == token).first()
-
         args = parser.parse_args(strict=True)
         limit = args.get("limit", 0)
         offset = args.get("offset", 0)
         type = args.get("type")
         aggregation_period = args.get("aggregation_period")
+        group_by_anr = args.get("group_by_anr")
         date_from = args.get("date_from")
         date_to = args.get("date_to")
         if date_from is None:
@@ -122,6 +127,9 @@ class StatsList(Resource):
         }
 
         try:
+            if not current_user().is_admin():
+                query = query.filter(Stats.client_id == current_user().id)
+
             query = Stats.query.filter(
                 Stats.type == type,
                 Stats.date >= date_from,
@@ -133,18 +141,19 @@ class StatsList(Resource):
                 results = query.offset(offset)
             else:
                 results = query.all()
-                # TODO: 1. we go for the aggregation here in case if aggregation_period is set and then apply the limit if limit > 0.
 
-            try:
-                getattr(statsservice.lib.processors, 'process_'+type)(results)
-            except AttributeError:
-                print('No process defined for the type.')
+                if aggregation_period is not None:
+                    try:
+                        results = getattr(statsservice.lib.processors, 'process_' + type)(results, aggregation_period, group_by_anr)
+                        if limit > 0:
+                            results = results[offset, limit]
+                    except AttributeError:
+                        abort(500, Error="There is no processor defined for the type '" + type + "'.")
 
         except Exception as e:
-            print(e)
+            abort(500, Error=e)
 
         result["data"] = results
-        # We count already aggregated results, if they are aggregated.
         result["metadata"]["count"] = len(results)
 
         return result, 200
@@ -152,50 +161,40 @@ class StatsList(Resource):
     @stats_ns.doc("create_stats")
     @stats_ns.expect([stats])
     @stats_ns.marshal_with(stats, code=201)
+    @stats_ns.response(401, "Authorization needed")
     @auth_func
     def post(self):
         """Create a new stats"""
-        # set the appropriate client thanks to the token
-        token = request.headers.get("X-API-KEY", False)
-        client = Client.query.filter(Client.token == token).first()
-        # create the new stats
         news_stats = []
         for stats in stats_ns.payload:
-            news_stats.append(Stats(**stats, client_id=client.id))
+            news_stats.append(Stats(**stats, client_id=current_user().id))
         db.session.bulk_save_objects(news_stats)
         db.session.commit()
         return {}, 204
 
 
-@stats_ns.route("/<string:uuid>")
+@stats_ns.route("/<string:anr>")
 @stats_ns.response(404, "Stats not found")
 @stats_ns.param("uuid", "The stats identifier")
 class StatsItem(Resource):
-    """Show a single stats item and lets you delete them"""
+    """Show the stats items by anr resource and lets you delete it"""
 
     @stats_ns.doc("get_stats")
     @stats_ns.marshal_with(stats)
     @auth_func
-    def get(self, uuid):
-        """Fetch a given resource"""
-        return Stats.query.filter(Stats.uuid == uuid).first(), 200
+    def get(self, anr):
+        """Fetch a given resource by anr"""
+
+        return Stats.query.filter(Stats.anr == anr).all(), 200
 
     @stats_ns.doc("delete_stats")
     @stats_ns.response(204, "Stats deleted")
     @auth_func
-    def delete(self, uuid):
-        """Delete a stats given its identifier"""
-        # TODO: check permissions
+    def delete(self, anr):
+        """Delete stats by provided anr"""
+
         try:
-            Stats.objects(anr__exact=uuid).delete()
+            Stats.objects(anr__exact=anr).delete()
             return "", 204
         except:
-            abort(404, Error="Impossible to delete the stats.")
-
-    @stats_ns.expect(stats)
-    @stats_ns.marshal_with(stats)
-    @auth_func
-    def put(self, uuid):
-        """Update a stats given its identifier"""
-        # return Stats.objects(uuid__exact=uuid).update(**stats_ns.payload)
-        pass
+            abort(500, Error="Impossible to delete the stats.")

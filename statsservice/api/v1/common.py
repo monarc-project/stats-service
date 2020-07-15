@@ -6,7 +6,7 @@ from flask import request
 from flask_restx import abort
 
 from statsservice.models import Client
-#from statsservice.api.vi.identity import login_user_bundle
+from statsservice.api.v1.identity import login_user_bundle
 
 
 def uuid_type(value):
@@ -30,8 +30,9 @@ def auth_func(func):
                 client = Client.query.filter(
                     Client.token == token
                 ).first()
-                # set the identity
-                #login_user_bundle(client)
+
+                login_user_bundle(client)
+
                 if not client:
                     abort(403, Error="Forbidden - Authentication failed.")
         else:
