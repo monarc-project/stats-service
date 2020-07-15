@@ -10,7 +10,7 @@ ROLE_USER = 1
 ROLE_ADMIN = 2
 
 
-def my_secret():
+def secret_token():
     return secrets.token_urlsafe(64)
 
 
@@ -20,7 +20,7 @@ class Client(db.Model, UserMixin):
         UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False,
     )
     name = db.Column(db.String(100), unique=True)
-    token = db.Column(db.String(100), unique=True, default=my_secret)
+    token = db.Column(db.String(100), unique=True, default=secret_token)
     role = db.Column(db.Integer, default=ROLE_USER)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
