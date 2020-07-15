@@ -27,7 +27,7 @@ class Client(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime(), onupdate=datetime.utcnow)
 
     # user rights
-    is_active = db.Column(db.Boolean(), default=False)
+    is_active = db.Column(db.Boolean(), default=True)
 
     # relationship
     stats = db.relationship(
