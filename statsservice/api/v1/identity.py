@@ -6,6 +6,7 @@ from flask_login import login_user, current_user
 from flask_principal import (
     Identity,
     Permission,
+    UserNeed,
     RoleNeed,
     session_identity_loader,
     identity_changed,
