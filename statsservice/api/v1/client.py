@@ -35,6 +35,7 @@ class ClientsList(Resource):
     @client_ns.doc("create_client")
     @client_ns.expect(clients)
     @client_ns.marshal_with(clients, code=201)
+    @auth_func
     def post(self):
         """Create a new client."""
         try:
