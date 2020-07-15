@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import request
+from flask_login import current_user
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from flask_restx.inputs import date_from_iso8601
 from datetime import date
@@ -11,7 +12,7 @@ import statsservice.lib.processors
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Client
 from statsservice.api.v1.common import auth_func, uuid_type
-
+from statsservice.api.v1.identity import client_permission, bo_permission
 
 
 stats_ns = Namespace("stats", description="stats related operations")
@@ -101,8 +102,11 @@ class StatsList(Resource):
     def get(self):
         """List all stats"""
         # get the client token
-        token = request.headers.get("X-API-KEY", False)
-        client = Client.query.filter(Client.token == token).first()
+        #with bo_permission.require():
+            #print('BO')
+
+        client = current_user
+        print(client)
 
         args = parser.parse_args(strict=True)
         limit = args.get("limit", 0)
@@ -136,7 +140,7 @@ class StatsList(Resource):
                 # TODO: 1. we go for the aggregation here in case if aggregation_period is set and then apply the limit if limit > 0.
 
             try:
-                getattr(statsservice.lib.processors, 'process_'+type)(results)
+                pass #getattr(statsservice.lib.processors, 'process_'+type)(results)
             except AttributeError:
                 print('No process defined for the type.')
 
