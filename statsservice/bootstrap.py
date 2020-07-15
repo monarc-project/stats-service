@@ -11,7 +11,13 @@ application = Flask(__name__, instance_relative_config=True)
 
 
 ON_HEROKU = int(os.environ.get("HEROKU", 0)) == 1
-if ON_HEROKU:
+TESTING = os.environ.get("testing", "") == "actions"
+if TESTING:
+    # Testing on GitHub Actions
+    application.config[
+        "SQLALCHEMY_DATABASE_URI"
+    ] = "postgresql://statsservice:password@localhost:5432/statsservice"
+elif ON_HEROKU:
     # if the application is running on Heroku
     application.config.from_pyfile("heroku.py", silent=False)
     application.config["INSTANCE_URL"] = os.environ.get("INSTANCE_URL", "")
