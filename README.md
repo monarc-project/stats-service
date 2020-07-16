@@ -57,6 +57,13 @@ $ flask run
 A [documentation is available](https://monarc-stats-service.readthedocs.io).
 
 
+## Contributors
+
+<!-- contributors starts -->
+
+<!-- contributors ends -->
+
+
 ## License
 
 [Stats Service](https://github.com/monarc-project/stats-service) is under the
