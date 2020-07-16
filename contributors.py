@@ -60,8 +60,14 @@ def fetch_contributors(oauth_token):
             headers={"Authorization": "Bearer {}".format(oauth_token)},
         )
         contributors = []
-        for node in data["data"]["repository"]["defaultBranchRef"]["target"]["history"]["edges"]:
-            if not any(d['name'] == node["node"]["committer"]["name"] for d in contributors):
+        for node in data["data"]["repository"]["defaultBranchRef"]["target"]["history"][
+            "edges"
+        ]:
+            if not any(
+                d["name"] == node["node"]["committer"]["name"]
+                for d in contributors
+                if node["node"]["committer"]["name"] != "README-bot"
+            ):
                 contributors.append(node["node"]["committer"])
 
         has_next_page = False
