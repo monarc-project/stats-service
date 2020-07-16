@@ -32,6 +32,8 @@ admin_permission = Permission(admin_role)
 
 
 def login_user_bundle(client):
+    if client == None:
+        return
     login_user(client)
     identity_changed.send(current_app, identity=Identity(client.id))
     session_identity_loader()
