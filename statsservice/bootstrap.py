@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 # Create Flask application
 application = Flask(__name__, instance_relative_config=True)
-
+application.secret_key = b'_5#b2L"h4q8p\n\xec]/'
 
 ON_HEROKU = int(os.environ.get("HEROKU", 0)) == 1
 TESTING = os.environ.get("testing", "") == "actions"
