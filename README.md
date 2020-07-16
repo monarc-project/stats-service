@@ -60,7 +60,8 @@ A [documentation is available](https://monarc-stats-service.readthedocs.io).
 ## Contributors
 
 <!-- contributors starts -->
-
+![Ruslan Baidan](https://avatars0.githubusercontent.com/u/3246171?v=4&s=100)
+![Cédric Bonhomme](https://avatars0.githubusercontent.com/u/465400?v=4&s=100)
 <!-- contributors ends -->
 
 
