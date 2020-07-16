@@ -43,3 +43,15 @@ jobs:
         poetry run pytest
       env:
         testing: actions
+
+    - name: Build with poetry
+      run: |
+        poetry build
+
+    - name: Publish with poetry
+      run: |
+        poetry publish
+      env:
+        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
+      with:
+        python-version: 3.8
