@@ -30,7 +30,7 @@ jobs:
       env:
         CONTRIBUTORS_TOKEN: ${{ secrets.CONTRIBUTORS_TOKEN }}
       run: |-
-        python build_readme.py
+        python contributors.py
         cat README.md
     - name: Commit and push if README changed
       run: |-
