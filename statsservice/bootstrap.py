@@ -8,8 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 # Create Flask application
 application = Flask(__name__, instance_relative_config=True)
-application.secret_key = b'_5#b2L"h4q8p\n\xec]/'
 
+# Load the appropriate configuration
 ON_HEROKU = int(os.environ.get("HEROKU", 0)) == 1
 TESTING = os.environ.get("testing", "") == "actions"
 if TESTING:
@@ -28,5 +28,9 @@ elif os.environ.get("STATS_CONFIG", ""):
 else:
     # default configuration file
     application.config.from_object("instance.config.ProductionConfig")
+
+# Set SECRET_KEY if it was not defined
+if not application.config.get("SECRET_KEY", False):
+    application.config["SECRET_KEY"] = os.urandom(24)
 
 db = SQLAlchemy(application)
