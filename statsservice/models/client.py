@@ -2,7 +2,7 @@ import uuid
 import secrets
 from datetime import datetime
 from flask_login import UserMixin
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.dialects.postgresql import UUID
 
 from statsservice.bootstrap import db
 
