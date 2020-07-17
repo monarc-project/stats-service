@@ -33,3 +33,6 @@ Created at: {}
 """.format(
             self.client.name, self.anr, self.type, self.date, self.data, self.created_at
         )
+
+    def _asdict(self):
+        return {"uuid": self.uuid, "anr": self.anr, "type": self.type, "date": self.date, "data": self.data}

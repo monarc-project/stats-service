@@ -7,6 +7,7 @@ from flask_restx import Namespace, Resource, fields, reqparse, abort
 from flask_restx.inputs import date_from_iso8601, boolean
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from sqlalchemy.sql.expression import desc
 
 import statsservice.lib.processors
 from statsservice.bootstrap import db
@@ -55,10 +56,16 @@ parser.add_argument(
     help="The date of the stats must be smaller or equal than this value.",
 )
 parser.add_argument(
+    "anrs",
+    action="append",
+    required=False,
+    help="List of the anrs' uuids to filter by.",
+)
+parser.add_argument(
     "get_last",
     type=boolean,
     required=False,
-    help="Specify that result should compose only the last record in the results set. Dates filters are ignored in this case.",
+    help="Specify that result should compose only the last records in the results set for each anr. Dates filters are ignored in this case.",
 )
 parser.add_argument(
     "offset", type=int, required=False, default=0, help="Start position"
@@ -124,6 +131,7 @@ class StatsList(Resource):
         type = args.get("type")
         aggregation_period = args.get("aggregation_period")
         group_by_anr = args.get("group_by_anr")
+        anrs = args.get("anrs")
         get_last = args.get("get_last")
         date_from = args.get("date_from")
         date_to = args.get("date_to")
@@ -145,9 +153,18 @@ class StatsList(Resource):
                 query = query.filter(Stats.client_id == current_user.id)
 
             query = query.filter(Stats.type == type)
+            if anrs is not None:
+                query = query.filter(Stats.anr.in_(anrs))
             if get_last == True:
                 # TODO: Handle the case if the request is from an admin user (from BO).
-                result["data"] = query.filter.order_by('date desc').limit(1)
+                # Get all the records grouped by anr with max date.
+                results = []
+                max_date_and_anrs = query.with_entities(Stats.anr, db.func.max(Stats.date)).group_by(Stats.anr).all()
+                for max_date_and_anr in max_date_and_anrs:
+                    results.append(query.filter(
+                        Stats.anr == max_date_and_anr[0],
+                        Stats.date == max_date_and_anr[1]).first()._asdict())
+                result["data"] = results
                 result["metadata"] = {"count": len(results), "offset": 0, "limit": 1}
 
                 return result, 200
