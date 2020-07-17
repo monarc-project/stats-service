@@ -165,7 +165,7 @@ class StatsList(Resource):
                         Stats.anr == max_date_and_anr[0],
                         Stats.date == max_date_and_anr[1]).first()._asdict())
                 result["data"] = results
-                result["metadata"] = {"count": len(results), "offset": 0, "limit": 1}
+                result["metadata"] = {"count": len(results), "offset": 0, "limit": 0}
 
                 return result, 200
 
