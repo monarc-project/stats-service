@@ -4,7 +4,7 @@
 from flask import request
 from flask_login import current_user
 from flask_restx import Namespace, Resource, fields, reqparse, abort
-from flask_restx.inputs import date_from_iso8601
+from flask_restx.inputs import date_from_iso8601, boolean
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
@@ -53,6 +53,12 @@ parser.add_argument(
     type=date_from_iso8601,
     required=False,
     help="The date of the stats must be smaller or equal than this value.",
+)
+parser.add_argument(
+    "get_last",
+    type=boolean,
+    required=False,
+    help="Specify that result should compose only the last record in the results set. Dates filters are ignored in this case.",
 )
 parser.add_argument(
     "offset", type=int, required=False, default=0, help="Start position"
@@ -118,12 +124,14 @@ class StatsList(Resource):
         type = args.get("type")
         aggregation_period = args.get("aggregation_period")
         group_by_anr = args.get("group_by_anr")
+        get_last = args.get("get_last")
         date_from = args.get("date_from")
         date_to = args.get("date_to")
-        if date_from is None:
-            date_from = (date.today() + relativedelta(months=-3)).strftime("%Y-%m-%d")
-        if date_to is None:
-            date_to = date.today().strftime("%Y-%m-%d")
+        if get_last != True
+            if date_from is None:
+                date_from = (date.today() + relativedelta(months=-3)).strftime("%Y-%m-%d")
+            if date_to is None:
+                date_to = date.today().strftime("%Y-%m-%d")
 
         result = {
             "data": [],
@@ -136,9 +144,15 @@ class StatsList(Resource):
             if not current_user.is_admin():
                 query = query.filter(Stats.client_id == current_user.id)
 
-            query = Stats.query.filter(
-                Stats.type == type, Stats.date >= date_from, Stats.date <= date_to,
-            )
+            query = query.filter(Stats.type == type)
+            if get_last == True:
+                # TODO: Handle the case if the request is from an admin user (from BO).
+                result["data"] = query.filter.order_by('date desc').limit(1)
+                result["metadata"] = {"count": len(results), "offset": 0, "limit": 1}
+
+                return result, 200
+
+            query = query.filter(Stats.date >= date_from, Stats.date <= date_to)
 
             if aggregation_period is None and limit > 0:
                 query = query.limit(limit)
