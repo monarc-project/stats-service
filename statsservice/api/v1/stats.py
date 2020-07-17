@@ -127,7 +127,7 @@ class StatsList(Resource):
         get_last = args.get("get_last")
         date_from = args.get("date_from")
         date_to = args.get("date_to")
-        if get_last != True
+        if get_last != True:
             if date_from is None:
                 date_from = (date.today() + relativedelta(months=-3)).strftime("%Y-%m-%d")
             if date_to is None:
