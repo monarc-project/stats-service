@@ -1,9 +1,8 @@
 import uuid
-from datetime import datetime, date
+from datetime import datetime
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 
 from statsservice.bootstrap import db
-from statsservice.lib.validation import validate_data
 
 
 class Stats(db.Model):
@@ -35,4 +34,10 @@ Created at: {}
         )
 
     def _asdict(self):
-        return {"uuid": self.uuid, "anr": self.anr, "type": self.type, "date": self.date, "data": self.data}
+        return {
+            "uuid": self.uuid,
+            "anr": self.anr,
+            "type": self.type,
+            "date": self.date,
+            "data": self.data,
+        }

@@ -137,7 +137,9 @@ class StatsList(Resource):
         date_to = args.get("date_to")
         if get_last != True:
             if date_from is None:
-                date_from = (date.today() + relativedelta(months=-3)).strftime("%Y-%m-%d")
+                date_from = (date.today() + relativedelta(months=-3)).strftime(
+                    "%Y-%m-%d"
+                )
             if date_to is None:
                 date_to = date.today().strftime("%Y-%m-%d")
 
@@ -159,11 +161,20 @@ class StatsList(Resource):
                 # TODO: Handle the case if the request is from an admin user (from BO).
                 # Get all the records grouped by anr with max date.
                 results = []
-                max_date_and_anrs = query.with_entities(Stats.anr, db.func.max(Stats.date)).group_by(Stats.anr).all()
+                max_date_and_anrs = (
+                    query.with_entities(Stats.anr, db.func.max(Stats.date))
+                    .group_by(Stats.anr)
+                    .all()
+                )
                 for max_date_and_anr in max_date_and_anrs:
-                    results.append(query.filter(
-                        Stats.anr == max_date_and_anr[0],
-                        Stats.date == max_date_and_anr[1]).first()._asdict())
+                    results.append(
+                        query.filter(
+                            Stats.anr == max_date_and_anr[0],
+                            Stats.date == max_date_and_anr[1],
+                        )
+                        .first()
+                        ._asdict()
+                    )
                 result["data"] = results
                 result["metadata"] = {"count": len(results), "offset": 0, "limit": 0}
 
