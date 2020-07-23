@@ -1,5 +1,4 @@
 import click
-import uuid
 import secrets
 
 from statsservice.bootstrap import application, db
