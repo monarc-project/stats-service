@@ -74,11 +74,14 @@ Creating an client
       Create an client.
 
     Options:
-      --name TEXT  Client name (or UUID)  [required]
-      --role TEXT  Role of the client (user or admin)  [default: user]
-      --help       Show this message and exit.
+      --name TEXT   Client name  [required]
+      --uuid TEXT   Client UUID
+      --token TEXT  Client token
+      --role TEXT   Role of the client (user or admin)  [default: user]
+      --help        Show this message and exit.
 
-Actually an client name must be specified and is unique.
+
+Actually a client name must be specified and is unique.
 
 
 Example:

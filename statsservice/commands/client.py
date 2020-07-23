@@ -8,19 +8,21 @@ from statsservice.models import Client
 @application.cli.command("create_client")
 @click.option("--name", required=True, help="Client name")
 @click.option("--uuid", default="", help="Client UUID")
+@click.option("--token", default="", help="Client token")
 @click.option(
     "--role",
     default="user",
     help="Role of the client (user or admin)",
     show_default=True,
 )
-def create_client(name, uuid, role):
+def create_client(name, uuid, token, role):
     """Create an client.
     """
     args = {}
-    token = secrets.token_urlsafe(64)
     if uuid:
         args["uuid"] = uuid
+    if not token:
+        token = secrets.token_urlsafe(64)
     args.update(
         {
             "name": name,
