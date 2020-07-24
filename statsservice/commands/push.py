@@ -25,24 +25,25 @@ def push_stats(name, token):
 
     headers = {"X-API-KEY": token, "content-type": "application/json"}
 
+    payload = []
     stats = Stats.objects(client__exact=client)
     for stat in stats:
-        print("Pushing stats {} {}".format(stat.created_at, stat.type))
-
-        # payload = stat.to_json()
-        payload = json.dumps(
-            {
-                "uuid": str(stat.uuid),
-                "anr": str(stat.anr),
-                "type": stat.type,
-                "date": stat.date,
-                "data": stat.data,
-            }
+        payload.append(
+            json.dumps(
+                {
+                    "uuid": str(stat.uuid),
+                    "anr": str(stat.anr),
+                    "type": stat.type,
+                    "date": stat.date,
+                    "data": stat.data,
+                }
+            )
         )
 
-        try:
-            r = requests.post(STATS_API_ENDPOINT, data=payload, headers=headers)
-            if r.status_code != 200:
-                print("Impossible to push the stat.")
-        except:
-            pass
+    try:
+        print("Pushing stats for client {} {}".format(client.name))
+        r = requests.post(STATS_API_ENDPOINT, data=payload, headers=headers)
+        if r.status_code != 200:
+            print("Impossible to push the stat.")
+    except:
+        pass

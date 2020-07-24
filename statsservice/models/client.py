@@ -19,7 +19,7 @@ class Client(db.Model, UserMixin):
     uuid = db.Column(
         UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False,
     )
-    name = db.Column(db.String(100), unique=True) # field to remove
+    name = db.Column(db.String(100), unique=True)  # field to remove
     token = db.Column(db.String(100), unique=True, default=secret_token)
     role = db.Column(db.Integer, default=ROLE_USER)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
