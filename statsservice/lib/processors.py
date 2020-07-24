@@ -11,7 +11,7 @@ import pandas as pd
 from statsservice.lib.utils import groups_threats
 
 
-def process_threat(threats_stats, aggregation_period, group_by_anr):
+def process_threat(threats_stats, aggregation_period=None, group_by_anr=None):
     """Launch the process for stats of type threat."""
     grouped_threats = groups_threats(threats_stats)
     frames = defaultdict(list)
@@ -25,6 +25,8 @@ def process_threat(threats_stats, aggregation_period, group_by_anr):
             if True:  # threat_uuid == 'b402d4e0-4576-11e9-9173-0800277f0571':
                 print("{} : {}".format(threat_uuid, result))
         print()
+
+    return result
 
 
 def process_risk(risks_stats, aggregation_period, group_by_anr):

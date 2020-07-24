@@ -20,9 +20,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from flask import Blueprint
+from flask import Blueprint, jsonify
 
 from statsservice.models import Stats
+from statsservice.lib.processors import process_threat
 
 stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 
@@ -31,7 +32,20 @@ stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 def risks():
     """
     """
-    risks = Stats.query.filter(Stats.type == "risk").all()
+    result = Stats.query.filter(Stats.type == "risk").all()
     # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
     # risks = Stats.objects(data__anr__exact=2)
-    return risks.to_json()
+    return result.to_json()
+
+
+@stats_bp.route("/threats.json", methods=["GET"])
+def threats():
+    """Returns the mean evaluation based on the threats.
+    """
+    result = Stats.query.filter(Stats.type == "threat").all()
+    # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
+    # risks = Stats.objects(data__anr__exact=2)
+    # return result.to_json()
+
+    mean = process_threat(result)
+    return jsonify(mean)
