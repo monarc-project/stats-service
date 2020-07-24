@@ -20,7 +20,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from flask import Blueprint, jsonify
+from datetime import datetime, timedelta
+from flask import Blueprint, request, jsonify
 
 from statsservice.models import Stats
 from statsservice.lib.processors import process_threat
@@ -42,10 +43,12 @@ def risks():
 def threats():
     """Returns the mean evaluation based on the threats.
     """
-    result = Stats.query.filter(Stats.type == "threat").all()
-    # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
-    # risks = Stats.objects(data__anr__exact=2)
-    # return result.to_json()
-
-    mean = process_threat(result)
+    now = datetime.today()
+    anr = request.args.get("anr", default="", type=str)
+    query = Stats.query.filter(
+        Stats.type == "threat", Stats.date >= now - timedelta(weeks=52)
+    )
+    if anr:
+        query = query.filter(Stats.anr == anr)
+    mean = process_threat(query.all())
     return jsonify(mean)

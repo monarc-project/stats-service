@@ -15,7 +15,7 @@ def process_threat(threats_stats, aggregation_period=None, group_by_anr=None):
     """Launch the process for stats of type threat."""
     grouped_threats = groups_threats(threats_stats)
     frames = defaultdict(list)
-
+    result = {}
     for anr_uuid in grouped_threats:
         print("Averages for ANR (for threats): {}".format(anr_uuid))
         for threat_uuid, stats in grouped_threats[anr_uuid].items():
