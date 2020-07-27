@@ -45,8 +45,9 @@ def threats():
     """
     now = datetime.today()
     anr = request.args.get("anr", default="", type=str)
+    nb_days = request.args.get("days", default=365, type=int)
     query = Stats.query.filter(
-        Stats.type == "threat", Stats.date >= now - timedelta(weeks=52)
+        Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
     )
     if anr:
         query = query.filter(Stats.anr == anr)
