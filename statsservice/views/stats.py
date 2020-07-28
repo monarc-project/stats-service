@@ -24,6 +24,7 @@ from datetime import datetime, timedelta
 from flask import Blueprint, render_template, request, jsonify
 
 from statsservice.models import Stats
+from statsservice.lib.utils import groups_threats
 from statsservice.lib.processors import process_threat, process_risk
 
 # stats_bp: blueprint for public only routes which returns different kind of statistics
@@ -57,10 +58,18 @@ def threats():
     now = datetime.today()
     anr = request.args.get("anr", default="", type=str)
     nb_days = request.args.get("days", default=365, type=int)
+    format_result = request.args.get("format", default="mean", type=str)
     query = Stats.query.filter(
         Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
     )
     if anr:
         query = query.filter(Stats.anr == anr)
-    mean = process_threat(query.all())
-    return jsonify(mean)
+
+    if format_result == "mean":
+        result = process_threat(query.all())
+    elif format_result == "aggregated":
+        result = dict(groups_threats(query.all()))
+    else:
+        result = {"error": "Format '{}' not recognized.".format(format_result)}
+
+    return jsonify(result)

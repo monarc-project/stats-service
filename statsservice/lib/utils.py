@@ -21,9 +21,18 @@ def groups_threats(threats):
     """
     groups = tree()
     for threat_stats in threats:
+        anr_uuid = str(threat_stats.anr)
         for data in threat_stats.data:
             # groups[threat_stats.anr].append(data)
-            if data["uuid"] not in groups[threat_stats.anr].keys():
-                groups[threat_stats.anr][data["uuid"]] = []
-            groups[threat_stats.anr][data["uuid"]].append(data)
+            str_uuid = str(data["uuid"])
+            if str_uuid not in groups[anr_uuid].keys():
+                groups[anr_uuid][str_uuid] = []
+            # add the related date of this stats
+            data["date"] = threat_stats.date
+
+            # MONARC send averageRate as a string, so we convert to float
+            data["averageRate"] = float(data.get("averageRate", 0))
+
+            groups[anr_uuid][str_uuid].append(data)
+
     return groups
