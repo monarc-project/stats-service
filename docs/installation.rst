@@ -111,7 +111,7 @@ Create a new client:
 
 .. code-block:: bash
 
-    heroku run flask create_client --name <name-of-the-client>
+    heroku run flask create_client --name <name-of-the-client> --role admin
 
 All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 
@@ -201,6 +201,11 @@ Accessing logs
 
     $ journalctl -u statsservice
 
+to follow the logs:
+
+.. code-block:: bash
+
+    $ journalctl -u statsservice -f
 
 mod_wsgi
 ~~~~~~~~

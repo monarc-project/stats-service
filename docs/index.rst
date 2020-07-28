@@ -45,6 +45,7 @@ Table of contents
    :maxdepth: 2
 
    installation
+   updates
    api-v1
    stats
    command-line-interface
