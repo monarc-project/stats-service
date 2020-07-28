@@ -24,8 +24,9 @@ from datetime import datetime, timedelta
 from flask import Blueprint, request, jsonify
 
 from statsservice.models import Stats
-from statsservice.lib.processors import process_threat
+from statsservice.lib.processors import process_threat, process_risk
 
+# stats_bp: blueprint for public only routes which returns different kind of statistics
 stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 
 
@@ -33,10 +34,11 @@ stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 def risks():
     """
     """
-    result = Stats.query.filter(Stats.type == "risk").all()
     # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
     # risks = Stats.objects(data__anr__exact=2)
-    return result.to_json()
+    query = Stats.query.filter(Stats.type == "risk")
+    result = process_risk(query.all())
+    return jsonify(result)  # result.to_json()
 
 
 @stats_bp.route("/threats.json", methods=["GET"])
@@ -46,10 +48,10 @@ def threats():
     now = datetime.today()
     anr = request.args.get("anr", default="", type=str)
     nb_days = request.args.get("days", default=365, type=int)
+    if anr:
+        query = query.filter(Stats.anr == anr)
     query = Stats.query.filter(
         Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
     )
-    if anr:
-        query = query.filter(Stats.anr == anr)
     mean = process_threat(query.all())
     return jsonify(mean)

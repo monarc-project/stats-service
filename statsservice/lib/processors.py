@@ -28,7 +28,7 @@ def process_threat(threats_stats, aggregation_period=None, group_by_anr=None):
     return result
 
 
-def process_risk(risks_stats, aggregation_period, group_by_anr):
+def process_risk(risks_stats, aggregation_period=None, group_by_anr=0):
     if group_by_anr == 0:
         # TODO: group the results for all the anrs and calculate the average.
         aggregated_data = defaultdict(list)

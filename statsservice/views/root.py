@@ -23,6 +23,7 @@
 from flask import Blueprint, redirect, url_for, jsonify
 from statsservice import __version__
 
+# root_bp: blueprint of higher level routes
 root_bp = Blueprint("root_bp", __name__, url_prefix="")
 
 
