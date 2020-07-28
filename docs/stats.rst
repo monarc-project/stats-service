@@ -2,7 +2,7 @@ Blueprint stats
 ===============
 
 The goal of this blueprint is to return formatted stats to clients. It is in
-read-only mode
+read-only mode with only public routes (no authentication required).
 
 Endpoints
 ---------
