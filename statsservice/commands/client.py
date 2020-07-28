@@ -31,10 +31,13 @@ def create_client(name, uuid, token, role):
             "role": (1 if role == "user" else 2),
         }
     )
-    new_client = Client(**args)
-    db.session.add(new_client)
-    db.session.commit()
-    print(new_client)
+    try:
+        new_client = Client(**args)
+        db.session.add(new_client)
+        db.session.commit()
+        print(new_client)
+    except Exception as e:
+        print(e)
 
 
 @application.cli.command("list_clients")
