@@ -23,7 +23,7 @@ def process_threat(threats_stats, aggregation_period=None, group_by_anr=None):
             df = pd.DataFrame(stats)
             result[threat_uuid] = dict(df.mean())
             if True:  # threat_uuid == 'b402d4e0-4576-11e9-9173-0800277f0571':
-                print("{} : {}".format(threat_uuid, result))
+                print("{} : {}".format(threat_uuid, result[threat_uuid]))
 
     return result
 

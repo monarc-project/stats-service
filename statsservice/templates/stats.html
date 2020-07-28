@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Stats" />
+    <title>Stats</title>
+</head>
+<body>
+
+</body>
+<script>
+(function() {
+  fetch("{{ url_for('stats_bp.threats',) }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((resp) => resp.json())
+  .then(function(data) {
+    Object.keys(data).map(function(threat_uuid, value) {
+      console.log(data[threat_uuid]);
+    })
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });;
+
+  fetch("{{ url_for('stats_bp.risks',) }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(res => {
+    console.log("Request complete! response:", res);
+  }).catch((error) => {
+    console.error('Error:', error);
+  });;
+})();
+</script>
+</html>

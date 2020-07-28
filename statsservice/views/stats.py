@@ -21,7 +21,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime, timedelta
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, render_template, request, jsonify
 
 from statsservice.models import Stats
 from statsservice.lib.processors import process_threat, process_risk
@@ -30,9 +30,18 @@ from statsservice.lib.processors import process_threat, process_risk
 stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 
 
+@stats_bp.route('/', methods=['GET'])
+def stats():
+    """The only view of this blueprint which is supposed to return a HTML file.
+    Routes defined in the following can be used in this HTML file.
+    """
+    return render_template('stats.html')
+
+
 @stats_bp.route("/risks.json", methods=["GET"])
 def risks():
     """
+    Returns risks as JSON.
     """
     # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
     # risks = Stats.objects(data__anr__exact=2)
@@ -43,7 +52,7 @@ def risks():
 
 @stats_bp.route("/threats.json", methods=["GET"])
 def threats():
-    """Returns the mean evaluation based on the threats.
+    """Returns the mean evaluation based on the threats as JSON.
     """
     now = datetime.today()
     anr = request.args.get("anr", default="", type=str)
