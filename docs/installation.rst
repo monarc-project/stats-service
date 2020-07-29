@@ -81,6 +81,13 @@ Check the version:
     }
 
 
+Install with a script:
+
+.. code-block:: bash
+
+    $ curl -sSL https://raw.githubusercontent.com/monarc-project/stats-service/master/contrib/install.sh | bash
+
+
 To Heroku
 ~~~~~~~~~
 

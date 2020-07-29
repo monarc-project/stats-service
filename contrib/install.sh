@@ -9,9 +9,9 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-WHO=`whoami`
+ME=`whoami`
 
-STATS_PATH="/home/$WHO/stats-service"
+STATS_PATH="/home/$ME/stats-service"
 STATS_HOST='0.0.0.0'
 STATS_PORT='5005'
 STATS_DB_NAME='statsservice'
@@ -92,7 +92,7 @@ Description=MONARC Stats service
 After=network.target
 
 [Service]
-User=$WHO
+User=$ME
 Environment=LANG=en_US.UTF-8
 Environment=LC_ALL=en_US.UTF-8
 Environment=FLASK_APP=runserver.py
@@ -101,7 +101,7 @@ Environment=STATS_CONFIG=production.py
 Environment=FLASK_RUN_HOST=$STATS_HOST
 Environment=FLASK_RUN_PORT=$STATS_PORT
 WorkingDirectory=$STATS_PATH
-ExecStart=/home/$WHO/.poetry/bin/poetry run flask run
+ExecStart=/home/$ME/.poetry/bin/poetry run flask run
 Restart=always
 
 [Install]
