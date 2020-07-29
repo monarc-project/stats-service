@@ -30,6 +30,7 @@ from statsservice.commands import (
     db_init,
     create_client,
     list_clients,
+    delete_client,
     is_object_published,
 )
 
@@ -46,6 +47,7 @@ def register_commands(app):
     # client
     app.cli.add_command(create_client)
     app.cli.add_command(list_clients)
+    app.cli.add_command(delete_client)
     # mosp
     app.cli.add_command(is_object_published)
 
