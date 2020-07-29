@@ -11,6 +11,8 @@
 </body>
 <script>
 (function() {
+
+  // fetch stats for threats
   fetch("{{ url_for('stats_bp.threats',) }}", {
     method: "GET",
     headers: {
@@ -21,12 +23,33 @@
   .then(function(data) {
     Object.keys(data).map(function(threat_uuid, value) {
       console.log(data[threat_uuid]);
+
+      // fetch inforation about relevant threats from MOSP
+      fetch("https://objects.monarc.lu/api/v2/object/?uuid="+threat_uuid, {
+        method: "GET",
+
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      })
+      .then((resp1) => resp1.json())
+      .then(function(mosp_result) {
+        console.log(mosp_result["data"][0].name);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });;
+
+
     })
   })
   .catch((error) => {
     console.error('Error:', error);
   });;
 
+
+
+  // fetch stats for risks
   fetch("{{ url_for('stats_bp.risks',) }}", {
     method: "GET",
     headers: {
