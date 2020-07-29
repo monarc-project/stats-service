@@ -50,7 +50,7 @@ Drop all the database
     $ flask db_empty --help
     Usage: flask db_empty [OPTIONS]
 
-      Drop all the database.
+      Empty the database.
 
     Options:
       --help  Show this message and exit.
@@ -71,13 +71,13 @@ Creating an client
     $ flask create_client --help
     Usage: flask create_client [OPTIONS]
 
-      Create an client.
+      Create a new client.
 
     Options:
-      --name TEXT   Client name  [required]
-      --uuid TEXT   Client UUID
-      --token TEXT  Client token
-      --role TEXT   Role of the client (user or admin)  [default: user]
+      --name TEXT   Name of the client.  [required]
+      --uuid TEXT   UUID of the client.
+      --token TEXT  Token of the client.
+      --role TEXT   Role of the client (user or admin).  [default: user]
       --help        Show this message and exit.
 
 
@@ -96,17 +96,48 @@ Example:
     Created at: 2020-07-15 09:27:51.701245
 
 
-Listing clients
-~~~~~~~~~~~~~~~
+List all clients
+~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
     $ flask list_clients
-    Name: CASES
-    Token: xL3F5M-g1HISeAccX_SrYG8ng3vPRbTByhwXIQufkBv1yCLG2eyc7Sl4cOtnDuGFMPQhniIFNIrZ6x-WRi9dNg
-
+    UUID: 7bb21fc8-9617-4da5-a60a-fbccda8cc583
     Name: CIRCL
-    Token: uJn2zUA361NANAz6dbtstAaAjq3hL28dscxzCjeUOHpIYC87K8nfOAPtRsTGAqT0iwzs7TEgq5DdD0kkwQDhmw
+    Role: 1
+    Token: IR1KPdoh94m8aoCV5cuRU5ROKWXS8m6lE5M96gklf1Ar6wbrogL_bFnDdpV_AMrejApVsGfyNecp8THBXy108w
+    Created at: 2020-07-23 07:56:16.556226
+
+    UUID: aaaded6e-4039-448a-93bb-7cd7a696bc15
+    Name: SMILE
+    Role: 1
+    Token: wwqREga9eZUVH-cz2N40voD7BkirP5K0tlkANqK-cKYjVXjy4YgdhtDGJAuw1oHntH79OSm3OzleVZEO3GRCeA
+    Created at: 2020-07-23 07:57:47.658965
+
+    UUID: f490f727-9a1a-404b-bb91-ae36f643c6fe
+    Name: CASES
+    Role: 1
+    Token: RFXhRd4fDN7jQifaoBe3wF6TdGts6GSic2ec8qH0dft8Z2k-Q4ulZBoa_50CrrUC6rLYSAEwJZsGySpuuuounw
+    Created at: 2020-07-17 12:48:05.192735
+
+
+
+Delete a client
+~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ flask delete_client --help
+    Usage: flask delete_client [OPTIONS]
+
+      Delete the client specified with its UUID and all the related local stats.
+
+    Options:
+      --uuid TEXT  UUID of the client to delete.
+      -y, --yes    Automatically reply yes to the confirmation message for the
+                   deletion of the client.
+
+      --help       Show this message and exit.
 
 
 
@@ -143,6 +174,7 @@ Pulling data
 ~~~~~~~~~~~~
 
 Pulling data from a central stats server.
+
 
 
 Interactions with MOSP

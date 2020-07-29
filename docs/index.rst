@@ -34,8 +34,7 @@ API in order to **collect** statistics from one or several
 `MONARC <https://github.com/monarc-project/MonarcAppFO>`_ instances and to
 **return** these statistics with different filters and aggregation methods.
 
-It can be deployed just next to a MONARC instance (eventually in a virtual
-machine) or on a dedicated server.
+It can be deployed just next to a MONARC instance or on a dedicated server.
 
 The collected statistics can be sent to an other stats instance.
 
