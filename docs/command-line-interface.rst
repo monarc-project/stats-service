@@ -22,7 +22,7 @@ Creation of the database
     $ flask db_create --help
     Usage: flask db_create [OPTIONS]
 
-      Will create the database from configuration parameters.
+      Create the database from configuration parameters.
 
     Options:
       --help  Show this message and exit.
@@ -36,7 +36,7 @@ Initialization of the database
     $ flask db_init --help
     Usage: flask db_init [OPTIONS]
 
-      Will initialize the database.
+      Initialize the database.
 
     Options:
       --help  Show this message and exit.
@@ -63,8 +63,8 @@ Will ask for confirmation and eventually drop all collections.
 Clients
 -------
 
-Creating an client
-~~~~~~~~~~~~~~~~~~
+Creating a client
+~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
