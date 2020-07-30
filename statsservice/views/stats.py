@@ -25,7 +25,7 @@ from flask import Blueprint, render_template, request, jsonify
 
 from statsservice.models import Stats
 from statsservice.lib.utils import groups_threats
-from statsservice.lib.processors import process_threat, process_risk
+from statsservice.lib.processors import process_threat, process_risk, threats_average_on_date
 
 # stats_bp: blueprint for public only routes which returns different kind of statistics
 stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
@@ -53,7 +53,7 @@ def risks():
 
 @stats_bp.route("/threats.json", methods=["GET"])
 def threats():
-    """Returns the mean evaluation based on the threats as JSON.
+    """Returns threats with custom post-processings.
     """
     now = datetime.today()
     anr = request.args.get("anr", default="", type=str)
@@ -65,10 +65,13 @@ def threats():
     if anr:
         query = query.filter(Stats.anr == anr)
 
-    if format_result == "mean":
+
+    if format_result == "aggregated":
+        result = groups_threats(query.all())
+    elif format_result == "mean":
         result = process_threat(query.all())
-    elif format_result == "aggregated":
-        result = dict(groups_threats(query.all()))
+    elif format_result == "average_date":
+        result = threats_average_on_date(query.all())
     else:
         result = {"error": "Format '{}' not recognized.".format(format_result)}
 

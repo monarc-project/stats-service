@@ -5,12 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Stats" />
     <title>Stats</title>
+    <script src="{{ url_for('static', filename='npm_components/chart.js/dist/Chart.min.js') }}"></script>
 </head>
 <body>
+  <div style="width:75%;">
+		<canvas id="canvas"></canvas>
+	</div>
 
 </body>
 <script>
 (function() {
+  var timeFormat = 'YYYY-MM-DD';
+
+
+
+
+
+
+
 
   // fetch stats for threats
   fetch("{{ url_for('stats_bp.threats',) }}", {

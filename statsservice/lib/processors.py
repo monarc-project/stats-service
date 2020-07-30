@@ -8,7 +8,35 @@
 from collections import defaultdict
 
 import pandas as pd
-from statsservice.lib.utils import groups_threats
+from statsservice.lib.utils import groups_threats, tree
+
+
+def threats_average_on_date(threats_stats):
+    """Aggregation and average of threats per date.
+    """
+    grouped_threats = groups_threats(threats_stats)
+
+    # group all threats of all analysis per date
+    frames = tree()
+    for anr_uuid in grouped_threats:
+        for threat_uuid, stats in grouped_threats[anr_uuid].items():
+            for data in stats:
+                #print(data)
+                #print(data["date"].strftime("%Y-%m-%d"))
+                if data["date"].strftime("%Y-%m-%d") in frames[threat_uuid]:
+                    frames[threat_uuid][data["date"].strftime("%Y-%m-%d")].append(data)
+                else:
+                    frames[threat_uuid][data["date"].strftime("%Y-%m-%d")] = [data]
+
+    # evaluate the average per day for each threats
+    result = tree()
+    for threat_uuid in frames:
+        for date in frames[threat_uuid]:
+            df = pd.DataFrame(frames[threat_uuid][date])
+            mean = dict(df.mean())
+            result[threat_uuid][date] = mean
+
+    return result
 
 
 def process_threat(threats_stats, aggregation_period=None, group_by_anr=None):
@@ -23,6 +51,7 @@ def process_threat(threats_stats, aggregation_period=None, group_by_anr=None):
             df = pd.DataFrame(stats)
             result[threat_uuid] = dict(df.mean())
             print("{} : {}".format(threat_uuid, result[threat_uuid]))
+            #print(df.to_html())
             print(df.mean().to_markdown())
             print()
 
