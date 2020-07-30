@@ -5,7 +5,7 @@ from statsservice.bootstrap import application, db
 from statsservice.models import Client
 
 
-@application.cli.command("create_client")
+@application.cli.command("client_create")
 @click.option("--name", required=True, help="Name of the client.")
 @click.option("--uuid", default="", help="UUID of the client.")
 @click.option("--token", default="", help="Token of the client.")
@@ -15,8 +15,8 @@ from statsservice.models import Client
     help="Role of the client (user or admin).",
     show_default=True,
 )
-def create_client(name, uuid, token, role):
-    """Create a new client.
+def client_create(name, uuid, token, role):
+    """Create a new local client.
     """
     args = {}
     if uuid:
@@ -40,8 +40,8 @@ def create_client(name, uuid, token, role):
         print(e)
 
 
-@application.cli.command("list_clients")
-def list_clients():
+@application.cli.command("client_list")
+def client_list():
     """List all local clients.
     """
     for client in Client.query.all():
@@ -49,15 +49,15 @@ def list_clients():
         print()
 
 
-@application.cli.command("delete_client")
+@application.cli.command("client_delete")
 @click.option("--uuid", default="", help="UUID of the client to delete.")
 @click.option(
     "-y",
     "--yes",
     is_flag=True,
-    help="Automatically reply yes to the confirmation message for the deletion of the client.",
+    help="Automatically reply yes to the confirmation message.",
 )
-def delete_client(uuid, yes):
+def client_delete(uuid, yes):
     """Delete the client specified with its UUID and all the related local stats.
     """
     if yes or click.confirm("Delete all local stats related to this client?"):

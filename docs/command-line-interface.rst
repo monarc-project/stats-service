@@ -19,7 +19,7 @@ Creation of the database
 
 .. code-block:: bash
 
-    $ poetry run flask db_create --help
+    $ flask db_create --help
     Usage: flask db_create [OPTIONS]
 
       Will create the database from configuration parameters.
@@ -33,7 +33,7 @@ Initialization of the database
 
 .. code-block:: bash
 
-    $ poetry run flask db_init --help
+    $ flask db_init --help
     Usage: flask db_init [OPTIONS]
 
       Will initialize the database.
@@ -68,8 +68,8 @@ Creating an client
 
 .. code-block:: bash
 
-    $ flask create_client --help
-    Usage: flask create_client [OPTIONS]
+    $ flask client_create --help
+    Usage: flask client_create [OPTIONS]
 
       Create a new client.
 
@@ -88,7 +88,7 @@ Example:
 
 .. code-block:: bash
 
-    $ flask create_client --name CASES
+    $ flask client_create --name CASES
     UUID: fb9b4d21-4082-445c-a6e6-5d42a1cd9202
     Name: CASES
     Role: 1
@@ -101,7 +101,7 @@ List all clients
 
 .. code-block:: bash
 
-    $ flask list_clients
+    $ flask client_list
     UUID: 7bb21fc8-9617-4da5-a60a-fbccda8cc583
     Name: CIRCL
     Role: 1
@@ -127,8 +127,8 @@ Delete a client
 
 .. code-block:: bash
 
-    $ flask delete_client --help
-    Usage: flask delete_client [OPTIONS]
+    $ flask client_delete --help
+    Usage: flask client_delete [OPTIONS]
 
       Delete the client specified with its UUID and all the related local stats.
 
@@ -151,8 +151,8 @@ Pushing data to a central stats server.
 
 .. code-block:: bash
 
-    $ flask push-stats --help
-    Usage: flask push-stats [OPTIONS]
+    $ flask stats_push --help
+    Usage: flask stats_push-stats [OPTIONS]
 
       Push stats for the client specified in parameter to an other stats
       server.
@@ -175,6 +175,34 @@ Pulling data
 
 Pulling data from a central stats server.
 
+.. code-block:: bash
+
+    $ flask stats_pull --help
+    Usage: flask stats_pull [OPTIONS]
+
+      Pull stats from an other stats instance for the client specified in
+      parameter.
+
+    Options:
+      --name TEXT  Client name
+      --help       Show this message and exit.
+  
+
+Delete stats
+~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ flask stats_delete --help
+    Usage: flask stats_delete [OPTIONS]
+
+    Delete the stats of a local client.
+
+    Options:
+    --client-uuid TEXT  UUID of the client related to the stats.
+    -y, --yes           Automatically reply yes to the confirmation message.
+    --help              Show this message and exit.
+
 
 
 Interactions with MOSP
@@ -182,8 +210,8 @@ Interactions with MOSP
 
 .. code-block:: bash
 
-    $ flask is_object_published --help
-    Usage: flask is_object_published [OPTIONS]
+    $ flask mosp_is_object_published --help
+    Usage: flask mosp_is_object_published [OPTIONS]
 
       Check if an object has been published on MOSP. Returns a boolean.
 
@@ -196,11 +224,11 @@ Examples:
 
 .. code-block:: bash
 
-    $ flask is_object_published --uuid f3caa83b-28fb-49fd-b7ad-6e4cd1aaad06
+    $ flask mosp_is_object_published --uuid f3caa83b-28fb-49fd-b7ad-6e4cd1aaad06
     False
-    $ flask is_object_published --uuid f3caa83b-28fb-49fd-b7ad-6e4cd1aaad07 
+    $ flask mosp_is_object_published --uuid f3caa83b-28fb-49fd-b7ad-6e4cd1aaad07
     True
-    $ flask is_object_published --uuid f3caa83b-28fb-49fd-b7ad-6e4cd1aaad07 -v
+    $ flask mosp_is_object_published --uuid f3caa83b-28fb-49fd-b7ad-6e4cd1aaad07 -v
     {
         "data": [
             {

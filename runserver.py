@@ -23,15 +23,16 @@
 
 from statsservice.bootstrap import application
 from statsservice.commands import (
-    push_stats,
-    pull_stats,
     db_empty,
     db_create,
     db_init,
-    create_client,
-    list_clients,
-    delete_client,
-    is_object_published,
+    client_create,
+    client_list,
+    client_delete,
+    stats_delete,
+    stats_pull,
+    stats_push,
+    mosp_is_object_published,
 )
 
 
@@ -41,15 +42,16 @@ def register_commands(app):
     app.cli.add_command(db_empty)
     app.cli.add_command(db_create)
     app.cli.add_command(db_init)
-    # pull and push
-    app.cli.add_command(push_stats)
-    app.cli.add_command(pull_stats)
     # client
-    app.cli.add_command(create_client)
-    app.cli.add_command(list_clients)
-    app.cli.add_command(delete_client)
+    app.cli.add_command(client_create)
+    app.cli.add_command(client_list)
+    app.cli.add_command(client_delete)
+    # stats
+    app.cli.add_command(stats_delete)
+    app.cli.add_command(stats_push)
+    app.cli.add_command(stats_pull)
     # mosp
-    app.cli.add_command(is_object_published)
+    app.cli.add_command(mosp_is_object_published)
 
 
 with application.app_context():

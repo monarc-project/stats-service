@@ -118,7 +118,7 @@ Create a new client:
 
 .. code-block:: bash
 
-    heroku run flask create_client --name <name-of-the-client> --role admin
+    heroku run flask client_create --name <name-of-the-client> --role admin
 
 All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 

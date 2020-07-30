@@ -16,7 +16,7 @@ def db_empty():
 
 @application.cli.command("db_create")
 def db_create():
-    "Will create the database from configuration parameters."
+    "Create the database from configuration parameters."
     try:
         models.db_create(
             db,
@@ -29,7 +29,7 @@ def db_create():
 
 @application.cli.command("db_init")
 def db_init():
-    "Will initialize the database."
+    "Initialize the database."
     try:
         models.db_init(db)
     except Exception as e:
