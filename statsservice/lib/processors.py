@@ -23,6 +23,8 @@ def process_threat(threats_stats, aggregation_period=None, group_by_anr=None):
             df = pd.DataFrame(stats)
             result[threat_uuid] = dict(df.mean())
             print("{} : {}".format(threat_uuid, result[threat_uuid]))
+            print(df.mean().to_markdown())
+            print()
 
     return result
 
