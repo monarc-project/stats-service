@@ -10,8 +10,11 @@ STATS_API_ENDPOINT = urljoin(
     application.config["REMOTE_STATS_SERVER"], "/api/v1/stats/"
 )
 
+
 @application.cli.command("stats_delete")
-@click.option("--client-uuid", default="", help="UUID of the client related to the stats.")
+@click.option(
+    "--client-uuid", default="", help="UUID of the client related to the stats."
+)
 @click.option(
     "-y",
     "--yes",

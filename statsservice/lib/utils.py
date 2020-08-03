@@ -36,3 +36,10 @@ def groups_threats(threats):
             groups[anr_uuid][str_uuid].append(data)
 
     return groups
+
+
+def groups_vulnerabilities(vulnerabilities):
+    """Groups stats about vulnerabilities per ANR (UUID) then per vulnerability UUID.
+    """
+    # the structure of the stats for the threats and vulnerabilities is the same
+    return groups_threats(vulnerabilities)

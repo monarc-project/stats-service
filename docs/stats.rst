@@ -10,6 +10,7 @@ Endpoints
 - /stats. At that time this route simply returns a HTML file. Some charts can be
   displayed for example with the data from the following routes.
 - /stats/risks.json
+- /stats/vulnerabilities.json
 - /stats/threats.json
 
 

@@ -8,9 +8,14 @@
     <script src="{{ url_for('static', filename='npm_components/chart.js/dist/Chart.bundle.min.js') }}"></script>
 </head>
 <body>
-  <div style="width:75%;">
+  <div style="width:75%; margin:0 auto;">
     <h1>Averages per threats (based on <i>count</i>)</h1>
-		<canvas id="canvas"></canvas>
+		<canvas id="canvas-threats"></canvas>
+	</div>
+
+  <div style="width:75%; margin:0 auto;">
+    <h1>Averages per vulnerabilities (based on <i>count</i>)</h1>
+		<canvas id="canvas-vulnerabilities"></canvas>
 	</div>
 
 </body>
@@ -28,7 +33,7 @@
   	'rgb(201, 203, 207)'
   ];
   var color = Chart.helpers.color;
-  // basic configuration of the chart
+  // basic configuration of the charts (threats and vulnerabilities)
   var config = {
     type: 'line',
     data: {
@@ -66,6 +71,7 @@
   .then((resp) => resp.json())
   .then(function(resp_json) {
     datasets = [];
+    var config_threats = JSON.parse(JSON.stringify(config));
     var i = 0;
     // with the result of the query, construct the datasets for the configuration
     // of the chart
@@ -93,11 +99,61 @@
     })
 
     // finally set the datasets in the config variable
-    config["data"]["datasets"] = datasets;
+    config_threats["data"]["datasets"] = datasets;
 
     // draw the chart
-    var ctx = document.getElementById("canvas").getContext("2d");
-    var chart = new Chart(ctx, config);
+    var ctx_threats = document.getElementById("canvas-threats").getContext("2d");
+    var chart_threats = new Chart(ctx_threats, config_threats);
+
+
+  }).catch((error) => {
+    console.error('Error:', error);
+  });;
+
+
+  // fetch stats for vulnerabilities (averages per vulnerabilities per date)
+  fetch("{{ url_for('stats_bp.vulnerabilities', format='average_date', days=365) | safe }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((resp) => resp.json())
+  .then(function(resp_json) {
+    datasets = [];
+    var config_vulnerabilities = JSON.parse(JSON.stringify(config));
+    var i = 0;
+    // with the result of the query, construct the datasets for the configuration
+    // of the chart
+    Object.keys(resp_json).map(function(vulnerability_uuid, value) {
+      data = [];
+      dataset = {
+        "label": vulnerability_uuid,
+        "backgroundColor": color(window.chartColors[i]).alpha(0.5).rgbString(),
+        "borderColor": window.chartColors[i],
+        "fill": false,
+      };
+      if (i < 7) { // stop at the seventh threat, just because we do not have enough colors ;-)
+
+        Object.keys(resp_json[vulnerability_uuid]).map(function(date, stats_data) {
+          data.push({
+            x: new Date(date),
+            y: resp_json[vulnerability_uuid][date]["count"]
+          })
+        });
+
+        i += 1;
+        dataset["data"] = data;
+        datasets.push(dataset);
+      }
+    })
+
+    // finally set the datasets in the config variable
+    config_vulnerabilities["data"]["datasets"] = datasets;
+
+    // draw the chart
+    var ctx_vulnerabilities = document.getElementById("canvas-vulnerabilities").getContext("2d");
+    var chart_vulnerabilities = new Chart(ctx_vulnerabilities, config_vulnerabilities);
 
 
   }).catch((error) => {
