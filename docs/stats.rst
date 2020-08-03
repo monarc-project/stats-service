@@ -7,7 +7,8 @@ read-only mode with only public routes (no authentication required).
 Endpoints
 ---------
 
-- /stats - The only view of this blueprint which is supposed to return a HTML file.
+- /dashboard. At that time this route simply returns a HTML file. Some charts can be
+  displayed for example with the data from the following routes.
 - /stats/risks.json
 - /stats/threats.json
 

@@ -42,11 +42,22 @@ The collected statistics can be sent to an other stats instance.
 Table of contents
 =================
 
+Technical considerations
+------------------------
+
 .. toctree::
    :maxdepth: 2
 
    installation
    updates
+   command-line-interface
+   
+Blueprints
+----------
+
+.. toctree::
+   :maxdepth: 2
+
    api-v1
    stats
-   command-line-interface
+   

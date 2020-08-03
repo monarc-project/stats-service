@@ -56,6 +56,7 @@ From the source
 
     $ git clone https://github.com/monarc-project/stats-service
     $ cd stats-service/
+    $ npm install
     $ cp instance/production.py.cfg instance/production.py  # configure appropriately
     $ poetry install # install the application
     $ export STATS_CONFIG=production.py
@@ -176,7 +177,7 @@ following contents:
 .. code-block:: ini
 
     [Unit]
-    Description=Stats
+    Description=MONARC Stats service
     After=network.target
 
     [Service]

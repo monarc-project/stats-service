@@ -28,6 +28,7 @@ The following assumes you have already installed ``git``, ``poetry``,  and
 $ sudo apt install postgresql
 $ git clone https://github.com/monarc-project/stats-service
 $ cd stats-service/
+$ npm install
 $ cp instance/production.py.cfg instance/production.py
 $ poetry install
 $ poetry shell
