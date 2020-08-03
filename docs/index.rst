@@ -51,7 +51,17 @@ Technical considerations
    installation
    updates
    command-line-interface
-   
+
+
+Conceptual considerations
+-------------------------
+
+.. toctree::
+   :maxdepth: 2
+
+   architecture
+
+
 Blueprints
 ----------
 
@@ -60,4 +70,3 @@ Blueprints
 
    api-v1
    stats
-   
