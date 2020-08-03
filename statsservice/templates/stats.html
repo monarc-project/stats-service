@@ -4,74 +4,160 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Stats" />
-    <title>Stats</title>
-    <script src="{{ url_for('static', filename='npm_components/chart.js/dist/Chart.min.js') }}"></script>
+    <title>Global dashboard</title>
+    <script src="{{ url_for('static', filename='npm_components/chart.js/dist/Chart.bundle.min.js') }}"></script>
 </head>
 <body>
   <div style="width:75%;">
+    <h1>Averages per threats (based on <i>count</i>)</h1>
 		<canvas id="canvas"></canvas>
 	</div>
 
 </body>
 <script>
 (function() {
-  var timeFormat = 'YYYY-MM-DD';
 
+  // define some colors for the lines of the chart
+  window.chartColors = [
+  	'rgb(255, 99, 132)',
+  	'rgb(255, 159, 64)',
+  	'rgb(255, 205, 86)',
+  	'rgb(75, 192, 192)',
+  	'rgb(54, 162, 235)',
+  	'rgb(153, 102, 255)',
+  	'rgb(201, 203, 207)'
+  ];
+  var color = Chart.helpers.color;
+  // basic configuration of the chart
+  var config = {
+    type: 'line',
+    data: {
+      datasets: []
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          offset: true,
+          type: "time",
+          time: {
+            unit: 'day',
+            round: 'day',
+            displayFormats: {
+              day: 'MMM D'
+            }
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  }
 
-
-
-
-
-
-
-  // fetch stats for threats
-  fetch("{{ url_for('stats_bp.threats',) }}", {
+  // fetch stats for threats (averages per threats per date)
+  fetch("{{ url_for('stats_bp.threats', format='average_date', days=365) | safe }}", {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',
     },
   })
   .then((resp) => resp.json())
-  .then(function(data) {
-    Object.keys(data).map(function(threat_uuid, value) {
-      console.log(data[threat_uuid]);
+  .then(function(resp_json) {
+    datasets = [];
+    var i = 0;
+    // with the result of the query, construct the datasets for the configuration
+    // of the chart
+    Object.keys(resp_json).map(function(threat_uuid, value) {
+      data = [];
+      dataset = {
+        "label": threat_uuid,
+        "backgroundColor": color(window.chartColors[i]).alpha(0.5).rgbString(),
+        "borderColor": window.chartColors[i],
+        "fill": false,
+      };
+      if (i < 7) { // stop at the seventh threat, just because we do not have enough colors ;-)
 
-      // fetch inforation about relevant threats from MOSP
-      fetch("https://objects.monarc.lu/api/v2/object/?uuid="+threat_uuid, {
-        method: "GET",
+        Object.keys(resp_json[threat_uuid]).map(function(date, stats_data) {
+          data.push({
+            x: new Date(date),
+            y: resp_json[threat_uuid][date]["count"]
+          })
+        });
 
-        headers: {
-          'Content-Type': 'text/plain',
-        },
-      })
-      .then((resp1) => resp1.json())
-      .then(function(mosp_result) {
-        console.log(mosp_result["data"][0].name);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });;
-
-
+        i += 1;
+        dataset["data"] = data;
+        datasets.push(dataset);
+      }
     })
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });;
+
+    // finally set the datasets in the config variable
+    config["data"]["datasets"] = datasets;
+
+    // draw the chart
+    var ctx = document.getElementById("canvas").getContext("2d");
+    var chart = new Chart(ctx, config);
 
 
-
-  // fetch stats for risks
-  fetch("{{ url_for('stats_bp.risks',) }}", {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then(res => {
-    console.log("Request complete! response:", res);
   }).catch((error) => {
     console.error('Error:', error);
   });;
+
+
+
+
+
+
+
+  // Test: fetch stats for threats
+  // fetch("{{ url_for('stats_bp.threats',) }}", {
+  //   method: "GET",
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  // })
+  // .then((resp) => resp.json())
+  // .then(function(data) {
+  //   Object.keys(data).map(function(threat_uuid, value) {
+  //     console.log(data[threat_uuid]);
+  //
+  //     // fetch inforation about relevant threats from MOSP
+  //     fetch("https://objects.monarc.lu/api/v2/object/?uuid="+threat_uuid, {
+  //       method: "GET",
+  //
+  //       headers: {
+  //         'Content-Type': 'text/plain',
+  //       },
+  //     })
+  //     .then((resp1) => resp1.json())
+  //     .then(function(mosp_result) {
+  //       console.log(mosp_result["data"][0].name);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error:', error);
+  //     });;
+  //
+  //
+  //   })
+  // })
+  // .catch((error) => {
+  //   console.error('Error:', error);
+  // });;
+
+
+
+  // Test: fetch stats for risks
+  // fetch("{{ url_for('stats_bp.risks',) }}", {
+  //   method: "GET",
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  // }).then(res => {
+  //   console.log("Request complete! response:", res);
+  // }).catch((error) => {
+  //   console.error('Error:', error);
+  // });;
 })();
 </script>
 </html>
