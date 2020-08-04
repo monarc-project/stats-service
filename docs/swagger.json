@@ -37,103 +37,11 @@
             }
         },
         "/stats/": {
-            "get": {
+            "post": {
                 "responses": {
                     "401": {
                         "description": "Authorization needed"
                     },
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/StatsList"
-                            }
-                        }
-                    }
-                },
-                "summary": "List of the stats",
-                "operationId": "list_stats",
-                "parameters": [
-                    {
-                        "name": "anr",
-                        "in": "query",
-                        "type": "string",
-                        "format": "uuid_type",
-                        "description": "The ANR UUID related to this stats."
-                    },
-                    {
-                        "name": "type",
-                        "in": "query",
-                        "type": "string",
-                        "required": true,
-                        "description": "The type of the stats.",
-                        "enum": [
-                            "risk",
-                            "vulnerability",
-                            "threat",
-                            "cartography",
-                            "compliance"
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "aggregation_period",
-                        "in": "query",
-                        "type": "string",
-                        "required": false,
-                        "description": "The stats aggregation period.",
-                        "enum": [
-                            "day",
-                            "week",
-                            "month",
-                            "quarter",
-                            "year"
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "date_from",
-                        "in": "query",
-                        "type": "string",
-                        "format": "date",
-                        "description": "The date of the stats must be bigger or equal than this value."
-                    },
-                    {
-                        "name": "date_to",
-                        "in": "query",
-                        "type": "string",
-                        "format": "date",
-                        "description": "The date of the stats must be smaller or equal than this value."
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "type": "integer",
-                        "description": "Page number",
-                        "default": 1
-                    },
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "type": "integer",
-                        "description": "Page size",
-                        "default": 10
-                    },
-                    {
-                        "name": "X-Fields",
-                        "in": "header",
-                        "type": "string",
-                        "format": "mask",
-                        "description": "An optional fields mask"
-                    }
-                ],
-                "tags": [
-                    "stats"
-                ]
-            },
-            "post": {
-                "responses": {
                     "201": {
                         "description": "Success",
                         "schema": {
@@ -166,14 +74,140 @@
                 "tags": [
                     "stats"
                 ]
+            },
+            "get": {
+                "responses": {
+                    "401": {
+                        "description": "Authorization needed"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StatsList"
+                            }
+                        }
+                    }
+                },
+                "summary": "List all stats",
+                "operationId": "list_stats",
+                "parameters": [
+                    {
+                        "name": "anr",
+                        "in": "query",
+                        "type": "string",
+                        "format": "uuid_type",
+                        "description": "The ANR UUID related to this stats."
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "The type of the stats.",
+                        "enum": [
+                            "risk",
+                            "vulnerability",
+                            "threat",
+                            "cartography",
+                            "compliance"
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "postprocessor",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The post-processor to apply to the result (list of stats).",
+                        "enum": [
+                            "risk_process",
+                            "threat_average_on_date",
+                            "threat_process",
+                            "vulnerability_average_on_date"
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "group_by_anr",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "If the result should be grouped by anr or not.",
+                        "default": 1,
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "date_from",
+                        "in": "query",
+                        "type": "string",
+                        "format": "date",
+                        "description": "The date of the stats must be bigger or equal than this value."
+                    },
+                    {
+                        "name": "date_to",
+                        "in": "query",
+                        "type": "string",
+                        "format": "date",
+                        "description": "The date of the stats must be smaller or equal than this value."
+                    },
+                    {
+                        "name": "anrs",
+                        "in": "query",
+                        "type": "array",
+                        "description": "List of the anrs' uuids to filter by.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "get_last",
+                        "in": "query",
+                        "type": "boolean",
+                        "description": "Specify that result should compose only the last records in the results set for each anr. Dates filters are ignored in this case."
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Start position",
+                        "default": 0
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Limit of records",
+                        "default": 0
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "stats"
+                ]
             }
         },
-        "/stats/{uuid}": {
+        "/stats/{anr}": {
             "parameters": [
                 {
-                    "in": "path",
+                    "in": "query",
                     "description": "The stats identifier",
                     "name": "uuid",
+                    "type": "string"
+                },
+                {
+                    "name": "anr",
+                    "in": "path",
                     "required": true,
                     "type": "string"
                 }
@@ -187,43 +221,8 @@
                         "description": "Stats deleted"
                     }
                 },
-                "summary": "Delete a stats given its identifier",
+                "summary": "Delete stats by provided anr",
                 "operationId": "delete_stats",
-                "tags": [
-                    "stats"
-                ]
-            },
-            "put": {
-                "responses": {
-                    "404": {
-                        "description": "Stats not found"
-                    },
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/Stats"
-                        }
-                    }
-                },
-                "summary": "Update a stats given its identifier",
-                "operationId": "put_stats_item",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/Stats"
-                        }
-                    },
-                    {
-                        "name": "X-Fields",
-                        "in": "header",
-                        "type": "string",
-                        "format": "mask",
-                        "description": "An optional fields mask"
-                    }
-                ],
                 "tags": [
                     "stats"
                 ]
@@ -240,7 +239,7 @@
                         }
                     }
                 },
-                "summary": "Fetch a given resource",
+                "summary": "Fetch a given resource by anr",
                 "operationId": "get_stats",
                 "parameters": [
                     {
@@ -305,12 +304,22 @@
                     "type": "string",
                     "description": "The token of the client.",
                     "readOnly": true
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The client role.",
+                    "readOnly": true
                 }
             },
             "type": "object"
         },
         "Stats": {
             "properties": {
+                "uuid": {
+                    "type": "string",
+                    "description": "The stats unique identifier",
+                    "readOnly": true
+                },
                 "anr": {
                     "type": "string",
                     "description": "The ANR UUID related to this stats."
@@ -321,7 +330,8 @@
                 },
                 "date": {
                     "type": "string",
-                    "description": "Stats date in format 'd-m-Y'."
+                    "format": "date",
+                    "description": "The stats date in format 'Y-m-d'"
                 },
                 "data": {
                     "type": "object",
@@ -333,7 +343,7 @@
         "StatsList": {
             "properties": {
                 "metadata": {
-                    "description": "Metadata related to the result.",
+                    "description": "Metada related to the result.",
                     "allOf": [
                         {
                             "$ref": "#/definitions/metadata"
@@ -346,6 +356,10 @@
                     "items": {
                         "$ref": "#/definitions/Stats"
                     }
+                },
+                "processed_data": {
+                    "type": "object",
+                    "description": "Result of the selected postprocessor applied to the resulting stats."
                 }
             },
             "type": "object"
@@ -364,7 +378,7 @@
                 },
                 "limit": {
                     "type": "string",
-                    "description": "Requested limit data. Default is 0 (unlimited)",
+                    "description": "Requested limit data.",
                     "readOnly": true
                 }
             },
