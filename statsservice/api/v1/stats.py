@@ -209,6 +209,11 @@ class StatsList(Resource):
 
         # eventually apply a postprocessor to the result
         if postprocessor:
+            if not postprocessor.startswith(type+'_'):
+                abort(
+                    500,
+                    Error="Postprocessor: {} can not be used with {}.".format(postprocessor, type)
+                )
             try:
                 processed_result = getattr(
                     statsservice.lib.postprocessors, postprocessor

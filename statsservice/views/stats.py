@@ -7,10 +7,10 @@ from flask import Blueprint, render_template, request, jsonify
 from statsservice.models import Stats
 from statsservice.lib.utils import groups_threats
 from statsservice.lib.postprocessors import (
-    process_threat,
-    process_risk,
-    threats_average_on_date,
-    vulnerabilities_average_on_date,
+    threat_process,
+    risk_process,
+    threat_average_on_date,
+    vulnerability_average_on_date,
 )
 
 
@@ -54,7 +54,7 @@ def threats():
     elif format_result == "mean":
         result = process_threat(query.all())
     elif format_result == "average_date":
-        result = threats_average_on_date(query.all())
+        result = threat_average_on_date(query.all())
     else:
         result = {"error": "Format '{}' not recognized.".format(format_result)}
 
@@ -73,7 +73,7 @@ def vulnerabilities():
     )
 
     if format_result == "average_date":
-        result = vulnerabilities_average_on_date(query.all())
+        result = vulnerability_average_on_date(query.all())
     else:
         result = {"error": "Format '{}' not recognized.".format(format_result)}
 
