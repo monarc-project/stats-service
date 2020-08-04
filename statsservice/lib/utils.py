@@ -28,7 +28,7 @@ def groups_threats(threats):
             if str_uuid not in groups[anr_uuid].keys():
                 groups[anr_uuid][str_uuid] = []
             # add the related date of this stats
-            data["date"] = threat_stats.date
+            data["date"] = threat_stats.date.strftime("%Y-%m-%d")
 
             # MONARC send averageRate as a string, so we convert to float
             data["averageRate"] = float(data.get("averageRate", 0))

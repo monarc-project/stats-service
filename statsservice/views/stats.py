@@ -6,7 +6,7 @@ from flask import Blueprint, render_template, request, jsonify
 
 from statsservice.models import Stats
 from statsservice.lib.utils import groups_threats
-from statsservice.lib.processors import (
+from statsservice.lib.postprocessors import (
     process_threat,
     process_risk,
     threats_average_on_date,

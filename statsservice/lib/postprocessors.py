@@ -22,11 +22,11 @@ def threats_average_on_date(threats_stats):
         for threat_uuid, stats in grouped_threats[anr_uuid].items():
             for data in stats:
                 # print(data)
-                # print(data["date"].strftime("%Y-%m-%d"))
-                if data["date"].strftime("%Y-%m-%d") in frames[threat_uuid]:
-                    frames[threat_uuid][data["date"].strftime("%Y-%m-%d")].append(data)
+                # print(data["date"])
+                if data["date"] in frames[threat_uuid]:
+                    frames[threat_uuid][data["date"]].append(data)
                 else:
-                    frames[threat_uuid][data["date"].strftime("%Y-%m-%d")] = [data]
+                    frames[threat_uuid][data["date"]] = [data]
 
     # evaluate the average per day for each threats
     result = tree()

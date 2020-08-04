@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from inspect import getmembers, isfunction
 from flask import request
 from flask_login import current_user
 from flask_restx import Namespace, Resource, fields, reqparse, abort
@@ -9,13 +10,20 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from sqlalchemy.sql.expression import desc
 
-import statsservice.lib.processors
+import statsservice.lib.postprocessors
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Client
 from statsservice.api.v1.common import auth_func, uuid_type
 
 
 stats_ns = Namespace("stats", description="stats related operations")
+
+# Get all available postprocessors.
+AVAILABLE_POSTPROCESSORS = [
+    mem[0]
+    for mem in getmembers(statsservice.lib.postprocessors, isfunction)
+    if mem[1].__module__ == statsservice.lib.postprocessors.__name__
+]
 
 
 # Argument Parsing
@@ -28,12 +36,19 @@ parser.add_argument(
     required=True,
     choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
 )
+# parser.add_argument(
+#     "aggregation_period",
+#     type=str,
+#     help="The period of the stats aggregation.",
+#     required=False,
+#     choices=("day", "week", "month", "quarter", "year"),
+# )
 parser.add_argument(
-    "aggregation_period",
+    "postprocessor",
     type=str,
-    help="The period of the stats aggregation.",
+    help="The post-processor to apply to the result (list of stats).",
     required=False,
-    choices=("day", "week", "month", "quarter", "year"),
+    choices=tuple(AVAILABLE_POSTPROCESSORS),
 )
 parser.add_argument(
     "group_by_anr",
@@ -110,6 +125,7 @@ stats_list_fields = stats_ns.model(
             metadata, description="Metada related to the result."
         ),
         "data": fields.List(fields.Nested(stats), description="List of stats objects."),
+        "processed_data": fields.Raw(description="Result of a postprocessor to the resulting stats."),
     },
 )
 
@@ -129,13 +145,14 @@ class StatsList(Resource):
         limit = args.get("limit", 0)
         offset = args.get("offset", 0)
         type = args.get("type")
-        aggregation_period = args.get("aggregation_period")
+        # aggregation_period = args.get("aggregation_period")
+        postprocessor = args.get("postprocessor", "")
         group_by_anr = args.get("group_by_anr")
         anrs = args.get("anrs")
         get_last = args.get("get_last")
         date_from = args.get("date_from")
         date_to = args.get("date_to")
-        if get_last != True:
+        if not get_last:
             if date_from is None:
                 date_from = (date.today() + relativedelta(months=-3)).strftime(
                     "%Y-%m-%d"
@@ -145,66 +162,63 @@ class StatsList(Resource):
 
         result = {
             "data": [],
+            "processed_data": [],
             "metadata": {"count": 0, "offset": offset, "limit": limit},
         }
 
-        try:
-            query = Stats.query
+        query = Stats.query
 
-            if not current_user.is_admin():
-                query = query.filter(Stats.client_id == current_user.id)
+        if not current_user.is_admin():
+            query = query.filter(Stats.client_id == current_user.id)
 
-            query = query.filter(Stats.type == type)
-            if anrs is not None:
-                query = query.filter(Stats.anr.in_(anrs))
-            if get_last == True:
-                # TODO: Handle the case if the request is from an admin user (from BO).
-                # Get all the records grouped by anr with max date.
-                results = []
-                max_date_and_anrs = (
-                    query.with_entities(Stats.anr, db.func.max(Stats.date))
-                    .group_by(Stats.anr)
-                    .all()
-                )
-                for max_date_and_anr in max_date_and_anrs:
-                    results.append(
-                        query.filter(
-                            Stats.anr == max_date_and_anr[0],
-                            Stats.date == max_date_and_anr[1],
-                        )
-                        .first()
-                        ._asdict()
+        query = query.filter(Stats.type == type)
+
+        if anrs is not None:
+            query = query.filter(Stats.anr.in_(anrs))
+
+        if get_last:
+            # TODO: Handle the case if the request is from an admin user (from BO).
+            # Get all the records grouped by anr with max date.
+            results = []
+            max_date_and_anrs = (
+                query.with_entities(Stats.anr, db.func.max(Stats.date))
+                .group_by(Stats.anr)
+                .all()
+            )
+            for max_date_and_anr in max_date_and_anrs:
+                results.append(
+                    query.filter(
+                        Stats.anr == max_date_and_anr[0],
+                        Stats.date == max_date_and_anr[1],
                     )
-                result["data"] = results
-                result["metadata"] = {"count": len(results), "offset": 0, "limit": 0}
+                    .first()
+                    ._asdict()
+                )
+            result["data"] = results
+            result["metadata"] = {"count": len(results), "offset": 0, "limit": 0}
 
-                return result, 200
+            return result, 200
 
-            query = query.filter(Stats.date >= date_from, Stats.date <= date_to)
+        query = query.filter(Stats.date >= date_from, Stats.date <= date_to)
 
-            if aggregation_period is None and limit > 0:
-                query = query.limit(limit)
-                results = query.offset(offset)
-            else:
-                results = query.all()
+        if limit > 0:
+            query = query.limit(limit)
+            results = query.offset(offset)
+        else:
+            results = query.all()
 
-                if aggregation_period is not None:
-                    try:
-                        results = getattr(
-                            statsservice.lib.processors, "process_" + type
-                        )(results, aggregation_period, group_by_anr)
-                        if limit > 0:
-                            results = results[offset, limit]
-                    except AttributeError:
-                        abort(
-                            500,
-                            Error="There is no processor defined for the type '"
-                            + type
-                            + "'.",
-                        )
-
-        except Exception as e:
-            abort(500, Error=e)
+        # eventually apply a postprocessor to the result
+        if postprocessor:
+            try:
+                processed_result = getattr(
+                    statsservice.lib.postprocessors, postprocessor
+                )(results)
+                result["processed_data"] = processed_result
+            except AttributeError:
+                abort(
+                    500,
+                    Error="There is no such postprocessor: {}.".format(postprocessor)
+                )
 
         result["data"] = results
         result["metadata"]["count"] = len(results)
