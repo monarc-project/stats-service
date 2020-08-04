@@ -67,7 +67,7 @@ def vulnerabilities():
     """
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
-    format_result = request.args.get("format", default="mean", type=str)
+    format_result = request.args.get("format", default="average_date", type=str)
     query = Stats.query.filter(
         Stats.type == "vulnerability", Stats.date >= now - timedelta(days=nb_days)
     )
