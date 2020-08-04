@@ -34,7 +34,7 @@ def risks():
     # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
     # risks = Stats.objects(data__anr__exact=2)
     query = Stats.query.filter(Stats.type == "risk")
-    result = process_risk(query.all())
+    result = risk_process(query.all())
     return jsonify(result)  # result.to_json()
 
 
@@ -52,7 +52,7 @@ def threats():
     if format_result == "aggregated":
         result = groups_threats(query.all())
     elif format_result == "mean":
-        result = process_threat(query.all())
+        result = threat_process(query.all())
     elif format_result == "average_date":
         result = threat_average_on_date(query.all())
     else:
