@@ -11,6 +11,9 @@ from statsservice.models import Stats
 # stats_bp: blueprint for public only routes which returns different kind of statistics
 stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 
+# Do not use query filters on Client or on ANR here. It would be in
+# contradiction with the finality of this blueprint.
+
 
 @stats_bp.route("/", methods=["GET"])
 def stats():
@@ -25,8 +28,6 @@ def risks():
     """
     Returns risks as JSON.
     """
-    # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
-    # risks = Stats.objects(data__anr__exact=2)
     query = Stats.query.filter(Stats.type == "risk")
     result = getattr(statsservice.lib.postprocessors, "risk_process")(query.all())
     return jsonify(result)  # result.to_json()

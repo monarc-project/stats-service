@@ -18,7 +18,8 @@ from statsservice.lib.utils import groups_threats, tree
 
 
 def threat_average_on_date(threats_stats):
-    """Aggregation and average of threats per date.
+    """Aggregation and average of threats per date for each threat (accross all risk
+    analysis).
     """
     grouped_threats = groups_threats(threats_stats)
 
@@ -46,14 +47,16 @@ def threat_average_on_date(threats_stats):
 
 
 def vulnerability_average_on_date(vulnerabilities_stats):
-    """Aggregation and average of vulnerabilities per date.
+    """Aggregation and average of vulnerabilities per date for each vulnerability
+    (accross all risk analysis).
     """
     # the structure of the stats for the threats and vulnerabilities is the same
     return threat_average_on_date(vulnerabilities_stats)
 
 
 def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
-    """Launch the process for stats of type threat."""
+    """Return average for the threats for each risk analysis.
+    """
     grouped_threats = groups_threats(threats_stats)
     frames = defaultdict(list)
     result = {}
