@@ -74,7 +74,7 @@
 
   let retrieve_information_from_mosp = function(uuid) {
     return new Promise(function(resolve, reject) {
-      fetch("https://objects.monarc.lu/api/v2/object/?uuid="+uuid, {
+      fetch("https://objects.monarc.lu/api/v2/object/?language=EN&uuid="+uuid, {
         method: "GET",
         headers: {
           'Content-Type': 'text/plain',
