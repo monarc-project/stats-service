@@ -125,7 +125,7 @@ stats_list_fields = stats_ns.model(
             metadata, description="Metada related to the result."
         ),
         "data": fields.List(fields.Nested(stats), description="List of stats objects."),
-        "processed_data": fields.Raw(description="Result of a postprocessor to the resulting stats."),
+        "processed_data": fields.Raw(description="Result of the selected postprocessor applied to the resulting stats."),
     },
 )
 
@@ -207,26 +207,27 @@ class StatsList(Resource):
         else:
             results = query.all()
 
+        result["data"] = results # result without changes from the postprocessor
+        result["metadata"]["count"] = len(results)
+
         # eventually apply a postprocessor to the result
         if postprocessor:
             if not postprocessor.startswith(type+'_'):
                 abort(
                     500,
-                    Error="Postprocessor: {} can not be used with {}.".format(postprocessor, type)
+                    Error="Postprocessor '{}' can not be used with type '{}'.".format(postprocessor, type)
                 )
             try:
                 processed_result = getattr(
                     statsservice.lib.postprocessors, postprocessor
                 )(results)
+                # the result of the postprocessor is set in result["processed_data"]
                 result["processed_data"] = processed_result
             except AttributeError:
                 abort(
                     500,
-                    Error="There is no such postprocessor: {}.".format(postprocessor)
+                    Error="There is no such postprocessor: '{}'.".format(postprocessor)
                 )
-
-        result["data"] = results
-        result["metadata"]["count"] = len(results)
 
         return result, 200
 
