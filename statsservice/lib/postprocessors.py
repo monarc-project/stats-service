@@ -4,6 +4,12 @@
 #
 # Utilities to process data for the different kind of stats (threat, risk, etc.).
 #
+# For new postprocessors please use a name which starts with:
+# (threat|risk|vulnerability|...)_
+#
+# postprocessors are automatically listed in statsservice.lib.AVAILABLE_POSTPROCESSORS
+# this variable is for example used in statsservice.api.v1.stats.py
+#
 
 from collections import defaultdict
 

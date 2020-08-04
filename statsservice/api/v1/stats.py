@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from inspect import getmembers, isfunction
 from flask import request
 from flask_login import current_user
 from flask_restx import Namespace, Resource, fields, reqparse, abort
@@ -11,19 +10,13 @@ from dateutil.relativedelta import relativedelta
 from sqlalchemy.sql.expression import desc
 
 import statsservice.lib.postprocessors
+from statsservice.lib import AVAILABLE_POSTPROCESSORS
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Client
 from statsservice.api.v1.common import auth_func, uuid_type
 
 
 stats_ns = Namespace("stats", description="stats related operations")
-
-# Get all available postprocessors.
-AVAILABLE_POSTPROCESSORS = [
-    mem[0]
-    for mem in getmembers(statsservice.lib.postprocessors, isfunction)
-    if mem[1].__module__ == statsservice.lib.postprocessors.__name__
-]
 
 
 # Argument Parsing
@@ -125,7 +118,9 @@ stats_list_fields = stats_ns.model(
             metadata, description="Metada related to the result."
         ),
         "data": fields.List(fields.Nested(stats), description="List of stats objects."),
-        "processed_data": fields.Raw(description="Result of the selected postprocessor applied to the resulting stats."),
+        "processed_data": fields.Raw(
+            description="Result of the selected postprocessor applied to the resulting stats."
+        ),
     },
 )
 
@@ -207,15 +202,17 @@ class StatsList(Resource):
         else:
             results = query.all()
 
-        result["data"] = results # result without changes from the postprocessor
+        result["data"] = results  # result without changes from the postprocessor
         result["metadata"]["count"] = len(results)
 
-        # eventually apply a postprocessor to the result
+        # eventually apply a postprocessor with the result
         if postprocessor:
-            if not postprocessor.startswith(type+'_'):
+            if not postprocessor.startswith(type + "_"):
                 abort(
                     500,
-                    Error="Postprocessor '{}' can not be used with type '{}'.".format(postprocessor, type)
+                    Error="Postprocessor '{}' can not be used with type '{}'.".format(
+                        postprocessor, type
+                    ),
                 )
             try:
                 processed_result = getattr(
@@ -226,7 +223,7 @@ class StatsList(Resource):
             except AttributeError:
                 abort(
                     500,
-                    Error="There is no such postprocessor: '{}'.".format(postprocessor)
+                    Error="There is no such postprocessor: '{}'.".format(postprocessor),
                 )
 
         return result, 200
