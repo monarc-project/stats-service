@@ -72,30 +72,27 @@
   .then(function(resp_json) {
     datasets = [];
     var config_threats = JSON.parse(JSON.stringify(config));
-    var i = 0;
     // with the result of the query, construct the datasets for the configuration
-    // of the chart
-    Object.keys(resp_json).map(function(threat_uuid, value) {
+    // of the chart (we limit the datasets to the number of previously defined colors)
+    Object.keys(resp_json).slice(0, window.chartColors.length).map(function(threat_uuid, index) {
       data = [];
       dataset = {
         "label": threat_uuid,
-        "backgroundColor": color(window.chartColors[i]).alpha(0.5).rgbString(),
-        "borderColor": window.chartColors[i],
+        "backgroundColor": color(window.chartColors[index]).alpha(0.5).rgbString(),
+        "borderColor": window.chartColors[index],
         "fill": false,
       };
-      if (i < 7) { // stop at the seventh threat, just because we do not have enough colors ;-)
 
-        Object.keys(resp_json[threat_uuid]).map(function(date, stats_data) {
-          data.push({
-            x: new Date(date),
-            y: resp_json[threat_uuid][date]["count"]
-          })
-        });
+      Object.keys(resp_json[threat_uuid]).map(function(date, stats_data) {
+        data.push({
+          x: new Date(date),
+          y: resp_json[threat_uuid][date]["count"]
+        })
+      });
 
-        i += 1;
-        dataset["data"] = data;
-        datasets.push(dataset);
-      }
+      dataset["data"] = data;
+      datasets.push(dataset);
+
     })
 
     // finally set the datasets in the config variable
@@ -122,30 +119,24 @@
   .then(function(resp_json) {
     datasets = [];
     var config_vulnerabilities = JSON.parse(JSON.stringify(config));
-    var i = 0;
     // with the result of the query, construct the datasets for the configuration
-    // of the chart
-    Object.keys(resp_json).map(function(vulnerability_uuid, value) {
+    // of the chart (we limit the datasets to the number of previously defined colors)
+    Object.keys(resp_json).slice(0, window.chartColors.length).map(function(vulnerability_uuid, index) {
       data = [];
       dataset = {
         "label": vulnerability_uuid,
-        "backgroundColor": color(window.chartColors[i]).alpha(0.5).rgbString(),
-        "borderColor": window.chartColors[i],
+        "backgroundColor": color(window.chartColors[index]).alpha(0.5).rgbString(),
+        "borderColor": window.chartColors[index],
         "fill": false,
       };
-      if (i < 7) { // stop at the seventh threat, just because we do not have enough colors ;-)
-
-        Object.keys(resp_json[vulnerability_uuid]).map(function(date, stats_data) {
-          data.push({
-            x: new Date(date),
-            y: resp_json[vulnerability_uuid][date]["count"]
-          })
-        });
-
-        i += 1;
-        dataset["data"] = data;
-        datasets.push(dataset);
-      }
+      Object.keys(resp_json[vulnerability_uuid]).map(function(date, stats_data) {
+        data.push({
+          x: new Date(date),
+          y: resp_json[vulnerability_uuid][date]["count"]
+        })
+      });
+      dataset["data"] = data;
+      datasets.push(dataset);
     })
 
     // finally set the datasets in the config variable
