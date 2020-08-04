@@ -1,21 +1,25 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from inspect import getmembers, isfunction
 from datetime import datetime, timedelta
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, abort
 
 from statsservice.models import Stats
 from statsservice.lib.utils import groups_threats
-from statsservice.lib.postprocessors import (
-    threat_process,
-    risk_process,
-    threat_average_on_date,
-    vulnerability_average_on_date,
-)
+import statsservice.lib.postprocessors
 
 
 # stats_bp: blueprint for public only routes which returns different kind of statistics
 stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
+
+
+# Get all available postprocessors.
+AVAILABLE_POSTPROCESSORS = [
+    mem[0]
+    for mem in getmembers(statsservice.lib.postprocessors, isfunction)
+    if mem[1].__module__ == statsservice.lib.postprocessors.__name__
+]
 
 
 @stats_bp.route("/", methods=["GET"])
@@ -34,7 +38,9 @@ def risks():
     # risks = Stats.objects(**{'{}__{}'.format(field, operator): 18})
     # risks = Stats.objects(data__anr__exact=2)
     query = Stats.query.filter(Stats.type == "risk")
-    result = risk_process(query.all())
+    result = getattr(
+        statsservice.lib.postprocessors, "risk_process"
+    )(query.all())
     return jsonify(result)  # result.to_json()
 
 
@@ -44,19 +50,20 @@ def threats():
     """
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
-    format_result = request.args.get("format", default="mean", type=str)
+    postprocessor = request.args.get("postprocessor", default="threat_average_on_date", type=str)
     query = Stats.query.filter(
         Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
     )
 
-    if format_result == "aggregated":
-        result = groups_threats(query.all())
-    elif format_result == "mean":
-        result = threat_process(query.all())
-    elif format_result == "average_date":
-        result = threat_average_on_date(query.all())
-    else:
-        result = {"error": "Format '{}' not recognized.".format(format_result)}
+    try:
+        result = getattr(
+            statsservice.lib.postprocessors, postprocessor
+        )(query.all())
+    except AttributeError:
+        abort(
+            500,
+            description="There is no such postprocessor: '{}'.".format(postprocessor)
+        )
 
     return jsonify(result)
 
@@ -67,14 +74,19 @@ def vulnerabilities():
     """
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
-    format_result = request.args.get("format", default="average_date", type=str)
+    postprocessor = request.args.get("postprocessor", default="vulnerability_average_on_date", type=str)
     query = Stats.query.filter(
         Stats.type == "vulnerability", Stats.date >= now - timedelta(days=nb_days)
     )
 
-    if format_result == "average_date":
-        result = vulnerability_average_on_date(query.all())
-    else:
-        result = {"error": "Format '{}' not recognized.".format(format_result)}
+    try:
+        result = getattr(
+            statsservice.lib.postprocessors, postprocessor
+        )(query.all())
+    except AttributeError:
+        abort(
+            500,
+            description="There is no such postprocessor: '{}'.".format(postprocessor)
+        )
 
     return jsonify(result)

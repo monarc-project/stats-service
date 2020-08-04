@@ -62,7 +62,7 @@
   }
 
   // fetch stats for threats (averages per threats per date)
-  fetch("{{ url_for('stats_bp.threats', format='average_date', days=365) | safe }}", {
+  fetch("{{ url_for('stats_bp.threats', postprocessor='threat_average_on_date', days=365) | safe }}", {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',
@@ -109,7 +109,7 @@
 
 
   // fetch stats for vulnerabilities (averages per vulnerabilities per date)
-  fetch("{{ url_for('stats_bp.vulnerabilities', format='average_date', days=365) | safe }}", {
+  fetch("{{ url_for('stats_bp.vulnerabilities', postprocessor='vulnerability_average_on_date', days=365) | safe }}", {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',

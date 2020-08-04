@@ -9,110 +9,97 @@ Endpoints
 
 - /stats. At that time this route simply returns a HTML file. Some charts can be
   displayed for example with the data from the following routes.
-- /stats/risks.json
-- /stats/vulnerabilities.json
 - /stats/threats.json
+- /stats/vulnerabilities.json
+- /stats/risks.json
 
 
 Threats
 ```````
 
+.. code-block:: bash
+
+    $ curl http://127.0.0.1:5000/stats/threats.json?postprocessor=threat_average_on_date&days=100
+    {
+      "b402d4e0-4576-11e9-9173-0800277f0571": {
+        "2020-07-13": {
+          "averageRate": 2.32, 
+          "count": 10.0, 
+          "maxRisk": 35.5
+        }, 
+        "2020-07-14": {
+          "averageRate": 3.0, 
+          "count": 8.0, 
+          "maxRisk": 34.0
+        }, 
+        "2020-07-27": {
+          "averageRate": 3.0, 
+          "count": 8.0, 
+          "maxRisk": 34.0
+        }, 
+        "2020-07-28": {
+          "averageRate": 2.82, 
+          "count": 12.0, 
+          "maxRisk": 36.0
+        }, 
+        "2020-07-29": {
+          "averageRate": 3.0, 
+          "count": 8.0, 
+          "maxRisk": 34.0
+        }, 
+        "2020-07-31": {
+          "averageRate": 2.82, 
+          "count": 6.0, 
+          "maxRisk": 36.0
+        }
+      }, 
+      "b402d523-4576-11e9-9173-0800277f0571": {
+        "2020-07-13": {
+          "averageRate": 2.87, 
+          "count": 8.0, 
+          "maxRisk": 45.0
+        }, 
+        "2020-07-14": {
+          "averageRate": 2.87, 
+          "count": 8.0, 
+          "maxRisk": 45.0
+        },
+        ...
+      }
+      ...
+    }
+
+
+- if the parameter ``days`` is not specified the default value is 365.
+- ``threat_average_on_date`` is also the default postprocessor.
+
+
+Vulnerabilities
+```````````````
 
 .. code-block:: bash
 
-    $ curl http://127.0.0.1:5000/stats/threats.json?days=2
+    $ curl http://127.0.0.1:5000/stats/vulnerabilities.json?postprocessor=vulnerability_average_on_date&days=100
     {
-      "b402d4e0-4576-11e9-9173-0800277f0571": {
-        "count": 10.0,
-        "maxRisk": 35.0
-      },
-      "b402d523-4576-11e9-9173-0800277f0571": {
-        "count": 8.0,
-        "maxRisk": 45.0
-      },
-      "b402d530-4576-11e9-9173-0800277f0571": {
-        "count": 6.0,
-        "maxRisk": 45.0
-      },
-      "b402d557-4576-11e9-9173-0800277f0571": {
-        "averageRate": 5.5,
-        "count": 1.0,
-        "maxRisk": 1.0
-      },
-      "b402d563-4576-11e9-9173-0800277f0571": {
-        "averageRate": 5.5,
-        "count": 1.0,
-        "maxRisk": 1.0
-      },
-      "b402d579-4576-11e9-9173-0800277f0571": {
-        "count": 2.0,
-        "maxRisk": 3.0
-      },
-      "b402d584-4576-11e9-9173-0800277f0571": {
-        "count": 2.0,
-        "maxRisk": 2.0
-      },
-      "b402d58f-4576-11e9-9173-0800277f0571": {
-        "count": 4.0,
-        "maxRisk": 27.0
-      },
-      "b402d5af-4576-11e9-9173-0800277f0571": {
-        "count": 7.0,
-        "maxRisk": 20.0
-      },
-      "b402d5c9-4576-11e9-9173-0800277f0571": {
-        "count": 2.0,
-        "maxRisk": 2.0
-      },
-      "b402d5d5-4576-11e9-9173-0800277f0571": {
-        "count": 3.0,
-        "maxRisk": 18.0
-      },
-      "b402d5ea-4576-11e9-9173-0800277f0571": {
-        "count": 4.0,
-        "maxRisk": 30.0
-      },
-      "b402d600-4576-11e9-9173-0800277f0571": {
-        "count": 2.0,
-        "maxRisk": 6.0
-      },
-      "b402d60a-4576-11e9-9173-0800277f0571": {
-        "count": 4.0,
-        "maxRisk": 12.0
-      },
-      "b402d615-4576-11e9-9173-0800277f0571": {
-        "count": 3.0,
-        "maxRisk": 30.0
-      },
-      "b402d620-4576-11e9-9173-0800277f0571": {
-        "count": 2.0,
-        "maxRisk": 6.0
-      },
-      "b402d63d-4576-11e9-9173-0800277f0571": {
-        "count": 2.0,
-        "maxRisk": 3.0
-      },
-      "b402d648-4576-11e9-9173-0800277f0571": {
-        "averageRate": 5.5,
-        "count": 1.0,
-        "maxRisk": 3.0
-      },
-      "b402d653-4576-11e9-9173-0800277f0571": {
-        "averageRate": 5.5,
-        "count": 1.0,
-        "maxRisk": 3.0
-      },
-      "b402d673-4576-11e9-9173-0800277f0571": {
-        "count": 2.0,
-        "maxRisk": 6.0
-      },
-      "b402d67d-4576-11e9-9173-0800277f0571": {
-        "count": 2.0,
-        "maxRisk": 12.0
-      },
-      "b402d688-4576-11e9-9173-0800277f0571": {
-        "averageRate": 5.5,
-        "count": 1.0,
-        "maxRisk": 3.0
+      "69fbfe14-4591-11e9-9173-0800277f0571": {
+        "2020-08-01": {
+          "averageRate": 2.0, 
+          "count": 3.0, 
+          "maxRisk": 18.0
+        }, 
+        "2020-08-03": {
+          "averageRate": 2.0, 
+          "count": 3.0, 
+          "maxRisk": 18.0
+        }
+      }, 
+      "69fbfe5f-4591-11e9-9173-0800277f0571": {
+        "2020-08-01": {
+          "averageRate": 1.0, 
+          "count": 1.0, 
+          "maxRisk": 6.0
+          },
+          ...
+        }
+        ...
       }
-    }
