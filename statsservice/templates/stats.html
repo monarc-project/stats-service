@@ -72,6 +72,26 @@
     }
   }
 
+  let retrieve_information_from_mosp = function(uuid) {
+    return new Promise(function(resolve, reject) {
+      fetch("https://objects.monarc.lu/api/v2/object/?uuid="+uuid, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+      })
+      .then((resp) => resp.json())
+      .then(function(mosp_result) {
+        // console.log(mosp_result["data"][0].name);
+        resolve(mosp_result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        reject(Error(error));
+      });;
+    });
+  }
+
   // fetch stats for threats (averages per threats per date)
   fetch("{{ url_for('stats_bp.threats', postprocessor='threat_average_on_date', days=365) | safe }}", {
     method: "GET",
@@ -81,42 +101,54 @@
   })
   .then((resp) => resp.json())
   .then(function(resp_json) {
-    datasets = [];
-    var config_threats = JSON.parse(JSON.stringify(config));
-    // with the result of the query, construct the datasets for the configuration
-    // of the chart (we limit the datasets to the number of previously defined colors)
-    Object.keys(resp_json).slice(0, window.chartColors.length).map(function(threat_uuid, index) {
-      data = [];
-      dataset = {
-        "label": threat_uuid,
-        "backgroundColor": color(window.chartColors[index]).alpha(0.5).rgbString(),
-        "borderColor": window.chartColors[index],
-        "fill": false,
-      };
-
-      Object.keys(resp_json[threat_uuid]).map(function(date, stats_data) {
-        data.push({
-          x: new Date(date),
-          y: resp_json[threat_uuid][date]["count"]
-        })
-      });
-
-      dataset["data"] = data;
-      datasets.push(dataset);
-
+    // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+    // (we limit the datasets to the number of previously defined colors)
+    threat_uuid_labels = {};
+    var promises = Object.keys(resp_json).slice(0, window.chartColors.length).map(function(threat_uuid, index) {
+      return retrieve_information_from_mosp(threat_uuid)
+      .then(function(result_mosp) {
+        threat_uuid_labels[threat_uuid] = result_mosp["data"][0].name
+        return threat_uuid;
+      })
     })
 
-    // finally set the datasets in the config variable
-    config_threats["data"]["datasets"] = datasets;
+    // wait that we have all responses from MOSP
+    Promise.all(promises).then(function(results) {
+      // initializes a configuration variable for the chart
+      var config_threats = JSON.parse(JSON.stringify(config));
+      // construct the datasets
+      datasets = [];
+      Object.keys(threat_uuid_labels).map(function(threat_uuid, index) {
+        data = [];
+        dataset = {
+          "label": threat_uuid_labels[threat_uuid],
+          "backgroundColor": color(window.chartColors[index]).alpha(0.5).rgbString(),
+          "borderColor": window.chartColors[index],
+          "fill": false,
+        };
+        Object.keys(resp_json[threat_uuid]).map(function(date, index2) {
+          data.push({
+            x: new Date(date),
+            y: resp_json[threat_uuid][date]["count"]
+          })
+        });
+        dataset["data"] = data;
+        datasets.push(dataset);
+      })
 
-    // draw the chart
-    var ctx_threats = document.getElementById("canvas-threats").getContext("2d");
-    var chart_threats = new Chart(ctx_threats, config_threats);
+      // finally set the datasets in the config variable
+      config_threats["data"]["datasets"] = datasets;
+
+      // draw the chart
+      var ctx_threats = document.getElementById("canvas-threats").getContext("2d");
+      var chart_threats = new Chart(ctx_threats, config_threats);
+    })
 
 
   }).catch((error) => {
     console.error('Error:', error);
   });;
+
 
 
   // fetch stats for vulnerabilities (averages per vulnerabilities per date)
@@ -128,39 +160,55 @@
   })
   .then((resp) => resp.json())
   .then(function(resp_json) {
-    datasets = [];
-    var config_vulnerabilities = JSON.parse(JSON.stringify(config));
-    // with the result of the query, construct the datasets for the configuration
-    // of the chart (we limit the datasets to the number of previously defined colors)
-    Object.keys(resp_json).slice(0, window.chartColors.length).map(function(vulnerability_uuid, index) {
-      data = [];
-      dataset = {
-        "label": vulnerability_uuid,
-        "backgroundColor": color(window.chartColors[index]).alpha(0.5).rgbString(),
-        "borderColor": window.chartColors[index],
-        "fill": false,
-      };
-      Object.keys(resp_json[vulnerability_uuid]).map(function(date, stats_data) {
-        data.push({
-          x: new Date(date),
-          y: resp_json[vulnerability_uuid][date]["count"]
-        })
-      });
-      dataset["data"] = data;
-      datasets.push(dataset);
+    // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+    // (we limit the datasets to the number of previously defined colors)
+    vulnerability_uuid_labels = {};
+    var promises = Object.keys(resp_json).slice(0, window.chartColors.length).map(function(vulnerability_uuid, index) {
+      return retrieve_information_from_mosp(vulnerability_uuid)
+      .then(function(result_mosp) {
+        vulnerability_uuid_labels[vulnerability_uuid] = result_mosp["data"][0].name
+        return vulnerability_uuid;
+      })
     })
 
-    // finally set the datasets in the config variable
-    config_vulnerabilities["data"]["datasets"] = datasets;
+    Promise.all(promises).then(function(results) {
+      // initializes a configuration variable for the chart
+      var config_vulnerabilities = JSON.parse(JSON.stringify(config));
+      // construct the datasets
+      datasets = [];
+      Object.keys(vulnerability_uuid_labels).map(function(vulnerability_uuid, index) {
+        data = [];
+        dataset = {
+          "label": vulnerability_uuid_labels[vulnerability_uuid],
+          "backgroundColor": color(window.chartColors[index]).alpha(0.5).rgbString(),
+          "borderColor": window.chartColors[index],
+          "fill": false,
+        };
+        Object.keys(resp_json[vulnerability_uuid]).map(function(date, index2) {
+          data.push({
+            x: new Date(date),
+            y: resp_json[vulnerability_uuid][date]["count"]
+          })
+        });
+        dataset["data"] = data;
+        datasets.push(dataset);
+      })
 
-    // draw the chart
-    var ctx_vulnerabilities = document.getElementById("canvas-vulnerabilities").getContext("2d");
-    var chart_vulnerabilities = new Chart(ctx_vulnerabilities, config_vulnerabilities);
+      // finally set the datasets in the config variable
+      config_vulnerabilities["data"]["datasets"] = datasets;
+
+      // draw the chart
+      var ctx_vulnerabilities = document.getElementById("canvas-vulnerabilities").getContext("2d");
+      var chart_vulnerabilities = new Chart(ctx_vulnerabilities, config_vulnerabilities);
+    })
 
 
   }).catch((error) => {
     console.error('Error:', error);
   });;
+
+
+
 
 
 
@@ -177,20 +225,7 @@
   //     console.log(data[threat_uuid]);
   //
   //     // fetch inforation about relevant threats from MOSP
-  //     fetch("https://objects.monarc.lu/api/v2/object/?uuid="+threat_uuid, {
-  //       method: "GET",
-  //
-  //       headers: {
-  //         'Content-Type': 'text/plain',
-  //       },
-  //     })
-  //     .then((resp1) => resp1.json())
-  //     .then(function(mosp_result) {
-  //       console.log(mosp_result["data"][0].name);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });;
+  //     retrieve_information_from_mosp(threat_uuid);
   //
   //
   //   })
