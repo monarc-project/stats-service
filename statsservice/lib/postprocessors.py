@@ -14,7 +14,7 @@
 from collections import defaultdict
 
 import pandas as pd
-from statsservice.lib.utils import groups_threats, groups_vulnerabilities, tree
+from statsservice.lib.utils import groups_threats, tree
 
 
 def threat_average_on_date(threats_stats):

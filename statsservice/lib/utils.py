@@ -16,8 +16,6 @@ def tree():
 
 def groups_threats(threats):
     """Groups stats about threats per ANR (UUID) then per threat UUID.
-
-    Could be improved to handle all kind of stats (threat, risk, vulnerability, etc.)
     """
     groups = tree()
     for threat_stats in threats:

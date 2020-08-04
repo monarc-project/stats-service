@@ -4,9 +4,8 @@
 from datetime import datetime, timedelta
 from flask import Blueprint, render_template, request, jsonify, abort
 
-from statsservice.models import Stats
-from statsservice.lib.utils import groups_threats
 import statsservice.lib.postprocessors
+from statsservice.models import Stats
 
 
 # stats_bp: blueprint for public only routes which returns different kind of statistics
