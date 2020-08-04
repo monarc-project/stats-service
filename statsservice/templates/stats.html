@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Stats" />
+    <meta name="description" content="MONARC Stats Service - Global dashboard" />
+    <meta name="author" content="" />
     <title>Global dashboard</title>
     <script src="{{ url_for('static', filename='npm_components/chart.js/dist/Chart.bundle.min.js') }}"></script>
 </head>
@@ -12,25 +13,35 @@
     <h1>Averages per threats (based on <i>count</i>)</h1>
 		<canvas id="canvas-threats"></canvas>
 	</div>
-
   <div style="width:75%; margin:0 auto;">
     <h1>Averages per vulnerabilities (based on <i>count</i>)</h1>
 		<canvas id="canvas-vulnerabilities"></canvas>
 	</div>
-
-</body>
 <script>
 (function() {
-
   // define some colors for the lines of the chart
   window.chartColors = [
-  	'rgb(255, 99, 132)',
-  	'rgb(255, 159, 64)',
-  	'rgb(255, 205, 86)',
-  	'rgb(75, 192, 192)',
-  	'rgb(54, 162, 235)',
-  	'rgb(153, 102, 255)',
-  	'rgb(201, 203, 207)'
+    'rgba(230, 25, 75, 0.8)',
+    'rgba(60, 180, 75, 0.8)',
+    'rgba(255, 225, 25, 0.8)',
+    'rgba(0, 130, 200, 0.8)',
+    'rgba(245, 130, 48, 0.8)',
+    'rgba(145, 30, 180, 0.8)',
+    'rgba(70, 240, 240, 0.8)',
+    'rgba(240, 50, 230, 0.8)',
+    'rgba(210, 245, 60, 0.8)',
+    'rgba(250, 190, 190, 0.8)',
+    'rgba(0, 128, 128, 0.8)',
+    'rgba(230, 190, 255, 0.8)',
+    'rgba(170, 110, 40, 0.8)',
+    'rgba(255, 250, 200, 0.8)',
+    'rgba(128, 0, 0, 0.8)',
+    'rgba(170, 255, 195, 0.8)',
+    'rgba(128, 128, 0, 0.8)',
+    'rgba(255, 215, 180, 0.8)',
+    'rgba(0, 0, 128, 0.8)',
+    'rgba(128, 128, 128, 0.8)',
+    'rgba(0, 0, 0, 0.8)'
   ];
   var color = Chart.helpers.color;
   // basic configuration of the charts (threats and vulnerabilities)
@@ -153,10 +164,6 @@
 
 
 
-
-
-
-
   // Test: fetch stats for threats
   // fetch("{{ url_for('stats_bp.threats',) }}", {
   //   method: "GET",
@@ -193,7 +200,6 @@
   // });;
 
 
-
   // Test: fetch stats for risks
   // fetch("{{ url_for('stats_bp.risks',) }}", {
   //   method: "GET",
@@ -207,4 +213,5 @@
   // });;
 })();
 </script>
+</body>
 </html>
