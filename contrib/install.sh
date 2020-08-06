@@ -39,6 +39,7 @@ source $HOME/.poetry/env
 # Retrieve source code of stats-service
 git clone https://github.com/monarc-project/stats-service $STATS_PATH
 cd $STATS_PATH
+npm install
 poetry install --no-dev
 
 echo  'export FLASK_APP=runserver.py' >> ~/.bashrc
