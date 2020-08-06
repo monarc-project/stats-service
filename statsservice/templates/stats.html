@@ -72,9 +72,9 @@
     }
   }
 
-  let retrieve_information_from_mosp = function(uuid) {
+  let retrieve_information_from_mosp = function(uuid, language) {
     return new Promise(function(resolve, reject) {
-      fetch("https://objects.monarc.lu/api/v2/object/?language=EN&uuid="+uuid, {
+      fetch("https://objects.monarc.lu/api/v2/object/?language="+language+"&uuid="+uuid, {
         method: "GET",
         headers: {
           'Content-Type': 'text/plain',
@@ -82,8 +82,11 @@
       })
       .then((resp) => resp.json())
       .then(function(mosp_result) {
-        // console.log(mosp_result["data"][0].name);
-        resolve(mosp_result);
+        if (mosp_result["metadata"].count > 0) {
+          resolve(mosp_result["data"][0].name);
+        } else {
+          resolve(uuid);
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -105,9 +108,9 @@
     // (we limit the datasets to the number of previously defined colors)
     threat_uuid_labels = {};
     var promises = Object.keys(resp_json).slice(0, window.chartColors.length).map(function(threat_uuid, index) {
-      return retrieve_information_from_mosp(threat_uuid)
+      return retrieve_information_from_mosp(threat_uuid, "EN")
       .then(function(result_mosp) {
-        threat_uuid_labels[threat_uuid] = result_mosp["data"][0].name
+        threat_uuid_labels[threat_uuid] = result_mosp
         return threat_uuid;
       })
     })
@@ -164,9 +167,9 @@
     // (we limit the datasets to the number of previously defined colors)
     vulnerability_uuid_labels = {};
     var promises = Object.keys(resp_json).slice(0, window.chartColors.length).map(function(vulnerability_uuid, index) {
-      return retrieve_information_from_mosp(vulnerability_uuid)
+      return retrieve_information_from_mosp(vulnerability_uuid, "")
       .then(function(result_mosp) {
-        vulnerability_uuid_labels[vulnerability_uuid] = result_mosp["data"][0].name
+        vulnerability_uuid_labels[vulnerability_uuid] = result_mosp
         return vulnerability_uuid;
       })
     })
