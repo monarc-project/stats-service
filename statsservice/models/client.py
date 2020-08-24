@@ -23,6 +23,7 @@ class Client(db.Model, UserMixin):
     token = db.Column(db.String(100), unique=True, default=secret_token)
     role = db.Column(db.Integer, default=ROLE_USER)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
+    local = db.Column(db.Boolean(), default=True)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_at = db.Column(db.DateTime(), onupdate=datetime.utcnow)
 
