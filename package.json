@@ -1,17 +1,17 @@
 {
-    "name": "stats-service",
-    "version": "0.1.0",
-    "description": "Stats Service for MONARC.",
-    "private": true,
-    "scripts": {
-        "postinstall": "cd statsservice/static/ ; ln -sf ../../node_modules npm_components"
-    },
-    "author": "Cédric Bonhomme",
-    "license": "AGPL-3.0-or-later",
-    "dependencies": {
-        "chart.js": "^2.9.3"
-    },
-    "engines": {
-        "npm": "6.1.0"
-    }
+  "name": "stats-service",
+  "version": "0.1.0",
+  "description": "Stats Service for MONARC.",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd statsservice/static/ ; ln -sf ../../node_modules npm_components"
+  },
+  "author": "Cédric Bonhomme",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "chart.js": "^2.9.3"
+  },
+  "engines": {
+    "node": "12.x"
+  }
 }
