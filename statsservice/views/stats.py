@@ -39,12 +39,15 @@ def threats():
     """
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
+    local_stats_only = request.args.get("local_stats_only", default=0, type=int)
     postprocessor = request.args.get(
         "postprocessor", default="threat_average_on_date", type=str
     )
     query = Stats.query.filter(
         Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
     )
+    if local_stats_only:
+        query = query.filter(Stats.client.has(local=True))
 
     try:
         result = getattr(statsservice.lib.postprocessors, postprocessor)(query.all())
@@ -63,12 +66,15 @@ def vulnerabilities():
     """
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
+    local_stats_only = request.args.get("local_stats_only", default=0, type=int)
     postprocessor = request.args.get(
         "postprocessor", default="vulnerability_average_on_date", type=str
     )
     query = Stats.query.filter(
         Stats.type == "vulnerability", Stats.date >= now - timedelta(days=nb_days)
     )
+    if local_stats_only:
+        query = query.filter(Stats.client.has(local=True))
 
     try:
         result = getattr(statsservice.lib.postprocessors, postprocessor)(query.all())
