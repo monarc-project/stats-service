@@ -106,6 +106,8 @@ or via command line:
     $ cd stats-service/
     $ heroku create --region eu <name-of-your-instance>
     $ heroku addons:add heroku-postgresql:hobby-dev
+    $ heroku buildpacks:add --index 1 heroku/python
+    $ heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-nodejs
     $ heroku config:set HEROKU=1
     $ heroku config:set INSTANCE_URL=https://<name-of-your-instance>.herokuapp.com
     $ heroku config:set FLASK_APP='runserver.py'
