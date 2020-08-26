@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MONARC Stats Service - Global dashboard" />
+  <meta name="author" content="" />
+  <title>Global dashboard</title>
+  {% block head_css %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='npm_components/bootstrap/dist/css/bootstrap.min.css') }}" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='npm_components/fork-awesome/css/fork-awesome.min.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}" />
+  {% endblock %}
+  <script type="text/javascript" src="{{ url_for('static', filename='npm_components/popper.js/dist/umd/popper.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='npm_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='npm_components/chart.js/dist/Chart.bundle.min.js') }}"></script>
+  {% endblock %}
+</head>
+{% block page_body %}
+<body>
+  {% block menu %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom-blue">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Global dashboard</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      {% block menu_links %}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('root_bp.about_json') }}" title="About">About</a>
+          </li>
+        </ul>
+      </div>
+      {% endblock %}
+    </div>
+  </nav>
+  {% endblock %}
+
+  {% block content %}{% endblock %}
+  <br />
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <a href="{{ url_for('root_bp.about_json') }}">About</a>
+          &nbsp;&nbsp;
+          <a href="{{ url_for('api.doc') }}">OpenAPI Specification</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+{% endblock %}
+</html>

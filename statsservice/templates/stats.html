@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="MONARC Stats Service - Global dashboard" />
-    <meta name="author" content="" />
-    <title>Global dashboard</title>
-    <script src="{{ url_for('static', filename='npm_components/chart.js/dist/Chart.bundle.min.js') }}"></script>
-</head>
-<body>
-  <div style="width:75%; margin:0 auto;">
-    <h1>Averages per threats (based on <i>count</i>)</h1>
-		<canvas id="canvas-threats"></canvas>
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Averages per threats (based on <i>count</i>)</h1>
+		  <canvas id="canvas-threats"></canvas>
+    </div>
 	</div>
-  <div style="width:75%; margin:0 auto;">
-    <h1>Averages per vulnerabilities (based on <i>count</i>)</h1>
-		<canvas id="canvas-vulnerabilities"></canvas>
+  <br />
+  <div class="row">
+    <div class="col">
+      <h1>Averages per vulnerabilities (based on <i>count</i>)</h1>
+		  <canvas id="canvas-vulnerabilities"></canvas>
+    </div>
 	</div>
+</div><!-- /.container -->
 <script>
 (function() {
   // define some colors for the lines of the chart
@@ -247,5 +245,4 @@
   // });;
 })();
 </script>
-</body>
-</html>
+{% endblock %}
