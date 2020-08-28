@@ -7,7 +7,7 @@
       <p>Averages based on <i>count</i>.</p>
 		  <canvas id="canvas-threats"></canvas>
     </div>
-	</div>
+  </div>
   <br />
   <div class="row">
     <div class="col">
@@ -16,6 +16,11 @@
 		  <canvas id="canvas-vulnerabilities"></canvas>
     </div>
 	</div>
+  <div class="row">
+    <div class="col">
+      <p class=""><br />Data based on aggregated statistics from several <a href="https://www.monarc.lu">MONARC instances</a>. More information about the <a href="https://github.com/monarc-project/stats-service/blob/master/docs/architecture.rst">sharing of stats</a>.</p>
+    </div>
+  </div>
 </div><!-- /.container -->
 <script>
 (function() {
@@ -71,7 +76,7 @@
       },
       legend: {
         display: true,
-        position: 'bottom'
+        position: 'right'
       }
     }
   }
