@@ -39,12 +39,12 @@ def stats_push(uuid, token):
     """Push stats for the client specified in parameter to an other stats
     server.
     """
-    client = Client.objects.get(uuid__exact=uuid)
+    client = Client.query.filter(Client.uuid == uuid).first()
 
     headers = {"X-API-KEY": token, "content-type": "application/json"}
 
     payload = []
-    stats = Stats.objects(client__exact=client)
+    stats = Stats.query.filter(Stats.client_id == client.id)
     for stat in stats:
         payload.append(
             json.dumps(
@@ -52,7 +52,7 @@ def stats_push(uuid, token):
                     "uuid": str(stat.uuid),
                     "anr": str(stat.anr),
                     "type": stat.type,
-                    "date": stat.date,
+                    "date": str(stat.date),
                     "data": stat.data,
                 }
             )
