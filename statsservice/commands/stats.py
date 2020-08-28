@@ -33,13 +33,13 @@ def stats_delete(client_uuid, yes):
 
 
 @application.cli.command("stats_push")
-@click.option("--name", default="", help="Client name")
+@click.option("--uuid", default="", help="Client uuid")
 @click.option("--token", default="", help="Client token on remote side")
-def stats_push(name, token):
+def stats_push(uuid, token):
     """Push stats for the client specified in parameter to an other stats
     server.
     """
-    client = Client.objects.get(name__exact=name)
+    client = Client.objects.get(uuid__exact=uuid)
 
     headers = {"X-API-KEY": token, "content-type": "application/json"}
 
@@ -68,8 +68,8 @@ def stats_push(name, token):
 
 
 @application.cli.command("stats_pull")
-@click.option("--name", default="", help="Client name")
-def stats_pull(name):
+@click.option("--uuid", default="", help="Client uuid")
+def stats_pull(uuid):
     """Pull stats from an other stats instance for the client specified
     in parameter.
     """
