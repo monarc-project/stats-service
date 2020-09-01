@@ -33,8 +33,8 @@ def stats_delete(client_uuid, yes):
 
 
 @application.cli.command("stats_push")
-@click.option("--uuid", default="", help="Client uuid")
-@click.option("--token", default="", help="Client token on remote side")
+@click.option("--uuid", required=True, help="Client uuid")
+@click.option("--token", required=True, help="Client token on remote side")
 def stats_push(uuid, token):
     """Push stats for the client specified in parameter to an other stats
     server.
@@ -47,7 +47,6 @@ def stats_push(uuid, token):
     stats = Stats.query.filter(Stats.client_id == client.id)
     for stat in stats:
         payload.append(
-            json.dumps(
                 {
                     "uuid": str(stat.uuid),
                     "anr": str(stat.anr),
@@ -55,15 +54,15 @@ def stats_push(uuid, token):
                     "date": str(stat.date),
                     "data": stat.data,
                 }
-            )
         )
 
     try:
-        print("Pushing stats for client {} {}".format(client.name))
-        r = requests.post(STATS_API_ENDPOINT, data=payload, headers=headers)
+        print("Pushing stats for client {}".format(client.name))
+        r = requests.post(STATS_API_ENDPOINT, data=json.dumps(payload), headers=headers)
         if r.status_code != 200:
             print("Impossible to push the stat.")
-    except:
+    except Exception as e:
+        print(e)
         pass
 
 
