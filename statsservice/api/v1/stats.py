@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import psycopg2.Error
+import psycopg2.errors
 from flask import request
 from flask_login import current_user
 from flask_restx import Namespace, Resource, fields, reqparse, abort
@@ -241,9 +241,8 @@ class StatsList(Resource):
             db.session.add(Stats(**stats, client_id=current_user.id))
             try:
                 db.session.commit()
-            except psycopg2.Error as e:
-                error = e.pgcode
-                print(error)
+            except psycopg2.errors.UniqueViolation as e:
+                print('duplicate')
                 continue
         return {}, 204
 
