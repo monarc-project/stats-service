@@ -237,9 +237,8 @@ class StatsList(Resource):
         """Create a new stats"""
         news_stats = []
         for stats in stats_ns.payload:
-            news_stats.append(Stats(**stats, client_id=current_user.id))
-        db.session.bulk_save_objects(news_stats)
-        db.session.commit()
+            db.session.add(Stats(**stats, client_id=current_user.id))
+            db.session.commit()
         return {}, 204
 
 
