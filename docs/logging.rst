@@ -22,5 +22,7 @@ You can define the path of the log file in the configuration file. The default i
 Modules with logging
 --------------------
 
+You can expect log messages from the following modules:
+
 - statsservice.api.v1.client
 - statsservice.api.v1.stats
