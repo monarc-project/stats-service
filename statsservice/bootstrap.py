@@ -2,8 +2,39 @@
 # -*- coding: utf-8 -*-
 
 import os
+import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+
+
+def set_logging(
+    log_path=None,
+    log_level=logging.INFO,
+    modules=(),
+    log_format="%(asctime)s %(levelname)s %(message)s",
+):
+    if not modules:
+        modules = (
+            "root",
+            "runserver",
+            "statsservice.api.v1.stats"
+        )
+    if log_path:
+        if not os.path.exists(os.path.dirname(log_path)):
+            os.makedirs(os.path.dirname(log_path))
+        if not os.path.exists(log_path):
+            open(log_path, "w").close()
+        handler = logging.FileHandler(log_path)
+    else:
+        handler = logging.StreamHandler()
+    formater = logging.Formatter(log_format)
+    handler.setFormatter(formater)
+    for logger_name in modules:
+        logger = logging.getLogger(logger_name)
+        logger.addHandler(handler)
+        for handler in logger.handlers:
+            handler.setLevel(log_level)
+        logger.setLevel(log_level)
 
 
 # Create Flask application
@@ -32,5 +63,7 @@ else:
 # Set SECRET_KEY if it was not defined
 if not application.config.get("SECRET_KEY", False):
     application.config["SECRET_KEY"] = os.urandom(24)
+
+set_logging(application.config["LOG_PATH"])
 
 db = SQLAlchemy(application)
