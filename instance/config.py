@@ -18,6 +18,8 @@ class Config(object):
 
     SECRET_KEY = "LCx3BchmHRxFzkEv4BqQJyeXRLXenf"
 
+    LOG_PATH = "./var/stats.log"
+
     # Connection with MOSP
     MOSP_URL = "https://objects.monarc.lu"
 
