@@ -242,7 +242,7 @@ class StatsList(Resource):
                 db.session.commit()
             except psycopg2.Error as e:
                 error = e.pgcode
-                print error
+                print(error)
                 continue
         return {}, 204
 
