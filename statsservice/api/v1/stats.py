@@ -245,7 +245,7 @@ class StatsList(Resource):
                 db.session.add(Stats(**stats, client_id=current_user.id))
                 db.session.commit()
             except (sqlalchemy.exc.IntegrityError, sqlalchemy.exc.InvalidRequestError) as e:
-                logger.error("Duplicate stats: {}".format(stats["uuid"]))
+                logger.error("Duplicate stats {}".format(stats["uuid"]))
 
         return {}, 204
 

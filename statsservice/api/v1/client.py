@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import logging
 from flask import request, abort
 from flask_restx import Namespace, Resource, fields, abort
 
@@ -8,6 +9,9 @@ from statsservice.bootstrap import db
 from statsservice.models import Client
 from statsservice.api.v1.common import auth_func
 from statsservice.api.v1.identity import admin_permission
+
+
+logger = logging.getLogger(__name__)
 
 client_ns = Namespace("client", description="client related operations")
 
@@ -39,4 +43,5 @@ class ClientsList(Resource):
                 db.session.commit()
                 return new_client, 201
         except Exception:
+            logger.error("Only admin can create new client.")
             return abort(403)

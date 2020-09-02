@@ -17,3 +17,10 @@ Example:
 
 You can define the path of the log file in the configuration file. The default is
 ``./var/stats.log``. If not specified ``sys.stderr`` will be used.
+
+
+Modules with logging
+--------------------
+
+- statsservice.api.v1.client
+- statsservice.api.v1.stats
