@@ -140,7 +140,6 @@ class StatsList(Resource):
     @auth_func
     def get(self):
         """List all stats"""
-        logger.info("Get all")
         args = parser.parse_args(strict=True)
         limit = args.get("limit", 0)
         offset = args.get("offset", 0)
