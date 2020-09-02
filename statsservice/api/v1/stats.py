@@ -238,7 +238,12 @@ class StatsList(Resource):
         news_stats = []
         for stats in stats_ns.payload:
             db.session.add(Stats(**stats, client_id=current_user.id))
-            db.session.commit()
+            try:
+                db.session.commit()
+            except psycopg2.Error as e:
+                error = e.pgcode
+                print error
+                continue
         return {}, 204
 
 
