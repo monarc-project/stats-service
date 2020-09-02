@@ -65,6 +65,6 @@ else:
 if not application.config.get("SECRET_KEY", False):
     application.config["SECRET_KEY"] = os.urandom(24)
 
-set_logging(application.config["LOG_PATH"])
+set_logging(application.config.get("LOG_PATH", None))
 
 db = SQLAlchemy(application)
