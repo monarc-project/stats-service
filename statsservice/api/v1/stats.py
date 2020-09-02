@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import psycopg2.errors
+import logging
+import sqlalchemy.exc
 from flask import request
 from flask_login import current_user
 from flask_restx import Namespace, Resource, fields, reqparse, abort
@@ -16,6 +17,8 @@ from statsservice.bootstrap import db
 from statsservice.models import Stats, Client
 from statsservice.api.v1.common import auth_func, uuid_type
 
+
+logger = logging.getLogger(__name__)
 
 stats_ns = Namespace("stats", description="stats related operations")
 
@@ -137,6 +140,7 @@ class StatsList(Resource):
     @auth_func
     def get(self):
         """List all stats"""
+        logger.info("Get all")
         args = parser.parse_args(strict=True)
         limit = args.get("limit", 0)
         offset = args.get("offset", 0)
@@ -238,12 +242,12 @@ class StatsList(Resource):
         """Create a new stats"""
         news_stats = []
         for stats in stats_ns.payload:
-            db.session.add(Stats(**stats, client_id=current_user.id))
             try:
+                db.session.add(Stats(**stats, client_id=current_user.id))
                 db.session.commit()
-            except psycopg2.errors.UniqueViolation as e:
-                print('duplicate')
-                continue
+            except (sqlalchemy.exc.IntegrityError, sqlalchemy.exc.InvalidRequestError) as e:
+                logger.error("Duplicate stats: {}".format(stats["uuid"]))
+
         return {}, 204
 
 
