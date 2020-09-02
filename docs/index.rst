@@ -51,6 +51,7 @@ Technical considerations
    installation
    updates
    command-line-interface
+   logging
 
 
 Conceptual considerations
