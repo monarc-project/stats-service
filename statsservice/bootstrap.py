@@ -11,7 +11,7 @@ def set_logging(
     log_path=None,
     log_level=logging.INFO,
     modules=(),
-    log_format="%(asctime)s %(levelname)s %(message)s",
+    log_format="%(asctime)s %(levelname)s %(name)s %(funcName)s %(lineno)s: %(message)s",
 ):
     if not modules:
         modules = (
