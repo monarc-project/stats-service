@@ -239,7 +239,7 @@ class StatsList(Resource):
     @auth_func
     def post(self):
         """Create a new stats"""
-        news_stats = []
+        errors = []
         for stats in stats_ns.payload:
             try:
                 new_stat = Stats(**stats, client_id=current_user.id)
@@ -247,9 +247,12 @@ class StatsList(Resource):
                 db.session.commit()
             except (sqlalchemy.exc.IntegrityError, sqlalchemy.exc.InvalidRequestError) as e:
                 logger.error("Duplicate stats {}".format(stats["uuid"]))
+                errors.append(stats["uuid"])
                 db.session.rollback()
 
-        return {}, 204
+        # if some objects can not created we return the HTTP code 207 (Multi-Status)
+        # if all objects of the batch POST request are created we simply return 204.
+        return {"stats not created": errors}, 207 if errors else 204
 
 
 @stats_ns.route("/<string:anr>")
