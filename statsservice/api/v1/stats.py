@@ -234,7 +234,7 @@ class StatsList(Resource):
 
     @stats_ns.doc("create_stats")
     @stats_ns.expect([stats])
-    @stats_ns.marshal_with(stats, code=201)
+    @stats_ns.marshal_list_with(stats_list_fields, code=201)
     @stats_ns.response(401, "Authorization needed")
     @auth_func
     def post(self):

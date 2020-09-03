@@ -61,6 +61,7 @@ def stats_push(uuid, token):
         r = requests.post(STATS_API_ENDPOINT, data=json.dumps(payload), headers=headers)
         if r.status_code not in [200, 204]:
             print("Impossible to push some stats.")
+        print(json.loads(r.content))
     except Exception as e:
         print(e)
         pass
