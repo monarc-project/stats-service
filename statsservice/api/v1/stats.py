@@ -242,10 +242,12 @@ class StatsList(Resource):
         news_stats = []
         for stats in stats_ns.payload:
             try:
-                db.session.add(Stats(**stats, client_id=current_user.id))
+                new_stat = Stats(**stats, client_id=current_user.id)
+                db.session.add(new_stat)
                 db.session.commit()
             except (sqlalchemy.exc.IntegrityError, sqlalchemy.exc.InvalidRequestError) as e:
                 logger.error("Duplicate stats {}".format(stats["uuid"]))
+                db.session.rollback()
 
         return {}, 204
 
