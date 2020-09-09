@@ -26,3 +26,4 @@ You can expect log messages from the following modules:
 
 - statsservice.api.v1.client
 - statsservice.api.v1.stats
+- statsservice.commands.stats
