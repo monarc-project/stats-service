@@ -42,7 +42,7 @@ def stats_delete(client_uuid, yes):
 @click.option("--uuid", required=True, help="Local client uuid")
 @click.option("--token", required=True, help="Client token on remote side")
 def stats_push(uuid, token):
-    """Push stats for the client specified in parameter to an other stats
+    """Push stats for the local client specified in parameter to an other stats
     server.
     """
     client = Client.query.filter(Client.uuid == uuid).first()
@@ -78,7 +78,7 @@ def stats_push(uuid, token):
 @click.option("--token", required=True, help="Client token on remote side")
 @click.option("--stats-type", required=True, help="Type of the stats to import (risk, vulnerability, threat).")
 def stats_pull(uuid, token, stats_type):
-    """Pull stats from an other stats instance for the client specified
+    """Pull stats from an other stats instance for the local client specified
     in parameter.
     """
     client = Client.query.filter(Client.uuid == uuid).first()

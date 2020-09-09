@@ -152,14 +152,14 @@ Pushing data to a central stats server.
 .. code-block:: bash
 
     $ flask stats_push --help
-    Usage: flask stats_push-stats [OPTIONS]
+    Usage: flask stats_push [OPTIONS]
 
-      Push stats for the client specified in parameter to an other stats
+      Push stats for the local client specified in parameter to an other stats
       server.
 
     Options:
-      --name TEXT   Client name
-      --token TEXT  Client token on remote side
+      --uuid TEXT   Local client uuid  [required]
+      --token TEXT  Client token on remote side  [required]
       --help        Show this message and exit.
 
 
@@ -180,12 +180,16 @@ Pulling data from a central stats server.
     $ flask stats_pull --help
     Usage: flask stats_pull [OPTIONS]
 
-      Pull stats from an other stats instance for the client specified in
+      Pull stats from an other stats instance for the local client specified in
       parameter.
 
     Options:
-      --name TEXT  Client name
-      --help       Show this message and exit.
+      --uuid TEXT        Local client uuid
+      --token TEXT       Client token on remote side  [required]
+      --stats-type TEXT  Type of the stats to import (risk, vulnerability,
+                         threat).  [required]
+
+      --help             Show this message and exit.
   
 
 Delete stats
