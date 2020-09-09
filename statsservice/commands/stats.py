@@ -1,10 +1,16 @@
 import json
+import logging
 import click
 import requests
+import sqlalchemy.exc
 
 from urllib.parse import urljoin
 from statsservice.bootstrap import application, db
 from statsservice.models import Stats, Client
+
+
+logger = logging.getLogger(__name__)
+
 
 STATS_API_ENDPOINT = urljoin(
     application.config["REMOTE_STATS_SERVER"], "/api/v1/stats/"
@@ -13,7 +19,7 @@ STATS_API_ENDPOINT = urljoin(
 
 @application.cli.command("stats_delete")
 @click.option(
-    "--client-uuid", default="", help="UUID of the client related to the stats."
+    "--client-uuid", default="", help="UUID of the lclient related to the stats."
 )
 @click.option(
     "-y",
@@ -33,7 +39,7 @@ def stats_delete(client_uuid, yes):
 
 
 @application.cli.command("stats_push")
-@click.option("--uuid", required=True, help="Client uuid")
+@click.option("--uuid", required=True, help="Local client uuid")
 @click.option("--token", required=True, help="Client token on remote side")
 def stats_push(uuid, token):
     """Push stats for the client specified in parameter to an other stats
@@ -68,13 +74,25 @@ def stats_push(uuid, token):
 
 
 @application.cli.command("stats_pull")
-@click.option("--uuid", default="", help="Client uuid")
-def stats_pull(uuid):
+@click.option("--uuid", default="", help="Local client uuid")
+@click.option("--token", required=True, help="Client token on remote side")
+@click.option("--stats-type", required=True, help="Type of the stats to import (risk, vulnerability, threat).")
+def stats_pull(uuid, token, stats_type):
     """Pull stats from an other stats instance for the client specified
     in parameter.
     """
-    r = requests.get(STATS_API_ENDPOINT)
+    client = Client.query.filter(Client.uuid == uuid).first()
+
+    headers = {"X-API-KEY": token}
+    payload = {'type': stats_type}
+
+    r = requests.get(STATS_API_ENDPOINT, params=payload, headers=headers)
     stats = json.loads(r.content)
     for stat in stats["data"]:
-        print(stat)
-        # TODO: save the stat
+        try:
+            new_stat = Stats(**stat, client_id=client.id)
+            db.session.add(new_stat)
+            db.session.commit()
+        except (sqlalchemy.exc.IntegrityError, sqlalchemy.exc.InvalidRequestError) as e:
+            logger.error("Duplicate stats {}".format(stat["uuid"]))
+            db.session.rollback()
