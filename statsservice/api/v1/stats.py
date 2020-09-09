@@ -252,7 +252,10 @@ class StatsList(Resource):
                 db.session.commit()
                 result["data"].append(new_stat)
                 result["metadata"]["count"] += 1
-            except (sqlalchemy.exc.IntegrityError, sqlalchemy.exc.InvalidRequestError) as e:
+            except (
+                sqlalchemy.exc.IntegrityError,
+                sqlalchemy.exc.InvalidRequestError,
+            ) as e:
                 logger.error("Duplicate stats {}".format(stats["uuid"]))
                 errors.append(stats["uuid"])
                 db.session.rollback()

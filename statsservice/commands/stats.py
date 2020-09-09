@@ -53,13 +53,13 @@ def stats_push(uuid, token):
     stats = Stats.query.filter(Stats.client_id == client.id)
     for stat in stats:
         payload.append(
-                {
-                    "uuid": str(stat.uuid),
-                    "anr": str(stat.anr),
-                    "type": stat.type,
-                    "date": str(stat.date),
-                    "data": stat.data,
-                }
+            {
+                "uuid": str(stat.uuid),
+                "anr": str(stat.anr),
+                "type": stat.type,
+                "date": str(stat.date),
+                "data": stat.data,
+            }
         )
 
     try:
@@ -76,7 +76,11 @@ def stats_push(uuid, token):
 @application.cli.command("stats_pull")
 @click.option("--uuid", default="", help="Local client uuid")
 @click.option("--token", required=True, help="Client token on remote side")
-@click.option("--stats-type", required=True, help="Type of the stats to import (risk, vulnerability, threat).")
+@click.option(
+    "--stats-type",
+    required=True,
+    help="Type of the stats to import (risk, vulnerability, threat).",
+)
 def stats_pull(uuid, token, stats_type):
     """Pull stats from an other stats instance for the local client specified
     in parameter.
@@ -84,7 +88,7 @@ def stats_pull(uuid, token, stats_type):
     client = Client.query.filter(Client.uuid == uuid).first()
 
     headers = {"X-API-KEY": token}
-    payload = {'type': stats_type}
+    payload = {"type": stats_type}
 
     r = requests.get(STATS_API_ENDPOINT, params=payload, headers=headers)
     stats = json.loads(r.content)

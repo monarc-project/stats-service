@@ -19,7 +19,7 @@ def set_logging(
             "runserver",
             "statsservice.api.v1.client",
             "statsservice.api.v1.stats",
-            "statsservice.commands.stats"
+            "statsservice.commands.stats",
         )
     if log_path:
         if not os.path.exists(os.path.dirname(log_path)):
