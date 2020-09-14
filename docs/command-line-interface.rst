@@ -158,7 +158,7 @@ Pushing data to a central stats server.
       server.
 
     Options:
-      --uuid TEXT   Local client uuid  [required]
+      --client-uuid TEXT   Local client uuid  [required]
       --token TEXT  Client token on remote side  [required]
       --help        Show this message and exit.
 
@@ -184,7 +184,7 @@ Pulling data from a central stats server.
       parameter.
 
     Options:
-      --uuid TEXT        Local client uuid
+      --client-uuid TEXT        Local client uuid
       --token TEXT       Client token on remote side  [required]
       --stats-type TEXT  Type of the stats to import (risk, vulnerability,
                          threat).  [required]
