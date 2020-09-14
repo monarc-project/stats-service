@@ -39,13 +39,13 @@ def stats_delete(client_uuid, yes):
 
 
 @application.cli.command("stats_push")
-@click.option("--uuid", required=True, help="Local client uuid")
+@click.option("--client-uuid", required=True, help="Local client uuid")
 @click.option("--token", required=True, help="Client token on remote side")
-def stats_push(uuid, token):
+def stats_push(client_uuid, token):
     """Push stats for the local client specified in parameter to an other stats
     server.
     """
-    client = Client.query.filter(Client.uuid == uuid).first()
+    client = Client.query.filter(Client.uuid == client_uuid).first()
 
     headers = {"X-API-KEY": token, "content-type": "application/json"}
 
@@ -70,22 +70,21 @@ def stats_push(uuid, token):
         print(json.loads(r.content))
     except Exception as e:
         print(e)
-        pass
 
 
 @application.cli.command("stats_pull")
-@click.option("--uuid", default="", help="Local client uuid")
+@click.option("--client-uuid", default="", help="Local client uuid")
 @click.option("--token", required=True, help="Client token on remote side")
 @click.option(
     "--stats-type",
     required=True,
     help="Type of the stats to import (risk, vulnerability, threat).",
 )
-def stats_pull(uuid, token, stats_type):
+def stats_pull(client_uuid, token, stats_type):
     """Pull stats from an other stats instance for the local client specified
     in parameter.
     """
-    client = Client.query.filter(Client.uuid == uuid).first()
+    client = Client.query.filter(Client.uuid == client_uuid).first()
 
     headers = {"X-API-KEY": token}
     payload = {"type": stats_type}
