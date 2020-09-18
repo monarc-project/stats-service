@@ -68,7 +68,7 @@ parser.add_argument(
     help="The date of the stats must be smaller or equal than this value.",
 )
 parser.add_argument(
-    "anrs[]",
+    "anrs",
     action="append",
     required=False,
     help="List of the anrs' uuids to filter by.",
@@ -147,7 +147,7 @@ class StatsList(Resource):
         # aggregation_period = args.get("aggregation_period")
         postprocessor = args.get("postprocessor", "")
         group_by_anr = args.get("group_by_anr")
-        anrs = request.args.getlist('anrs[]')
+        anrs = args.get('anrs')
 
         get_last = args.get("get_last")
         date_from = args.get("date_from")
