@@ -122,7 +122,7 @@ stats_list_fields = stats_ns.model(
             metadata, description="Metada related to the result."
         ),
         "data": fields.List(fields.Nested(stats), description="List of stats objects."),
-        "processed_data": fields.Raw(
+        "processedData": fields.Raw(
             description="Result of the selected postprocessor applied to the resulting stats."
         ),
     },
@@ -162,7 +162,7 @@ class StatsList(Resource):
 
         result = {
             "data": [],
-            "processed_data": [],
+            "processedData": [],
             "metadata": {"count": 0, "offset": offset, "limit": limit},
         }
 
@@ -223,8 +223,8 @@ class StatsList(Resource):
                 processed_result = getattr(
                     statsservice.lib.postprocessors, postprocessor
                 )(results)
-                # the result of the postprocessor is set in result["processed_data"]
-                result["processed_data"] = processed_result
+                # the result of the postprocessor is set in result["processedData"]
+                result["processedData"] = processed_result
             except AttributeError:
                 abort(
                     500,
@@ -242,7 +242,7 @@ class StatsList(Resource):
         """Create a new stats"""
         result = {
             "data": [],
-            "processed_data": [],
+            "processedData": [],
             "metadata": {"count": 0, "offset": 0, "limit": 0},
         }
         errors = []
