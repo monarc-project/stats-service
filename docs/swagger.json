@@ -45,7 +45,10 @@
                     "201": {
                         "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/Stats"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StatsList"
+                            }
                         }
                     }
                 },
@@ -357,7 +360,7 @@
                         "$ref": "#/definitions/Stats"
                     }
                 },
-                "processed_data": {
+                "processedData": {
                     "type": "object",
                     "description": "Result of the selected postprocessor applied to the resulting stats."
                 }
