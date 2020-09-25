@@ -242,7 +242,6 @@ class StatsList(Resource):
         """Create a new stats"""
         result = {
             "data": [],
-            "processedData": [],
             "metadata": {"count": 0, "offset": 0, "limit": 0},
         }
         errors = []
