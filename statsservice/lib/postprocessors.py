@@ -34,10 +34,12 @@ def threat_average_on_date(threats_stats):
                 # print(data["date"])
 
                 for i in ["1", "2", "3", "4"]:
-                    # for now we remove the labels before processing the frames
-                    if "label"+str(i) in data:
-                        #data.pop(label)
+                    # store the labels related to the UUID
+                    if data.get("label"+str(i), False):
                         labels[threat_uuid]["label"+i] = data["label"+i]
+                    # for now we remove from data the labels before processing the frames
+                    if "label"+str(i) in data:
+                        data.pop("label"+str(i))
 
                 # prepare the frames
                 if data["date"] in frames[threat_uuid]:
@@ -52,6 +54,7 @@ def threat_average_on_date(threats_stats):
             df = pd.DataFrame(frames[threat_uuid][date])
             mean = dict(df.mean())
             result[threat_uuid]['values'][date] = mean
+        # restore the labels for the client
         result[threat_uuid]['labels'] = labels[threat_uuid]
 
     return result
