@@ -31,9 +31,9 @@ def groups_threats(threats):
             # MONARC send averageRate as a string, so we convert to float
             data["averageRate"] = float(data.get("averageRate", 0))
 
-            for label in ["label1", "label2", "label3", "label4"]:
-                if label in data:
-                    data.pop(label)
+            # for label in ["label1", "label2", "label3", "label4"]:
+            #     if label in data:
+            #         data.pop(label)
 
             groups[anr_uuid][str_uuid].append(data)
 
