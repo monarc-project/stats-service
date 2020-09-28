@@ -54,6 +54,7 @@ def threat_average_on_date(threats_stats):
             df = pd.DataFrame(frames[threat_uuid][date])
             mean = dict(df.mean())
             result[threat_uuid]['values'][date] = mean
+            result[threat_uuid]['values'][date]['label'] = date
         # restore the labels for the client
         result[threat_uuid]['labels'] = labels[threat_uuid]
 
