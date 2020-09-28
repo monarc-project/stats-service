@@ -23,6 +23,8 @@ def threat_average_on_date(threats_stats):
     """
     grouped_threats = groups_threats(threats_stats)
 
+    labels = tree()
+
     # group all threats of all analysis per date
     frames = tree()
     for anr_uuid in grouped_threats:
@@ -31,10 +33,11 @@ def threat_average_on_date(threats_stats):
                 # print(data)
                 # print(data["date"])
 
-                # for label in ["label1", "label2", "label3", "label4"]:
-                #     # for now we remove the labels before processing the frames
-                #     if label in data:
-                #         data.pop(label)
+                for i in range(1, 5):
+                    # for now we remove the labels before processing the frames
+                    if "label"+str(i) in data:
+                        #data.pop(label)
+                        labels[threat_uuid][i] = data["label"+str(i)]
 
                 # prepare the frames
                 if data["date"] in frames[threat_uuid]:
@@ -48,7 +51,8 @@ def threat_average_on_date(threats_stats):
         for date in frames[threat_uuid]:
             df = pd.DataFrame(frames[threat_uuid][date])
             mean = dict(df.mean())
-            result[threat_uuid][date] = mean
+            result[threat_uuid]['values'][date] = mean
+        result[threat_uuid]['labels'] = labels[threat_uuid]
 
     return result
 
