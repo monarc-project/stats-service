@@ -33,11 +33,11 @@ def threat_average_on_date(threats_stats):
                 # print(data)
                 # print(data["date"])
 
-                for i in range(1, 5):
+                for i in ["1", "2", "3", "4"]:
                     # for now we remove the labels before processing the frames
                     if "label"+str(i) in data:
                         #data.pop(label)
-                        labels[threat_uuid][i] = data["label"+str(i)]
+                        labels[threat_uuid]["label"+i] = data["label"+i]
 
                 # prepare the frames
                 if data["date"] in frames[threat_uuid]:
