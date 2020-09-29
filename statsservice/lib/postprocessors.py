@@ -50,11 +50,12 @@ def threat_average_on_date(threats_stats):
     # evaluate the average per day for each threats
     result = tree()
     for threat_uuid in frames:
+        result[threat_uuid]['values'] = []
         for date in frames[threat_uuid]:
             df = pd.DataFrame(frames[threat_uuid][date])
             mean = dict(df.mean())
-            result[threat_uuid]['values'][date] = mean
-            result[threat_uuid]['values'][date]['label'] = date
+            mean['date'] = date
+            result[threat_uuid]['values'].append(mean)
         # restore the labels for the client
         result[threat_uuid]['labels'] = labels[threat_uuid]
 
