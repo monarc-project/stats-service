@@ -130,7 +130,8 @@
       var config_threats = JSON.parse(JSON.stringify(config));
       // construct the datasets
       datasets = [];
-      Object.keys(threat_uuid_labels).map(function(threat_uuid, index) {
+      Object.keys(threat_uuid_labels)
+      .map(function(threat_uuid, index) {
         data = [];
         dataset = {
           "label": threat_uuid_labels[threat_uuid],
@@ -138,10 +139,15 @@
           "borderColor": window.chartColors[index],
           "fill": false,
         };
-        Object.keys(resp_json[threat_uuid]).map(function(date, index2) {
+
+        resp_json[threat_uuid]['values']
+        .sort(function(a, b) {
+          return new Date(a.date) - new Date(b.date) ;
+        })
+        .map(function(elem) {
           data.push({
-            x: new Date(date),
-            y: resp_json[threat_uuid][date]["count"]
+            x: new Date(elem.date),
+            y: elem.count
           })
         });
         dataset["data"] = data;
@@ -196,10 +202,15 @@
           "borderColor": window.chartColors[index],
           "fill": false,
         };
-        Object.keys(resp_json[vulnerability_uuid]).map(function(date, index2) {
+
+        resp_json[vulnerability_uuid]['values']
+        .sort(function(a, b) {
+          return new Date(a.date) - new Date(b.date) ;
+        })
+        .map(function(elem) {
           data.push({
-            x: new Date(date),
-            y: resp_json[vulnerability_uuid][date]["count"]
+            x: new Date(elem.date),
+            y: elem.count
           })
         });
         dataset["data"] = data;
