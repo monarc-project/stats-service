@@ -195,7 +195,7 @@ class StatsList(Resource):
                     ._asdict()
                 )
             result["data"] = results
-            result["metadata"] = {"count": results.count(), "offset": 0, "limit": 0}
+            result["metadata"] = {"count": len(results), "offset": 0, "limit": 0}
 
             return result, 200
 
@@ -204,11 +204,13 @@ class StatsList(Resource):
         if limit > 0:
             query = query.limit(limit)
             results = query.offset(offset)
+            result["metadata"]["count"] = results.count()
         else:
             results = query.all()
+            result["metadata"]["count"] = len(results)
 
         result["data"] = results  # result without changes from the postprocessor
-        result["metadata"]["count"] = results.count()
+
 
         # eventually apply a postprocessor with the result
         if postprocessor:
