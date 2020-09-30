@@ -147,7 +147,7 @@ class StatsList(Resource):
         # aggregation_period = args.get("aggregation_period")
         postprocessor = args.get("postprocessor", "")
         group_by_anr = args.get("group_by_anr")
-        anrs = args.get('anrs')
+        anrs = args.get("anrs")
 
         get_last = args.get("get_last")
         date_from = args.get("date_from")
@@ -210,7 +210,6 @@ class StatsList(Resource):
             result["metadata"]["count"] = len(results)
 
         result["data"] = results  # result without changes from the postprocessor
-
 
         # eventually apply a postprocessor with the result
         if postprocessor:

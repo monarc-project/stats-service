@@ -6,8 +6,7 @@ from statsservice.bootstrap import application, db
 
 @application.cli.command("db_empty")
 def db_empty():
-    """Empty the database.
-    """
+    """Empty the database."""
     if click.confirm("Do you want to drop all the database?"):
         with application.app_context():
             models.db_empty(db)

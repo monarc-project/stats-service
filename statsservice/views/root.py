@@ -29,25 +29,27 @@ root_bp = Blueprint("root_bp", __name__, url_prefix="")
 
 @root_bp.route("/", methods=["GET"])
 def home():
-    """For the moment simply redirects to the documentation of the API.
-    """
+    """For the moment simply redirects to the documentation of the API."""
     return redirect(url_for("api.doc"))
 
 
 @root_bp.route("about.json", methods=["GET"])
 def about_json():
-    """Provide information about the instance.
-    """
+    """Provide information about the instance."""
     version = __version__.split("-")
     if len(version) == 1:
         stats_version = version[0]
-        version_url = "https://github.com/monarc-project/stats-service/releases/tag/{}".format(
-            version[0]
+        version_url = (
+            "https://github.com/monarc-project/stats-service/releases/tag/{}".format(
+                version[0]
+            )
         )
     else:
         stats_version = "{} - {}".format(version[0], version[2][1:])
-        version_url = "https://github.com/monarc-project/stats-service/commits/{}".format(
-            version[2][1:]
+        version_url = (
+            "https://github.com/monarc-project/stats-service/commits/{}".format(
+                version[2][1:]
+            )
         )
 
     return jsonify(

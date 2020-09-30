@@ -16,8 +16,7 @@ from statsservice.models import Client
     show_default=True,
 )
 def client_create(name, uuid, token, role):
-    """Create a new local client.
-    """
+    """Create a new local client."""
     args = {}
     if uuid:
         args["uuid"] = uuid
@@ -42,8 +41,7 @@ def client_create(name, uuid, token, role):
 
 @application.cli.command("client_list")
 def client_list():
-    """List all local clients.
-    """
+    """List all local clients."""
     for client in Client.query.all():
         print(client)
         print()
@@ -58,8 +56,7 @@ def client_list():
     help="Automatically reply yes to the confirmation message.",
 )
 def client_delete(uuid, yes):
-    """Delete the client specified with its UUID and all the related local stats.
-    """
+    """Delete the client specified with its UUID and all the related local stats."""
     if yes or click.confirm("Delete all local stats related to this client?"):
         try:
             Client.query.filter(Client.uuid == uuid).delete()

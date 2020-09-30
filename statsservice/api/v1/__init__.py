@@ -9,7 +9,11 @@ api_blueprint = Blueprint("api", __name__, url_prefix="/api/v1")
 
 def setup_api(application):
     authorizations = {
-        "apikey": {"type": "apiKey", "in": "header", "name": "X-API-KEY",}
+        "apikey": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "X-API-KEY",
+        }
     }
 
     api = Api(

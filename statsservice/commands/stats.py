@@ -28,8 +28,7 @@ STATS_API_ENDPOINT = urljoin(
     help="Automatically reply yes to the confirmation message.",
 )
 def stats_delete(client_uuid, yes):
-    """Delete the stats of a local client.
-    """
+    """Delete the stats of a local client."""
     if yes or click.confirm("Delete all local stats related to this client?"):
         try:
             Stats.query.filter(Stats.client.has(uuid=client_uuid)).delete()

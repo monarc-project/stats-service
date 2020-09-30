@@ -30,16 +30,13 @@ def threat_average_on_date(threats_stats):
     for anr_uuid in grouped_threats:
         for threat_uuid, stats in grouped_threats[anr_uuid].items():
             for data in stats:
-                # print(data)
-                # print(data["date"])
-
                 for i in ["1", "2", "3", "4"]:
                     # store the labels related to the UUID
-                    if data.get("label"+str(i), False):
-                        labels[threat_uuid]["label"+i] = data["label"+i]
+                    if data.get("label" + str(i), False):
+                        labels[threat_uuid]["label" + i] = data["label" + i]
                     # for now we remove from data the labels before processing the frames
-                    if "label"+str(i) in data:
-                        data.pop("label"+str(i))
+                    if "label" + str(i) in data:
+                        data.pop("label" + str(i))
 
                 # prepare the frames
                 if data["date"] in frames[threat_uuid]:
@@ -50,20 +47,20 @@ def threat_average_on_date(threats_stats):
     # evaluate the averages per day for each threats
     result = tree()
     for threat_uuid in frames:
-        result[threat_uuid]['values'] = []
+        result[threat_uuid]["values"] = []
         for date in frames[threat_uuid]:
             df = pd.DataFrame(frames[threat_uuid][date])
             mean = dict(df.mean())
-            mean['date'] = date
-            result[threat_uuid]['values'].append(mean)
+            mean["date"] = date
+            result[threat_uuid]["values"].append(mean)
         # restore the labels for the client
-        result[threat_uuid]['labels'] = labels[threat_uuid]
+        result[threat_uuid]["labels"] = labels[threat_uuid]
 
     # evaluate the averages for each threats
     frames = tree()
     for threat_uuid in result:
-        df = pd.DataFrame(result[threat_uuid]['values'])
-        result[threat_uuid]['averages'] = dict(df.mean())
+        df = pd.DataFrame(result[threat_uuid]["values"])
+        result[threat_uuid]["averages"] = dict(df.mean())
 
     return result
 
@@ -77,8 +74,7 @@ def vulnerability_average_on_date(vulnerabilities_stats):
 
 
 def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
-    """Return average for the threats for each risk analysis.
-    """
+    """Return average for the threats for each risk analysis."""
     grouped_threats = groups_threats(threats_stats)
     frames = defaultdict(list)
     result = {}

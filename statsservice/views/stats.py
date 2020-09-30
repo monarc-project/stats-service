@@ -35,8 +35,7 @@ def risks():
 
 @stats_bp.route("/threats.json", methods=["GET"])
 def threats():
-    """Returns threats with custom post-processings.
-    """
+    """Returns threats with custom post-processings."""
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
     local_stats_only = request.args.get("local_stats_only", default=0, type=int)
@@ -62,8 +61,7 @@ def threats():
 
 @stats_bp.route("/vulnerabilities.json", methods=["GET"])
 def vulnerabilities():
-    """Returns vulnerabilities with custom post-processings.
-    """
+    """Returns vulnerabilities with custom post-processings."""
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
     local_stats_only = request.args.get("local_stats_only", default=0, type=int)

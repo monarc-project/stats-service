@@ -17,7 +17,10 @@ def secret_token():
 class Client(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(
-        UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False,
+        UUID(as_uuid=True),
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
     )
     name = db.Column(db.String(100), unique=True)  # field to remove
     token = db.Column(db.String(100), unique=True, default=secret_token)
