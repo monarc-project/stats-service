@@ -40,10 +40,11 @@ def setup_api(application):
             ),
         )
 
-    from statsservice.api.v1 import stats, client
+    from statsservice.api.v1 import stats, client, processing
 
     api.add_namespace(client.client_ns, path="/client")
     api.add_namespace(stats.stats_ns, path="/stats")
+    api.add_namespace(processing.processing_ns, path="/processing")
 
     return api
 

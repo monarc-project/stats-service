@@ -19,6 +19,7 @@ def set_logging(
             "runserver",
             "statsservice.api.v1.client",
             "statsservice.api.v1.stats",
+            "statsservice.api.v1.processing",
             "statsservice.commands.stats",
         )
     if log_path:
