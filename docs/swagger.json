@@ -36,6 +36,83 @@
                 ]
             }
         },
+        "/processing/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Result"
+                            }
+                        }
+                    }
+                },
+                "summary": "Return the result of the postprocessor",
+                "operationId": "processing_list",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "The type of the stats.",
+                        "enum": [
+                            "risk",
+                            "vulnerability",
+                            "threat",
+                            "cartography",
+                            "compliance"
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "postprocessor",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "The post-processor to apply to a list of stats.",
+                        "enum": [
+                            "risk_process",
+                            "threat_average_on_date",
+                            "threat_process",
+                            "vulnerability_average_on_date"
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "nbdays",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Limit of days",
+                        "default": 365
+                    },
+                    {
+                        "name": "local_stats_only",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Only on local stats",
+                        "default": 1,
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "processing"
+                ]
+            }
+        },
         "/stats/": {
             "post": {
                 "responses": {
@@ -294,6 +371,10 @@
         {
             "name": "stats",
             "description": "stats related operations"
+        },
+        {
+            "name": "processing",
+            "description": "Processing related operations on stats data."
         }
     ],
     "definitions": {
@@ -383,6 +464,15 @@
                     "type": "string",
                     "description": "Requested limit data.",
                     "readOnly": true
+                }
+            },
+            "type": "object"
+        },
+        "Result": {
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "description": "Result of the selected postprocessor applied to the resulting stats."
                 }
             },
             "type": "object"

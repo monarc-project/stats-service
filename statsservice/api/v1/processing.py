@@ -3,23 +3,26 @@
 
 import logging
 from datetime import datetime, timedelta
-from flask import request, abort
 from flask_restx import Namespace, Resource, fields, abort, reqparse
 
 import statsservice.lib.postprocessors
-from statsservice.bootstrap import db
 from statsservice.lib import AVAILABLE_POSTPROCESSORS
 from statsservice.models import Stats
-from statsservice.api.v1.common import auth_func
-from statsservice.api.v1.identity import admin_permission
 
 logger = logging.getLogger(__name__)
 
-processing_ns = Namespace("processing", description="processing related operations")
+processing_ns = Namespace("processing", description="Processing related operations on stats data.")
 
 
 # Argument Parsing
 parser = reqparse.RequestParser()
+parser.add_argument(
+    "type",
+    type=str,
+    help="The type of the stats.",
+    required=True,
+    choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
+)
 parser.add_argument(
     "postprocessor",
     type=str,
@@ -51,11 +54,9 @@ processedData_list_fields = processing_ns.model(
 )
 
 
-
-
 @processing_ns.route("/")
 class ProcessingList(Resource):
-    """ """
+    """Only implements GET method to return the result of a postprocessor."""
     @processing_ns.doc("processing_list")
     @processing_ns.expect(parser)
     @processing_ns.marshal_list_with(processedData_list_fields)
@@ -66,19 +67,25 @@ class ProcessingList(Resource):
         args = parser.parse_args(strict=True)
         nb_days = args.get("nbdays")
         local_stats_only = args.get("local_stats_only", 0)
-        # offset = args.get("offset", 0)
-        # type = args.get("type")
-        # aggregation_period = args.get("aggregation_period")
+        type = args.get("type")
         postprocessor = args.get("postprocessor", "")
         now = datetime.today()
+
+        if not postprocessor.startswith(type + "_"):
+            abort(
+                400,
+                Error="Postprocessor '{}' can not be used with type '{}'.".format(
+                    postprocessor, type
+                ),
+            )
+
         query = Stats.query.filter(
-            Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
+            Stats.type == type, Stats.date >= now - timedelta(days=nb_days)
         )
+
         if local_stats_only:
             query = query.filter(Stats.client.has(local=True))
 
-        print(nb_days)
-        print(local_stats_only)
         result = {}
         try:
             result["data"] = getattr(statsservice.lib.postprocessors, postprocessor)(query.all())
@@ -87,7 +94,5 @@ class ProcessingList(Resource):
                 500,
                 description="There is no such postprocessor: '{}'.".format(postprocessor),
             )
-
-        print(result)
 
         return result, 200
