@@ -36,7 +36,7 @@
                 ]
             }
         },
-        "/processing/": {
+        "/stats/processing/": {
             "get": {
                 "responses": {
                     "200": {
@@ -49,7 +49,7 @@
                         }
                     }
                 },
-                "summary": "Return the result of the postprocessor",
+                "summary": "Return the result of the processor",
                 "operationId": "processing_list",
                 "parameters": [
                     {
@@ -68,11 +68,11 @@
                         "collectionFormat": "multi"
                     },
                     {
-                        "name": "postprocessor",
+                        "name": "processor",
                         "in": "query",
                         "type": "string",
                         "required": true,
-                        "description": "The post-processor to apply to a list of stats.",
+                        "description": "The processor to apply to a list of stats.",
                         "enum": [
                             "risk_process",
                             "threat_average_on_date",
@@ -192,19 +192,6 @@
                             "threat",
                             "cartography",
                             "compliance"
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "postprocessor",
-                        "in": "query",
-                        "type": "string",
-                        "description": "The post-processor to apply to the result (list of stats).",
-                        "enum": [
-                            "risk_process",
-                            "threat_average_on_date",
-                            "threat_process",
-                            "vulnerability_average_on_date"
                         ],
                         "collectionFormat": "multi"
                     },
@@ -399,11 +386,6 @@
         },
         "Stats": {
             "properties": {
-                "uuid": {
-                    "type": "string",
-                    "description": "The stats unique identifier",
-                    "readOnly": true
-                },
                 "anr": {
                     "type": "string",
                     "description": "The ANR UUID related to this stats."
@@ -441,10 +423,6 @@
                         "$ref": "#/definitions/Stats"
                     }
                 },
-                "processedData": {
-                    "type": "object",
-                    "description": "Result of the selected postprocessor applied to the resulting stats."
-                }
             },
             "type": "object"
         },
@@ -472,7 +450,7 @@
             "properties": {
                 "data": {
                     "type": "object",
-                    "description": "Result of the selected postprocessor applied to the resulting stats."
+                    "description": "Result of the selected processor applied to the resulting stats."
                 }
             },
             "type": "object"

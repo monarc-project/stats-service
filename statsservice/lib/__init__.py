@@ -3,11 +3,11 @@
 
 from inspect import getmembers, isfunction
 
-from statsservice.lib import postprocessors
+from statsservice.lib import processors
 
-# Get all available postprocessors.
-AVAILABLE_POSTPROCESSORS = [
+# Get all available postrocessors.
+AVAILABLE_PROCESSORS = [
     mem[0]
-    for mem in getmembers(postprocessors, isfunction)
-    if mem[1].__module__ == postprocessors.__name__
+    for mem in getmembers(processors, isfunction)
+    if mem[1].__module__ == processors.__name__
 ]

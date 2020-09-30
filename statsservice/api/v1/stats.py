@@ -11,8 +11,6 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from sqlalchemy.sql.expression import desc
 
-import statsservice.lib.postprocessors
-from statsservice.lib import AVAILABLE_POSTPROCESSORS
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Client
 from statsservice.api.v1.common import auth_func, uuid_type
@@ -32,20 +30,6 @@ parser.add_argument(
     help="The type of the stats.",
     required=True,
     choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
-)
-# parser.add_argument(
-#     "aggregation_period",
-#     type=str,
-#     help="The period of the stats aggregation.",
-#     required=False,
-#     choices=("day", "week", "month", "quarter", "year"),
-# )
-parser.add_argument(
-    "postprocessor",
-    type=str,
-    help="The post-processor to apply to the result (list of stats).",
-    required=False,
-    choices=tuple(AVAILABLE_POSTPROCESSORS),
 )
 parser.add_argument(
     "group_by_anr",
@@ -122,9 +106,6 @@ stats_list_fields = stats_ns.model(
             metadata, description="Metada related to the result."
         ),
         "data": fields.List(fields.Nested(stats), description="List of stats objects."),
-        "processedData": fields.Raw(
-            description="Result of the selected postprocessor applied to the resulting stats."
-        ),
     },
 )
 
@@ -144,8 +125,6 @@ class StatsList(Resource):
         limit = args.get("limit", 0)
         offset = args.get("offset", 0)
         type = args.get("type")
-        # aggregation_period = args.get("aggregation_period")
-        postprocessor = args.get("postprocessor", "")
         group_by_anr = args.get("group_by_anr")
         anrs = args.get("anrs")
 
@@ -162,7 +141,6 @@ class StatsList(Resource):
 
         result = {
             "data": [],
-            "processedData": [],
             "metadata": {"count": 0, "offset": offset, "limit": limit},
         }
 
@@ -201,36 +179,14 @@ class StatsList(Resource):
 
         query = query.filter(Stats.date >= date_from, Stats.date <= date_to)
 
-        if limit > 0:
-            query = query.limit(limit)
-            results = query.offset(offset)
+        if limit or offset:
+            results = query.limit(limit).offset(offset)
             result["metadata"]["count"] = results.count()
         else:
             results = query.all()
             result["metadata"]["count"] = len(results)
 
-        result["data"] = results  # result without changes from the postprocessor
-
-        # eventually apply a postprocessor with the result
-        if postprocessor:
-            if not postprocessor.startswith(type + "_"):
-                abort(
-                    500,
-                    Error="Postprocessor '{}' can not be used with type '{}'.".format(
-                        postprocessor, type
-                    ),
-                )
-            try:
-                processed_result = getattr(
-                    statsservice.lib.postprocessors, postprocessor
-                )(results)
-                # the result of the postprocessor is set in result["processedData"]
-                result["processedData"] = processed_result
-            except AttributeError:
-                abort(
-                    500,
-                    Error="There is no such postprocessor: '{}'.".format(postprocessor),
-                )
+        result["data"] = results
 
         return result, 200
 

@@ -176,9 +176,9 @@
   }
 
   console.log('draw_chart: threats');
-  draw_chart("/stats/threats.json?postprocessor=threat_average_on_date&days=50", "canvas-threats", "EN");
+  draw_chart("/stats/threats.json?processor=threat_average_on_date&days=50", "canvas-threats", "EN");
   console.log('draw_chart: vulnerabilities');
-  draw_chart("/stats/vulnerabilities.json?postprocessor=vulnerability_average_on_date&days=2", "canvas-vulnerabilities", "");
+  draw_chart("/stats/vulnerabilities.json?processor=vulnerability_average_on_date&days=2", "canvas-vulnerabilities", "");
 
 })();
 </script>

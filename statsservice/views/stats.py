@@ -4,7 +4,7 @@
 from datetime import datetime, timedelta
 from flask import Blueprint, render_template, request, jsonify, abort
 
-import statsservice.lib.postprocessors
+import statsservice.lib.processors
 from statsservice.models import Stats
 
 
@@ -29,18 +29,18 @@ def risks():
     Returns risks as JSON.
     """
     query = Stats.query.filter(Stats.type == "risk")
-    result = getattr(statsservice.lib.postprocessors, "risk_process")(query.all())
+    result = getattr(statsservice.lib.processors, "risk_process")(query.all())
     return jsonify(result)  # result.to_json()
 
 
 @stats_bp.route("/threats.json", methods=["GET"])
 def threats():
-    """Returns threats with custom post-processings."""
+    """Returns threats with custom processings."""
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
     local_stats_only = request.args.get("local_stats_only", default=0, type=int)
-    postprocessor = request.args.get(
-        "postprocessor", default="threat_average_on_date", type=str
+    processor = request.args.get(
+        "processor", default="threat_average_on_date", type=str
     )
     query = Stats.query.filter(
         Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
@@ -49,11 +49,11 @@ def threats():
         query = query.filter(Stats.client.has(local=True))
 
     try:
-        result = getattr(statsservice.lib.postprocessors, postprocessor)(query.all())
+        result = getattr(statsservice.lib.processors, processor)(query.all())
     except AttributeError:
         abort(
             500,
-            description="There is no such postprocessor: '{}'.".format(postprocessor),
+            description="There is no such processor: '{}'.".format(processor),
         )
 
     return jsonify(result)
@@ -61,12 +61,12 @@ def threats():
 
 @stats_bp.route("/vulnerabilities.json", methods=["GET"])
 def vulnerabilities():
-    """Returns vulnerabilities with custom post-processings."""
+    """Returns vulnerabilities with custom processings."""
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
     local_stats_only = request.args.get("local_stats_only", default=0, type=int)
-    postprocessor = request.args.get(
-        "postprocessor", default="vulnerability_average_on_date", type=str
+    processor = request.args.get(
+        "processor", default="vulnerability_average_on_date", type=str
     )
     query = Stats.query.filter(
         Stats.type == "vulnerability", Stats.date >= now - timedelta(days=nb_days)
@@ -75,11 +75,11 @@ def vulnerabilities():
         query = query.filter(Stats.client.has(local=True))
 
     try:
-        result = getattr(statsservice.lib.postprocessors, postprocessor)(query.all())
+        result = getattr(statsservice.lib.processors, processor)(query.all())
     except AttributeError:
         abort(
             500,
-            description="There is no such postprocessor: '{}'.".format(postprocessor),
+            description="There is no such processor: '{}'.".format(processor),
         )
 
     return jsonify(result)

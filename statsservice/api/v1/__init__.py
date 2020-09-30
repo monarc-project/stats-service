@@ -44,7 +44,7 @@ def setup_api(application):
 
     api.add_namespace(client.client_ns, path="/client")
     api.add_namespace(stats.stats_ns, path="/stats")
-    api.add_namespace(processing.processing_ns, path="/processing")
+    api.add_namespace(processing.processing_ns, path="/stats/processing")
 
     return api
 
