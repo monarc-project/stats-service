@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from datetime import datetime, timedelta
 from flask import request, abort
-from flask_restx import Namespace, Resource, fields, abort
+from flask_restx import Namespace, Resource, fields, abort, reqparse
 
+import statsservice.lib.postprocessors
 from statsservice.bootstrap import db
 from statsservice.lib import AVAILABLE_POSTPROCESSORS
+from statsservice.models import Stats
 from statsservice.api.v1.common import auth_func
 from statsservice.api.v1.identity import admin_permission
 
@@ -24,103 +27,67 @@ parser.add_argument(
     required=True,
     choices=tuple(AVAILABLE_POSTPROCESSORS),
 )
+parser.add_argument(
+    "nbdays", type=int, required=False, default=365, help="Limit of days"
+)
+parser.add_argument(
+    "local_stats_only",
+    type=int,
+    help="Only on local stats",
+    required=False,
+    default=1,
+    choices=(0, 1),
+)
 
 
 # Response marshalling
 processedData_list_fields = processing_ns.model(
-    "StatsList",
+    "Result",
     {
-        "processedData": fields.Raw(
+        "data": fields.Raw(
             description="Result of the selected postprocessor applied to the resulting stats."
         ),
     },
 )
 
 
-@stats_ns.route("/")
+
+
+@processing_ns.route("/")
 class ProcessingList(Resource):
     """ """
-
-    @processing_ns.doc("list_stats")
+    @processing_ns.doc("processing_list")
     @processing_ns.expect(parser)
-    @processing_ns.marshal_list_with(stats_list_fields)
+    @processing_ns.marshal_list_with(processedData_list_fields)
     # @processing_ns.response(401, "Authorization needed")
     # @auth_func
     def get(self):
-        """List all stats"""
+        """Return the result of the postprocessor."""
         args = parser.parse_args(strict=True)
-        limit = args.get("limit", 0)
-        offset = args.get("offset", 0)
-        type = args.get("type")
+        nb_days = args.get("nbdays")
+        local_stats_only = args.get("local_stats_only", 0)
+        # offset = args.get("offset", 0)
+        # type = args.get("type")
         # aggregation_period = args.get("aggregation_period")
         postprocessor = args.get("postprocessor", "")
-        group_by_anr = args.get("group_by_anr")
-        anrs = args.get("anrs")
+        now = datetime.today()
+        query = Stats.query.filter(
+            Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
+        )
+        if local_stats_only:
+            query = query.filter(Stats.client.has(local=True))
 
-        query = Stats.query
-
-        if not current_user.is_admin():
-            query = query.filter(Stats.client_id == current_user.id)
-
-        query = query.filter(Stats.type == type)
-
-        if anrs:
-            query = query.filter(Stats.anr.in_(anrs))
-
-        if get_last:
-            # TODO: Handle the case if the request is from an admin user (from BO).
-            # Get all the records grouped by anr with max date.
-            results = []
-            max_date_and_anrs = (
-                query.with_entities(Stats.anr, db.func.max(Stats.date))
-                .group_by(Stats.anr)
-                .all()
+        print(nb_days)
+        print(local_stats_only)
+        result = {}
+        try:
+            result["data"] = getattr(statsservice.lib.postprocessors, postprocessor)(query.all())
+        except AttributeError:
+            abort(
+                500,
+                description="There is no such postprocessor: '{}'.".format(postprocessor),
             )
-            for max_date_and_anr in max_date_and_anrs:
-                results.append(
-                    query.filter(
-                        Stats.anr == max_date_and_anr[0],
-                        Stats.date == max_date_and_anr[1],
-                    )
-                    .first()
-                    ._asdict()
-                )
-            result["data"] = results
-            result["metadata"] = {"count": len(results), "offset": 0, "limit": 0}
 
-            return result, 200
-
-        query = query.filter(Stats.date >= date_from, Stats.date <= date_to)
-
-        if limit > 0:
-            query = query.limit(limit)
-            results = query.offset(offset)
-            result["metadata"]["count"] = results.count()
-        else:
-            results = query.all()
-            result["metadata"]["count"] = len(results)
-
-        result["data"] = results  # result without changes from the postprocessor
-
-        # eventually apply a postprocessor with the result
-        if postprocessor:
-            if not postprocessor.startswith(type + "_"):
-                abort(
-                    500,
-                    Error="Postprocessor '{}' can not be used with type '{}'.".format(
-                        postprocessor, type
-                    ),
-                )
-            try:
-                processed_result = getattr(
-                    statsservice.lib.postprocessors, postprocessor
-                )(results)
-                # the result of the postprocessor is set in result["processedData"]
-                result["processedData"] = processed_result
-            except AttributeError:
-                abort(
-                    500,
-                    Error="There is no such postprocessor: '{}'.".format(postprocessor),
-                )
+        print(result)
 
         return result, 200
