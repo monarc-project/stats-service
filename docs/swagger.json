@@ -36,125 +36,7 @@
                 ]
             }
         },
-        "/stats/processing/": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Result"
-                            }
-                        }
-                    }
-                },
-                "summary": "Return the result of the processor",
-                "operationId": "processing_list",
-                "parameters": [
-                    {
-                        "name": "type",
-                        "in": "query",
-                        "type": "string",
-                        "required": true,
-                        "description": "The type of the stats.",
-                        "enum": [
-                            "risk",
-                            "vulnerability",
-                            "threat",
-                            "cartography",
-                            "compliance"
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "processor",
-                        "in": "query",
-                        "type": "string",
-                        "required": true,
-                        "description": "The processor to apply to a list of stats.",
-                        "enum": [
-                            "risk_process",
-                            "threat_average_on_date",
-                            "threat_process",
-                            "vulnerability_average_on_date"
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "nbdays",
-                        "in": "query",
-                        "type": "integer",
-                        "description": "Limit of days",
-                        "default": 365
-                    },
-                    {
-                        "name": "local_stats_only",
-                        "in": "query",
-                        "type": "integer",
-                        "description": "Only on local stats",
-                        "default": 1,
-                        "enum": [
-                            0,
-                            1
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "X-Fields",
-                        "in": "header",
-                        "type": "string",
-                        "format": "mask",
-                        "description": "An optional fields mask"
-                    }
-                ],
-                "tags": [
-                    "processing"
-                ]
-            }
-        },
         "/stats/": {
-            "post": {
-                "responses": {
-                    "401": {
-                        "description": "Authorization needed"
-                    },
-                    "201": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/StatsList"
-                            }
-                        }
-                    }
-                },
-                "summary": "Create a new stats",
-                "operationId": "create_stats",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Stats"
-                            }
-                        }
-                    },
-                    {
-                        "name": "X-Fields",
-                        "in": "header",
-                        "type": "string",
-                        "format": "mask",
-                        "description": "An optional fields mask"
-                    }
-                ],
-                "tags": [
-                    "stats"
-                ]
-            },
             "get": {
                 "responses": {
                     "401": {
@@ -262,6 +144,124 @@
                 "tags": [
                     "stats"
                 ]
+            },
+            "post": {
+                "responses": {
+                    "401": {
+                        "description": "Authorization needed"
+                    },
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StatsList"
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new stats",
+                "operationId": "create_stats",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Stats"
+                            }
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "stats"
+                ]
+            }
+        },
+        "/stats/processed/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Result"
+                            }
+                        }
+                    }
+                },
+                "summary": "Return the result of the processor",
+                "operationId": "processing_list",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "The type of the stats.",
+                        "enum": [
+                            "risk",
+                            "vulnerability",
+                            "threat",
+                            "cartography",
+                            "compliance"
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "processor",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "The processor to apply to a list of stats.",
+                        "enum": [
+                            "risk_process",
+                            "threat_average_on_date",
+                            "threat_process",
+                            "vulnerability_average_on_date"
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "nbdays",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Limit of days",
+                        "default": 365
+                    },
+                    {
+                        "name": "local_stats_only",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Only on local stats",
+                        "default": 1,
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "processed"
+                ]
             }
         },
         "/stats/{anr}": {
@@ -279,21 +279,6 @@
                     "type": "string"
                 }
             ],
-            "delete": {
-                "responses": {
-                    "404": {
-                        "description": "Stats not found"
-                    },
-                    "204": {
-                        "description": "Stats deleted"
-                    }
-                },
-                "summary": "Delete stats by provided anr",
-                "operationId": "delete_stats",
-                "tags": [
-                    "stats"
-                ]
-            },
             "get": {
                 "responses": {
                     "404": {
@@ -317,6 +302,21 @@
                         "description": "An optional fields mask"
                     }
                 ],
+                "tags": [
+                    "stats"
+                ]
+            },
+            "delete": {
+                "responses": {
+                    "404": {
+                        "description": "Stats not found"
+                    },
+                    "204": {
+                        "description": "Stats deleted"
+                    }
+                },
+                "summary": "Delete stats by provided anr",
+                "operationId": "delete_stats",
                 "tags": [
                     "stats"
                 ]
@@ -360,7 +360,7 @@
             "description": "stats related operations"
         },
         {
-            "name": "processing",
+            "name": "processed",
             "description": "Processing related operations on stats data."
         }
     ],
@@ -386,6 +386,11 @@
         },
         "Stats": {
             "properties": {
+                "uuid": {
+                    "type": "string",
+                    "description": "The stats unique identifier",
+                    "readOnly": true
+                },
                 "anr": {
                     "type": "string",
                     "description": "The ANR UUID related to this stats."
@@ -422,7 +427,7 @@
                     "items": {
                         "$ref": "#/definitions/Stats"
                     }
-                },
+                }
             },
             "type": "object"
         },
