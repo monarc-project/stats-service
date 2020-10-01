@@ -35,9 +35,9 @@ Created at: {}
 
     def _asdict(self):
         return {
-            "uuid": self.uuid,
-            "anr": self.anr,
+            "uuid": str(self.uuid),
+            "anr": str(self.anr),
             "type": self.type,
-            "date": self.date,
+            "date": self.date.strftime("%Y-%m-%dT%H:%M:%SZ"),
             "data": self.data,
         }
