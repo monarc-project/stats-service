@@ -73,6 +73,12 @@ def vulnerability_average_on_date(vulnerabilities_stats):
     return threat_average_on_date(vulnerabilities_stats)
 
 
+def risk_averages(risks_stats):
+    print(risks_stats)
+
+    return risks_stats[0]._asdict()
+
+
 def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
     """Return average for the threats for each risk analysis."""
     grouped_threats = groups_threats(threats_stats)
@@ -84,21 +90,9 @@ def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
             frames[threat_uuid].append(stats)
             df = pd.DataFrame(stats)
             result[threat_uuid] = dict(df.mean())
-            print("{} : {}".format(threat_uuid, result[threat_uuid]))
+            #print("{} : {}".format(threat_uuid, result[threat_uuid]))
             # print(df.to_html())
-            print(df.mean().to_markdown())
+            #print(df.mean().to_markdown())
             print()
 
     return result
-
-
-def risk_process(risks_stats, aggregation_period=None, group_by_anr=0):
-    if group_by_anr == 0:
-        # TODO: group the results for all the anrs and calculate the average.
-        aggregated_data = defaultdict(list)
-
-        return aggregated_data
-    # TODO: we will see later with the evolution graph requests,
-    # if we need to perform aggregation per week, month etc.
-
-    return risks_stats
