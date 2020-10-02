@@ -55,6 +55,7 @@ parser.add_argument(
     "anrs",
     action="append",
     required=False,
+    location='form',
     help="List of the anrs' uuids to filter by.",
 )
 parser.add_argument(
