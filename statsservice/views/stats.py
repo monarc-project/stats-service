@@ -23,16 +23,6 @@ def stats():
     return render_template("stats.html")
 
 
-@stats_bp.route("/risks.json", methods=["GET"])
-def risks():
-    """
-    Returns risks as JSON.
-    """
-    query = Stats.query.filter(Stats.type == "risk")
-    result = getattr(statsservice.lib.processors, "risk_process")(query.all())
-    return jsonify(result)  # result.to_json()
-
-
 @stats_bp.route("/threats.json", methods=["GET"])
 def threats():
     """Returns threats with custom processings."""
@@ -44,6 +34,32 @@ def threats():
     )
     query = Stats.query.filter(
         Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
+    )
+    if local_stats_only:
+        query = query.filter(Stats.client.has(local=True))
+
+    try:
+        result = getattr(statsservice.lib.processors, processor)(query.all())
+    except AttributeError:
+        abort(
+            500,
+            description="There is no such processor: '{}'.".format(processor),
+        )
+
+    return jsonify(result)
+
+
+@stats_bp.route("/risks.json", methods=["GET"])
+def risks():
+    """Returns risks with custom processings."""
+    now = datetime.today()
+    nb_days = request.args.get("days", default=365, type=int)
+    local_stats_only = request.args.get("local_stats_only", default=0, type=int)
+    processor = request.args.get(
+        "processor", default="threat_average_on_date", type=str
+    )
+    query = Stats.query.filter(
+        Stats.type == "risk", Stats.date >= now - timedelta(days=nb_days)
     )
     if local_stats_only:
         query = query.filter(Stats.client.has(local=True))

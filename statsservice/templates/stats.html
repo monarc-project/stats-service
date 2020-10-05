@@ -232,7 +232,20 @@
 
 
 
+  // fetch stats for vulnerabilities (averages per vulnerabilities per date)
+  fetch("{{ url_for('stats_bp.risks', processor='risk_averages', days=365) | safe }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((resp) => resp.json())
+  .then(function(resp_json) {
+    console.log(resp_json);
 
+  }).catch((error) => {
+    console.error('Error:', error);
+  });;
 
 
   // Test: fetch stats for threats

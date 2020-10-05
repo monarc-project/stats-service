@@ -8,6 +8,25 @@
 from collections import defaultdict
 
 
+def mean_gen():
+    """Yields the accumulated mean of sent values.
+
+    >>> g = meangen()
+    >>> g.send(None) # Initialize the generator
+    >>> g.send(4)
+    4.0
+    >>> g.send(10)
+    7.0
+    >>> g.send(-2)
+    4.0
+    """
+    sum = yield(None)
+    count = 1
+    while True:
+        sum += yield(sum / float(count))
+        count += 1
+
+
 def tree():
     """Autovivification."""
     return defaultdict(tree)
@@ -38,3 +57,7 @@ def groups_vulnerabilities(vulnerabilities):
     """Groups stats about vulnerabilities per ANR (UUID) then per vulnerability UUID."""
     # the structure of the stats for the threats and vulnerabilities is the same
     return groups_threats(vulnerabilities)
+
+
+def groups_risks(risks):
+    groups = tree()

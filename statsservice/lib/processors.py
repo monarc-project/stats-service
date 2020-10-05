@@ -14,7 +14,7 @@
 from collections import defaultdict
 
 import pandas as pd
-from statsservice.lib.utils import groups_threats, tree
+from statsservice.lib.utils import groups_threats, tree, mean_gen
 
 
 def threat_average_on_date(threats_stats):
@@ -74,9 +74,36 @@ def vulnerability_average_on_date(vulnerabilities_stats):
 
 
 def risk_averages(risks_stats):
-    print(risks_stats)
 
-    return risks_stats[0]._asdict()
+    current_informational = mean_gen()
+    current_operational = mean_gen()
+    residual_informational = mean_gen()
+    residual_operational = mean_gen()
+
+    current_informational.send(None)
+    current_operational.send(None)
+    residual_informational.send(None)
+    residual_operational.send(None)
+
+    for elem in risks_stats:
+        for data, risk in elem.data['risks'].items():
+            print(data)
+
+            print(value['informational'])
+            print(value['operational'])
+
+
+            for level,  in value['informational'].items():
+                print(level)
+
+
+
+
+
+            print()
+
+
+    return risks_stats[0].data
 
 
 def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
