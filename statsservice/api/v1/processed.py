@@ -83,7 +83,7 @@ class ProcessingList(Resource):
         local_stats_only = args.get("local_stats_only", 0)
         type = args.get("type")
         processor = args.get("processor", "")
-        anrs = request.args.getlist("anrs")
+        anrs = args.get("anrs")
         now = datetime.today()
 
         if not processor.startswith(type + "_"):
