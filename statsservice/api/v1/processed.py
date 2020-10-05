@@ -33,9 +33,9 @@ parser.add_argument(
 )
 parser.add_argument(
     "anrs",
-    action="append",
     required=False,
     location='json',
+    type=list,
     help="List of the anrs' uuids to filter by.",
 )
 parser.add_argument(
