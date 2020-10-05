@@ -26,7 +26,7 @@ parser = reqparse.RequestParser()
 parser.add_argument(
     "anr",
     type=uuid_type,
-    location='form',
+    location='json',
     help="The ANR UUID related to this stats."
 )
 parser.add_argument(
@@ -34,7 +34,7 @@ parser.add_argument(
     type=str,
     help="The type of the stats.",
     required=True,
-    location='form',
+    location='json',
     choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
 )
 parser.add_argument(
@@ -43,42 +43,42 @@ parser.add_argument(
     help="If the result should be grouped by anr or not.",
     required=False,
     default=1,
-    location='form',
+    location='json',
     choices=(0, 1),
 )
 parser.add_argument(
     "date_from",
     type=date_from_iso8601,
     required=False,
-    location='form',
+    location='json',
     help="The date of the stats must be bigger or equal than this value.",
 )
 parser.add_argument(
     "date_to",
     type=date_from_iso8601,
     required=False,
-    location='form',
+    location='json',
     help="The date of the stats must be smaller or equal than this value.",
 )
 parser.add_argument(
     "anrs",
     action="append",
     required=False,
-    location='form',
+    location='json',
     help="List of the anrs' uuids to filter by.",
 )
 parser.add_argument(
     "get_last",
     type=boolean,
     required=False,
-    location='form',
+    location='json',
     help="Specify that result should compose only the last records in the results set for each anr. Dates filters are ignored in this case.",
 )
 parser.add_argument(
     "offset",
     type=int,
     required=False,
-    location='form',
+    location='json',
     default=0,
     help="Start position"
 )
@@ -86,7 +86,7 @@ parser.add_argument(
     "limit",
     type=int,
     required=False,
-    location='form',
+    location='json',
     default=0,
     help="Limit of records"
 )

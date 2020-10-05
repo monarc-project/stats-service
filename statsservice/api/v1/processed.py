@@ -28,21 +28,21 @@ parser.add_argument(
     type=str,
     help="The processor to apply to a list of stats.",
     required=True,
-    location='form',
+    location='json',
     choices=tuple(AVAILABLE_PROCESSORS),
 )
 parser.add_argument(
     "anrs",
     action="append",
     required=False,
-    location='form',
+    location='json',
     help="List of the anrs' uuids to filter by.",
 )
 parser.add_argument(
     "nbdays",
     type=int,
     required=False,
-    location='form',
+    location='json',
     default=365,
     help="Limit of days"
 )
@@ -51,7 +51,7 @@ parser.add_argument(
     type=int,
     help="Only on local stats",
     required=False,
-    location='form',
+    location='json',
     default=1,
     choices=(0, 1),
 )
