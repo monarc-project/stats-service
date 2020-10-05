@@ -62,9 +62,9 @@ parser.add_argument(
 )
 parser.add_argument(
     "anrs",
-    action="append",
     required=False,
     location='json',
+    type=list,
     help="List of the anrs' uuids to filter by.",
 )
 parser.add_argument(
@@ -147,7 +147,7 @@ class StatsList(Resource):
         offset = args.get("offset", 0)
         type = args.get("type")
         group_by_anr = args.get("group_by_anr")
-        anrs = request.args.getlist("anrs")
+        anrs = args.get("anrs")
         get_last = args.get("get_last")
         date_from = args.get("date_from")
         date_to = args.get("date_to")
