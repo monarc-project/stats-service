@@ -37,7 +37,7 @@
             }
         },
         "/stats/": {
-            "post": {
+            "get": {
                 "responses": {
                     "401": {
                         "description": "Authorization needed"
@@ -188,7 +188,7 @@
             }
         },
         "/stats/processed/": {
-            "post": {
+            "get": {
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -233,11 +233,14 @@
                         "collectionFormat": "multi"
                     },
                     {
-                        "name": "anr",
+                        "name": "anrs",
                         "in": "body",
-                        "type": "string",
-                        "format": "uuid_type",
-                        "description": "The ANR UUID related to this stats."
+                        "type": "array",
+                        "description": "List of the anrs' uuids to filter by.",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi"
                     },
                     {
                         "name": "nbdays",
@@ -393,6 +396,11 @@
         },
         "Stats": {
             "properties": {
+                "uuid": {
+                    "type": "string",
+                    "description": "The stats unique identifier",
+                    "readOnly": true
+                },
                 "anr": {
                     "type": "string",
                     "description": "The ANR UUID related to this stats."
