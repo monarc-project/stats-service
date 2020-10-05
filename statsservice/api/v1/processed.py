@@ -28,16 +28,30 @@ parser.add_argument(
     type=str,
     help="The processor to apply to a list of stats.",
     required=True,
+    location='form',
     choices=tuple(AVAILABLE_PROCESSORS),
 )
 parser.add_argument(
-    "nbdays", type=int, required=False, default=365, help="Limit of days"
+    "anrs",
+    action="append",
+    required=False,
+    location='form',
+    help="List of the anrs' uuids to filter by.",
+)
+parser.add_argument(
+    "nbdays",
+    type=int,
+    required=False,
+    location='form',
+    default=365,
+    help="Limit of days"
 )
 parser.add_argument(
     "local_stats_only",
     type=int,
     help="Only on local stats",
     required=False,
+    location='form',
     default=1,
     choices=(0, 1),
 )
@@ -69,6 +83,7 @@ class ProcessingList(Resource):
         local_stats_only = args.get("local_stats_only", 0)
         type = args.get("type")
         processor = args.get("processor", "")
+        anrs = args.get("anrs")
         now = datetime.today()
 
         if not processor.startswith(type + "_"):
@@ -82,6 +97,9 @@ class ProcessingList(Resource):
         query = Stats.query.filter(
             Stats.type == type, Stats.date >= now - timedelta(days=nb_days)
         )
+
+        if anrs:
+            query = query.filter(Stats.anr.in_(anrs))
 
         if local_stats_only:
             query = query.filter(Stats.client.has(local=True))

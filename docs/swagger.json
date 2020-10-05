@@ -37,7 +37,7 @@
             }
         },
         "/stats/": {
-            "get": {
+            "post": {
                 "responses": {
                     "401": {
                         "description": "Authorization needed"
@@ -57,14 +57,14 @@
                 "parameters": [
                     {
                         "name": "anr",
-                        "in": "query",
+                        "in": "body",
                         "type": "string",
                         "format": "uuid_type",
                         "description": "The ANR UUID related to this stats."
                     },
                     {
                         "name": "type",
-                        "in": "query",
+                        "in": "body",
                         "type": "string",
                         "required": true,
                         "description": "The type of the stats.",
@@ -79,7 +79,7 @@
                     },
                     {
                         "name": "group_by_anr",
-                        "in": "query",
+                        "in": "body",
                         "type": "integer",
                         "description": "If the result should be grouped by anr or not.",
                         "default": 1,
@@ -91,21 +91,21 @@
                     },
                     {
                         "name": "date_from",
-                        "in": "query",
+                        "in": "body",
                         "type": "string",
                         "format": "date",
                         "description": "The date of the stats must be bigger or equal than this value."
                     },
                     {
                         "name": "date_to",
-                        "in": "query",
+                        "in": "body",
                         "type": "string",
                         "format": "date",
                         "description": "The date of the stats must be smaller or equal than this value."
                     },
                     {
                         "name": "anrs",
-                        "in": "query",
+                        "in": "body",
                         "type": "array",
                         "description": "List of the anrs' uuids to filter by.",
                         "items": {
@@ -115,20 +115,20 @@
                     },
                     {
                         "name": "get_last",
-                        "in": "query",
+                        "in": "body",
                         "type": "boolean",
                         "description": "Specify that result should compose only the last records in the results set for each anr. Dates filters are ignored in this case."
                     },
                     {
                         "name": "offset",
-                        "in": "query",
+                        "in": "body",
                         "type": "integer",
                         "description": "Start position",
                         "default": 0
                     },
                     {
                         "name": "limit",
-                        "in": "query",
+                        "in": "body",
                         "type": "integer",
                         "description": "Limit of records",
                         "default": 0
@@ -188,7 +188,7 @@
             }
         },
         "/stats/processed/": {
-            "get": {
+            "post": {
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -205,7 +205,7 @@
                 "parameters": [
                     {
                         "name": "type",
-                        "in": "query",
+                        "in": "body",
                         "type": "string",
                         "required": true,
                         "description": "The type of the stats.",
@@ -220,7 +220,7 @@
                     },
                     {
                         "name": "processor",
-                        "in": "query",
+                        "in": "body",
                         "type": "string",
                         "required": true,
                         "description": "The processor to apply to a list of stats.",
@@ -233,15 +233,22 @@
                         "collectionFormat": "multi"
                     },
                     {
+                        "name": "anr",
+                        "in": "body",
+                        "type": "string",
+                        "format": "uuid_type",
+                        "description": "The ANR UUID related to this stats."
+                    },
+                    {
                         "name": "nbdays",
-                        "in": "query",
+                        "in": "body",
                         "type": "integer",
                         "description": "Limit of days",
                         "default": 365
                     },
                     {
                         "name": "local_stats_only",
-                        "in": "query",
+                        "in": "body",
                         "type": "integer",
                         "description": "Only on local stats",
                         "default": 1,
@@ -386,11 +393,6 @@
         },
         "Stats": {
             "properties": {
-                "uuid": {
-                    "type": "string",
-                    "description": "The stats unique identifier",
-                    "readOnly": true
-                },
                 "anr": {
                     "type": "string",
                     "description": "The ANR UUID related to this stats."
