@@ -53,7 +53,7 @@ parser.add_argument(
     help="Only on local stats",
     required=False,
     location='json',
-    default=1,
+    default=0,
     choices=(0, 1),
 )
 
@@ -81,7 +81,7 @@ class ProcessingList(Resource):
         """Return the result of the processor."""
         args = parser.parse_args(strict=True)
         nb_days = args.get("nbdays")
-        local_stats_only = args.get("local_stats_only", 0)
+        local_stats_only = args.get("local_stats_only")
         type = args.get("type")
         processor = args.get("processor", "")
         anrs = args.get("anrs")
