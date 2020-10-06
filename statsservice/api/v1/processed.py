@@ -81,7 +81,7 @@ class ProcessingList(Resource):
         """Return the result of the processor."""
         args = parser.parse_args(strict=True)
         nb_days = args.get("nbdays")
-        local_stats_only = args.get("local_stats_only")
+        local_stats_only = args.get("local_stats_only", 0)
         type = args.get("type")
         processor = args.get("processor", "")
         anrs = args.get("anrs")
