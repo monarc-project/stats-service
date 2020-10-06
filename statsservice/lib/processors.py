@@ -89,15 +89,9 @@ def risk_averages(risks_stats):
         for data, risk in elem.data['risks'].items():
             print(data)
 
-            print(value['informational'])
-            print(value['operational'])
 
-
-            for level,  in value['informational'].items():
+            for level,  in data['informational'].items():
                 print(level)
-
-
-
 
 
             print()
