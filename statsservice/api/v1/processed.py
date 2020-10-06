@@ -21,6 +21,7 @@ parser.add_argument(
     type=str,
     help="The type of the stats.",
     required=True,
+    location='json',
     choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
 )
 parser.add_argument(
@@ -104,13 +105,16 @@ class ProcessingList(Resource):
         if local_stats_only:
             query = query.filter(Stats.client.has(local=True))
 
+        query = query.all()
+
         result = {}
-        try:
-            result["data"] = getattr(statsservice.lib.processors, processor)(query.all())
-        except AttributeError:
-            abort(
-                500,
-                description="There is no such processor: '{}'.".format(processor),
-            )
+        if query:
+            try:
+                result["data"] = getattr(statsservice.lib.processors, processor)(query)
+            except AttributeError:
+                abort(
+                    500,
+                    description="There is no such processor: '{}'.".format(processor),
+                )
 
         return result, 200
