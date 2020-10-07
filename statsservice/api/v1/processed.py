@@ -107,7 +107,12 @@ class ProcessingList(Resource):
 
         query = query.all()
 
-        result = {}
+        result = {
+            "anr": '',
+            "type": type,
+            "processor": processor,
+            "data": [],
+        }
         if query:
             try:
                 result["data"] = getattr(statsservice.lib.processors, processor)(query)
