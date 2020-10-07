@@ -64,6 +64,12 @@ parser.add_argument(
 processedData_list_fields = processed_ns.model(
     "Result",
     {
+        "type": fields.String(
+            description="Type of the processed stats data (risk, vulnerability, threat, cartography or compliance)."
+        ),
+        "processor": fields.String(
+            description="Processor used for the stats data processing."
+        ),
         "data": fields.Raw(
             description="Result of the selected processor applied to the resulting stats."
         ),
@@ -111,7 +117,6 @@ class ProcessingList(Resource):
         query = query.all()
 
         result = {
-            "anr": "",
             "type": type,
             "processor": processor,
             "data": [],
