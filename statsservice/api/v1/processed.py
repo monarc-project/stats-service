@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from flask_restx import Namespace, Resource, fields, abort, reqparse
 
 import statsservice.lib.processors
-from statsservice.lib import AVAILABLE_PROCESSORS
+from statsservice.lib import AVAILABLE_PROCESSORS, AVAILABLE_PROCESSORS_FUNC
 from statsservice.models import Stats
 
 logger = logging.getLogger(__name__)
@@ -126,3 +126,14 @@ class ProcessingList(Resource):
                 )
 
         return result, 200
+
+
+@processed_ns.route("/list")
+class ProcessorList(Resource):
+    """Return the list of available processors."""
+
+    def get(self):
+        return [
+            {"name": processor[0], "description": processor[1].__doc__}
+            for processor in AVAILABLE_PROCESSORS_FUNC
+        ], 200

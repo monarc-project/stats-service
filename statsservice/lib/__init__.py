@@ -11,3 +11,9 @@ AVAILABLE_PROCESSORS = [
     for mem in getmembers(processors, isfunction)
     if mem[1].__module__ == processors.__name__
 ]
+
+AVAILABLE_PROCESSORS_FUNC = [
+    mem
+    for mem in getmembers(processors, isfunction)
+    if mem[1].__module__ == processors.__name__
+]
