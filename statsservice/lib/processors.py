@@ -75,59 +75,6 @@ def vulnerability_average_on_date(vulnerabilities_stats):
 
 def risk_averages(risks_stats):
 
-    current_informational_low = mean_gen()
-    current_informational_medium = mean_gen()
-    current_informational_high = mean_gen()
-    current_operational_low = mean_gen()
-    current_operational_medium = mean_gen()
-    current_operational_high = mean_gen()
-    residual_informational_low = mean_gen()
-    residual_informational_medium = mean_gen()
-    residual_informational_high = mean_gen()
-    residual_operational_low = mean_gen()
-    residual_operational_medium = mean_gen()
-    residual_operational_high = mean_gen()
-
-    current_informational_low.send(None)
-    current_informational_medium.send(None)
-    current_informational_high.send(None)
-    current_operational_low.send(None)
-    current_operational_medium.send(None)
-    current_operational_high.send(None)
-    residual_informational_low.send(None)
-    residual_informational_medium.send(None)
-    residual_informational_high.send(None)
-    residual_operational_low.send(None)
-    residual_operational_medium.send(None)
-    residual_operational_high.send(None)
-
-    generators = {
-        "current": {
-            "informational": {
-                "Low risks": current_informational_low,
-                "Medium risks": current_informational_medium,
-                "High risks": current_informational_high,
-            },
-            "operational": {
-                "Low risks": current_operational_low,
-                "Medium risks": current_operational_medium,
-                "High risks": current_operational_high,
-            },
-        },
-        "residual": {
-            "informational": {
-                "Low risks": residual_informational_low,
-                "Medium risks": residual_informational_medium,
-                "High risks": residual_informational_high,
-            },
-            "operational": {
-                "Low risks": residual_operational_low,
-                "Medium risks": residual_operational_medium,
-                "High risks": residual_operational_high,
-            },
-        },
-    }
-
     result = {
         "current": {
             "informational": {
@@ -154,6 +101,35 @@ def risk_averages(risks_stats):
             },
         },
     }
+
+    generators = {
+        "current": {
+            "informational": {
+                "Low risks": mean_gen(),
+                "Medium risks": mean_gen(),
+                "High risks": mean_gen(),
+            },
+            "operational": {
+                "Low risks": mean_gen(),
+                "Medium risks": mean_gen(),
+                "High risks": mean_gen(),
+            },
+        },
+        "residual": {
+            "informational": {
+                "Low risks": mean_gen(),
+                "Medium risks": mean_gen(),
+                "High risks": mean_gen(),
+            },
+            "operational": {
+                "Low risks": mean_gen(),
+                "Medium risks": mean_gen(),
+                "High risks": mean_gen(),
+            },
+        },
+    }
+
+    dict_recursive_walk(generators, 'send', None)
 
     for stat in risks_stats:
         for cureent_or_residual, risk in stat.data["risks"].items():

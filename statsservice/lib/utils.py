@@ -27,6 +27,16 @@ def mean_gen():
         count += 1
 
 
+def dict_recursive_walk(dictionary, function, args):
+    for key, value in dictionary.items():
+        if type(value) is dict:
+            dict_recursive_walk(value, function, args)
+        else:
+            print(key, ":", value)
+            if value.hasattr(function):
+                value.getattr(function)(**args)
+
+
 def tree():
     """Autovivification."""
     return defaultdict(tree)
