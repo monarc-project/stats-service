@@ -20,10 +20,10 @@ def mean_gen():
     >>> g.send(-2)
     4.0
     """
-    sum = yield(None)
+    sum = yield (None)
     count = 1
     while True:
-        sum += yield(sum / float(count))
+        sum += yield (sum / float(count))
         count += 1
 
 

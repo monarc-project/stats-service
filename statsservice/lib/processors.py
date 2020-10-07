@@ -156,17 +156,23 @@ def risk_averages(risks_stats):
     }
 
     for stat in risks_stats:
-        for cureent_or_residual, risk in stat.data['risks'].items():
-            #print(cureent_or_residual)
-            for level in risk['informational']:
-                #print(level)
-                #print(level['value'])
-                result[cureent_or_residual]['informational'][level['level']] = \
-                    generators[cureent_or_residual]['informational'][level['level']].send(level['value'])
+        for cureent_or_residual, risk in stat.data["risks"].items():
+            # print(cureent_or_residual)
+            for level in risk["informational"]:
+                # print(level)
+                # print(level['value'])
+                result[cureent_or_residual]["informational"][
+                    level["level"]
+                ] = generators[cureent_or_residual]["informational"][
+                    level["level"]
+                ].send(
+                    level["value"]
+                )
 
-            for level in risk['operational']:
-                result[cureent_or_residual]['operational'][level['level']] = \
-                    generators[cureent_or_residual]['operational'][level['level']].send(level['value'])
+            for level in risk["operational"]:
+                result[cureent_or_residual]["operational"][level["level"]] = generators[
+                    cureent_or_residual
+                ]["operational"][level["level"]].send(level["value"])
 
     return result
 
@@ -182,9 +188,9 @@ def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
             frames[threat_uuid].append(stats)
             df = pd.DataFrame(stats)
             result[threat_uuid] = dict(df.mean())
-            #print("{} : {}".format(threat_uuid, result[threat_uuid]))
+            # print("{} : {}".format(threat_uuid, result[threat_uuid]))
             # print(df.to_html())
-            #print(df.mean().to_markdown())
+            # print(df.mean().to_markdown())
             print()
 
     return result
