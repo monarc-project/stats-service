@@ -14,7 +14,7 @@
 from collections import defaultdict
 
 import pandas as pd
-from statsservice.lib.utils import groups_threats, tree, mean_gen
+from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursive_walk
 
 
 def threat_average_on_date(threats_stats):
@@ -74,7 +74,9 @@ def vulnerability_average_on_date(vulnerabilities_stats):
 
 
 def risk_averages(risks_stats):
-
+    """Evaluates the averages for the risks. Averages are evaluated per categories
+    (current/residual, informational/operational, low/medium/high)."""
+    # Initialization of the structure of the result.
     result = {
         "current": {
             "informational": {
@@ -102,6 +104,7 @@ def risk_averages(risks_stats):
         },
     }
 
+    # Initialization of the required generators to process the different means.
     generators = {
         "current": {
             "informational": {
@@ -128,9 +131,9 @@ def risk_averages(risks_stats):
             },
         },
     }
+    dict_recursive_walk(generators, "send", None, {})
 
-    dict_recursive_walk(generators, 'send', None)
-
+    # Walk through the set of stats and process the means per categories.
     for stat in risks_stats:
         for cureent_or_residual, risk in stat.data["risks"].items():
             # print(cureent_or_residual)
