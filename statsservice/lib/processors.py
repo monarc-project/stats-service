@@ -75,29 +75,100 @@ def vulnerability_average_on_date(vulnerabilities_stats):
 
 def risk_averages(risks_stats):
 
-    current_informational = mean_gen()
-    current_operational = mean_gen()
-    residual_informational = mean_gen()
-    residual_operational = mean_gen()
+    current_informational_low = mean_gen()
+    current_informational_medium = mean_gen()
+    current_informational_high = mean_gen()
+    current_operational_low = mean_gen()
+    current_operational_medium = mean_gen()
+    current_operational_high = mean_gen()
+    residual_informational_low = mean_gen()
+    residual_informational_medium = mean_gen()
+    residual_informational_high = mean_gen()
+    residual_operational_low = mean_gen()
+    residual_operational_medium = mean_gen()
+    residual_operational_high = mean_gen()
 
-    current_informational.send(None)
-    current_operational.send(None)
-    residual_informational.send(None)
-    residual_operational.send(None)
+    current_informational_low.send(None)
+    current_informational_medium.send(None)
+    current_informational_high.send(None)
+    current_operational_low.send(None)
+    current_operational_medium.send(None)
+    current_operational_high.send(None)
+    residual_informational_low.send(None)
+    residual_informational_medium.send(None)
+    residual_informational_high.send(None)
+    residual_operational_low.send(None)
+    residual_operational_medium.send(None)
+    residual_operational_high.send(None)
 
-    for elem in risks_stats:
-        for data, risk in elem.data['risks'].items():
-            print(data)
+    generators = {
+        "current": {
+            "informational": {
+                "Low risks": current_informational_low,
+                "Medium risks": current_informational_medium,
+                "High risks": current_informational_high,
+            },
+            "operational": {
+                "Low risks": current_operational_low,
+                "Medium risks": current_operational_medium,
+                "High risks": current_operational_high,
+            },
+        },
+        "residual": {
+            "informational": {
+                "Low risks": residual_informational_low,
+                "Medium risks": residual_informational_medium,
+                "High risks": residual_informational_high,
+            },
+            "operational": {
+                "Low risks": residual_operational_low,
+                "Medium risks": residual_operational_medium,
+                "High risks": residual_operational_high,
+            },
+        },
+    }
 
+    result = {
+        "current": {
+            "informational": {
+                "Low risks": 0,
+                "Medium risks": 0,
+                "High risks": 0,
+            },
+            "operational": {
+                "Low risks": 0,
+                "Medium risks": 0,
+                "High risks": 0,
+            },
+        },
+        "residual": {
+            "informational": {
+                "Low risks": 0,
+                "Medium risks": 0,
+                "High risks": 0,
+            },
+            "operational": {
+                "Low risks": 0,
+                "Medium risks": 0,
+                "High risks": 0,
+            },
+        },
+    }
 
-            for level,  in data['informational'].items():
-                print(level)
+    for stat in risks_stats:
+        for cureent_or_residual, risk in stat.data['risks'].items():
+            #print(cureent_or_residual)
+            for level in risk['informational']:
+                #print(level)
+                #print(level['value'])
+                result[cureent_or_residual]['informational'][level['level']] = \
+                    generators[cureent_or_residual]['informational'][level['level']].send(level['value'])
 
+            for level in risk['operational']:
+                result[cureent_or_residual]['operational'][level['level']] = \
+                    generators[cureent_or_residual]['operational'][level['level']].send(level['value'])
 
-            print()
-
-
-    return risks_stats[0].data
+    return result
 
 
 def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
