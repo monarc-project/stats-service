@@ -11,7 +11,9 @@ from statsservice.models import Stats
 
 logger = logging.getLogger(__name__)
 
-processed_ns = Namespace("processed", description="Processing related operations on stats data.")
+processed_ns = Namespace(
+    "processed", description="Processing related operations on stats data."
+)
 
 
 # Argument Parsing
@@ -21,7 +23,7 @@ parser.add_argument(
     type=str,
     help="The type of the stats.",
     required=True,
-    location='json',
+    location="json",
     choices=("risk", "vulnerability", "threat", "cartography", "compliance"),
 )
 parser.add_argument(
@@ -29,13 +31,13 @@ parser.add_argument(
     type=str,
     help="The processor to apply to a list of stats.",
     required=True,
-    location='json',
+    location="json",
     choices=tuple(AVAILABLE_PROCESSORS),
 )
 parser.add_argument(
     "anrs",
     required=False,
-    location='json',
+    location="json",
     type=list,
     help="List of the anrs' uuids to filter by.",
 )
@@ -43,16 +45,16 @@ parser.add_argument(
     "nbdays",
     type=int,
     required=False,
-    location='json',
+    location="json",
     default=365,
-    help="Limit of days"
+    help="Limit of days",
 )
 parser.add_argument(
     "local_stats_only",
     type=int,
     help="Only on local stats",
     required=False,
-    location='json',
+    location="json",
     default=0,
     choices=(0, 1),
 )
@@ -72,6 +74,7 @@ processedData_list_fields = processed_ns.model(
 @processed_ns.route("/")
 class ProcessingList(Resource):
     """Only implements GET method to return the result of a processor."""
+
     @processed_ns.doc("processing_list")
     @processed_ns.expect(parser)
     @processed_ns.marshal_list_with(processedData_list_fields)
