@@ -181,11 +181,13 @@
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
     // (we limit the datasets to the number of previously defined colors)
     vulnerability_uuid_labels = {};
-    var promises = Object.keys(resp_json).slice(0, window.chartColors.length).map(function(vulnerability_uuid, index) {
-      return retrieve_information_from_mosp(vulnerability_uuid, "")
+    console.log(resp_json);
+    var promises = resp_json.slice(0, window.chartColors.length).map(function(vulnerability) {
+      console.log(vulnerability.object);
+      return retrieve_information_from_mosp(vulnerability.object, "")
       .then(function(result_mosp) {
-        vulnerability_uuid_labels[vulnerability_uuid] = result_mosp
-        return vulnerability_uuid;
+        vulnerability_uuid_labels[vulnerability.object] = result_mosp
+        return vulnerability.object;
       })
     })
 

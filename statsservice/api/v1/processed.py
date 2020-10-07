@@ -111,7 +111,7 @@ class ProcessingList(Resource):
         query = query.all()
 
         result = {
-            "anr": '',
+            "anr": "",
             "type": type,
             "processor": processor,
             "data": [],

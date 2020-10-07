@@ -27,15 +27,15 @@ def mean_gen():
         count += 1
 
 
-def dict_recursive_walk(dictionary, function, *args, **kwargs):
+def dict_recursive_walk(dictionary, func, *args, **kwargs):
     """Walk recursively in a nested dictionary and apply a function (send()) with
     parameters."""
     for key, value in dictionary.items():
         if type(value) is dict:
-            dict_recursive_walk(value, function, *args, **kwargs)
+            dict_recursive_walk(value, func, *args, **kwargs)
         else:
-            if hasattr(value, function):
-                getattr(value, function)(args[0])
+            if hasattr(value, func):
+                getattr(value, func)(args[0])
 
 
 def tree():
