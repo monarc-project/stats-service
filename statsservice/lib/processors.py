@@ -24,9 +24,8 @@ def threat_average_on_date(threats_stats):
     grouped_threats = groups_threats(threats_stats)
 
     labels = tree()
-
-    # group all threats of all analysis per date
     frames = tree()
+    # group all threats of all analysis per date
     for anr_uuid in grouped_threats:
         for threat_uuid, stats in grouped_threats[anr_uuid].items():
             for data in stats:
@@ -44,25 +43,22 @@ def threat_average_on_date(threats_stats):
                 else:
                     frames[threat_uuid][data["date"]] = [data]
 
-    # evaluate the averages per day for each threats
     result = tree()
+    # evaluate the averages per day for each threats
     for threat_uuid in frames:
+        result[threat_uuid]["object"] = threat_uuid
+        result[threat_uuid]["labels"] = labels[threat_uuid]
         result[threat_uuid]["values"] = []
         for date in frames[threat_uuid]:
             df = pd.DataFrame(frames[threat_uuid][date])
             mean = dict(df.mean())
             mean["date"] = date
             result[threat_uuid]["values"].append(mean)
-        # restore the labels for the client
-        result[threat_uuid]["labels"] = labels[threat_uuid]
-
-    # evaluate the averages for each threats
-    frames = tree()
-    for threat_uuid in result:
+        # averages for each threat
         df = pd.DataFrame(result[threat_uuid]["values"])
         result[threat_uuid]["averages"] = dict(df.mean())
 
-    return result
+    return [i[1] for i in result.items()]
 
 
 def vulnerability_average_on_date(vulnerabilities_stats):
