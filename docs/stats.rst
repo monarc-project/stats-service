@@ -103,3 +103,104 @@ Vulnerabilities
         }
         ...
       }
+
+
+Risks
+`````
+
+.. code-block:: bash
+
+    $ curl http://127.0.0.1:5000/stats/risks.json?processor=risk_averages_on_date
+    {
+      "current": {
+        "informational": {
+          "High risks": {
+            "2020-10-01": 8.0, 
+            "2020-10-12": 8.0
+          }, 
+          "Low risks": {
+            "2020-10-01": 66.0, 
+            "2020-10-12": 12.0
+          }, 
+          "Medium risks": {
+            "2020-10-01": 27.0, 
+            "2020-10-12": 27.0
+          }
+        }, 
+        "operational": {
+          "High risks": {
+            "2020-10-01": 10.0, 
+            "2020-10-12": 10.0
+          }, 
+          "Low risks": {
+            "2020-10-01": 18.0, 
+            "2020-10-12": 18.0
+          }, 
+          "Medium risks": {
+            "2020-10-01": 0.0, 
+            "2020-10-12": 0.0
+          }
+        }
+      }, 
+      "residual": {
+        "informational": {
+          "High risks": {
+            "2020-10-01": 1.0, 
+            "2020-10-12": 1.0
+          }, 
+          "Low risks": {
+            "2020-10-01": 74.0, 
+            "2020-10-12": 74.0
+          }, 
+          "Medium risks": {
+            "2020-10-01": 26.0, 
+            "2020-10-12": 26.0
+          }
+        }, 
+        "operational": {
+          "High risks": {
+            "2020-10-01": 0.0, 
+            "2020-10-12": 0.0
+          }, 
+          "Low risks": {
+            "2020-10-01": 28.0, 
+            "2020-10-12": 28.0
+          }, 
+          "Medium risks": {
+            "2020-10-01": 0.0, 
+            "2020-10-12": 0.0
+          }
+        }
+      }
+    }
+
+
+.. code-block:: bash
+
+    $ curl http://127.0.0.1:5000/stats/risks.json?processor=risk_averages
+    {
+      "current": {
+        "informational": {
+          "High risks": 8.0, 
+          "Low risks": 30.0, 
+          "Medium risks": 27.0
+        }, 
+        "operational": {
+          "High risks": 10.0, 
+          "Low risks": 18.0, 
+          "Medium risks": 0.0
+        }
+      }, 
+      "residual": {
+        "informational": {
+          "High risks": 1.0, 
+          "Low risks": 74.0, 
+          "Medium risks": 26.0
+        }, 
+        "operational": {
+          "High risks": 0.0, 
+          "Low risks": 28.0, 
+          "Medium risks": 0.0
+        }
+      }
+    }

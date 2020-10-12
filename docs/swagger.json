@@ -37,114 +37,6 @@
             }
         },
         "/stats/": {
-            "get": {
-                "responses": {
-                    "401": {
-                        "description": "Authorization needed"
-                    },
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/StatsList"
-                            }
-                        }
-                    }
-                },
-                "summary": "List all stats",
-                "operationId": "list_stats",
-                "parameters": [
-                    {
-                        "name": "anr",
-                        "in": "body",
-                        "type": "string",
-                        "format": "uuid_type",
-                        "description": "The ANR UUID related to this stats."
-                    },
-                    {
-                        "name": "type",
-                        "in": "body",
-                        "type": "string",
-                        "required": true,
-                        "description": "The type of the stats.",
-                        "enum": [
-                            "risk",
-                            "vulnerability",
-                            "threat",
-                            "cartography",
-                            "compliance"
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "group_by_anr",
-                        "in": "body",
-                        "type": "integer",
-                        "description": "If the result should be grouped by anr or not.",
-                        "default": 1,
-                        "enum": [
-                            0,
-                            1
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "date_from",
-                        "in": "body",
-                        "type": "string",
-                        "format": "date",
-                        "description": "The date of the stats must be bigger or equal than this value."
-                    },
-                    {
-                        "name": "date_to",
-                        "in": "body",
-                        "type": "string",
-                        "format": "date",
-                        "description": "The date of the stats must be smaller or equal than this value."
-                    },
-                    {
-                        "name": "anrs",
-                        "in": "body",
-                        "type": "array",
-                        "description": "List of the anrs' uuids to filter by.",
-                        "items": {
-                            "type": "string"
-                        },
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "get_last",
-                        "in": "body",
-                        "type": "boolean",
-                        "description": "Specify that result should compose only the last records in the results set for each anr. Dates filters are ignored in this case."
-                    },
-                    {
-                        "name": "offset",
-                        "in": "body",
-                        "type": "integer",
-                        "description": "Start position",
-                        "default": 0
-                    },
-                    {
-                        "name": "limit",
-                        "in": "body",
-                        "type": "integer",
-                        "description": "Limit of records",
-                        "default": 0
-                    },
-                    {
-                        "name": "X-Fields",
-                        "in": "header",
-                        "type": "string",
-                        "format": "mask",
-                        "description": "An optional fields mask"
-                    }
-                ],
-                "tags": [
-                    "stats"
-                ]
-            },
             "post": {
                 "responses": {
                     "401": {
@@ -185,6 +77,73 @@
                 "tags": [
                     "stats"
                 ]
+            },
+            "get": {
+                "responses": {
+                    "401": {
+                        "description": "Authorization needed"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StatsList"
+                            }
+                        }
+                    }
+                },
+                "summary": "List all stats",
+                "operationId": "list_stats",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "anr": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "group_by_anr": {
+                                    "type": "integer"
+                                },
+                                "date_from": {
+                                    "type": "string"
+                                },
+                                "date_to": {
+                                    "type": "string"
+                                },
+                                "anrs": {
+                                    "type": "string"
+                                },
+                                "get_last": {
+                                    "type": "boolean"
+                                },
+                                "offset": {
+                                    "type": "integer"
+                                },
+                                "limit": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "stats"
+                ]
             }
         },
         "/stats/processed/": {
@@ -204,62 +163,29 @@
                 "operationId": "processing_list",
                 "parameters": [
                     {
-                        "name": "type",
-                        "in": "body",
-                        "type": "string",
+                        "name": "payload",
                         "required": true,
-                        "description": "The type of the stats.",
-                        "enum": [
-                            "risk",
-                            "vulnerability",
-                            "threat",
-                            "cartography",
-                            "compliance"
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "processor",
                         "in": "body",
-                        "type": "string",
-                        "required": true,
-                        "description": "The processor to apply to a list of stats.",
-                        "enum": [
-                            "risk_process",
-                            "threat_average_on_date",
-                            "threat_process",
-                            "vulnerability_average_on_date"
-                        ],
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "anrs",
-                        "in": "body",
-                        "type": "array",
-                        "description": "List of the anrs' uuids to filter by.",
-                        "items": {
-                            "type": "string"
-                        },
-                        "collectionFormat": "multi"
-                    },
-                    {
-                        "name": "nbdays",
-                        "in": "body",
-                        "type": "integer",
-                        "description": "Limit of days",
-                        "default": 365
-                    },
-                    {
-                        "name": "local_stats_only",
-                        "in": "body",
-                        "type": "integer",
-                        "description": "Only on local stats",
-                        "default": 1,
-                        "enum": [
-                            0,
-                            1
-                        ],
-                        "collectionFormat": "multi"
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "processor": {
+                                    "type": "string"
+                                },
+                                "anrs": {
+                                    "type": "string"
+                                },
+                                "nbdays": {
+                                    "type": "integer"
+                                },
+                                "local_stats_only": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
                     },
                     {
                         "name": "X-Fields",
@@ -269,6 +195,20 @@
                         "description": "An optional fields mask"
                     }
                 ],
+                "tags": [
+                    "processed"
+                ]
+            }
+        },
+        "/stats/processed/list": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "Return the list of available processors with their description",
+                "operationId": "get_processor_list",
                 "tags": [
                     "processed"
                 ]
@@ -289,6 +229,21 @@
                     "type": "string"
                 }
             ],
+            "delete": {
+                "responses": {
+                    "404": {
+                        "description": "Stats not found"
+                    },
+                    "204": {
+                        "description": "Stats deleted"
+                    }
+                },
+                "summary": "Delete stats by provided anr",
+                "operationId": "delete_stats",
+                "tags": [
+                    "stats"
+                ]
+            },
             "get": {
                 "responses": {
                     "404": {
@@ -312,21 +267,6 @@
                         "description": "An optional fields mask"
                     }
                 ],
-                "tags": [
-                    "stats"
-                ]
-            },
-            "delete": {
-                "responses": {
-                    "404": {
-                        "description": "Stats not found"
-                    },
-                    "204": {
-                        "description": "Stats deleted"
-                    }
-                },
-                "summary": "Delete stats by provided anr",
-                "operationId": "delete_stats",
                 "tags": [
                     "stats"
                 ]
@@ -463,6 +403,14 @@
         },
         "Result": {
             "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Type of the processed stats data (risk, vulnerability, threat, cartography or compliance)."
+                },
+                "processor": {
+                    "type": "string",
+                    "description": "Processor used for the stats data processing."
+                },
                 "data": {
                     "type": "object",
                     "description": "Result of the selected processor applied to the resulting stats."

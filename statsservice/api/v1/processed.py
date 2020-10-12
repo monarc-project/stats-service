@@ -135,9 +135,10 @@ class ProcessingList(Resource):
 
 @processed_ns.route("/list")
 class ProcessorList(Resource):
-    """Return the list of available processors."""
+    """Return the list of available processors with their description."""
 
     def get(self):
+        """Return the list of available processors with their description."""
         return [
             {"name": processor[0], "description": processor[1].__doc__}
             for processor in AVAILABLE_PROCESSORS_FUNC
