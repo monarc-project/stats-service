@@ -154,6 +154,114 @@ def risk_averages(risks_stats):
     return result
 
 
+def risk_averages_on_date(risks_stats):
+    """Evaluates the averages for the risks per date. Averages are evaluated per categories
+    (current/residual, informational/operational, low/medium/high)."""
+    result = {
+        "current": {
+            "informational": {
+                "Low risks": {},
+                "Medium risks": {},
+                "High risks": {},
+            },
+            "operational": {
+                "Low risks": {},
+                "Medium risks": {},
+                "High risks": {},
+            },
+        },
+        "residual": {
+            "informational": {
+                "Low risks": {},
+                "Medium risks": {},
+                "High risks": {},
+            },
+            "operational": {
+                "Low risks": {},
+                "Medium risks": {},
+                "High risks": {},
+            },
+        },
+    }
+
+    generators = {
+        "current": {
+            "informational": {
+                "Low risks": {},
+                "Medium risks": {},
+                "High risks": {},
+            },
+            "operational": {
+                "Low risks": {},
+                "Medium risks": {},
+                "High risks": {},
+            },
+        },
+        "residual": {
+            "informational": {
+                "Low risks": {},
+                "Medium risks": {},
+                "High risks": {},
+            },
+            "operational": {
+                "Low risks": {},
+                "Medium risks": {},
+                "High risks": {},
+            },
+        },
+    }
+
+    for stat in risks_stats:
+        #print(stat.date)
+        for cureent_or_residual, risk in stat.data["risks"].items():
+            for level in risk["informational"]:
+                if (
+                    str(stat.date)
+                    not in generators[cureent_or_residual]["informational"][
+                        level["level"]
+                    ]
+                ):
+                    # Initialization of the required generator to process the mean.
+                    gen = mean_gen()
+                    gen.send(None)
+                    generators[cureent_or_residual]["informational"][level["level"]][
+                        str(stat.date)
+                    ] = gen
+
+                result[cureent_or_residual]["informational"][level["level"]][
+                    str(stat.date)
+                ] = generators[cureent_or_residual]["informational"][level["level"]][
+                    str(stat.date)
+                ].send(
+                    level["value"]
+                )
+
+        for cureent_or_residual, risk in stat.data["risks"].items():
+            for level in risk["operational"]:
+                if (
+                    str(stat.date)
+                    not in generators[cureent_or_residual]["operational"][
+                        level["level"]
+                    ]
+                ):
+                    # Initialization of the required generator to process the mean.
+                    gen = mean_gen()
+                    gen.send(None)
+                    generators[cureent_or_residual]["operational"][level["level"]][
+                        str(stat.date)
+                    ] = gen
+
+                result[cureent_or_residual]["operational"][level["level"]][
+                    str(stat.date)
+                ] = generators[cureent_or_residual]["operational"][level["level"]][
+                    str(stat.date)
+                ].send(
+                    level["value"]
+                )
+
+    return result
+
+
 def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
     """Return average for the threats for each risk analysis."""
     grouped_threats = groups_threats(threats_stats)
