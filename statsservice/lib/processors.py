@@ -298,6 +298,22 @@ def risk_averages_on_date(risks_stats, params={}):
                 for a, b in result[current_or_residual]["operational"][level].items()
             ]
 
+    # Filter out from the result things that were not processed based on the params
+    # these values are empty (set to zero) so useless for the client
+    if "current" not in params["risks_state"]:
+        result.pop("current")
+    elif "informational" not in params["risks_type"]:
+        result["current"].pop("informational")
+    elif "operational" not in params["risks_type"]:
+        result["current"].pop("operational")
+
+    if "residual" not in params["risks_state"]:
+        result.pop("residual")
+    elif "informational" not in params["risks_type"]:
+        result["residual"].pop("informational")
+    elif "operational" not in params["risks_type"]:
+        result["residual"].pop("operational")
+
     return result
 
 
