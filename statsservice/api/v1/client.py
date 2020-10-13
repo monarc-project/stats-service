@@ -55,7 +55,5 @@ class GetClient(Resource):
     @client_ns.marshal_with(clients, code=200)
     @auth_func
     def get(self):
-        print(session)
-        print(current_user)
 
         return current_user, 200
