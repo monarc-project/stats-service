@@ -262,10 +262,10 @@ def risk_averages_on_date(risks_stats):
     for cureent_or_residual, risk in result.items():
         for level in risk["informational"]:
             result[cureent_or_residual]["informational"][level] = \
-                [(a, b) for a, b in result[cureent_or_residual]["informational"][level].items()]
+                [{"label": a, "value": b} for a, b in result[cureent_or_residual]["informational"][level].items()]
         for level in risk["operational"]:
             result[cureent_or_residual]["operational"][level] = \
-                [(a, b) for a, b in result[cureent_or_residual]["operational"][level].items()]
+                [{"label": a, "value": b} for a, b in result[cureent_or_residual]["operational"][level].items()]
 
     return result
 
