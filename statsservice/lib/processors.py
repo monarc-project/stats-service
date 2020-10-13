@@ -147,22 +147,22 @@ def risk_averages(risks_stats):
 
     # Walk through the set of stats and process the means per categories.
     for stat in risks_stats:
-        for cureent_or_residual, risk in stat.data["risks"].items():
-            # print(cureent_or_residual)
+        for current_or_residual, risk in stat.data["risks"].items():
+            # print(current_or_residual)
             for level in risk["informational"]:
                 # print(level)
                 # print(level['value'])
-                result[cureent_or_residual]["informational"][
+                result[current_or_residual]["informational"][
                     level["level"]
-                ] = generators[cureent_or_residual]["informational"][
+                ] = generators[current_or_residual]["informational"][
                     level["level"]
                 ].send(
                     level["value"]
                 )
 
             for level in risk["operational"]:
-                result[cureent_or_residual]["operational"][level["level"]] = generators[
-                    cureent_or_residual
+                result[current_or_residual]["operational"][level["level"]] = generators[
+                    current_or_residual
                 ]["operational"][level["level"]].send(level["value"])
 
     return result
@@ -227,24 +227,24 @@ def risk_averages_on_date(risks_stats):
 
     for stat in risks_stats:
         # print(stat.date)
-        for cureent_or_residual, risk in stat.data["risks"].items():
+        for current_or_residual, risk in stat.data["risks"].items():
             for level in risk["informational"]:
                 if (
                     str(stat.date)
-                    not in generators[cureent_or_residual]["informational"][
+                    not in generators[current_or_residual]["informational"][
                         level["level"]
                     ]
                 ):
                     # Initialization of the required generator to process the mean.
                     gen = mean_gen()
                     gen.send(None)
-                    generators[cureent_or_residual]["informational"][level["level"]][
+                    generators[current_or_residual]["informational"][level["level"]][
                         str(stat.date)
                     ] = gen
 
-                result[cureent_or_residual]["informational"][level["level"]][
+                result[current_or_residual]["informational"][level["level"]][
                     str(stat.date)
-                ] = generators[cureent_or_residual]["informational"][level["level"]][
+                ] = generators[current_or_residual]["informational"][level["level"]][
                     str(stat.date)
                 ].send(
                     level["value"]
@@ -253,36 +253,36 @@ def risk_averages_on_date(risks_stats):
             for level in risk["operational"]:
                 if (
                     str(stat.date)
-                    not in generators[cureent_or_residual]["operational"][
+                    not in generators[current_or_residual]["operational"][
                         level["level"]
                     ]
                 ):
                     # Initialization of the required generator to process the mean.
                     gen = mean_gen()
                     gen.send(None)
-                    generators[cureent_or_residual]["operational"][level["level"]][
+                    generators[current_or_residual]["operational"][level["level"]][
                         str(stat.date)
                     ] = gen
 
-                result[cureent_or_residual]["operational"][level["level"]][
+                result[current_or_residual]["operational"][level["level"]][
                     str(stat.date)
-                ] = generators[cureent_or_residual]["operational"][level["level"]][
+                ] = generators[current_or_residual]["operational"][level["level"]][
                     str(stat.date)
                 ].send(
                     level["value"]
                 )
 
     # the final values are now stored in a list
-    for cureent_or_residual, risk in result.items():
+    for current_or_residual, risk in result.items():
         for level in risk["informational"]:
-            result[cureent_or_residual]["informational"][level] = [
+            result[current_or_residual]["informational"][level] = [
                 {"date": a, "value": b}
-                for a, b in result[cureent_or_residual]["informational"][level].items()
+                for a, b in result[current_or_residual]["informational"][level].items()
             ]
         for level in risk["operational"]:
-            result[cureent_or_residual]["operational"][level] = [
+            result[current_or_residual]["operational"][level] = [
                 {"date": a, "value": b}
-                for a, b in result[cureent_or_residual]["operational"][level].items()
+                for a, b in result[current_or_residual]["operational"][level].items()
             ]
 
     return result
