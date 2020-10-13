@@ -236,7 +236,6 @@ def risk_averages_on_date(risks_stats):
                     level["value"]
                 )
 
-        for cureent_or_residual, risk in stat.data["risks"].items():
             for level in risk["operational"]:
                 if (
                     str(stat.date)
@@ -258,6 +257,15 @@ def risk_averages_on_date(risks_stats):
                 ].send(
                     level["value"]
                 )
+
+    # the final values are now stored in a list
+    for cureent_or_residual, risk in result.items():
+        for level in risk["informational"]:
+            result[cureent_or_residual]["informational"][level] = \
+                [(a, b) for a, b in result[cureent_or_residual]["informational"][level].items()]
+        for level in risk["operational"]:
+            result[cureent_or_residual]["operational"][level] = \
+                [(a, b) for a, b in result[cureent_or_residual]["operational"][level].items()]
 
     return result
 
