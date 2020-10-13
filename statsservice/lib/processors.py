@@ -16,6 +16,10 @@ from collections import defaultdict
 import pandas as pd
 from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursive_walk
 
+#
+# Processors for threats
+#
+
 
 def threat_average_on_date(threats_stats):
     """Aggregation and average of threats per date for each threat (accross all risk
@@ -63,12 +67,22 @@ def threat_average_on_date(threats_stats):
     return preparedResult
 
 
+#
+# Processors for vulnerabilities
+#
+
+
 def vulnerability_average_on_date(vulnerabilities_stats):
     """Aggregation and average of vulnerabilities per date for each vulnerability
     (accross all risk analysis).
     """
     # the structure of the stats for the threats and vulnerabilities is the same
     return threat_average_on_date(vulnerabilities_stats)
+
+
+#
+# Processors for risks
+#
 
 
 def risk_averages(risks_stats):
@@ -212,7 +226,7 @@ def risk_averages_on_date(risks_stats):
     }
 
     for stat in risks_stats:
-        #print(stat.date)
+        # print(stat.date)
         for cureent_or_residual, risk in stat.data["risks"].items():
             for level in risk["informational"]:
                 if (
@@ -261,11 +275,15 @@ def risk_averages_on_date(risks_stats):
     # the final values are now stored in a list
     for cureent_or_residual, risk in result.items():
         for level in risk["informational"]:
-            result[cureent_or_residual]["informational"][level] = \
-                [{"date": a, "value": b} for a, b in result[cureent_or_residual]["informational"][level].items()]
+            result[cureent_or_residual]["informational"][level] = [
+                {"date": a, "value": b}
+                for a, b in result[cureent_or_residual]["informational"][level].items()
+            ]
         for level in risk["operational"]:
-            result[cureent_or_residual]["operational"][level] = \
-                [{"date": a, "value": b} for a, b in result[cureent_or_residual]["operational"][level].items()]
+            result[cureent_or_residual]["operational"][level] = [
+                {"date": a, "value": b}
+                for a, b in result[cureent_or_residual]["operational"][level].items()
+            ]
 
     return result
 
