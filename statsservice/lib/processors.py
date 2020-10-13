@@ -21,7 +21,7 @@ from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursiv
 #
 
 
-def threat_average_on_date(threats_stats):
+def threat_average_on_date(threats_stats, params={}):
     """Aggregation and average of threats per date for each threat (accross all risk
     analysis).
     """
@@ -72,7 +72,7 @@ def threat_average_on_date(threats_stats):
 #
 
 
-def vulnerability_average_on_date(vulnerabilities_stats):
+def vulnerability_average_on_date(vulnerabilities_stats, params={}):
     """Aggregation and average of vulnerabilities per date for each vulnerability
     (accross all risk analysis).
     """
@@ -85,7 +85,7 @@ def vulnerability_average_on_date(vulnerabilities_stats):
 #
 
 
-def risk_averages(risks_stats):
+def risk_averages(risks_stats, params={}):
     """Evaluates the averages for the risks. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high)."""
     # Initialization of the structure of the result.
@@ -168,7 +168,7 @@ def risk_averages(risks_stats):
     return result
 
 
-def risk_averages_on_date(risks_stats):
+def risk_averages_on_date(risks_stats, params={}):
     """Evaluates the averages for the risks per date. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high)."""
     result = {
@@ -225,54 +225,67 @@ def risk_averages_on_date(risks_stats):
         },
     }
 
+    if not params.get("risks_type", ""):
+        params["risks_type"] = "informational,operational"
+    if not params.get("risks_state", ""):
+        params["risks_state"] = "current,residual"
+
     for stat in risks_stats:
         # print(stat.date)
         for current_or_residual, risk in stat.data["risks"].items():
-            for level in risk["informational"]:
-                if (
-                    str(stat.date)
-                    not in generators[current_or_residual]["informational"][
-                        level["level"]
-                    ]
-                ):
-                    # Initialization of the required generator to process the mean.
-                    gen = mean_gen()
-                    gen.send(None)
-                    generators[current_or_residual]["informational"][level["level"]][
+            # check if client wants backend to process residual or current risks
+            if current_or_residual not in params["risks_state"]:
+                continue
+
+            # check if client wants backend to process informational risks
+            if "informational" in params["risks_type"]:
+                for level in risk["informational"]:
+                    if (
                         str(stat.date)
-                    ] = gen
+                        not in generators[current_or_residual]["informational"][
+                            level["level"]
+                        ]
+                    ):
+                        # Initialization of the required generator to process the mean.
+                        gen = mean_gen()
+                        gen.send(None)
+                        generators[current_or_residual]["informational"][level["level"]][
+                            str(stat.date)
+                        ] = gen
 
-                result[current_or_residual]["informational"][level["level"]][
-                    str(stat.date)
-                ] = generators[current_or_residual]["informational"][level["level"]][
-                    str(stat.date)
-                ].send(
-                    level["value"]
-                )
-
-            for level in risk["operational"]:
-                if (
-                    str(stat.date)
-                    not in generators[current_or_residual]["operational"][
-                        level["level"]
-                    ]
-                ):
-                    # Initialization of the required generator to process the mean.
-                    gen = mean_gen()
-                    gen.send(None)
-                    generators[current_or_residual]["operational"][level["level"]][
+                    result[current_or_residual]["informational"][level["level"]][
                         str(stat.date)
-                    ] = gen
+                    ] = generators[current_or_residual]["informational"][level["level"]][
+                        str(stat.date)
+                    ].send(
+                        level["value"]
+                    )
 
-                result[current_or_residual]["operational"][level["level"]][
-                    str(stat.date)
-                ] = generators[current_or_residual]["operational"][level["level"]][
-                    str(stat.date)
-                ].send(
-                    level["value"]
-                )
+            # check if client wants backend to process operational risks
+            if "operational" in params["risks_type"]:
+                for level in risk["operational"]:
+                    if (
+                        str(stat.date)
+                        not in generators[current_or_residual]["operational"][
+                            level["level"]
+                        ]
+                    ):
+                        # Initialization of the required generator to process the mean.
+                        gen = mean_gen()
+                        gen.send(None)
+                        generators[current_or_residual]["operational"][level["level"]][
+                            str(stat.date)
+                        ] = gen
 
-    # the final values are now stored in a list
+                    result[current_or_residual]["operational"][level["level"]][
+                        str(stat.date)
+                    ] = generators[current_or_residual]["operational"][level["level"]][
+                        str(stat.date)
+                    ].send(
+                        level["value"]
+                    )
+
+    # The final values are now stored in a list
     for current_or_residual, risk in result.items():
         for level in risk["informational"]:
             result[current_or_residual]["informational"][level] = [
@@ -288,20 +301,20 @@ def risk_averages_on_date(risks_stats):
     return result
 
 
-def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
-    """Return average for the threats for each risk analysis."""
-    grouped_threats = groups_threats(threats_stats)
-    frames = defaultdict(list)
-    result = {}
-    for anr_uuid in grouped_threats:
-        print("Averages for ANR (for threats): {}".format(anr_uuid))
-        for threat_uuid, stats in grouped_threats[anr_uuid].items():
-            frames[threat_uuid].append(stats)
-            df = pd.DataFrame(stats)
-            result[threat_uuid] = dict(df.mean())
-            # print("{} : {}".format(threat_uuid, result[threat_uuid]))
-            # print(df.to_html())
-            # print(df.mean().to_markdown())
-            print()
-
-    return result
+# def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
+#     """Return average for the threats for each risk analysis."""
+#     grouped_threats = groups_threats(threats_stats)
+#     frames = defaultdict(list)
+#     result = {}
+#     for anr_uuid in grouped_threats:
+#         print("Averages for ANR (for threats): {}".format(anr_uuid))
+#         for threat_uuid, stats in grouped_threats[anr_uuid].items():
+#             frames[threat_uuid].append(stats)
+#             df = pd.DataFrame(stats)
+#             result[threat_uuid] = dict(df.mean())
+#             # print("{} : {}".format(threat_uuid, result[threat_uuid]))
+#             # print(df.to_html())
+#             # print(df.mean().to_markdown())
+#             print()
+#
+#     return result

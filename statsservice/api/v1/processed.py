@@ -4,6 +4,7 @@
 import logging
 from datetime import datetime, timedelta
 from flask_restx import Namespace, Resource, fields, abort, reqparse
+from flask_restx.inputs import date_from_iso8601
 
 import statsservice.lib.processors
 from statsservice.lib import AVAILABLE_PROCESSORS, AVAILABLE_PROCESSORS_FUNC
@@ -35,6 +36,14 @@ parser.add_argument(
     choices=tuple(AVAILABLE_PROCESSORS),
 )
 parser.add_argument(
+    "processor_params",
+    type=dict,
+    required=False,
+    location="json",
+    default={},
+    help="Arguments passed to the processor.",
+)
+parser.add_argument(
     "anrs",
     required=False,
     location="json",
@@ -42,12 +51,18 @@ parser.add_argument(
     help="List of the anrs' uuids to filter by.",
 )
 parser.add_argument(
-    "nbdays",
-    type=int,
+    "date_from",
+    type=date_from_iso8601,
     required=False,
     location="json",
-    default=365,
-    help="Limit of days",
+    help="The date of the stats must be bigger or equal than this value.",
+)
+parser.add_argument(
+    "date_to",
+    type=date_from_iso8601,
+    required=False,
+    location="json",
+    help="The date of the stats must be smaller or equal than this value.",
 )
 parser.add_argument(
     "local_stats_only",
@@ -89,10 +104,12 @@ class ProcessingList(Resource):
     def get(self):
         """Return the result of the processor."""
         args = parser.parse_args(strict=True)
-        nb_days = args.get("nbdays")
+        date_from = args.get("date_from")
+        date_to = args.get("date_to")
         local_stats_only = args.get("local_stats_only", 0)
         type = args.get("type")
         processor = args.get("processor", "")
+        processor_params = args.get("processor_params", {})
         anrs = args.get("anrs")
         now = datetime.today()
 
@@ -104,9 +121,13 @@ class ProcessingList(Resource):
                 ),
             )
 
-        query = Stats.query.filter(
-            Stats.type == type, Stats.date >= now - timedelta(days=nb_days)
-        )
+        query = Stats.query.filter(Stats.type == type)
+
+        if date_from is not None:
+            query = query.filter(Stats.date >= date_from)
+
+        if date_to is not None:
+            query = query.filter(Stats.date <= date_to)
 
         if anrs:
             query = query.filter(Stats.anr.in_(anrs))
@@ -123,7 +144,7 @@ class ProcessingList(Resource):
         }
         if query:
             try:
-                result["data"] = getattr(statsservice.lib.processors, processor)(query)
+                result["data"] = getattr(statsservice.lib.processors, processor)(query, processor_params)
             except AttributeError:
                 abort(
                     500,
