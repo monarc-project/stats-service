@@ -4,6 +4,7 @@
 import logging
 from flask import request, abort
 from flask_restx import Namespace, Resource, fields, abort
+from flask_login import current_user
 
 from statsservice.bootstrap import db
 from statsservice.models import Client
@@ -30,7 +31,7 @@ clients = client_ns.model(
 class ClientsList(Resource):
     """Create new clients."""
 
-    @client_ns.doc("create_client")
+    @client_ns.doc("client_create")
     @client_ns.expect(clients)
     @client_ns.marshal_with(clients, code=201)
     @auth_func
@@ -45,3 +46,14 @@ class ClientsList(Resource):
         except Exception:
             logger.error("Only admin can create new client.")
             return abort(403)
+
+@client_ns.route("/me")
+class GetClient(Resource):
+    """Get client details."""
+
+    @client_ns.doc("client_get")
+    @client_ns.marshal_with(clients, code=200)
+    @auth_func
+    def get(self):
+
+        return current_user, 200
