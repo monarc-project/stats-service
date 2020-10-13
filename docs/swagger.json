@@ -13,7 +13,7 @@
                     }
                 },
                 "summary": "Create a new client",
-                "operationId": "create_client",
+                "operationId": "client_create",
                 "parameters": [
                     {
                         "name": "payload",
@@ -23,6 +23,35 @@
                             "$ref": "#/definitions/Clients"
                         }
                     },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "client"
+                ]
+            }
+        },
+        "/client/me": {
+            "get": {
+                "responses": {
+                    "401": {
+                        "description": "Not authorized"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Clients"
+                        }
+                    }
+                },
+                "summary": "Get client details",
+                "operationId": "client_get",
+                "parameters": [
                     {
                         "name": "X-Fields",
                         "in": "header",
