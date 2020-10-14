@@ -8,10 +8,8 @@
 # (threat|risk|vulnerability|...)_
 #
 # aggregation processors are automatically listed in statsservice.lib.AVAILABLE_PROCESSORS
-# this variable is for example used in statsservice.api.v1.stats.py
+# this variable is for example used in statsservice.api.v1.stats
 #
-
-from collections import defaultdict
 
 import pandas as pd
 from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursive_walk
@@ -116,7 +114,7 @@ def risk_averages(risks_stats, params={}):
         },
     }
 
-    # Initialization of the required generators to process the different means.
+    # Initialization of the required generators to process the different averages.
     generators = {
         "current": {
             "informational": {
@@ -145,7 +143,7 @@ def risk_averages(risks_stats, params={}):
     }
     dict_recursive_walk(generators, "send", None, {})
 
-    # Walk through the set of stats and process the means per categories.
+    # Walk through the set of stats and process the averages per categories.
     for stat in risks_stats:
         for current_or_residual, risk in stat.data["risks"].items():
             # print(current_or_residual)
@@ -246,16 +244,19 @@ def risk_averages_on_date(risks_stats, params={}):
                             level["level"]
                         ]
                     ):
-                        # Initialization of the required generator to process the mean.
+                        # Initialization of the required generator to process the average.
                         gen = mean_gen()
                         gen.send(None)
-                        generators[current_or_residual]["informational"][level["level"]][
-                            str(stat.date)
-                        ] = gen
+                        generators[current_or_residual]["informational"][
+                            level["level"]
+                        ][str(stat.date)] = gen
 
+                    # Updates the appropriate average
                     result[current_or_residual]["informational"][level["level"]][
                         str(stat.date)
-                    ] = generators[current_or_residual]["informational"][level["level"]][
+                    ] = generators[current_or_residual]["informational"][
+                        level["level"]
+                    ][
                         str(stat.date)
                     ].send(
                         level["value"]
@@ -270,13 +271,14 @@ def risk_averages_on_date(risks_stats, params={}):
                             level["level"]
                         ]
                     ):
-                        # Initialization of the required generator to process the mean.
+                        # Initialization of the required generator to process the average.
                         gen = mean_gen()
                         gen.send(None)
                         generators[current_or_residual]["operational"][level["level"]][
                             str(stat.date)
                         ] = gen
 
+                    # Updates the appropriate average
                     result[current_or_residual]["operational"][level["level"]][
                         str(stat.date)
                     ] = generators[current_or_residual]["operational"][level["level"]][
@@ -315,22 +317,3 @@ def risk_averages_on_date(risks_stats, params={}):
         result["residual"].pop("operational")
 
     return result
-
-
-# def threat_process(threats_stats, aggregation_period=None, group_by_anr=None):
-#     """Return average for the threats for each risk analysis."""
-#     grouped_threats = groups_threats(threats_stats)
-#     frames = defaultdict(list)
-#     result = {}
-#     for anr_uuid in grouped_threats:
-#         print("Averages for ANR (for threats): {}".format(anr_uuid))
-#         for threat_uuid, stats in grouped_threats[anr_uuid].items():
-#             frames[threat_uuid].append(stats)
-#             df = pd.DataFrame(stats)
-#             result[threat_uuid] = dict(df.mean())
-#             # print("{} : {}".format(threat_uuid, result[threat_uuid]))
-#             # print(df.to_html())
-#             # print(df.mean().to_markdown())
-#             print()
-#
-#     return result

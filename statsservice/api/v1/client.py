@@ -47,6 +47,7 @@ class ClientsList(Resource):
             logger.error("Only admin can create new client.")
             return abort(403)
 
+
 @client_ns.route("/me")
 class GetClient(Resource):
     """Get client details."""

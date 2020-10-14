@@ -144,7 +144,9 @@ class ProcessingList(Resource):
         }
         if query:
             try:
-                result["data"] = getattr(statsservice.lib.processors, processor)(query, processor_params)
+                result["data"] = getattr(statsservice.lib.processors, processor)(
+                    query, processor_params
+                )
             except AttributeError:
                 abort(
                     500,
