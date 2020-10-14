@@ -39,9 +39,6 @@
         "/client/me": {
             "get": {
                 "responses": {
-                    "401": {
-                        "description": "Not authorized"
-                    },
                     "200": {
                         "description": "Success",
                         "schema": {
@@ -49,7 +46,6 @@
                         }
                     }
                 },
-                "summary": "Get client details",
                 "operationId": "client_get",
                 "parameters": [
                     {
@@ -66,47 +62,6 @@
             }
         },
         "/stats/": {
-            "post": {
-                "responses": {
-                    "401": {
-                        "description": "Authorization needed"
-                    },
-                    "201": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/StatsList"
-                            }
-                        }
-                    }
-                },
-                "summary": "Create a new stats",
-                "operationId": "create_stats",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Stats"
-                            }
-                        }
-                    },
-                    {
-                        "name": "X-Fields",
-                        "in": "header",
-                        "type": "string",
-                        "format": "mask",
-                        "description": "An optional fields mask"
-                    }
-                ],
-                "tags": [
-                    "stats"
-                ]
-            },
             "get": {
                 "responses": {
                     "401": {
@@ -173,6 +128,47 @@
                 "tags": [
                     "stats"
                 ]
+            },
+            "post": {
+                "responses": {
+                    "401": {
+                        "description": "Authorization needed"
+                    },
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StatsList"
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new stats",
+                "operationId": "create_stats",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Stats"
+                            }
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "stats"
+                ]
             }
         },
         "/stats/processed/": {
@@ -204,11 +200,17 @@
                                 "processor": {
                                     "type": "string"
                                 },
+                                "processor_params": {
+                                    "type": "string"
+                                },
                                 "anrs": {
                                     "type": "string"
                                 },
-                                "nbdays": {
-                                    "type": "integer"
+                                "date_from": {
+                                    "type": "string"
+                                },
+                                "date_to": {
+                                    "type": "string"
                                 },
                                 "local_stats_only": {
                                     "type": "integer"
