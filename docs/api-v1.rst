@@ -106,5 +106,5 @@ Generally, you can get information about a processor:
     "Evaluates the averages for the risks per date. Averages are evaluated per categories
      (current/residual, informational/operational, low/medium/high).
      Supported parameters:
-     - risks_type: informational or residual
+     - risks_type: informational or operational
      - risk_state: current or residual."
