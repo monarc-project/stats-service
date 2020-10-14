@@ -79,11 +79,12 @@ You can get the list of available processors:
 
 
 Some processors can use dedicated parameters. For this purpose the parameter
-``processor_params`` can be used to transfer some parameters directly to a processor.
+``processor_params`` can be used to transfer these parameters directly to the concerned
+processor. These parameters will affect the behaviour of the processor.
 
 For example you might want to call the processor ``risk_averages_on_date`` but you want
-that this processor only evaluates the averages for residual risks that are also
-operational risks (and not informational). The request will look like:
+that this processor only evaluates the averages for *residual risks* that are also
+*operational risks* (and not informational risks). The request will look like:
 
 .. code-block:: bash
 
