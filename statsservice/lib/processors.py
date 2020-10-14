@@ -171,7 +171,7 @@ def risk_averages_on_date(risks_stats, params={}):
     (current/residual, informational/operational, low/medium/high).
     Supported parameters:
     - risks_type: informational or operational
-    - risk_state: current or residual."""
+    - risks_state: current or residual."""
     result = {
         "current": {
             "informational": {

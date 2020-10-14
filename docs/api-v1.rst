@@ -65,7 +65,7 @@ You can get the list of available processors:
         },
         {
             "name": "risk_averages_on_date",
-            "description": "Evaluates the averages for the risks per date. Averages are evaluated per categories\n    (current/residual, informational/operational, low/medium/high).\n    Supported parameters:\n    - risks_type: informational or residual\n    - risk_state: current or residual."
+            "description": "Evaluates the averages for the risks per date. Averages are evaluated per categories\n    (current/residual, informational/operational, low/medium/high).\n    Supported parameters:\n    - risks_type: informational or operational\n    - risks_state: current or residual."
         },
         {
             "name": "threat_average_on_date",
@@ -92,10 +92,10 @@ that this processor only evaluates the averages for *residual risks* that are al
 
 
 Internally the processor ``processor_params`` will honor the value provided with
-the parameters ``risks_type`` and ``risk_state``.
+the parameters ``risks_type`` and ``risks_state``.
 
-- ``risk_type`` can be *informational* or *operational*;
-- ``risk_state`` can be *current* or *residual*.
+- ``risks_type`` can be *informational* or *operational*;
+- ``risks_state`` can be *current* or *residual*.
 
 
 Generally, you can get information about a processor:
@@ -108,4 +108,4 @@ Generally, you can get information about a processor:
      (current/residual, informational/operational, low/medium/high).
      Supported parameters:
      - risks_type: informational or operational
-     - risk_state: current or residual."
+     - risks_state: current or residual."
