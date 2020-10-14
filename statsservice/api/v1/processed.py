@@ -113,6 +113,12 @@ class ProcessingList(Resource):
         anrs = args.get("anrs")
         now = datetime.today()
 
+        # Test:
+        logger.info("START TEST")
+        logger.info(processor_params)
+        logger.info(date_from)
+        logger.info("END TEST")
+
         if not processor.startswith(type + "_"):
             abort(
                 400,
