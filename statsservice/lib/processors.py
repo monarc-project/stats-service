@@ -168,7 +168,10 @@ def risk_averages(risks_stats, params={}):
 
 def risk_averages_on_date(risks_stats, params={}):
     """Evaluates the averages for the risks per date. Averages are evaluated per categories
-    (current/residual, informational/operational, low/medium/high)."""
+    (current/residual, informational/operational, low/medium/high).
+    Supported parameters:
+    - risks_type: informational or residual
+    - risk_state: current or residual."""
     result = {
         "current": {
             "informational": {
