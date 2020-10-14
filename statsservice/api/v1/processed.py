@@ -103,19 +103,20 @@ class ProcessingList(Resource):
     # @auth_func
     def get(self):
         """Return the result of the processor."""
+        processorParams = {}
         args = parser.parse_args(strict=True)
         date_from = args.get("date_from")
         date_to = args.get("date_to")
         local_stats_only = args.get("local_stats_only", 0)
         type = args.get("type")
         processor = args.get("processor", "")
-        processor_params = args.get("processor_params", {})
+        processorParams = args.get("processor_params", {})
         anrs = args.get("anrs")
         now = datetime.today()
 
         # Test:
         logger.info("START TEST")
-        logger.info(processor_params)
+        logger.info(processorParams)
         logger.info(date_from)
         logger.info("END TEST")
 
@@ -151,7 +152,7 @@ class ProcessingList(Resource):
         if query:
             try:
                 result["data"] = getattr(statsservice.lib.processors, processor)(
-                    query, processor_params
+                    query, processorParams
                 )
             except AttributeError:
                 abort(

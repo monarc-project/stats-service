@@ -19,7 +19,7 @@ from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursiv
 #
 
 
-def threat_average_on_date(threats_stats, params={}):
+def threat_average_on_date(threats_stats, processor_params={}):
     """Aggregation and average of threats per date for each threat (accross all risk
     analysis).
     """
@@ -70,7 +70,7 @@ def threat_average_on_date(threats_stats, params={}):
 #
 
 
-def vulnerability_average_on_date(vulnerabilities_stats, params={}):
+def vulnerability_average_on_date(vulnerabilities_stats, processor_params={}):
     """Aggregation and average of vulnerabilities per date for each vulnerability
     (accross all risk analysis).
     """
@@ -83,7 +83,7 @@ def vulnerability_average_on_date(vulnerabilities_stats, params={}):
 #
 
 
-def risk_averages(risks_stats, params={}):
+def risk_averages(risks_stats, processor_params={}):
     """Evaluates the averages for the risks. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high)."""
     # Initialization of the structure of the result.
@@ -166,7 +166,7 @@ def risk_averages(risks_stats, params={}):
     return result
 
 
-def risk_averages_on_date(risks_stats, params={}):
+def risk_averages_on_date(risks_stats, processor_params={}):
     """Evaluates the averages for the risks per date. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high).
     Supported parameters:
@@ -225,6 +225,8 @@ def risk_averages_on_date(risks_stats, params={}):
             },
         },
     }
+
+    params = dict(processor_params)
 
     if not params.get("risks_type", ""):
         params["risks_type"] = "informational,operational"
