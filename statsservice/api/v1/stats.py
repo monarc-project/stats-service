@@ -242,7 +242,6 @@ class StatsList(Resource):
 
 @stats_ns.route("/<string:anr>")
 @stats_ns.response(404, "Stats not found")
-@stats_ns.param("uuid", "The stats identifier")
 class StatsItem(Resource):
     """Show the stats items by anr resource and lets you delete it"""
 
@@ -259,9 +258,10 @@ class StatsItem(Resource):
     @auth_func
     def delete(self, anr):
         """Delete stats by provided anr"""
-
         try:
-            Stats.objects(anr__exact=anr).delete()
+            Stats.query.filter(Stats.anr == anr).delete()
+            db.session.commit()
             return "", 204
         except:
+            db.session.rollback()
             abort(500, Error="Impossible to delete the stats.")
