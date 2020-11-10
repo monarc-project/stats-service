@@ -108,11 +108,15 @@ class ProcessingList(Resource):
         date_from = args.get("date_from")
         date_to = args.get("date_to")
         local_stats_only = args.get("local_stats_only", 0)
-        type = args.get("type")
+        stat_type = args.get("type")
         processor = args.get("processor", "")
         processorParams = args.get("processor_params", {})
         anrs = args.get("anrs")
         now = datetime.today()
+
+        if None is processorParams:
+            processorParams = {}
+
 
         # Test:
         logger.info("START TEST")
@@ -120,15 +124,15 @@ class ProcessingList(Resource):
         logger.info(date_from)
         logger.info("END TEST")
 
-        if not processor.startswith(type + "_"):
+        if not processor.startswith(stat_type + "_"):
             abort(
                 400,
                 Error="Processor '{}' can not be used with type '{}'.".format(
-                    processor, type
+                    processor, stat_type
                 ),
             )
 
-        query = Stats.query.filter(Stats.type == type)
+        query = Stats.query.filter(Stats.type == stat_type)
 
         if date_from is not None:
             query = query.filter(Stats.date >= date_from)
@@ -145,7 +149,7 @@ class ProcessingList(Resource):
         query = query.all()
 
         result = {
-            "type": type,
+            "type": stat_type,
             "processor": processor,
             "data": [],
         }
