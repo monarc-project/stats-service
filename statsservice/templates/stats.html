@@ -115,12 +115,13 @@
   .then(function(resp_json) {
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
     // (we limit the datasets to the number of previously defined colors)
-    threat_uuid_labels = {};
-    var promises = Object.keys(resp_json).slice(0, window.chartColors.length).map(function(threat_uuid, index) {
-      return retrieve_information_from_mosp(threat_uuid, "EN")
+    threats_by_uuid = {}
+    var promises = resp_json.slice(0, window.chartColors.length).map(function(threat) {
+      return retrieve_information_from_mosp(threat.object, "EN")
       .then(function(result_mosp) {
-        threat_uuid_labels[threat_uuid] = result_mosp
-        return threat_uuid;
+        threats_by_uuid[threat.object] = {"object": threat}
+        threats_by_uuid[threat.object]["translated_label"] = result_mosp
+        return threat.object;
       })
     })
 
@@ -130,17 +131,17 @@
       var config_threats = JSON.parse(JSON.stringify(config));
       // construct the datasets
       datasets = [];
-      Object.keys(threat_uuid_labels)
+      Object.keys(threats_by_uuid)
       .map(function(threat_uuid, index) {
         data = [];
         dataset = {
-          "label": threat_uuid_labels[threat_uuid],
+          "label": threats_by_uuid[threat_uuid]["translated_label"],
           "backgroundColor": color(window.chartColors[index]).alpha(0.5).rgbString(),
           "borderColor": window.chartColors[index],
           "fill": false,
         };
 
-        resp_json[threat_uuid]['values']
+        threats_by_uuid[threat_uuid]["object"]['values']
         .sort(function(a, b) {
           return new Date(a.date) - new Date(b.date) ;
         })
@@ -180,13 +181,12 @@
   .then(function(resp_json) {
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
     // (we limit the datasets to the number of previously defined colors)
-    vulnerability_uuid_labels = {};
-    console.log(resp_json);
+    vulnerabilities_by_uuid = {}
     var promises = resp_json.slice(0, window.chartColors.length).map(function(vulnerability) {
-      console.log(vulnerability.object);
       return retrieve_information_from_mosp(vulnerability.object, "")
       .then(function(result_mosp) {
-        vulnerability_uuid_labels[vulnerability.object] = result_mosp
+        vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
+        vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = result_mosp
         return vulnerability.object;
       })
     })
@@ -196,16 +196,16 @@
       var config_vulnerabilities = JSON.parse(JSON.stringify(config));
       // construct the datasets
       datasets = [];
-      Object.keys(vulnerability_uuid_labels).map(function(vulnerability_uuid, index) {
+      Object.keys(vulnerabilities_by_uuid).map(function(vulnerability_uuid, index) {
         data = [];
         dataset = {
-          "label": vulnerability_uuid_labels[vulnerability_uuid],
+          "label": vulnerabilities_by_uuid[vulnerability_uuid]["translated_label"],
           "backgroundColor": color(window.chartColors[index]).alpha(0.5).rgbString(),
           "borderColor": window.chartColors[index],
           "fill": false,
         };
 
-        resp_json[vulnerability_uuid]['values']
+        vulnerabilities_by_uuid[vulnerability_uuid]["object"]['values']
         .sort(function(a, b) {
           return new Date(a.date) - new Date(b.date) ;
         })
@@ -234,7 +234,7 @@
 
 
 
-  // fetch stats for vulnerabilities (averages per vulnerabilities per date)
+  // fetch stats for risks
   fetch("{{ url_for('stats_bp.risks', processor='risk_averages', days=365) | safe }}", {
     method: "GET",
     headers: {
@@ -244,7 +244,6 @@
   .then((resp) => resp.json())
   .then(function(resp_json) {
     console.log(resp_json);
-
   }).catch((error) => {
     console.error('Error:', error);
   });;
