@@ -8,6 +8,7 @@ from flask_restx.inputs import date_from_iso8601
 
 import statsservice.lib.processors
 from statsservice.lib import AVAILABLE_PROCESSORS, AVAILABLE_PROCESSORS_FUNC
+from statsservice.api.v1.common import auth_func
 from statsservice.models import Stats
 
 logger = logging.getLogger(__name__)
