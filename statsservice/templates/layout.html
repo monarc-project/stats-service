@@ -27,7 +27,7 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="{{ url_for('stats_bp.stats') }}">
         <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-        MONARC Global dashboard
+        MONARC Stats Service
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -50,7 +50,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <a href="{{ url_for('root_bp.about_json') }}">About</a>
+          <a href="{{ url_for('root_bp.about') }}" title="About">About</a>
           &nbsp;&nbsp;
           <a href="{{ url_for('api.doc') }}">OpenAPI Specification</a>
           &nbsp;&nbsp;
