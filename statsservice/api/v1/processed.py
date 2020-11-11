@@ -117,7 +117,6 @@ class ProcessingList(Resource):
         if None is processorParams:
             processorParams = {}
 
-
         # Test:
         logger.info("START TEST")
         logger.info(processorParams)
