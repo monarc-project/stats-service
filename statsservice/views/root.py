@@ -33,6 +33,12 @@ def home():
     return redirect(url_for("stats_bp.stats")) #redirect(url_for("api.doc"))
 
 
+@root_bp.route("about", methods=["GET"])
+def about():
+    """About page."""
+    return render_template("about.html")
+
+
 @root_bp.route("about.json", methods=["GET"])
 def about_json():
     """Provide information about the instance."""

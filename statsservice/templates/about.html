@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="240" class="mx-auto d-block" alt="Logo of MONARC Stats Service" title="Logo of MONARC Stats Service">
+            <p class="lead">MONARC Stats Service.</p>
+            <p>This software is under AGPLv3 license.<br />You are welcome to copy, modify or
+            redistribute the <a href="https://github.com/monarc-project/stats-service">source code</a>
+            according to the <a href="https://www.gnu.org/licenses/agpl-3.0.html">Affero GPL</a> license.</p>
+            <p>Found a bug? Report it <a href="https://github.com/monarc-project/stats-service/issues">here</a>.
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <h2>Help</h2>
+            <ul>
+              <li>contact us at the address: <a href="mailto:info@cases.lu?subject=Stats Service">info@cases.lu</a></li>
+              <li>a documentation is available <a href="https://monarc-stats-service.readthedocs.io">here</a></li>
+              <li>  <a href="{{ url_for('api.doc') }}">OpenAPI Specification</a></li>
+            </ul>
+        </div>
+    </div>
+</div><!-- /.container -->
+{% endblock %}
