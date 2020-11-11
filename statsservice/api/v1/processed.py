@@ -99,8 +99,8 @@ class ProcessingList(Resource):
     @processed_ns.doc("processing_list")
     @processed_ns.expect(parser)
     @processed_ns.marshal_list_with(processedData_list_fields)
-    # @processed_ns.response(401, "Authorization needed")
-    # @auth_func
+    @processed_ns.response(401, "Authorization needed")
+    @auth_func
     def get(self):
         """Return the result of the processor."""
         processorParams = {}
