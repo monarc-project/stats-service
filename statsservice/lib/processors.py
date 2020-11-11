@@ -23,6 +23,7 @@ def threat_average_on_date(threats_stats, processor_params={}):
     """Aggregation and average of threats per date for each threat (accross all risk
     analysis).
     """
+    assert processor_params is not None, "processor_params parameters can not be None."
     grouped_threats = groups_threats(threats_stats)
 
     labels = tree()
@@ -74,6 +75,7 @@ def vulnerability_average_on_date(vulnerabilities_stats, processor_params={}):
     """Aggregation and average of vulnerabilities per date for each vulnerability
     (accross all risk analysis).
     """
+    assert processor_params is not None, "processor_params parameters can not be None."
     # the structure of the stats for the threats and vulnerabilities is the same
     return threat_average_on_date(vulnerabilities_stats)
 
@@ -86,6 +88,7 @@ def vulnerability_average_on_date(vulnerabilities_stats, processor_params={}):
 def risk_averages(risks_stats, processor_params={}):
     """Evaluates the averages for the risks. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high)."""
+    assert processor_params is not None, "processor_params parameters can not be None."
     # Initialization of the structure of the result.
     result = {
         "current": {
@@ -172,6 +175,7 @@ def risk_averages_on_date(risks_stats, processor_params={}):
     Supported parameters:
     - risks_type: informational or operational
     - risks_state: current or residual."""
+    assert processor_params is not None, "processor_params parameters can not be None."
     result = {
         "current": {
             "informational": {
