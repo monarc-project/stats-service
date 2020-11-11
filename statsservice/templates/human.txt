@@ -1,0 +1,5 @@
+# Contributors
+
+Cedric Bonhomme - cedricbonhomme.org
+Ruslan Baidan <ruslan.baidan@securitymadein.lu>
+Juan Rocha <juan.rocha@securitymadein.lu>
