@@ -303,11 +303,24 @@ def risk_averages_on_date(risks_stats, processor_params={}):
                 {"date": a, "value": b}
                 for a, b in result[current_or_residual]["informational"][level].items()
             ]
+
+            result[current_or_residual]["informational"][level].sort(
+                key=lambda
+                item:item["date"],
+                reverse=True
+            )
+
         for level in risk["operational"]:
             result[current_or_residual]["operational"][level] = [
                 {"date": a, "value": b}
                 for a, b in result[current_or_residual]["operational"][level].items()
             ]
+
+            result[current_or_residual]["operational"][level].sort(
+                key=lambda
+                item:item["date"],
+                reverse=True
+            )
 
     # Filter out from the result things that were not processed based on the params
     # these values are empty (set to zero) so useless for the client
