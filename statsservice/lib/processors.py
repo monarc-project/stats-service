@@ -306,8 +306,7 @@ def risk_averages_on_date(risks_stats, processor_params={}):
 
             result[current_or_residual]["informational"][level].sort(
                 key=lambda
-                item:item["date"],
-                reverse=True
+                item:item["date"]
             )
 
         for level in risk["operational"]:
@@ -318,8 +317,7 @@ def risk_averages_on_date(risks_stats, processor_params={}):
 
             result[current_or_residual]["operational"][level].sort(
                 key=lambda
-                item:item["date"],
-                reverse=True
+                item:item["date"]
             )
 
     # Filter out from the result things that were not processed based on the params
