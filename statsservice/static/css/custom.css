@@ -39,8 +39,14 @@ img {
 a.disabled {
   /* Make the disabled links grayish*/
   color: gray;
+  opacity: 1;
   /* And disable the pointer events */
   pointer-events: none;
+}
+
+.navbar a{
+    color: #FFFFFF;
+    opacity: 1;
 }
 
 
