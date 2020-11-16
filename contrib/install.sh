@@ -16,7 +16,7 @@ STATS_HOST='0.0.0.0'
 STATS_PORT='5005'
 STATS_DB_NAME='statsservice'
 STATS_DB_USER='dbstatsuser'
-STATS_DB_PASSWORD='dbstatsuser'
+STATS_DB_PASSWORD="$(openssl rand -hex 32)"
 STATS_SECRET_KEY="$(openssl rand -hex 32)"
 
 
