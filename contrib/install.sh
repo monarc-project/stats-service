@@ -11,6 +11,8 @@ NC='\033[0m' # No Color
 
 ME=`whoami`
 
+PYTHON_VERSION='3.9.0'
+
 STATS_PATH="/home/$ME/stats-service"
 STATS_HOST='0.0.0.0'
 STATS_PORT='5005'
@@ -26,6 +28,18 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 10
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 20
 sudo -u postgres psql -c "CREATE USER $STATS_DB_USER WITH PASSWORD '$STATS_DB_PASSWORD';"
 sudo -u postgres psql -c "ALTER USER $STATS_DB_USER WITH SUPERUSER;"
+
+
+# Installation of a recent Python with pyenv
+# Prerequisites to build Python
+sudo apt-get -y install make build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+# Installation of pyenv
+curl https://pyenv.run | bash
+# Use the latest version of Python
+pyenv install $PYTHON_VERSION
+pyenv global $PYTHON_VERSION
 
 
 # Installation of Poetry
@@ -45,6 +59,7 @@ poetry install --no-dev
 echo  'export FLASK_APP=runserver.py' >> ~/.bashrc
 echo  'export STATS_CONFIG=production.py' >> ~/.bashrc
 source ~/.bashrc
+
 
 # Create the configuration file
 bash -c "cat << EOF > $STATS_PATH/instance/production.py
