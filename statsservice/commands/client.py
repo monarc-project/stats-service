@@ -59,7 +59,11 @@ def client_delete(uuid, yes):
     """Delete the client specified with its UUID and all the related local stats."""
     if yes or click.confirm("Delete all local stats related to this client?"):
         try:
-            Client.query.filter(Client.uuid == uuid).delete()
-            db.session.commit()
+            cl = Client.query.filter(Client.uuid == uuid).first()
+            if cl:
+                db.session.delete(cl)
+                db.session.commit()
+            else:
+                print("No such client.")
         except Exception as e:
             print(e)

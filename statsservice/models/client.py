@@ -35,7 +35,7 @@ class Client(db.Model, UserMixin):
 
     # relationship
     stats = db.relationship(
-        "Stats", backref="client", lazy="dynamic", cascade="all,delete-orphan"
+        "Stats", backref="client", lazy="dynamic", cascade="all, delete, delete-orphan"
     )
 
     def get_id(self):
