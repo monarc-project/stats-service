@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-if [ $# -lt 3 ]
+if [ ! $# -eq 2 ]
   then
     echo "Two arguments are required. Usage:"
     echo "./create_client.sh CLIENT_NAME CLIENT_TOKEN"
