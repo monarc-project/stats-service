@@ -10,7 +10,7 @@ fi
 #export FLASK_APP=runserver.py
 #export STATS_CONFIG=production.py
 
-poetry env use /home/ansible/.pyenv/shims/python
+#poetry env use /home/ansible/.pyenv/shims/python
 
 
 poetry run flask client_create --name $1 --token $2
