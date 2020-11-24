@@ -1,30 +1,32 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container-fluid" role="main">
-  <div class="row">
-    <div class="col-md-10">
-      <h1>Global dashboard</h1>
+  <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="jumbotron m-3">
+                <h1>MONARC global statistics</h1>
+            </div>
+        </div>
     </div>
-  </div>
   <div class="row">
     <div class="col-md-10">
-      <h2>Threats</h2>
-      <p>Averages based on <i>count</i>.</p>
+      <h2 id="threats">Trend for threats</h2>
 		  <canvas id="canvas-threats"></canvas>
+      <p>Averages based on <i>count</i>.</p>
     </div>
   </div>
   <br /><hr /><br />
   <div class="row">
     <div class="col-md-10">
-      <h2>Vulnerabilities</h2>
-      <p>Averages based on <i>count</i>.</p>
+      <h2  id="vulnerabilities">Trend for vulnerabilities</h2>
 		  <canvas id="canvas-vulnerabilities"></canvas>
+      <p>Averages based on <i>count</i>.</p>
     </div>
 	</div>
   <div class="row">
     <div class="col">
       <hr />
-      <p class=""><br />Data based on aggregated statistics from several <a href="https://www.monarc.lu">MONARC instances</a>. More information about the <a href="https://github.com/monarc-project/stats-service/blob/master/docs/architecture.rst">sharing of stats</a>.</p>
+      <p class=""><br />Data based on aggregated statistics from several <a href="https://www.monarc.lu">MONARC instances</a>. More information about the <a href="https://github.com/monarc-project/stats-service/blob/master/docs/architecture.rst">sharing of statistics</a>.</p>
     </div>
   </div>
 </div><!-- /.container -->

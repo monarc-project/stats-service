@@ -50,6 +50,37 @@ a.disabled {
 }
 
 
+.jumbotron {
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: .3rem;
+}
+
+h1{
+  font-size:36px;
+}
+
+h2{
+  font-size:24px;
+}
+
+h3{
+  font-size:20px;
+}
+
+h4{
+  font-size:18px;
+}
+
+h5{
+  font-size:16px;
+}
+
+h6{
+  font-size:14px;
+}
+
 /* Sticky footer */
 .footer {
   position: absolute;
