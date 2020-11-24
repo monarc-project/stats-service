@@ -23,7 +23,7 @@ The collected statistics can be sent to an other stats instance.
 ## Deployment
 
 The following assumes you have already installed ``git``, ``poetry``,  and
-``Python >= 3.6.1``.
+``Python >= 3.6.12``.
 
 ```bash
 $ sudo apt install postgresql
