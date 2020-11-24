@@ -28,6 +28,7 @@ build
 
 .coverage
 
+webserver.wsgi
 node_modules/
 statsservice/static/npm_components
 instance/production.py
