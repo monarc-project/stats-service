@@ -57,11 +57,15 @@ elif ON_HEROKU:
     application.config["INSTANCE_URL"] = os.environ.get("INSTANCE_URL", "")
 elif os.environ.get("STATS_CONFIG", ""):
     # if a specific configuration is provided by the user
+    # this does not works with mod_wsgi
     config_file = os.environ.get("STATS_CONFIG", "")
     application.config.from_pyfile(config_file, silent=False)
 else:
-    # default configuration file
-    application.config.from_object("instance.config.ProductionConfig")
+    try:
+        application.config.from_pyfile("production.py", silent=False)
+    except Exception:
+        # default configuration file
+        application.config.from_object("instance.config.ProductionConfig")
 
 # Set SECRET_KEY if it was not defined
 if not application.config.get("SECRET_KEY", False):
