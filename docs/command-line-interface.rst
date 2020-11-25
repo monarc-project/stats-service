@@ -207,6 +207,19 @@ Delete stats
     -y, --yes           Automatically reply yes to the confirmation message.
     --help              Show this message and exit.
 
+Purging stats
+~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ flask stats_purge --help
+    Usage: flask stats_purge [OPTIONS]
+
+    Delete the stats older than the number of months specified in parameter.
+
+    Options:
+    --nb-month INTEGER  Age (in months) of the stats to purge.
+    --help              Show this message and exit.
 
 
 Interactions with MOSP
