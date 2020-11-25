@@ -4,6 +4,8 @@ import click
 import requests
 import sqlalchemy.exc
 
+from datetime import date
+from dateutil.relativedelta import relativedelta
 from urllib.parse import urljoin
 from statsservice.bootstrap import application, db
 from statsservice.models import Stats, Client
@@ -35,6 +37,24 @@ def stats_delete(client_uuid, yes):
             db.session.commit()
         except Exception as e:
             print(e)
+
+
+@application.cli.command("stats_purge")
+@click.option(
+    "--nb-month", default=36, help="Age (in months) of the stats to purge."
+)
+def stats_purge(nb_month):
+    """Delete the stats older than the number of months specified in parameter."""
+    print("Deleting stats older than {} months...".format(nb_month))
+    date_to = (date.today() - relativedelta(months=nb_month)).strftime(
+        "%Y-%m-%d"
+    )
+    #query = Stats.query.filter(Stats.date <= date_to)
+    try:
+        Stats.query.filter(Stats.date <= date_to).delete()
+        db.session.commit()
+    except Exception as e:
+        print(e)
 
 
 @application.cli.command("stats_push")

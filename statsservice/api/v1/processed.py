@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from flask_restx import Namespace, Resource, fields, abort, reqparse
 from flask_restx.inputs import date_from_iso8601
 
