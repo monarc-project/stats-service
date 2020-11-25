@@ -1,28 +1,66 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
-    <br />
-    <div class="card">
-        <div class="card-body">
-            <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="240" class="mx-auto d-block" alt="Logo of MONARC Stats Service" title="Logo of MONARC Stats Service">
-            <h1>MONARC Stats Service</h1>
-            <p>This software is released under AGPLv3 license.<br />You are welcome to copy, modify or
-            redistribute the <a href="https://github.com/monarc-project/stats-service">source code</a>
-            according to the <a href="https://www.gnu.org/licenses/agpl-3.0.html">Affero GPL</a> license.</p>
-            <p>Found a bug? Report it <a href="https://github.com/monarc-project/stats-service/issues">here</a>.
-        </div>
+  <br />
+  <div class="row">
+    <div class="col-md">
+      <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="240" class="mx-auto d-block" alt="Logo of MONARC Stats Service" title="Logo of MONARC Stats Service">
+      <h1>MONARC Stats Service</h1>
+      <p>This software is released under AGPLv3 license.<br />You are welcome to copy, modify or
+        redistribute the <a href="https://github.com/monarc-project/stats-service">source code</a>
+        according to the <a href="https://www.gnu.org/licenses/agpl-3.0.html">Affero GPL</a> license.</p>
+        <p>Found a bug? Report it <a href="https://github.com/monarc-project/stats-service/issues">here</a>.
     </div>
-    <br />
-    <div class="card">
-        <div class="card-body">
-            <h1>Help</h1>
-            <ul>
-              <li>a documentation is available <a href="https://monarc-stats-service.readthedocs.io">here</a></li>
-              <li><a href="{{ url_for('api.doc') }}">OpenAPI Specification</a></li>
-              <li>contact us at the address: <a href="mailto:info@cases.lu?subject=Stats Service">info@cases.lu</a></li>
-              <li>our website: <a href="https://www.cases.lu">https://www.cases.lu</a></li>
-            </ul>
-        </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-md">
+      <h1>Help</h1>
+      <ul>
+        <li>a documentation is available <a href="https://monarc-stats-service.readthedocs.io">here</a></li>
+        <li><a href="{{ url_for('api.doc') }}">OpenAPI Specification</a></li>
+        <li>contact us at the address: <a href="mailto:info@cases.lu?subject=Stats Service">info@cases.lu</a></li>
+        <li>our website: <a href="https://www.cases.lu">https://www.cases.lu</a></li>
+      </ul>
     </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-md">
+      <h2 id="how-does-it-work">How does it work?</h2>
+      <p>
+        The charts are generated with aggregated statistics from multiple
+        <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances.
+      </p>
+      <p>
+        More detailed information on the sharing of statistics is provided in the in the
+        <a href="https://monarc-stats-service.readthedocs.io/en/latest/architecture.html" rel="noreferrer" target="_blank">documentation</a>.
+      </p>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-md">
+      <h2 id="share">Want to contribute by sharing statistics?</h2>
+      <p>If you have your own MONARC instance you have the possibility to share some high level statistics with
+      the MONARC community. If you are interested simply <a href="mailto:info@cases.lu?subject=Sharing stats with MONARC">contact us</a>.</p>
+      <h3>What kind of data is envolved ?</h3>
+      <p>This dashboard attempts to provide meaningful insights based solely on the
+        <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
+        <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a> and
+        <a href="https://objects.monarc.lu/schema/16" rel="noreferrer" target="_blank">risks</a>
+        available through MONARC without any personally identifiable information.
+        Most of this data is already publicly available and bundled with MONARC.
+        To put it simply, this system aggregates, counts and processes different averages in order to display several charts.
+      </p>
+    </div>
+  </div>
+
 </div><!-- /.container -->
 {% endblock %}
