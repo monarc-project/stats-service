@@ -34,8 +34,11 @@ Wendy is simply connected to a MONARC front office deployed in a local
 Virtual Box instance. Stats Service (*stats*) is running next to MONARC in this virtual
 machine.
 
-Finally, locally collected statistics can optionally be sent to
-`dashboard.monarc.lu <https://dashboard.monarc.lu>`_ which is a global instance.
+.. note::
+
+    Locally collected statistics (in *stats*, *stats-A*, *stats-B* and *stats-C*)
+    can optionally be sent to `dashboard.monarc.lu <https://dashboard.monarc.lu>`_ which is
+    a global instance.
 
 
 Integration with external services

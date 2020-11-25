@@ -5,12 +5,20 @@
         <div class="col-md-6">
             <div class="jumbotron m-3">
                 <h1>MONARC global statistics</h1>
+                <p class="lead">This page depicts the current
+                  cybersecurity trends (in terms of
+                  <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
+                  <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a> and
+                  <a href="https://objects.monarc.lu/schema/16" rel="noreferrer" target="_blank">risks</a>)
+                  based on data kindly shared by
+                  several <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances.<br />
+                  More information about this data collection <a href="#details">here</a>.</p>
             </div>
         </div>
     </div>
   <div class="row">
     <div class="col-md-10">
-      <h2 id="threats">Trend for threats</h2>
+      <h2 id="threats">Trends for threats</h2>
 		  <canvas id="canvas-threats"></canvas>
       <p>Averages based on <i>count</i>.</p>
     </div>
@@ -18,7 +26,7 @@
   <br /><hr /><br />
   <div class="row">
     <div class="col-md-10">
-      <h2  id="vulnerabilities">Trend for vulnerabilities</h2>
+      <h2  id="vulnerabilities">Trends for vulnerabilities</h2>
 		  <canvas id="canvas-vulnerabilities"></canvas>
       <p>Averages based on <i>count</i>.</p>
     </div>
@@ -26,7 +34,13 @@
   <div class="row">
     <div class="col">
       <hr />
-      <p class=""><br />Data based on aggregated statistics from several <a href="https://www.monarc.lu">MONARC instances</a>. More information about the <a href="https://github.com/monarc-project/stats-service/blob/master/docs/architecture.rst">sharing of statistics</a>.</p>
+      <p class="lead" id="details">
+        <br />
+        <h2>How does it work?</h2>
+        These charts are generated with aggregated statistics from several
+        <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances.
+        More information about the <a href="https://monarc-stats-service.readthedocs.io/en/latest/architecture.html">sharing of statistics</a>.
+      </p>
     </div>
   </div>
 </div><!-- /.container -->

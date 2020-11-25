@@ -7,7 +7,7 @@ Prerequisites
 Generally speaking, requirements are the following:
 
 - A GNU/Linux distribution (tested on Debian and Ubuntu);
-- Python: version >= 3.6.1 and a dependency manager (for example `Poetry <https://python-poetry.org>`_);
+- Python: version >= 3.6.12 and a dependency manager (for example `Poetry <https://python-poetry.org>`_);
 - A PostgreSQL server 12.x: persistent storage.
 
 
@@ -113,9 +113,6 @@ or via command line:
     $ heroku config:set FLASK_APP='runserver.py'
     $ heroku config:set FLASK_ENV='development'
     $ git push heroku master
-
-A demo instance is available
-`here <https://monarc-stats-service.herokuapp.com/api/v1/>`_.
 
 Create a new client:
 
