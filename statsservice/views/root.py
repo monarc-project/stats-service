@@ -22,6 +22,7 @@
 
 from flask import Blueprint, redirect, url_for, render_template, jsonify
 from statsservice import __version__
+from statsservice.bootstrap import application
 
 # root_bp: blueprint of higher level routes
 root_bp = Blueprint("root_bp", __name__, url_prefix="")
@@ -59,7 +60,10 @@ def about_json():
         )
 
     return jsonify(
-        version=stats_version, version_url=version_url, api_v1_root=url_for("api.doc")
+        version=stats_version,
+        version_url=version_url,
+        api_v1_root=url_for("api.doc"),
+        contact=application.config["ADMIN_EMAIL"]
     )
 
 
