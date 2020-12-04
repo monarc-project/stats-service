@@ -119,7 +119,7 @@ Environment=STATS_CONFIG=production.py
 Environment=FLASK_RUN_HOST=$STATS_HOST
 Environment=FLASK_RUN_PORT=$STATS_PORT
 WorkingDirectory=$STATS_PATH
-ExecStart=/home/$ME/.poetry/bin/poetry run flask run
+ExecStart=/home/$ME/.pyenv/shims/python /home/$ME/.poetry/bin/poetry run flask run
 Restart=always
 
 [Install]
