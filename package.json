@@ -10,7 +10,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "bootstrap": "^5.0.0-alpha1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "popper.js": "^1.16.1"
   },
   "engines": {
