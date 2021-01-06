@@ -118,12 +118,6 @@ class ProcessingList(Resource):
         if None is processorParams:
             processorParams = {}
 
-        # Test:
-        logger.info("START TEST")
-        logger.info(processorParams)
-        logger.info(date_from)
-        logger.info("END TEST")
-
         if not processor.startswith(stat_type + "_"):
             abort(
                 400,
