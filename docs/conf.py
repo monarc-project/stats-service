@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'MONARC Stats Service'
-copyright = '2020, Cédric Bonhomme <cedric@cedricbonhomme.org>'
+copyright = '2020-2021, Cédric Bonhomme <cedric@cedricbonhomme.org>'
 author = 'Cédric Bonhomme <cedric@cedricbonhomme.org>'
 
 # The full version, including alpha/beta/rc tags
