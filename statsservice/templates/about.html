@@ -13,6 +13,7 @@
         redistribute the <a href="https://github.com/monarc-project/stats-service" target="_blank" rel="noopener noreferrer">source code</a>
         according to the <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener noreferrer">Affero GPL</a> license.</p>
         <p>Found a bug? Report it <a href="https://github.com/monarc-project/stats-service/issues" target="_blank" rel="noopener noreferrer">here</a>.
+        <p class="text-justify"><a href="{{ url_for('root_bp.about_more') }}">More information</a> about this instance.</p>
     </div>
   </div>
 
@@ -65,5 +66,16 @@
     </div>
   </div>
 
+  <hr />
+
+  <div class="row">
+    <div class="col-md">
+      <h2 id="share">MONARC objects</h2>
+      <p>If you are looking for the MONARC objects you can look at the official
+      <a href="{{ config['MOSP_URL'] }}" target="_blank" rel="noopener noreferrer" title="MONARC Objects Sharing Platform">MONARC Objects Sharing Platform</a>
+      (MOSP) which is providing an API in order to create and share JSON objects. MOSP can be
+      connected to a MONARC instance.</p>
+    </div>
+  </div>
 </div><!-- /.container -->
 {% endblock %}
