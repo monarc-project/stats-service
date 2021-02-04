@@ -104,11 +104,9 @@ def stats_pull(client_uuid, token, stats_type):
     in parameter.
     """
     client = Client.query.filter(Client.uuid == client_uuid).first()
-
     headers = {"X-API-KEY": token}
     payload = {"type": stats_type}
-
-    r = requests.get(STATS_API_ENDPOINT, params=payload, headers=headers)
+    r = requests.get(STATS_API_ENDPOINT, json=payload, headers=headers)
     stats = json.loads(r.content)
     for stat in stats["data"]:
         try:
