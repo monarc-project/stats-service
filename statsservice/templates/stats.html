@@ -22,6 +22,7 @@
     <div class="col-md-8">
       <h2 id="threats">Trends for threats</h2>
 		  <canvas id="canvas-threats"></canvas>
+      <!-- <div id="my-legend-con" class="legend-con"></div> -->
       <p>Averages based on <i>count</i><a href="#footnote-1">*</a>.</p>
     </div>
   </div>
@@ -43,9 +44,9 @@
   </div>
 </div><!-- /.container -->
 <script>
-(function() {
-  // define some colors for the lines of the chart
-  window.chartColors = [
+  (function() {
+    // define some colors for the lines of the chart
+    window.chartColors = [
     'rgba(230, 25, 75, 0.8)',
     'rgba(60, 180, 75, 0.8)',
     'rgba(255, 225, 25, 0.8)',
@@ -67,39 +68,56 @@
     'rgba(0, 0, 128, 0.8)',
     'rgba(128, 128, 128, 0.8)',
     'rgba(0, 0, 0, 0.8)'
-  ];
-  var color = Chart.helpers.color;
-  // basic configuration of the charts (threats and vulnerabilities)
-  var config = {
-    type: 'line',
-    data: {
-      datasets: []
-    },
-    options: {
-      scales: {
-        xAxes: [{
-          offset: true,
-          type: "time",
-          time: {
-            unit: 'day',
-            round: 'day',
-            displayFormats: {
-              day: 'MMM D'
-            }
-          }
-        }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
+    ];
+    var color = Chart.helpers.color;
+    // basic configuration of the charts (threats and vulnerabilities)
+    var config = {
+      type: 'line',
+      data: {
+        datasets: []
       },
-      legend: {
-        display: true,
-        position: 'right'
-      }
-    }
-  }
+      options: {
+        scales: {
+          xAxes: [{
+            offset: true,
+            type: "time",
+            time: {
+              unit: 'day',
+              round: 'day',
+              displayFormats: {
+                day: 'MMM D'
+              }
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        },
+        legend: {
+          display: true,
+          position: 'right',
+          fullWidth: true,
+          labels: {
+            fontFamily: "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+          },
+        },
+        // legendCallback: function(chart) {
+        //   var text = [];
+        //   text.push('<ul class="' + chart.id + '-legend1">');
+        //     for (var i = 0; i < chart.data.datasets.length; i++) {
+        //       text.push('<li><span style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>');
+        //         if (chart.data.datasets[i].label) {
+        //           text.push(chart.data.datasets[i].label);
+        //         }
+        //         text.push('</li>');
+        //       }
+        //       text.push('</ul>');
+        //       return text.join('');
+        //     },
+          }
+        }
 
   let retrieve_information_from_mosp = function(uuid, language) {
     return new Promise(function(resolve, reject) {
@@ -181,6 +199,9 @@
       // draw the chart
       var ctx_threats = document.getElementById("canvas-threats").getContext("2d");
       var chart_threats = new Chart(ctx_threats, config_threats);
+
+      // var legend = chart_threats.generateLegend();
+      // document.getElementById("my-legend-con").innerHTML = legend;
     })
 
 
