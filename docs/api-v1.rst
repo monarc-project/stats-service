@@ -39,6 +39,18 @@ Getting stats for a client
       "data": []
     }
 
+Specify a type of stats:
+
+.. code-block:: bash
+
+    $ curl --location --request GET \
+    -H 'X-API-KEY: rddPRk9_t-Z4GOgmY2UL2blKB1DxWB_0yhDlqcsF9p63eXs-oLCdm2c9YgP7cOqGz71GK1tc8lrCenD8AvEr-g' \
+    -H "Content-type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"type":"threat"}' \
+    'http://127.0.0.1:5005/api/v1/stats'
+
+
 
 Invoking a processor
 ~~~~~~~~~~~~~~~~~~~~
