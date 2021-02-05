@@ -4,14 +4,14 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="jumbotron m-3">
-        <h1>Global statistics</h1>
+        <h1>What are these graphics about?</h1>
         <p class="lead">This page depicts the current
           cybersecurity trends (in terms of
           <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
           <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a> and
           <a href="https://objects.monarc.lu/schema/16" rel="noreferrer" target="_blank">risks</a>)
           based on data shared by
-          several <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances.<br />
+          several <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances<sup><a href="#footnote-1">[1]</a></sup>.<br />
           <hr class="my-4">
           <a class="btn btn-primary btn-lg" href="{{ url_for('root_bp.about') }}#how-does-it-work" role="button">Learn more</a>
         </div>
@@ -23,7 +23,8 @@
       <h2 id="threats">Trends for threats</h2>
 		  <canvas id="canvas-threats"></canvas>
       <!-- <div id="my-legend-con" class="legend-con"></div> -->
-      <p>Averages based on <i>count</i><a href="#footnote-1">*</a>.</p>
+      <br />
+      <p>Averages based on <i>count</i><sup><a href="#footnote-2">[2]</a></sup>.</p>
     </div>
   </div>
   <br /><hr /><br />
@@ -31,7 +32,14 @@
     <div class="col-md-8">
       <h2 id="vulnerabilities">Trends for vulnerabilities</h2>
 		  <canvas id="canvas-vulnerabilities"></canvas>
-      <p>Averages based on <i>count</i><a href="#footnote-1">*</a>.</p>
+      <br />
+      <p>Averages based on <i>count</i><sup><a href="#footnote-2">[2]</a></sup>.</p>
+    </div>
+	</div>
+  <br /><hr /><br />
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 id="vulnerabilities">Risks</h2>
     </div>
 	</div>
 
@@ -39,7 +47,11 @@
 
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <p id="footnote-1">* Number of occurences.</p>
+      <ol class="footnotes">
+        <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">Details</a> about contributors and the stats on this instance.</li>
+        <li id="footnote-2">Count as the number of occurences. An average per date.</li>
+      </ol>
+
     </div>
   </div>
 </div><!-- /.container -->
@@ -289,37 +301,6 @@
     console.error('Error:', error);
   });;
 
-
-  // Test: fetch stats for threats
-  // fetch("{{ url_for('stats_bp.threats',) }}", {
-  //   method: "GET",
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // })
-  // .then((resp) => resp.json())
-  // .then(function(data) {
-  //   Object.keys(data).map(function(threat_uuid, value) {
-  //     console.log(data[threat_uuid]);
-  //
-  //   })
-  // })
-  // .catch((error) => {
-  //   console.error('Error:', error);
-  // });;
-
-
-  // Test: fetch stats for risks
-  // fetch("{{ url_for('stats_bp.risks',) }}", {
-  //   method: "GET",
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // }).then(res => {
-  //   console.log("Request complete! response:", res);
-  // }).catch((error) => {
-  //   console.error('Error:', error);
-  // });;
 })();
 </script>
 {% endblock %}
