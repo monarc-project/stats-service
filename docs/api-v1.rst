@@ -48,7 +48,7 @@ Specify a type of stats:
     -H "Content-type: application/json" \
     -H "Accept: application/json" \
     -d '{"type":"threat"}' \
-    'http://127.0.0.1:5005/api/v1/stats'
+    'http://127.0.0.1:5000/api/v1/stats'
 
 
 
