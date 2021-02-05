@@ -39,7 +39,9 @@
   <br /><hr /><br />
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h2 id="vulnerabilities">Risks</h2>
+      <h2 id="risks">Risks</h2>
+      <canvas id="canvas-risks-info"></canvas>
+      <canvas id="canvas-risks-op"></canvas>
     </div>
 	</div>
 
@@ -296,7 +298,64 @@
   })
   .then((resp) => resp.json())
   .then(function(resp_json) {
-    console.log(resp_json);
+    var config_info = {
+      type: 'bar',
+      data: {
+        labels: ["High", "Low", "Medium"],
+        datasets: [
+          {
+            label: "Current Risks",
+            backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
+            data: Object.values(resp_json["current"]["informational"])
+          },
+          {
+            label: "Residual Risks",
+            backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
+            data: Object.values(resp_json["residual"]["informational"])
+          },
+        ]
+      },
+      options: {
+        legend: { display: true },
+        title: {
+          display: true,
+          text: 'Informational risks'
+        }
+      }
+    };
+
+    var config_op = {
+      type: 'bar',
+      data: {
+        labels: ["High", "Low", "Medium"],
+        datasets: [
+          {
+            label: "Current Risks",
+            backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
+            data: Object.values(resp_json["current"]["operational"])
+          },
+          {
+            label: "Residual Risks",
+            backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
+            data: Object.values(resp_json["residual"]["operational"])
+          },
+        ]
+      },
+      options: {
+        legend: { display: true },
+        title: {
+          display: true,
+          text: 'Operational risks'
+        }
+      }
+    };
+
+    var ctx_risks_info = document.getElementById("canvas-risks-info").getContext("2d");
+    var chart_risks = new Chart(ctx_risks_info, config_info);
+
+    var ctx_risks_op = document.getElementById("canvas-risks-op").getContext("2d");
+    var chart_risks = new Chart(ctx_risks_op, config_op);
+
   }).catch((error) => {
     console.error('Error:', error);
   });;
