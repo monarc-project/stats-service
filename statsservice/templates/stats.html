@@ -21,7 +21,9 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h2 id="threats">Trends for threats</h2>
-		  <canvas id="canvas-threats"></canvas>
+      <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+		      <canvas id="canvas-threats"></canvas>
+      </div>
       <!-- <div id="my-legend-con" class="legend-con"></div> -->
       <br />
       <p>Averages based on <i>count</i><sup><a href="#footnote-2">[2]</a></sup>.</p>
@@ -31,7 +33,9 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <h2 id="vulnerabilities">Trends for vulnerabilities</h2>
-		  <canvas id="canvas-vulnerabilities"></canvas>
+      <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+		      <canvas id="canvas-vulnerabilities"></canvas>
+      </div>
       <br />
       <p>Averages based on <i>count</i><sup><a href="#footnote-2">[2]</a></sup>.</p>
     </div>
@@ -109,6 +113,8 @@
             }
           }]
         },
+        responsive: true,
+        maintainAspectRatio: false,
         legend: {
           display: true,
           position: 'right',
