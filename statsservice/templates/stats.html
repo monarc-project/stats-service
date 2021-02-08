@@ -26,7 +26,7 @@
       </div>
       <!-- <div id="my-legend-con" class="legend-con"></div> -->
       <br />
-      <p>Averages based on <i>count</i><sup><a href="#footnote-2">[2]</a></sup>.</p>
+      <p>Values are based on the <i>averageRate</i> of the threats.<sup><a href="#footnote-2">[2]</a></sup>.</p>
     </div>
   </div>
   <br /><hr /><br />
@@ -37,7 +37,7 @@
 		      <canvas id="canvas-vulnerabilities"></canvas>
       </div>
       <br />
-      <p>Averages based on <i>count</i><sup><a href="#footnote-2">[2]</a></sup>.</p>
+      <p>Values are based on the <i>averageRate</i> of the vulnerabilities.<sup><a href="#footnote-2">[2]</a></sup>.</p>
     </div>
 	</div>
   <br /><hr /><br />
@@ -55,7 +55,7 @@
     <div class="col-md-8">
       <ol class="footnotes">
         <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">Details</a> about contributors and the stats on this instance.</li>
-        <li id="footnote-2">Count as the number of occurences. An average per date.</li>
+        <li id="footnote-2">Averages per date of the different averageRate for threats and vulnerabilities.</li>
       </ol>
 
     </div>
@@ -208,7 +208,7 @@
         .map(function(elem) {
           data.push({
             x: new Date(elem.date),
-            y: elem.count
+            y: elem.averageRate
           })
         });
         dataset["data"] = data;
@@ -275,7 +275,7 @@
         .map(function(elem) {
           data.push({
             x: new Date(elem.date),
-            y: elem.count
+            y: elem.averageRate
           })
         });
         dataset["data"] = data;
