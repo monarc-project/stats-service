@@ -19,230 +19,226 @@
           <hr class="my-4">
           <a class="btn btn-primary btn-lg" href="{{ url_for('root_bp.about') }}#how-does-it-work" role="button">Learn more</a>
         </div>
-    </div>
-  </div>
-  <br />
-  <div class="row justify-content-center">
-    <div class="col">
-      <h2 id="threats">Trends for threats</h2>
-      <div class="chart-container" style="position: relative; height:40vh; width:80vw">
-		      <canvas id="canvas-threats"></canvas>
       </div>
-      <!-- <div id="my-legend-con" class="legend-con"></div> -->
-      <br />
-      <p>Values are based on the <i>averageRate</i> of the threats.<sup><a href="#footnote-2">[2]</a></sup>.</p>
     </div>
-  </div>
-  <br /><hr /><br />
-  <div class="row justify-content-center">
-    <div class="col">
-      <h2 id="vulnerabilities">Trends for vulnerabilities</h2>
-      <div class="chart-container" style="position: relative; height:40vh; width:80vw">
-		      <canvas id="canvas-vulnerabilities"></canvas>
+    <br />
+    <div class="row justify-content-center">
+      <div class="col">
+        <h2 id="threats">Trends for threats</h2>
+        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+          <canvas id="canvas-threats"></canvas>
+        </div>
+        <!-- <div id="my-legend-con" class="legend-con"></div> -->
+        <br />
+        <p>Values are based on the <i>averageRate</i> of the threats.<sup><a href="#footnote-2">[2]</a></sup>.</p>
       </div>
-      <br />
-      <p>Values are based on the <i>averageRate</i> of the vulnerabilities.<sup><a href="#footnote-2">[2]</a></sup>.</p>
     </div>
-	</div>
-  <br /><hr /><br />
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h2 id="risks">Risks</h2>
-      <canvas id="canvas-risks-info"></canvas>
-      <canvas id="canvas-risks-op"></canvas>
+    <br /><hr /><br />
+    <div class="row justify-content-center">
+      <div class="col">
+        <h2 id="vulnerabilities">Trends for vulnerabilities</h2>
+        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+          <canvas id="canvas-vulnerabilities"></canvas>
+        </div>
+        <br />
+        <p>Values are based on the <i>averageRate</i> of the vulnerabilities.<sup><a href="#footnote-2">[2]</a></sup>.</p>
+      </div>
     </div>
-	</div>
-
-  <hr />
-
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <ol class="footnotes">
-        <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">Details</a> about contributors and the stats on this instance.</li>
-        <li id="footnote-2">Averages per date of the different averageRate for threats and vulnerabilities.</li>
-      </ol>
-
+    <br /><hr /><br />
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h2 id="risks">Risks</h2>
+        <canvas id="canvas-risks-info"></canvas>
+        <canvas id="canvas-risks-op"></canvas>
+      </div>
     </div>
-  </div>
-</div><!-- /.container -->
-<script>
-  (function() {
-  var color = Chart.helpers.color;
 
+    <hr />
 
-  // fetch stats for threats (averages per threats per date)  and display the chart
-  fetch("{{ url_for('stats_bp.threats', processor='threat_average_on_date', days=365) | safe }}", {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  .then((resp) => resp.json())
-  .then(function(resp_json) {
-    // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
-    // (we limit the datasets to the number of previously defined colors)
-    threats_by_uuid = {}
-    var promises = resp_json.slice(0, chartColors.length).map(function(threat) {
-      return retrieve_information_from_mosp(threat.object, "EN")
-      .then(function(result_mosp) {
-        threats_by_uuid[threat.object] = {"object": threat}
-        threats_by_uuid[threat.object]["translated_label"] = result_mosp
-        return threat.object;
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <ol class="footnotes">
+          <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">Details</a> about contributors and the stats on this instance.</li>
+          <li id="footnote-2">Averages per date of the different averageRate for threats and vulnerabilities.</li>
+        </ol>
+
+      </div>
+    </div>
+  </div><!-- /.container -->
+  <script>
+    (function() {
+      var color = Chart.helpers.color;
+
+      // fetch stats for threats (averages per threats per date)  and display the chart
+      fetch("{{ url_for('stats_bp.threats', processor='threat_average_on_date', days=365) | safe }}", {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
-    })
-
-    // wait that we have all responses from MOSP
-    Promise.all(promises).then(function(results) {
-      // initializes a configuration variable for the chart
-      var config_threats = JSON.parse(JSON.stringify(config_base_line_chart));
-      // construct the datasets
-      datasets = [];
-      Object.keys(threats_by_uuid)
-      .map(function(threat_uuid, index) {
-        data = [];
-        dataset = {
-          "label": threats_by_uuid[threat_uuid]["translated_label"],
-          "backgroundColor": color(chartColors[index]).alpha(0.5).rgbString(),
-          "borderColor": chartColors[index],
-          "fill": false,
-        };
-
-        threats_by_uuid[threat_uuid]["object"]['values']
-        .sort(function(a, b) {
-          return new Date(a.date) - new Date(b.date) ;
-        })
-        .map(function(elem) {
-          data.push({
-            x: new Date(elem.date),
-            y: elem.averageRate
+      .then((resp) => resp.json())
+      .then(function(resp_json) {
+        // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+        // (we limit the datasets to the number of previously defined colors)
+        threats_by_uuid = {}
+        var promises = resp_json.slice(0, chartColors.length).map(function(threat) {
+          return retrieve_information_from_mosp(threat.object, "EN")
+          .then(function(result_mosp) {
+            threats_by_uuid[threat.object] = {"object": threat}
+            threats_by_uuid[threat.object]["translated_label"] = result_mosp
+            return threat.object;
           })
-        });
-        dataset["data"] = data;
-        datasets.push(dataset);
-      })
-
-      // finally set the datasets in the config variable
-      config_threats["data"]["datasets"] = datasets;
-
-      // draw the chart
-      var ctx_threats = document.getElementById("canvas-threats").getContext("2d");
-      var chart_threats = new Chart(ctx_threats, config_threats);
-
-      // var legend = chart_threats.generateLegend();
-      // document.getElementById("my-legend-con").innerHTML = legend;
-    })
-
-
-  }).catch((error) => {
-    console.error('Error:', error);
-  });;
-
-
-
-  // fetch stats for vulnerabilities (averages per vulnerabilities per date)  and display the chart
-  fetch("{{ url_for('stats_bp.vulnerabilities', processor='vulnerability_average_on_date', days=365) | safe }}", {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  .then((resp) => resp.json())
-  .then(function(resp_json) {
-    // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
-    // (we limit the datasets to the number of previously defined colors)
-    vulnerabilities_by_uuid = {}
-    var promises = resp_json.slice(0, chartColors.length).map(function(vulnerability) {
-      return retrieve_information_from_mosp(vulnerability.object, "")
-      .then(function(result_mosp) {
-        vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
-        vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = result_mosp
-        return vulnerability.object;
-      })
-    })
-
-    Promise.all(promises).then(function(results) {
-      // initializes a configuration variable for the chart
-      var config_vulnerabilities = JSON.parse(JSON.stringify(config_base_line_chart));
-      // construct the datasets
-      datasets = [];
-      Object.keys(vulnerabilities_by_uuid).map(function(vulnerability_uuid, index) {
-        data = [];
-        dataset = {
-          "label": vulnerabilities_by_uuid[vulnerability_uuid]["translated_label"],
-          "backgroundColor": color(chartColors[index]).alpha(0.5).rgbString(),
-          "borderColor": chartColors[index],
-          "fill": false,
-        };
-
-        vulnerabilities_by_uuid[vulnerability_uuid]["object"]['values']
-        .sort(function(a, b) {
-          return new Date(a.date) - new Date(b.date) ;
         })
-        .map(function(elem) {
-          data.push({
-            x: new Date(elem.date),
-            y: elem.averageRate
+
+        // wait that we have all responses from MOSP
+        Promise.all(promises).then(function(results) {
+          // initializes a configuration variable for the chart
+          var config_threats = JSON.parse(JSON.stringify(config_base_line_chart));
+          // construct the datasets
+          datasets = [];
+          Object.keys(threats_by_uuid)
+          .map(function(threat_uuid, index) {
+            data = [];
+            dataset = {
+              "label": threats_by_uuid[threat_uuid]["translated_label"],
+              "backgroundColor": color(chartColors[index]).alpha(0.5).rgbString(),
+              "borderColor": chartColors[index],
+              "fill": false,
+            };
+
+            threats_by_uuid[threat_uuid]["object"]['values']
+            .sort(function(a, b) {
+              return new Date(a.date) - new Date(b.date) ;
+            })
+            .map(function(elem) {
+              data.push({
+                x: new Date(elem.date),
+                y: elem.averageRate
+              })
+            });
+            dataset["data"] = data;
+            datasets.push(dataset);
           })
-        });
-        dataset["data"] = data;
-        datasets.push(dataset);
+
+          // finally set the datasets in the config variable
+          config_threats["data"]["datasets"] = datasets;
+
+          // draw the chart
+          var ctx_threats = document.getElementById("canvas-threats").getContext("2d");
+          var chart_threats = new Chart(ctx_threats, config_threats);
+
+          // var legend = chart_threats.generateLegend();
+          // document.getElementById("my-legend-con").innerHTML = legend;
+        })
+      }).catch((error) => {
+        console.error('Error:', error);
+      });;
+
+
+      // fetch stats for vulnerabilities (averages per vulnerabilities per date)  and display the chart
+      fetch("{{ url_for('stats_bp.vulnerabilities', processor='vulnerability_average_on_date', days=365) | safe }}", {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
+      .then((resp) => resp.json())
+      .then(function(resp_json) {
+        // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+        // (we limit the datasets to the number of previously defined colors)
+        vulnerabilities_by_uuid = {}
+        var promises = resp_json.slice(0, chartColors.length).map(function(vulnerability) {
+          return retrieve_information_from_mosp(vulnerability.object, "")
+          .then(function(result_mosp) {
+            vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
+            vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = result_mosp
+            return vulnerability.object;
+          })
+        })
 
-      // finally set the datasets in the config variable
-      config_vulnerabilities["data"]["datasets"] = datasets;
+        Promise.all(promises).then(function(results) {
+          // initializes a configuration variable for the chart
+          var config_vulnerabilities = JSON.parse(JSON.stringify(config_base_line_chart));
+          // construct the datasets
+          datasets = [];
+          Object.keys(vulnerabilities_by_uuid).map(function(vulnerability_uuid, index) {
+            data = [];
+            dataset = {
+              "label": vulnerabilities_by_uuid[vulnerability_uuid]["translated_label"],
+              "backgroundColor": color(chartColors[index]).alpha(0.5).rgbString(),
+              "borderColor": chartColors[index],
+              "fill": false,
+            };
 
-      // draw the chart
-      var ctx_vulnerabilities = document.getElementById("canvas-vulnerabilities").getContext("2d");
-      var chart_vulnerabilities = new Chart(ctx_vulnerabilities, config_vulnerabilities);
-    })
+            vulnerabilities_by_uuid[vulnerability_uuid]["object"]['values']
+            .sort(function(a, b) {
+              return new Date(a.date) - new Date(b.date) ;
+            })
+            .map(function(elem) {
+              data.push({
+                x: new Date(elem.date),
+                y: elem.averageRate
+              })
+            });
+            dataset["data"] = data;
+            datasets.push(dataset);
+          })
+
+          // finally set the datasets in the config variable
+          config_vulnerabilities["data"]["datasets"] = datasets;
+
+          // draw the chart
+          var ctx_vulnerabilities = document.getElementById("canvas-vulnerabilities").getContext("2d");
+          var chart_vulnerabilities = new Chart(ctx_vulnerabilities, config_vulnerabilities);
+        })
 
 
-  }).catch((error) => {
-    console.error('Error:', error);
-  });;
+      }).catch((error) => {
+        console.error('Error:', error);
+      });;
 
 
-  // fetch stats for risks and display the charts
-  fetch("{{ url_for('stats_bp.risks', processor='risk_averages', days=365) | safe }}", {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  .then((resp) => resp.json())
-  .then(function(resp_json) {
-    // Display data for informational risks
-    config_base_bar_chart_informational_risks["data"]["datasets"].push({
-      label: "Current Risks",
-      backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
-      data: Object.values(resp_json["current"]["informational"])
-    })
-    config_base_bar_chart_informational_risks["data"]["datasets"].push({
-      label: "Residual Risks",
-      backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
-      data: Object.values(resp_json["residual"]["informational"])
-    })
-    var ctx_risks_info = document.getElementById("canvas-risks-info").getContext("2d");
-    var chart_risks = new Chart(ctx_risks_info, config_base_bar_chart_informational_risks);
+      // fetch stats for risks and display the charts
+      fetch("{{ url_for('stats_bp.risks', processor='risk_averages', days=365) | safe }}", {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((resp) => resp.json())
+      .then(function(resp_json) {
+        // Display data for informational risks
+        config_base_bar_chart_informational_risks["data"]["datasets"].push({
+          label: "Current Risks",
+          backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
+          data: Object.values(resp_json["current"]["informational"])
+        })
+        config_base_bar_chart_informational_risks["data"]["datasets"].push({
+          label: "Residual Risks",
+          backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
+          data: Object.values(resp_json["residual"]["informational"])
+        })
+        var ctx_risks_info = document.getElementById("canvas-risks-info").getContext("2d");
+        var chart_risks = new Chart(ctx_risks_info, config_base_bar_chart_informational_risks);
 
-    // Display data for operational risks
-    config_base_bar_chart_operational_risks["data"]["datasets"].push({
-      label: "Current Risks",
-      backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
-      data: Object.values(resp_json["current"]["operational"])
-    })
-    config_base_bar_chart_operational_risks["data"]["datasets"].push({
-      label: "Residual Risks",
-      backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
-      data: Object.values(resp_json["residual"]["operational"])
-    })
-    var ctx_risks_op = document.getElementById("canvas-risks-op").getContext("2d");
-    var chart_risks = new Chart(ctx_risks_op, config_base_bar_chart_operational_risks);
+        // Display data for operational risks
+        config_base_bar_chart_operational_risks["data"]["datasets"].push({
+          label: "Current Risks",
+          backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
+          data: Object.values(resp_json["current"]["operational"])
+        })
+        config_base_bar_chart_operational_risks["data"]["datasets"].push({
+          label: "Residual Risks",
+          backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
+          data: Object.values(resp_json["residual"]["operational"])
+        })
+        var ctx_risks_op = document.getElementById("canvas-risks-op").getContext("2d");
+        var chart_risks = new Chart(ctx_risks_op, config_base_bar_chart_operational_risks);
 
-  }).catch((error) => {
-    console.error('Error:', error);
-  });;
+      }).catch((error) => {
+        console.error('Error:', error);
+      });;
 
-})();
-</script>
-{% endblock %}
+    })();
+  </script>
+  {% endblock %}
