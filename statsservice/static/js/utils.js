@@ -78,6 +78,38 @@ var config_base_line_chart = {
 }
 
 
+var config_base_bar_chart_informational_risks = {
+  type: 'bar',
+  data: {
+    labels: ["High", "Low", "Medium"],
+    datasets: []
+  },
+  options: {
+    legend: { display: true },
+    title: {
+      display: true,
+      text: 'Informational risks'
+    }
+  }
+};
+
+
+var config_base_bar_chart_operational_risks = {
+  type: 'bar',
+  data: {
+    labels: ["High", "Low", "Medium"],
+    datasets: []
+  },
+  options: {
+    legend: { display: true },
+    title: {
+      display: true,
+      text: 'Operational risks'
+    }
+  }
+};
+
+
 let retrieve_information_from_mosp = function(uuid, language) {
   return new Promise(function(resolve, reject) {
     fetch("https://objects.monarc.lu/api/v2/object/?language="+language+"&uuid="+uuid, {

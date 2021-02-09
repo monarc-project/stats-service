@@ -70,7 +70,7 @@
   var color = Chart.helpers.color;
 
 
-  // fetch stats for threats (averages per threats per date)
+  // fetch stats for threats (averages per threats per date)  and display the chart
   fetch("{{ url_for('stats_bp.threats', processor='threat_average_on_date', days=365) | safe }}", {
     method: "GET",
     headers: {
@@ -139,7 +139,7 @@
 
 
 
-  // fetch stats for vulnerabilities (averages per vulnerabilities per date)
+  // fetch stats for vulnerabilities (averages per vulnerabilities per date)  and display the chart
   fetch("{{ url_for('stats_bp.vulnerabilities', processor='vulnerability_average_on_date', days=365) | safe }}", {
     method: "GET",
     headers: {
@@ -202,8 +202,7 @@
   });;
 
 
-
-  // fetch stats for risks
+  // fetch stats for risks and display the charts
   fetch("{{ url_for('stats_bp.risks', processor='risk_averages', days=365) | safe }}", {
     method: "GET",
     headers: {
@@ -212,63 +211,33 @@
   })
   .then((resp) => resp.json())
   .then(function(resp_json) {
-    var config_info = {
-      type: 'bar',
-      data: {
-        labels: ["High", "Low", "Medium"],
-        datasets: [
-          {
-            label: "Current Risks",
-            backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
-            data: Object.values(resp_json["current"]["informational"])
-          },
-          {
-            label: "Residual Risks",
-            backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
-            data: Object.values(resp_json["residual"]["informational"])
-          },
-        ]
-      },
-      options: {
-        legend: { display: true },
-        title: {
-          display: true,
-          text: 'Informational risks'
-        }
-      }
-    };
-
-    var config_op = {
-      type: 'bar',
-      data: {
-        labels: ["High", "Low", "Medium"],
-        datasets: [
-          {
-            label: "Current Risks",
-            backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
-            data: Object.values(resp_json["current"]["operational"])
-          },
-          {
-            label: "Residual Risks",
-            backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
-            data: Object.values(resp_json["residual"]["operational"])
-          },
-        ]
-      },
-      options: {
-        legend: { display: true },
-        title: {
-          display: true,
-          text: 'Operational risks'
-        }
-      }
-    };
-
+    // Display data for informational risks
+    config_base_bar_chart_informational_risks["data"]["datasets"].push({
+      label: "Current Risks",
+      backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
+      data: Object.values(resp_json["current"]["informational"])
+    })
+    config_base_bar_chart_informational_risks["data"]["datasets"].push({
+      label: "Residual Risks",
+      backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
+      data: Object.values(resp_json["residual"]["informational"])
+    })
     var ctx_risks_info = document.getElementById("canvas-risks-info").getContext("2d");
-    var chart_risks = new Chart(ctx_risks_info, config_info);
+    var chart_risks = new Chart(ctx_risks_info, config_base_bar_chart_informational_risks);
 
+    // Display data for operational risks
+    config_base_bar_chart_operational_risks["data"]["datasets"].push({
+      label: "Current Risks",
+      backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
+      data: Object.values(resp_json["current"]["operational"])
+    })
+    config_base_bar_chart_operational_risks["data"]["datasets"].push({
+      label: "Residual Risks",
+      backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
+      data: Object.values(resp_json["residual"]["operational"])
+    })
     var ctx_risks_op = document.getElementById("canvas-risks-op").getContext("2d");
-    var chart_risks = new Chart(ctx_risks_op, config_op);
+    var chart_risks = new Chart(ctx_risks_op, config_base_bar_chart_operational_risks);
 
   }).catch((error) => {
     console.error('Error:', error);
