@@ -67,84 +67,8 @@
 </div><!-- /.container -->
 <script>
   (function() {
+  var color = Chart.helpers.color;
 
-
-    var color = Chart.helpers.color;
-    // basic configuration of the charts (threats and vulnerabilities)
-    var config = {
-      type: 'line',
-      data: {
-        datasets: []
-      },
-      options: {
-        scales: {
-          xAxes: [{
-            offset: true,
-            type: "time",
-            time: {
-              unit: 'day',
-              round: 'day',
-              displayFormats: {
-                day: 'MMM D'
-              }
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: true,
-          position: 'bottom',
-          align: 'start',
-          fullWidth: true,
-          padding: 40,
-          labels: {
-            fontFamily: "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
-          },
-        },
-        // legendCallback: function(chart) {
-        //   var text = [];
-        //   text.push('<ul class="' + chart.id + '-legend1">');
-        //     for (var i = 0; i < chart.data.datasets.length; i++) {
-        //       text.push('<li><span style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>');
-        //         if (chart.data.datasets[i].label) {
-        //           text.push(chart.data.datasets[i].label);
-        //         }
-        //         text.push('</li>');
-        //       }
-        //       text.push('</ul>');
-        //       return text.join('');
-        //     },
-          }
-        }
-
-  let retrieve_information_from_mosp = function(uuid, language) {
-    return new Promise(function(resolve, reject) {
-      fetch("https://objects.monarc.lu/api/v2/object/?language="+language+"&uuid="+uuid, {
-        method: "GET",
-        headers: {
-          'Content-Type': 'text/plain',
-        },
-      })
-      .then((resp) => resp.json())
-      .then(function(mosp_result) {
-        if (mosp_result["metadata"].count > 0) {
-          resolve(mosp_result["data"][0].name);
-        } else {
-          resolve(uuid);
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        reject(Error(error));
-      });;
-    });
-  }
 
   // fetch stats for threats (averages per threats per date)
   fetch("{{ url_for('stats_bp.threats', processor='threat_average_on_date', days=365) | safe }}", {
@@ -170,7 +94,7 @@
     // wait that we have all responses from MOSP
     Promise.all(promises).then(function(results) {
       // initializes a configuration variable for the chart
-      var config_threats = JSON.parse(JSON.stringify(config));
+      var config_threats = JSON.parse(JSON.stringify(config_base_line_chart));
       // construct the datasets
       datasets = [];
       Object.keys(threats_by_uuid)
@@ -238,7 +162,7 @@
 
     Promise.all(promises).then(function(results) {
       // initializes a configuration variable for the chart
-      var config_vulnerabilities = JSON.parse(JSON.stringify(config));
+      var config_vulnerabilities = JSON.parse(JSON.stringify(config_base_line_chart));
       // construct the datasets
       datasets = [];
       Object.keys(vulnerabilities_by_uuid).map(function(vulnerability_uuid, index) {
