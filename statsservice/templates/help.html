@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col-md">
+      <h1>Help</h1>
+      <ul>
+        <li>a documentation is available <a href="https://monarc-stats-service.readthedocs.io" target="_blank" rel="noopener noreferrer">here</a></li>
+        <li><a href="{{ url_for('api.doc') }}">OpenAPI Specification</a> of the API</li>
+        <li>contact the admin of this Stats Service instance at the address: <a href="mailto:{{ config.ADMIN_EMAIL }}?subject=Stats Service">{{ config.ADMIN_EMAIL }}</a></li>
+        <li>our website: <a href="{{ config.ADMIN_URL }}" target="_blank" rel="noopener noreferrer">{{ config.ADMIN_URL }}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-md">
+      <h1>Q&A</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md">
+      <h2 id="how-does-it-work">How does it work?</h2>
+      <p>
+        The charts are generated with aggregated statistics from multiple
+        <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances.
+      </p>
+      <p>
+        More detailed information on the sharing of statistics is provided in the in the
+        <a href="https://monarc-stats-service.readthedocs.io/en/latest/architecture.html" rel="noreferrer" target="_blank">documentation</a>.
+      </p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md">
+      <h2 id="share">Want to contribute by sharing statistics?</h2>
+      <p>If you have your own MONARC instance you have the possibility to share some high level statistics with
+      the MONARC community. If you are interested simply contact <a href="mailto:{{ config.ADMIN_EMAIL }}?subject=Sharing stats with MONARC">{{ config.ADMIN_EMAIL }}</a>.</p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md">
+      <h2>What kind of data is envolved ?</h2>
+      <p>This dashboard attempts to provide meaningful insights based on the
+        <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
+        <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a> and
+        <a href="https://objects.monarc.lu/schema/16" rel="noreferrer" target="_blank">risks</a>
+        available through MONARC without any personally identifiable information.
+        Most of this data is already publicly available and bundled with MONARC.
+        To put it simply, this system aggregates, counts and processes different averages in order to display several charts.
+      </p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md">
+      <h2 id="send-stats">How to send stats to dashboard.monarc.lu ?</h2>
+      <p>A client is provided in order to let you push your stats. A documentation is available
+        <a href="https://monarc-stats-service.readthedocs.io/en/latest/command-line-interface.html#pushing-data">here</a>.</p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md">
+      <h2 id="share">What are MONARC objects ?</h2>
+      <p>If you are looking for the MONARC objects you can look at the official
+      <a href="{{ config['MOSP_URL'] }}" target="_blank" rel="noopener noreferrer" title="MONARC Objects Sharing Platform">MONARC Objects Sharing Platform</a>
+      (MOSP) which is providing an API in order to create and share JSON objects. MOSP can be
+      connected to a MONARC instance.</p>
+    </div>
+  </div>
+</div><!-- /.container -->
+{% endblock %}

@@ -37,6 +37,12 @@ def home():
     return redirect(url_for("stats_bp.stats")) #redirect(url_for("api.doc"))
 
 
+@root_bp.route("help", methods=["GET"])
+def help():
+    """About page."""
+    return render_template("help.html")
+
+
 @root_bp.route("about", methods=["GET"])
 def about():
     """About page."""
