@@ -15,6 +15,11 @@ The Stats Service is installed on a dedicated server, gathering stats sent by th
 front office (FO). It can also return the aggregated stats to the MONARC backend (FO)
 for the dashboard of the MONARC users (with the CEO role).
 
+.. note::
+
+    The Stats Service only communicates with the backend of MONARC thanks to
+    :doc:`its API <./api-v1>`.
+
 The stats collection (from the FO to the stats node) can be triggered with a cron
 task.
 
