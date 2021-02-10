@@ -55,7 +55,7 @@ machine.
 
 .. note::
 
-    Locally collected statistics (in *stats*)
+    In all scenario, locally collected statistics (in *stats* node)
     can optionally be sent to `dashboard.monarc.lu <https://dashboard.monarc.lu>`_ which is
     a global instance. It's the same software.
 
