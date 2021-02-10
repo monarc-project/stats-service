@@ -60,6 +60,13 @@ machine.
     a global instance. It's the same software.
 
 
+.. note::
+
+    It is as well possible to run your own alternative to dashboard.monarc.lu. And then
+    you can configure the variable *REMOTE_STATS_SERVER* of your local Stats Service
+    instance with the address of your "global" instance.
+
+
 Integration with external services
 ----------------------------------
 

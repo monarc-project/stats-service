@@ -127,6 +127,8 @@ All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 From the Python Package Index
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+If you use this method not all functionalities will be working, for the moment.
+
 .. only:: html
 
     .. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
