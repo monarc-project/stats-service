@@ -1,44 +1,63 @@
 Architecture
 ============
 
+These architecture diagrams presents the idea behind the decentralized nature
+of the Stats Service API.
 
-.. image:: _static/architecture-stats.png
+
+Scenario 1
+----------
+
+.. image:: _static/architecture-stats-scenario1.png
    :alt: Stats Service API interaction with MONARC
 
+The Stats Service is installed on a dedicated server, gathering stats sent by the
+front office (FO). It can also return the aggregated stats to the MONARC backend (FO)
+for the dashboard of the MONARC users (with the CEO role).
 
-This architecture diagram presents the idea behind the decentralized nature
-of the Stats Service API. It looks a bit complicated but the goal is to gather
-and explain different scenario.
+The stats collection (from the FO to the stats node) can be triggered with a cron
+task.
 
-As you can see several instances of Stats Service are represented with red
-circles:
+Scenario 2
+----------
 
-- stats;
-- stats-A;
-- stats-B;
-- stats-C, and finally in blue:
-- `dashboard.monarc.lu <https://dashboard.monarc.lu>`_.
+.. image:: _static/architecture-stats-scenario2.png
+   :alt: Stats Service API interaction with MONARC
 
-
-*stats-B* collects data from the two MONARC front offices of the company B.
-These aggregated data can be used for the dashboard for the CEO role of MONARC
-client instances in this company. But also for the MONARC back office.
-Optionally, *stats-B* can send statistics to dashboard.monarc.lu which is as well
-a stats service API instance.
-
-In the company A, the difference is that Stats Service API (*stats-A*) is
+In the company A, the difference is that Stats Service API (*stats*) is
 installed on the same server where the MONARC back office is deployed. Not on
 on a dedicated server. The server hosting the back office of MONARC is a good choice.
+
+
+
+Scenario 3
+----------
+
+.. image:: _static/architecture-stats-scenario3.png
+   :alt: Stats Service API interaction with MONARC
+
+*stats* collects data from the two MONARC front offices of the company B.
+These aggregated data can be used for the dashboard for the CEO role of MONARC
+client instances in this company. But also, in the future, for the MONARC back office.
+
+     
+Scenario 4
+----------
+
+.. image:: _static/architecture-stats-scenario4.png
+   :alt: Stats Service API interaction with MONARC
 
 Wendy is simply connected to a MONARC front office deployed in a local
 Virtual Box instance. Stats Service (*stats*) is running next to MONARC in this virtual
 machine.
 
+
+
 .. note::
 
-    Locally collected statistics (in *stats*, *stats-A*, *stats-B* and *stats-C*)
+    Locally collected statistics (in *stats*)
     can optionally be sent to `dashboard.monarc.lu <https://dashboard.monarc.lu>`_ which is
-    a global instance.
+    a global instance. It's the same software.
 
 
 Integration with external services
@@ -47,5 +66,4 @@ Integration with external services
 MOSP
 ````
 
-A Stats Service instance is able to query MOSP. This is represented with the
-link between objects.monarc.lu and dashboard.monarc.lu.
+A Stats Service instance is able to query MOSP.
