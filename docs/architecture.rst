@@ -57,12 +57,22 @@ Virtual Box instance. Stats Service (*stats*) is running next to MONARC in this 
 machine.
 
 
+Important notes
+---------------
+
 
 .. note::
 
-    In all scenario, locally collected statistics (in *stats* node)
+    In all scenario, **locally collected** statistics (in *stats* node)
     can optionally be sent to `dashboard.monarc.lu <https://dashboard.monarc.lu>`_ which is
-    a global instance. It's the same software.
+    a global instance. It's the same software. You can configure the
+    global dashboard statistics **sharing** option in the
+    `General Settings / Sharing statistics  <https://www.monarc.lu/documentation/user-guide/#global-dashboard>`_
+    view of your MONARC instance
+    (`see here <https://www.monarc.lu/documentation/user-guide/images/GlobalDashboardGlobalSetting.png>`_).
+    
+    However, stats must always be collected in your local Stats Service instance.
+    This is required for the proper functioning of the global dashboard of your MONARC instance. 
 
 
 .. note::
