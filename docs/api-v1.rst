@@ -10,12 +10,22 @@ New namespaces are easily plugable via the file: ``api/v1/__init__.py``.
 Security model
 --------------
 
-First, an overview of the security model. Section to be completed.
+First, an overview of the security model.
+
+Clients needs to have an account on the Stats Service and a token in order to submit
+new stats and to query the API. New clients can be created with the
+`dedicated command <command-line-interface.html#creating-a-client>`__.
+
+The token must be submitted in the headers of the requests with the key
+``X-API-KEY``, as explained below. It is not needed to submit an additional id,
+tokens are unique.
 
 
 OpenAPI Specification
 ---------------------
 
+Specification also available at
+`https://dashboard.monarc.lu/api/v1 <https://dashboard.monarc.lu/api/v1/>`_.
 
 .. literalinclude:: swagger.json
   :language: JSON
@@ -38,6 +48,18 @@ Getting stats for a client
       },
       "data": []
     }
+
+Specify a type of stats:
+
+.. code-block:: bash
+
+    $ curl --location --request GET \
+    -H 'X-API-KEY: rddPRk9_t-Z4GOgmY2UL2blKB1DxWB_0yhDlqcsF9p63eXs-oLCdm2c9YgP7cOqGz71GK1tc8lrCenD8AvEr-g' \
+    -H "Content-type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"type":"threat"}' \
+    'http://127.0.0.1:5000/api/v1/stats'
+
 
 
 Invoking a processor

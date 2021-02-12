@@ -81,6 +81,60 @@ h6{
   font-size:14px;
 }
 
+.footnotes {
+  clear: both;
+  list-style: none;
+  padding-left: 2%;
+}
+.footnotes li {
+  margin: 2em 0;
+  padding-top: 1em;
+  display: block;
+  position: relative;
+  counter-increment: inst;
+}
+.footnotes li::before {
+  content: counter(inst);
+
+  background: rgba(255, 150, 0, 0.35);
+  color: #fff;
+
+  font-size: 1em;
+  font-weight: 700;
+  font-style: italic;
+  text-shadow: 1px 1px rgba(255, 150, 0, 0.5);
+
+  border-radius: 0 0.675em 0.675em 0;
+  font-size: 1.5em;
+  text-align: center;
+
+  padding-top: 0;
+  padding-left: 2.25%;
+  left: -5%;
+  top: -0.65em;
+  height: 1.35em;
+  width: 1.35em;
+  position: absolute;
+
+  transition: all 0.2s ease-in-out;
+
+  z-index: -1;
+}
+@media (min-width: 33em) {
+  .footnotes li:before {
+    border-radius: 50%;
+    font-size: 1.5em;
+    height: 1.35em;
+    margin-left: 2.5%;
+    padding-left: 0;
+    padding-top: 0;
+    top: -0.15em;
+    width: 1.35em;
+    z-index: -1;
+  }
+}
+
+
 /* Sticky footer */
 .footer {
   position: absolute;

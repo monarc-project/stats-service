@@ -20,9 +20,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import sys
 from flask import Blueprint, redirect, url_for, render_template, jsonify
 from statsservice import __version__
 from statsservice.bootstrap import application
+from statsservice.models import Client, Stats
+
 
 # root_bp: blueprint of higher level routes
 root_bp = Blueprint("root_bp", __name__, url_prefix="")
@@ -34,10 +37,41 @@ def home():
     return redirect(url_for("stats_bp.stats")) #redirect(url_for("api.doc"))
 
 
+@root_bp.route("help", methods=["GET"])
+def help():
+    """About page."""
+    return render_template("help.html")
+
+
 @root_bp.route("about", methods=["GET"])
 def about():
     """About page."""
     return render_template("about.html")
+
+
+@root_bp.route("/about/more", methods=["GET"])
+def about_more():
+    """Returns some details about the current Stats Service instance.
+    """
+    version = __version__.split("-")
+    if len(version) == 1:
+        stats_service_version = version[0]
+        version_url = "https://github.com/monarc-project/stats-service/releases/tag/{}".format(
+            version[0]
+        )
+    else:
+        stats_service_version = "{} - {}".format(version[0], version[2][1:])
+        version_url = "https://github.com/monarc-project/stats-service/commits/{}".format(
+            version[2][1:]
+        )
+    return render_template(
+        "about_more.html",
+        stats_service_version=stats_service_version,
+        version_url=version_url,
+        python_version="{}.{}.{}".format(*sys.version_info[:3]),
+        nb_contributors=Client.query.count(),
+        nb_stats=Stats.query.count(),
+    )
 
 
 @root_bp.route("about.json", methods=["GET"])
