@@ -71,3 +71,7 @@ latex_documents = [
 
 latex_show_urls = True
 latex_show_pagerefs = True
+
+ADDITIONAL_PREAMBLE = """
+\setcounter{tocdepth}{3}
+"""

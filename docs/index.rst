@@ -48,7 +48,7 @@ Technical considerations
 ------------------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    installation
    updates
@@ -60,7 +60,7 @@ Conceptual considerations
 -------------------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    architecture
 
@@ -69,7 +69,7 @@ Blueprints
 ----------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    api-v1
    stats
