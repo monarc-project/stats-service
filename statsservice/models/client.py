@@ -27,6 +27,7 @@ class Client(db.Model, UserMixin):
     role = db.Column(db.Integer, default=ROLE_USER)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     local = db.Column(db.Boolean(), default=True)
+    is_sharing_enabled = db.Column(db.Boolean(), default=True)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_at = db.Column(db.DateTime(), onupdate=datetime.utcnow)
 
@@ -46,7 +47,7 @@ class Client(db.Model, UserMixin):
 
     def __str__(self):
         return "UUID: {}\nName: {}\nRole: {}\nToken: {}\nCreated at: {}".format(
-            self.uuid, self.name, self.role, self.token, self.created_at
+            self.uuid, self.name, self.role, self.token, self.is_sharing_enabled, self.created_at
         )
 
     def is_admin(self):
