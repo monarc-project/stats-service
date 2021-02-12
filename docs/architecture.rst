@@ -20,8 +20,8 @@ for the dashboard of the MONARC users (with the CEO role).
     The Stats Service only communicates with the backend of MONARC thanks to
     :doc:`its API <./api-v1>`.
 
-The stats collection (from the FO to the stats node) can be triggered with a cron
-task.
+The stats collection (from the FO to the stats node) can be triggered with a
+`cron job <installation.html#integration-with-monarc-and-collect-of-the-stats>`__.
 
 Scenario 2
 ----------

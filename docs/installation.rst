@@ -278,3 +278,13 @@ And a file:
         exec(file_.read(), dict(__file__=activate_this))
 
     from runserver import application
+
+
+Integration with MONARC and collect of the stats
+------------------------------------------------
+
+The technical guide of MONARC provides information about the
+`integration of Stats Service with MONARC <https://www.monarc.lu/documentation/technical-guide/#stats-service>`_.
+Especially related to the configuration of the cron job (which triggers a PHP
+command) on the MONARC Front Office. The cron job is responsible for collecting
+local statistics and sending those statistics to the Stats Service.
