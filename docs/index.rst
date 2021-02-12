@@ -26,6 +26,11 @@
       :alt: PyPi version
 
 
+
+.. raw:: latex
+
+  \clearpage
+
 Presentation
 ============
 
@@ -38,9 +43,6 @@ It can be deployed just next to a MONARC instance or on a dedicated server.
 
 The collected statistics can be sent to an other stats instance.
 
-
-Table of contents
-=================
 
 Technical considerations
 ------------------------

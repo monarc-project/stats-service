@@ -22,7 +22,7 @@ copyright = '2020-2021, Cédric Bonhomme <cedric@cedricbonhomme.org>'
 author = 'Cédric Bonhomme <cedric@cedricbonhomme.org>'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = '0.3.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -55,3 +55,19 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 #html_static_path = ['_static']
+
+
+# -- Options for LaTeX output -------------------------------------------------
+
+
+latex_engine = 'pdflatex'
+
+latex_logo = '../statsservice/static/img/stats-service-logo.png'
+
+latex_documents = [
+  ('index', 'MONARC_Stats_Service.tex', u'MONARC Stats Service',
+   u'CASES Luxembourg', 'howto'),
+]
+
+latex_show_urls = True
+latex_show_pagerefs = True
