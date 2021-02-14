@@ -34,7 +34,7 @@ root_bp = Blueprint("root_bp", __name__, url_prefix="")
 @root_bp.route("/", methods=["GET"])
 def home():
     """For the moment simply redirects to the documentation of the API."""
-    return redirect(url_for("stats_bp.stats")) #redirect(url_for("api.doc"))
+    return redirect(url_for("stats_bp.stats"))  # redirect(url_for("api.doc"))
 
 
 @root_bp.route("help", methods=["GET"])
@@ -51,18 +51,21 @@ def about():
 
 @root_bp.route("/about/more", methods=["GET"])
 def about_more():
-    """Returns some details about the current Stats Service instance.
-    """
+    """Returns some details about the current Stats Service instance."""
     version = __version__.split("-")
     if len(version) == 1:
         stats_service_version = version[0]
-        version_url = "https://github.com/monarc-project/stats-service/releases/tag/{}".format(
-            version[0]
+        version_url = (
+            "https://github.com/monarc-project/stats-service/releases/tag/{}".format(
+                version[0]
+            )
         )
     else:
         stats_service_version = "{} - {}".format(version[0], version[2][1:])
-        version_url = "https://github.com/monarc-project/stats-service/commits/{}".format(
-            version[2][1:]
+        version_url = (
+            "https://github.com/monarc-project/stats-service/commits/{}".format(
+                version[2][1:]
+            )
         )
     return render_template(
         "about_more.html",
@@ -97,7 +100,7 @@ def about_json():
         version=stats_version,
         version_url=version_url,
         api_v1_root=url_for("api.doc"),
-        contact=application.config["ADMIN_EMAIL"]
+        contact=application.config["ADMIN_EMAIL"],
     )
 
 

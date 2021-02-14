@@ -5,6 +5,7 @@ import os
 import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 
 def set_logging(
@@ -74,3 +75,4 @@ if not application.config.get("SECRET_KEY", False):
 set_logging(application.config.get("LOG_PATH", None))
 
 db = SQLAlchemy(application)
+migrate = Migrate(application, db)
