@@ -67,7 +67,7 @@ class GetClient(Resource):
 
         if current_user.is_sharing_enabled != client_ns.payload['is_sharing_enabled']:
             try:
-                client.is_sharing_enabled = client_ns.payload['is_sharing_enabled']
+                current_user.is_sharing_enabled = client_ns.payload['is_sharing_enabled']
                 db.session.commit()
             except (sqlalchemy.exc.IntegrityError, sqlalchemy.exc.InvalidRequestError) as e:
                 logger.error("Client patch error.")
