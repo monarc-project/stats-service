@@ -18,6 +18,8 @@ class Config(object):
 
     SECRET_KEY = "LCx3BchmHRxFzkEv4BqQJyeXRLXenf"
 
+    GLOBAL_INSTANCE_TOKEN = "" 
+
     LOG_PATH = "./var/stats.log"
 
     # Connection with MOSP

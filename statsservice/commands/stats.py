@@ -54,28 +54,26 @@ def stats_purge(nb_month):
 
 
 @application.cli.command("stats_push")
-@click.option("--client-uuid", required=True, help="Local client uuid")
-@click.option("--token", required=True, help="Client token on remote side")
-def stats_push(client_uuid, token):
-    """Push stats for the local client specified in parameter to an other stats
-    server.
-    """
-    client = Client.query.filter(Client.uuid == client_uuid).first()
+def stats_push():
+    """Pushes the clients stats to the global stats server."""
 
+    token = application.config["GLOBAL_INSTANCE_TOKEN"]
     headers = {"X-API-KEY": token, "content-type": "application/json"}
-
     payload = []
-    stats = Stats.query.filter(Stats.client_id == client.id)
-    for stat in stats:
-        payload.append(
-            {
-                "uuid": str(stat.uuid),
-                "anr": str(stat.anr),
-                "type": stat.type,
-                "date": str(stat.date),
-                "data": stat.data,
-            }
-        )
+
+    clients = Client.query.filter(Client.is_sharing_enabled == True)
+    for cleint in client:
+        stats = Stats.query.filter(Stats.client_id == client.id)
+        for stat in stats:
+            payload.append(
+                {
+                    "uuid": str(stat.uuid), 
+                    "anr": str(stat.anr),
+                    "type": stat.type,
+                    "date": str(stat.date),
+                    "data": stat.data,
+                }
+            )
 
     try:
         print("Pushing stats for client {}".format(client.name))
