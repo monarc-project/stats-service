@@ -62,12 +62,12 @@ def stats_push():
     payload = []
 
     clients = Client.query.filter(Client.is_sharing_enabled == True)
-    for cleint in client:
+    for client in clients:
         stats = Stats.query.filter(Stats.client_id == client.id)
         for stat in stats:
             payload.append(
                 {
-                    "uuid": str(stat.uuid), 
+                    "uuid": str(stat.uuid),
                     "anr": str(stat.anr),
                     "type": stat.type,
                     "date": str(stat.date),
