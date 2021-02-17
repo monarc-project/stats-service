@@ -58,9 +58,13 @@ def stats_purge(nb_month):
     "--date-from",
     type=click.DateTime(formats=["%Y-%m-%d"]),
     default=str(date.today() + relativedelta(months=-3)),
+    help="Only stats more recent than this date will be pushed. Default value is 3 months before the today.",
 )
 @click.option(
-    "--date-to", type=click.DateTime(formats=["%Y-%m-%d"]), default=str(date.today())
+    "--date-to",
+    type=click.DateTime(formats=["%Y-%m-%d"]),
+    default=str(date.today()),
+    help="Only stats older than this date will be pushed. Default value is today.",
 )
 def stats_push(date_from, date_to):
     """Pushes the clients stats to the global stats server."""
