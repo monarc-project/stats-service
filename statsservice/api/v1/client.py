@@ -68,7 +68,9 @@ class GetClient(Resource):
     def patch(self):
         if current_user.is_sharing_enabled != client_ns.payload["is_sharing_enabled"]:
             try:
-                current_user.is_sharing_enabled = client_ns.payload['is_sharing_enabled']
+                current_user.is_sharing_enabled = client_ns.payload[
+                    "is_sharing_enabled"
+                ]
                 db.session.commit()
             except:
                 logger.error("Client patch error.")

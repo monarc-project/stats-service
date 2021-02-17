@@ -54,8 +54,19 @@ def stats_purge(nb_month):
 
 
 @application.cli.command("stats_push")
-def stats_push():
+@click.option(
+    "--date-from",
+    type=click.DateTime(formats=["%Y-%m-%d"]),
+    default=str(date.today() + relativedelta(months=-3)),
+)
+@click.option(
+    "--date-to", type=click.DateTime(formats=["%Y-%m-%d"]), default=str(date.today())
+)
+def stats_push(date_from, date_to):
     """Pushes the clients stats to the global stats server."""
+
+    if date_from > date_to:
+        print("Error: --date-from option must be before --date-to.")
 
     token = application.config["GLOBAL_INSTANCE_TOKEN"]
     headers = {"X-API-KEY": token, "content-type": "application/json"}
@@ -63,7 +74,9 @@ def stats_push():
 
     clients = Client.query.filter(Client.is_sharing_enabled == True)
     for client in clients:
-        stats = Stats.query.filter(Stats.client_id == client.id)
+        stats = Stats.query.filter(
+            Stats.client_id == client.id, Stats.date >= date_from, Stats.date <= date_to
+        )
         for stat in stats:
             payload.append(
                 {
