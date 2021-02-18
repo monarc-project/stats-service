@@ -58,7 +58,7 @@ def stats_purge(nb_month):
     "--date-from",
     type=click.DateTime(formats=["%Y-%m-%d"]),
     default=str(date.today() + relativedelta(months=-3)),
-    help="Only stats more recent than this date will be pushed. Default value is 3 months before the today.",
+    help="Only stats more recent than this date will be pushed. Default value is 3 months before today.",
 )
 @click.option(
     "--date-to",
