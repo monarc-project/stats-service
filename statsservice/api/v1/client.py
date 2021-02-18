@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from flask import request, abort
+from flask import request
 from flask_restx import Namespace, Resource, fields, abort
 from flask_login import current_user
 
