@@ -154,20 +154,24 @@ Pushing data to a central stats server.
     $ flask stats_push --help
     Usage: flask stats_push [OPTIONS]
 
-      Push stats for the local client specified in parameter to an other stats
-      server.
+      Pushes the clients stats to the global stats server.
 
     Options:
-      --client-uuid TEXT   Local client uuid  [required]
-      --token TEXT  Client token on remote side  [required]
-      --help        Show this message and exit.
+      --date-from [%Y-%m-%d]  Only stats more recent than this date will be
+                              pushed. Default value is 3 months before today.
 
+      --date-to [%Y-%m-%d]    Only stats older than this date will be pushed.
+                              Default value is today.
+
+      --help                  Show this message and exit.
 
 
 This command can be executed for example with cron.
 
 The address of the central stats server must be specified in the configuration
 file.
+
+The same remote token can be used to push the stats from different local clients.
 
 
 Pulling data
