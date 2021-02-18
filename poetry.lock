@@ -185,6 +185,19 @@ Flask = ">=0.10"
 SQLAlchemy = ">=0.8.0"
 
 [[package]]
+name = "gitchangelog"
+version = "3.0.4"
+description = "gitchangelog generates a changelog thanks to git log."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.extras]
+Mako = ["mako"]
+Mustache = ["pystache"]
+test = ["mako", "minimock", "nose", "pystache"]
+
+[[package]]
 name = "idna"
 version = "2.10"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -661,7 +674,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.12"
-content-hash = "c8ce364d8de343d3a83f2e5fb16c5d049ca5b536094dd73728d9d353e999cf70"
+content-hash = "9aac02da747f5330be074a5115f2dee601c278bc123547e331b6ec09579c3490"
 
 [metadata.files]
 alabaster = [
@@ -729,6 +742,10 @@ flask-restx = [
 flask-sqlalchemy = [
     {file = "Flask-SQLAlchemy-2.4.4.tar.gz", hash = "sha256:bfc7150eaf809b1c283879302f04c42791136060c6eeb12c0c6674fb1291fae5"},
     {file = "Flask_SQLAlchemy-2.4.4-py2.py3-none-any.whl", hash = "sha256:05b31d2034dd3f2a685cbbae4cfc4ed906b2a733cff7964ada450fd5e462b84e"},
+]
+gitchangelog = [
+    {file = "gitchangelog-3.0.4-py2.py3-none-any.whl", hash = "sha256:45f8b8e64cece0d9bb03a35ecd8ee62c1c7157f8dac0ef3cb68381bfcc1bde29"},
+    {file = "gitchangelog-3.0.4.tar.gz", hash = "sha256:3d8d6a730450fbd5b0a9bc58d0dd3e269c967d7eb4fece0c5cff4372a3f77421"},
 ]
 idna = [
     {file = "idna-2.10-py2.py3-none-any.whl", hash = "sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0"},
