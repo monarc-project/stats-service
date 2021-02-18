@@ -1,84 +1,66 @@
-# French (France) translations for PROJECT.
-# Copyright (C) 2021 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: MONARC Stats Service\n"
+"Project-Id-Version: stats-service\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2021-02-18 15:03+0100\n"
-"PO-Revision-Date: 2021-02-18 15:04+0100\n"
-"Last-Translator: Cédric Bonhomme <cedric@cedricbonhomme.org>\n"
-"Language-Team: fr_FR <LL@li.org>\n"
-"Language: fr_FR\n"
+"PO-Revision-Date: 2021-02-18 14:45\n"
+"Last-Translator: \n"
+"Language-Team: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Generated-By: Babel 2.9.0\n"
-"X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Crowdin-Project: stats-service\n"
+"X-Crowdin-Project-ID: 442302\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: /master/statsservice/translations/messages.pot\n"
+"X-Crowdin-File-ID: 100\n"
+"Language: fr_FR\n"
 
 #: statsservice/templates/layout.html:7
 msgid "MONARC Dashboard"
-msgstr "Tableau de bord MONARC"
+msgstr ""
 
 #: statsservice/templates/layout.html:39 statsservice/templates/layout.html:53
 msgid "About"
-msgstr "À propos"
+msgstr ""
 
 #: statsservice/templates/layout.html:55
 msgid "Help"
-msgstr "Aide"
+msgstr ""
 
 #: statsservice/templates/layout.html:57
 msgid "OpenAPI Specification"
-msgstr "Spécification OpenAPI"
+msgstr ""
 
 #: statsservice/templates/stats.html:10
 msgid "Current Cybersecurity Trends"
-msgstr "Tendances actuelles de la cybersécurité"
+msgstr ""
 
 #: statsservice/templates/stats.html:16
 msgid "What are these graphics about?"
-msgstr "De quoi parlent ces graphiques?"
+msgstr ""
 
 #: statsservice/templates/stats.html:17
-msgid ""
-"This page depicts the current\n"
+msgid "This page depicts the current\n"
 "          cybersecurity trends (in terms of\n"
-"          <a href=\"https://objects.monarc.lu/schema/14\" rel=\"noreferrer\" "
-"target=\"_blank\">vulnerabilities</a>,\n"
-"          <a href=\"https://objects.monarc.lu/schema/15\" rel=\"noreferrer\" "
-"target=\"_blank\">threats</a> and\n"
-"          <a href=\"https://objects.monarc.lu/schema/16\" rel=\"noreferrer\" "
-"target=\"_blank\">risks</a>)\n"
+"          <a href=\"https://objects.monarc.lu/schema/14\" rel=\"noreferrer\" target=\"_blank\">vulnerabilities</a>,\n"
+"          <a href=\"https://objects.monarc.lu/schema/15\" rel=\"noreferrer\" target=\"_blank\">threats</a> and\n"
+"          <a href=\"https://objects.monarc.lu/schema/16\" rel=\"noreferrer\" target=\"_blank\">risks</a>)\n"
 "          based on data shared by\n"
-"          several <a href=\"https://www.monarc.lu\" rel=\"noreferrer\" "
-"target=\"_blank\">MONARC</a> instances<sup><a href=\"#footnote-1\">[1]</a></"
-"sup>."
+"          several <a href=\"https://www.monarc.lu\" rel=\"noreferrer\" target=\"_blank\">MONARC</a> instances<sup><a href=\"#footnote-1\">[1]</a></sup>."
 msgstr ""
-"Cette page décrit les tendances actuelles \n"
-"          de la cybersécurité (en termes de\n"
-"          <a href=\"https://objects.monarc.lu/schema/14\" rel=\"noreferrer\" "
-"target=\"_blank\">vulnérabilités</a>,\n"
-"          <a href=\"https://objects.monarc.lu/schema/15\" rel=\"noreferrer\" "
-"target=\"_blank\">menaces</a> et\n"
-"          <a href=\"https://objects.monarc.lu/schema/16\" rel=\"noreferrer\" "
-"target=\"_blank\">risques</a>)\n"
-"          basées sur des données partagées par \n"
-"          différentes instances <a href=\"https://www.monarc.lu\" rel="
-"\"noreferrer\" target=\"_blank\">MONARC</a><sup><a href=\"#footnote-1\">[1]</"
-"a></sup>."
 
 #: statsservice/templates/stats.html:25
 msgid "Learn more"
-msgstr "En savoir plus"
+msgstr ""
 
 #: statsservice/templates/stats.html:32
 msgid "Trends for threats"
-msgstr "Tendances pour les menaces"
+msgstr ""
 
 #: statsservice/templates/stats.html:49
 msgid "Trends for vulnerabilities"
-msgstr "Tendances pour les vulnérabilités"
+msgstr ""
+
