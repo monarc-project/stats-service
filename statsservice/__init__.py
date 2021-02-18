@@ -21,7 +21,10 @@ def get_version():
         .strip()
     ) or ""
     if not version:
-        version = pkg_resources.get_distribution("statsservice").version
+        try:
+            version = pkg_resources.get_distribution("statsservice").version
+        except pkg_resources.DistributionNotFound:
+            version = ""
     return version
 
 
