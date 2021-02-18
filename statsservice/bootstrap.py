@@ -3,8 +3,9 @@
 
 import os
 import logging
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_babel import Babel, format_datetime
 
 
 def set_logging(
@@ -74,3 +75,19 @@ if not application.config.get("SECRET_KEY", False):
 set_logging(application.config.get("LOG_PATH", None))
 
 db = SQLAlchemy(application)
+
+# Internationalization
+babel = Babel(application)
+
+application.jinja_env.filters["datetime"] = format_datetime
+
+@babel.localeselector
+def get_locale():
+    # if a user is logged in, use the locale from the user settings
+    # user = getattr(g, 'user', None)
+    # if user is not None:
+    #     return user.locale
+    # otherwise try to guess the language from the user accept
+    # header the browser transmits.  We support de/fr/en in this
+    # example.  The best match wins.
+    return request.accept_languages.best_match(["fr", "en"])

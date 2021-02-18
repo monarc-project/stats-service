@@ -33,6 +33,7 @@ $ npm install
 $ cp instance/production.py.cfg instance/production.py
 $ poetry install
 $ poetry shell
+$ pybabel compile -d statsservice/translations
 $ export FLASK_APP=runserver.py
 $ export FLASK_ENV=development
 $ export STATS_CONFIG=production.py

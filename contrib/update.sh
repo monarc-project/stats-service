@@ -7,4 +7,5 @@
 git pull origin master --tags
 npm install
 poetry install
+poetry run pybabel compile -d statsservice/translations
 sudo systemctl restart statsservice.service

@@ -4,7 +4,7 @@
   {% block head %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MONARC Dashboard" />
+  <meta name="description" content="{{ _('MONARC Dashboard') }}" />
   <link rel="author" type="text/plain"  href="{{ url_for('root_bp.human')  }}" />
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}" />
   <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
@@ -36,7 +36,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto w-100 justify-content-end">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('root_bp.about') }}" title="About">About</a>
+            <a class="nav-link" href="{{ url_for('root_bp.about') }}" title="{{ _('About') }}">{{ _('About') }}</a>
           </li>
         </ul>
       </div>
@@ -50,11 +50,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <a href="{{ url_for('root_bp.about') }}" title="About">About</a>
+          <a href="{{ url_for('root_bp.about') }}" title="About">{{ _('About') }}</a>
           &nbsp;&nbsp;
-          <a href="{{ url_for('root_bp.help') }}" title="Help">Help</a>
+          <a href="{{ url_for('root_bp.help') }}" title="Help">{{ _('Help') }}</a>
           &nbsp;&nbsp;
-          <a href="{{ url_for('api.doc') }}">OpenAPI Specification</a>
+          <a href="{{ url_for('api.doc') }}">{{ _('OpenAPI Specification') }}</a>
         </div>
       </div>
     </div>

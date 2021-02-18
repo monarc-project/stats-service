@@ -7,29 +7,29 @@
 <div class="container-fluid" role="main">
   <div class="row justify-content-center">
     <div class="col">
-      <h1>Current Cybersecurity Trends</h1>
+      <h1>{{ _('Current Cybersecurity Trends') }}</h1>
     </div>
   </div>
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="jumbotron m-3">
-        <h2>What are these graphics about?</h2>
-        <p class="lead">This page depicts the current
+        <h2>{{ _('What are these graphics about?') }}</h2>
+        <p class="lead">{{ _('This page depicts the current
           cybersecurity trends (in terms of
           <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
           <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a> and
           <a href="https://objects.monarc.lu/schema/16" rel="noreferrer" target="_blank">risks</a>)
           based on data shared by
-          several <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances<sup><a href="#footnote-1">[1]</a></sup>.<br />
+          several <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances<sup><a href="#footnote-1">[1]</a></sup>.') }}<br />
           <hr class="my-4">
-          <a class="btn btn-primary btn-lg" href="{{ url_for('root_bp.help') }}#how-does-it-work" role="button">Learn more</a>
+          <a class="btn btn-primary btn-lg" href="{{ url_for('root_bp.help') }}#how-does-it-work" role="button">{{ _('Learn more') }}</a>
         </div>
       </div>
     </div>
     <br />
     <div class="row justify-content-center">
       <div class="col">
-        <h2 id="trends-threats">Trends for threats</h2>
+        <h2 id="trends-threats">{{ _('Trends for threats') }}</h2>
         <div class="d-flex justify-content-center">
           <div id="spinner-threats" class="spinner-border" style="width: 8rem; height: 8rem;"><span class="sr-only">Loading...</span></div>
         </div>
@@ -46,7 +46,7 @@
     <br /><hr /><br />
     <div class="row justify-content-center">
       <div class="col">
-        <h2 id="trends-vulnerabilities">Trends for vulnerabilities</h2>
+        <h2 id="trends-vulnerabilities">{{ _('Trends for vulnerabilities') }}</h2>
         <div class="d-flex justify-content-center">
           <div id="spinner-vulnerabilities" class="spinner-border" style="width: 8rem; height: 8rem;"><span class="sr-only">Loading...</span></div>
         </div>
