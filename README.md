@@ -38,6 +38,7 @@ $ export FLASK_ENV=development
 $ export STATS_CONFIG=production.py
 $ flask db_create
 $ flask db_init
+$ flask db upgrade
 
 $ flask client_create --name CASES
 Name: CASES
