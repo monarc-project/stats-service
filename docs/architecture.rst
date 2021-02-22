@@ -82,6 +82,20 @@ Important notes
     instance with the address of your "global" instance.
 
 
+Organization level
+------------------
+
+.. image:: _static/architecture-stats-organization-level.png
+   :alt: Higher architecture level
+
+A company has the possibility to `push stats <command-line-interface.html#pushing-data>`_
+from selected clients with the same
+account on, for example, dashboard.monarc.lu. The service behind dashboard.monarc.lu
+is operated by CASES Luxembourg and aims to provide relevant data about the
+current cybersecurity trends, focused in the Luxembourg area.
+
+
+
 Integration with external services
 ----------------------------------
 

@@ -1,0 +1,15 @@
+[Unit]
+Description=MONARC Stats service
+After=network.target
+
+[Service]
+User=monarc
+Environment=FLASK_APP=runserver.py
+Environment=FLASK_ENV=production
+Environment=STATS_CONFIG=production.py
+WorkingDirectory=/home/monarc/stats-service
+ExecStart=/home/monarc/.poetry/bin/poetry run flask run
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

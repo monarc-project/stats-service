@@ -1,0 +1,71 @@
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-02-18 15:03+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: statsservice/templates/layout.html:7
+msgid "MONARC Dashboard"
+msgstr ""
+
+#: statsservice/templates/layout.html:39 statsservice/templates/layout.html:53
+msgid "About"
+msgstr ""
+
+#: statsservice/templates/layout.html:55
+msgid "Help"
+msgstr ""
+
+#: statsservice/templates/layout.html:57
+msgid "OpenAPI Specification"
+msgstr ""
+
+#: statsservice/templates/stats.html:10
+msgid "Current Cybersecurity Trends"
+msgstr ""
+
+#: statsservice/templates/stats.html:16
+msgid "What are these graphics about?"
+msgstr ""
+
+#: statsservice/templates/stats.html:17
+msgid ""
+"This page depicts the current\n"
+"          cybersecurity trends (in terms of\n"
+"          <a href=\"https://objects.monarc.lu/schema/14\" "
+"rel=\"noreferrer\" target=\"_blank\">vulnerabilities</a>,\n"
+"          <a href=\"https://objects.monarc.lu/schema/15\" "
+"rel=\"noreferrer\" target=\"_blank\">threats</a> and\n"
+"          <a href=\"https://objects.monarc.lu/schema/16\" "
+"rel=\"noreferrer\" target=\"_blank\">risks</a>)\n"
+"          based on data shared by\n"
+"          several <a href=\"https://www.monarc.lu\" rel=\"noreferrer\" "
+"target=\"_blank\">MONARC</a> instances<sup><a "
+"href=\"#footnote-1\">[1]</a></sup>."
+msgstr ""
+
+#: statsservice/templates/stats.html:25
+msgid "Learn more"
+msgstr ""
+
+#: statsservice/templates/stats.html:32
+msgid "Trends for threats"
+msgstr ""
+
+#: statsservice/templates/stats.html:49
+msgid "Trends for vulnerabilities"
+msgstr ""
+
