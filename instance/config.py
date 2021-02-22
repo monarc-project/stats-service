@@ -14,11 +14,10 @@ class Config(object):
     ADMIN_EMAIL = "info@cases.lu"
     ADMIN_URL = "https://www.cases.lu"
 
-    REMOTE_STATS_SERVER = "http://127.0.0.1:5000"
+    REMOTE_STATS_SERVER = "https://dashboard.monarc.lu"
+    REMOTE_STATS_TOKEN = ""
 
     SECRET_KEY = "LCx3BchmHRxFzkEv4BqQJyeXRLXenf"
-
-    GLOBAL_INSTANCE_TOKEN = "" 
 
     LOG_PATH = "./var/stats.log"
 
