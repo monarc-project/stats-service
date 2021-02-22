@@ -23,6 +23,9 @@ clients = client_ns.model(
         "name": fields.String(description="The client name."),
         "token": fields.String(readonly=True, description="The token of the client."),
         "role": fields.String(readonly=True, description="The client role."),
+        "is_sharing_enabled": fields.Boolean(
+            description="If the statistics sharing is enabled or not."
+        ),
     },
 )
 
@@ -56,5 +59,21 @@ class GetClient(Resource):
     @client_ns.marshal_with(clients, code=200)
     @auth_func
     def get(self):
-
         return current_user, 200
+
+    @client_ns.doc("client_patch")
+    @client_ns.expect(clients)
+    @client_ns.marshal_with(clients, code=201)
+    @auth_func
+    def patch(self):
+        if current_user.is_sharing_enabled != client_ns.payload["is_sharing_enabled"]:
+            try:
+                current_user.is_sharing_enabled = client_ns.payload[
+                    "is_sharing_enabled"
+                ]
+                db.session.commit()
+            except:
+                logger.error("Client patch error.")
+                return current_user, 500
+
+        return current_user, 201

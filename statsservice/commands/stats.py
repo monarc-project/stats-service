@@ -54,28 +54,42 @@ def stats_purge(nb_month):
 
 
 @application.cli.command("stats_push")
-@click.option("--client-uuid", required=True, help="Local client uuid")
-@click.option("--token", required=True, help="Client token on remote side")
-def stats_push(client_uuid, token):
-    """Push stats for the local client specified in parameter to an other stats
-    server.
-    """
-    client = Client.query.filter(Client.uuid == client_uuid).first()
+@click.option(
+    "--date-from",
+    type=click.DateTime(formats=["%Y-%m-%d"]),
+    default=str(date.today() + relativedelta(months=-3)),
+    help="Only stats more recent than this date will be pushed. Default value is 3 months before today.",
+)
+@click.option(
+    "--date-to",
+    type=click.DateTime(formats=["%Y-%m-%d"]),
+    default=str(date.today()),
+    help="Only stats older than this date will be pushed. Default value is today.",
+)
+def stats_push(date_from, date_to):
+    """Pushes the clients stats to the global stats server."""
 
-    headers = {"X-API-KEY": token, "content-type": "application/json"}
+    if date_from > date_to:
+        print("Error: --date-from option must be before --date-to.")
 
+    headers = {"X-API-KEY": application.config["REMOTE_STATS_TOKEN"], "content-type": "application/json"}
     payload = []
-    stats = Stats.query.filter(Stats.client_id == client.id)
-    for stat in stats:
-        payload.append(
-            {
-                "uuid": str(stat.uuid),
-                "anr": str(stat.anr),
-                "type": stat.type,
-                "date": str(stat.date),
-                "data": stat.data,
-            }
+
+    clients = Client.query.filter(Client.is_sharing_enabled == True)
+    for client in clients:
+        stats = Stats.query.filter(
+            Stats.client_id == client.id, Stats.date >= date_from, Stats.date <= date_to
         )
+        for stat in stats:
+            payload.append(
+                {
+                    "uuid": str(stat.uuid),
+                    "anr": str(stat.anr),
+                    "type": stat.type,
+                    "date": str(stat.date),
+                    "data": stat.data,
+                }
+            )
 
     try:
         print("Pushing stats for client {}".format(client.name))

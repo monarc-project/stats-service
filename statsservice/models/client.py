@@ -22,11 +22,12 @@ class Client(db.Model, UserMixin):
         unique=True,
         nullable=False,
     )
-    name = db.Column(db.String(100), unique=True)  # field to remove
+    name = db.Column(db.String(100), unique=True)  # client easy to read identifier
     token = db.Column(db.String(100), unique=True, default=secret_token)
     role = db.Column(db.Integer, default=ROLE_USER)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     local = db.Column(db.Boolean(), default=True)
+    is_sharing_enabled = db.Column(db.Boolean(), default=True)
     created_at = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_at = db.Column(db.DateTime(), onupdate=datetime.utcnow)
 
@@ -45,8 +46,13 @@ class Client(db.Model, UserMixin):
         return self.id
 
     def __str__(self):
-        return "UUID: {}\nName: {}\nRole: {}\nToken: {}\nCreated at: {}".format(
-            self.uuid, self.name, self.role, self.token, self.created_at
+        return "UUID: {}\nName: {}\nRole: {}\nToken: {}\nSharing Enabled: {}\nCreated at: {}".format(
+            self.uuid,
+            self.name,
+            self.role,
+            self.token,
+            self.is_sharing_enabled,
+            self.created_at,
         )
 
     def is_admin(self):

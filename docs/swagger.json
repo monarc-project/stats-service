@@ -59,6 +59,37 @@
                 "tags": [
                     "client"
                 ]
+            },
+            "patch": {
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Clients"
+                        }
+                    }
+                },
+                "operationId": "client_patch",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Clients"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "client"
+                ]
             }
         },
         "/stats/": {
@@ -360,6 +391,11 @@
                 "role": {
                     "type": "string",
                     "description": "The client role.",
+                    "readOnly": true
+                },
+                "is_sharing_enabled": {
+                    "type": "boolean",
+                    "description": "If the statistics sharing is enabled or not.",
                     "readOnly": true
                 }
             },
