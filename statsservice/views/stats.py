@@ -28,19 +28,22 @@ def threats():
     """Returns threats with custom processings."""
     now = datetime.today()
     nb_days = request.args.get("days", default=365, type=int)
+    last_stats = request.args.get("last_stats", default=0, type=int)
     local_stats_only = request.args.get("local_stats_only", default=0, type=int)
     processor = request.args.get(
         "processor", default="threat_average_on_date", type=str
     )
-    query = Stats.query.filter(
-        Stats.type == "threat", Stats.date >= now - timedelta(days=nb_days)
-    )
+    query = Stats.query.filter(Stats.type == "threat")
     if local_stats_only:
         query = query.filter(Stats.client.has(local=True))
+    if last_stats:
+        query_result = [query.order_by(Stats.date.desc()).first()]
+    else:
+        query_result = query.filter(Stats.date >= now - timedelta(days=nb_days)).all()
 
     try:
-        result = getattr(statsservice.lib.processors, processor)(query.all())
-    except AttributeError:
+        result = getattr(statsservice.lib.processors, processor)(query_result)
+    except AttributeError as e:
         abort(
             500,
             description="There is no such processor: '{}'.".format(processor),
