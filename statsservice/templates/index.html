@@ -4,11 +4,216 @@
 <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 {% endblock %}
 {% block content %}
-<div class="container-fluid" role="main">
+<div class="container" role="main">
   <div class="row justify-content-center">
     <div class="col">
-      <h1>{{ _('Current Cybersecurity Trends') }}</h1>
+      <h1>{{ _('Current Cybersecurity landscape') }}</h1>
     </div>
   </div>
+
+  <br />
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 id="trends-threats">{{ _('Top 5 threats') }}</h2>
+      <div class="d-flex justify-content-center">
+        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+          <canvas id="threats-pie-chart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h2 id="trends-threats">{{ _('Top 5 vulnerabilities') }}</h2>
+      <div class="d-flex justify-content-center">
+        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+          <canvas id="vulnerabilities-pie-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row">
+    <div class="col-md-12">
+      <p>See the recent <a href="{{ url_for('stats_bp.stats') }}">evolution</a> for the threats and vulnerabilities.</p>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 id="trends-risks">Risks</h2>
+      <canvas id="canvas-risks-info"></canvas>
+      <canvas id="canvas-risks-op"></canvas>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="jumbotron m-3">
+        <h2>{{ _('What are these graphics about?') }}</h2>
+        <p class="lead">{{ _('This page depicts the current
+          cybersecurity landscape (in terms of
+          <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
+          <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a> and
+          <a href="https://objects.monarc.lu/schema/16" rel="noreferrer" target="_blank">risks</a>)
+          based on data shared by
+          several <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances<sup><a href="#footnote-1">[1]</a></sup>.') }}<br />
+          <hr class="my-4">
+          <a class="btn btn-primary btn-lg" href="{{ url_for('root_bp.help') }}#how-does-it-work" role="button">{{ _('Learn more') }}</a>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+      <div class="col-md-12">
+        <ol class="footnotes">
+          <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">Details</a> about contributors and the stats on this instance.</li>
+        </ol>
+      </div>
+    </div>
 </div><!-- /.container -->
+<script>
+  fetch("{{ url_for('stats_bp.threats', processor='threat_average_on_date', last_stats=1) | safe }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((resp) => resp.json())
+  .then(function(resp_json) {
+
+    var sorted_data = [];
+    var pie_chart_data = {};
+
+    resp_json.map(function(elem) {
+      sorted_data.push([
+        elem['labels']['label2'], elem['averages']['averageRate']
+      ])
+    });
+    sorted_data.sort(function(a, b) {
+      return b[1] - a[1];
+    }).slice(0, 5).map(function(elem) {
+      pie_chart_data[elem[0]] = elem[1];
+    });
+
+    var ctx = document.getElementById("threats-pie-chart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        options: {
+          legend: {
+              display: true,
+              position: 'bottom'
+            }
+        },
+        data: {
+            labels: Object.keys(pie_chart_data),
+            datasets: [{
+                data: Object.values(pie_chart_data),
+                borderWidth: 1,
+                backgroundColor: chartColors
+            }]
+        }});
+  }).catch((error) => {
+    console.error('Error:', error);
+  });
+
+
+
+  fetch("{{ url_for('stats_bp.vulnerabilities', processor='threat_average_on_date', last_stats=1) | safe }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((resp) => resp.json())
+  .then(function(resp_json) {
+
+    var sorted_data = [];
+    var pie_chart_data = {};
+
+    resp_json.map(function(elem) {
+      sorted_data.push([
+        elem['labels']['label2'], elem['averages']['averageRate']
+      ])
+    });
+    sorted_data.sort(function(a, b) {
+      return b[1] - a[1];
+    }).slice(0, 5).map(function(elem) {
+      pie_chart_data[elem[0]] = elem[1];
+    });
+
+    var ctx = document.getElementById("vulnerabilities-pie-chart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        options: {
+          legend: {
+              display: true,
+              position: 'bottom'
+            }
+        },
+        data: {
+            labels: Object.keys(pie_chart_data),
+            datasets: [{
+                data: Object.values(pie_chart_data),
+                borderWidth: 1,
+                backgroundColor: chartColors
+            }]
+        }});
+  }).catch((error) => {
+    console.error('Error:', error);
+  });;
+
+
+  fetch("{{ url_for('stats_bp.risks', processor='risk_averages', days=365) | safe }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((resp) => resp.json())
+  .then(function(resp_json) {
+    // Display data for informational risks
+    config_base_bar_chart_informational_risks["data"]["datasets"].push({
+      label: "Current Risks",
+      backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
+      data: Object.values(resp_json["current"]["informational"])
+    })
+    config_base_bar_chart_informational_risks["data"]["datasets"].push({
+      label: "Residual Risks",
+      backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
+      data: Object.values(resp_json["residual"]["informational"])
+    })
+    var ctx_risks_info = document.getElementById("canvas-risks-info").getContext("2d");
+    var chart_risks = new Chart(ctx_risks_info, config_base_bar_chart_informational_risks);
+
+    // Display data for operational risks
+    config_base_bar_chart_operational_risks["data"]["datasets"].push({
+      label: "Current Risks",
+      backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
+      data: Object.values(resp_json["current"]["operational"])
+    })
+    config_base_bar_chart_operational_risks["data"]["datasets"].push({
+      label: "Residual Risks",
+      backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
+      data: Object.values(resp_json["residual"]["operational"])
+    })
+    var ctx_risks_op = document.getElementById("canvas-risks-op").getContext("2d");
+    var chart_risks = new Chart(ctx_risks_op, config_base_bar_chart_operational_risks);
+
+  }).catch((error) => {
+    console.error('Error:', error);
+  });;
+
+
+
+
+</script>
 {% endblock %}
