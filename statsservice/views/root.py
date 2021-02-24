@@ -34,7 +34,7 @@ root_bp = Blueprint("root_bp", __name__, url_prefix="")
 @root_bp.route("/", methods=["GET"])
 def home():
     """For the moment simply redirects to the documentation of the API."""
-    return redirect(url_for("stats_bp.stats"))  # redirect(url_for("api.doc"))
+    return render_template("index.html")
 
 
 @root_bp.route("help", methods=["GET"])
