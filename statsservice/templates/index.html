@@ -90,37 +90,60 @@
   .then((resp) => resp.json())
   .then(function(resp_json) {
 
-    var sorted_data = [];
-    var pie_chart_data = {};
+    // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+    threats_by_uuid = {}
+    var promises = resp_json.map(function(threat) {
+      return retrieve_information_from_mosp(threat.object, "EN")
+      .then(function(result_mosp) {
+        threats_by_uuid[threat.object] = {"object": threat}
+        threats_by_uuid[threat.object]["translated_label"] = result_mosp
 
-    resp_json.map(function(elem) {
-      sorted_data.push([
-        elem['labels']['label2'], elem['averages']['averageRate']
-      ])
-    });
-    sorted_data.sort(function(a, b) {
-      return b[1] - a[1];
-    }).slice(0, 5).map(function(elem) {
-      pie_chart_data[elem[0]] = elem[1];
-    });
+        if (result_mosp) {
+          threats_by_uuid[threat.object]["translated_label"] = result_mosp
+        } else {
+          threats_by_uuid[threat.object]["translated_label"] = threat.labels.label2
+        }
+        return threat.object;
+      })
+    })
 
-    var ctx = document.getElementById("threats-pie-chart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'pie',
-        options: {
-          legend: {
-              display: true,
-              position: 'bottom'
-            }
-        },
-        data: {
-            labels: Object.keys(pie_chart_data),
-            datasets: [{
-                data: Object.values(pie_chart_data),
-                borderWidth: 1,
-                backgroundColor: chartColors
-            }]
-        }});
+    // wait that we have all responses from MOSP
+    Promise.all(promises).then(function(results) {
+
+      var sorted_data = [];
+      var pie_chart_data = {};
+
+      resp_json.map(function(elem) {
+        sorted_data.push([
+          threats_by_uuid[elem["object"]].translated_label, elem['averages']['averageRate']
+        ])
+      });
+      sorted_data.sort(function(a, b) {
+        return b[1] - a[1];
+      }).slice(0, 5).map(function(elem) {
+        pie_chart_data[elem[0]] = elem[1];
+      });
+
+      var ctx = document.getElementById("threats-pie-chart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'pie',
+          options: {
+            legend: {
+                display: true,
+                position: 'bottom'
+              }
+          },
+          data: {
+              labels: Object.keys(pie_chart_data),
+              datasets: [{
+                  data: Object.values(pie_chart_data),
+                  borderWidth: 1,
+                  backgroundColor: chartColors
+              }]
+          }});
+
+
+    });
   }).catch((error) => {
     console.error('Error:', error);
   });
@@ -136,37 +159,55 @@
   .then((resp) => resp.json())
   .then(function(resp_json) {
 
-    var sorted_data = [];
-    var pie_chart_data = {};
+    // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+    vulnerabilities_by_uuid = {}
+    var promises = resp_json.map(function(vulnerability) {
+      return retrieve_information_from_mosp(vulnerability.object, "EN")
+      .then(function(result_mosp) {
+        vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
+        if (result_mosp) {
+          vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = result_mosp
+        } else {
+          vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = vulnerability.labels.label2;
+        }
+        return vulnerability.object;
+      })
+    })
 
-    resp_json.map(function(elem) {
-      sorted_data.push([
-        elem['labels']['label2'], elem['averages']['averageRate']
-      ])
-    });
-    sorted_data.sort(function(a, b) {
-      return b[1] - a[1];
-    }).slice(0, 5).map(function(elem) {
-      pie_chart_data[elem[0]] = elem[1];
-    });
+    // wait that we have all responses from MOSP
+    Promise.all(promises).then(function(results) {
+      var sorted_data = [];
+      var pie_chart_data = {};
 
-    var ctx = document.getElementById("vulnerabilities-pie-chart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'pie',
-        options: {
-          legend: {
-              display: true,
-              position: 'bottom'
-            }
-        },
-        data: {
-            labels: Object.keys(pie_chart_data),
-            datasets: [{
-                data: Object.values(pie_chart_data),
-                borderWidth: 1,
-                backgroundColor: chartColors
-            }]
-        }});
+      resp_json.map(function(elem) {
+        sorted_data.push([
+          vulnerabilities_by_uuid[elem["object"]].translated_label, elem['averages']['averageRate']
+        ])
+      });
+      sorted_data.sort(function(a, b) {
+        return b[1] - a[1];
+      }).slice(0, 5).map(function(elem) {
+        pie_chart_data[elem[0]] = elem[1];
+      });
+
+      var ctx = document.getElementById("vulnerabilities-pie-chart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'pie',
+          options: {
+            legend: {
+                display: true,
+                position: 'bottom'
+              }
+          },
+          data: {
+              labels: Object.keys(pie_chart_data),
+              datasets: [{
+                  data: Object.values(pie_chart_data),
+                  borderWidth: 1,
+                  backgroundColor: chartColors
+              }]
+          }});
+    });
   }).catch((error) => {
     console.error('Error:', error);
   });;

@@ -123,7 +123,7 @@ let retrieve_information_from_mosp = function(uuid, language) {
       if (mosp_result["metadata"].count > 0) {
         resolve(mosp_result["data"][0].name);
       } else {
-        resolve(uuid);
+        resolve();
       }
     })
     .catch((error) => {
