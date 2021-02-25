@@ -217,6 +217,34 @@ to follow the logs:
 
     $ journalctl -u statsservice -f
 
+
+screen
+~~~~~~
+
+(the geeky way)
+
+.. code-block:: bash
+
+    $ screen -S statsservice
+    $ export FLASK_APP=runserver.py
+    $ poetry run python runserver.py
+    $ CTRL+a d
+    [detached from 183221.statsservice]
+
+
+Connect to the session:
+
+.. code-block:: bash
+
+    $ screen -ls
+    There is a screen on:
+            183221.statsservice      (02/25/21 10:56:59)     (Detached)
+    1 Socket in /var/run/screen/S-cedric.
+    $ screen -xS 183221.statsservice
+    $ 
+
+
+
 mod_wsgi
 ~~~~~~~~
 
