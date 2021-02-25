@@ -33,16 +33,17 @@ def threats():
     processor = request.args.get(
         "processor", default="threat_average_on_date", type=str
     )
+
     query = Stats.query.filter(Stats.type == "threat")
     if local_stats_only:
         query = query.filter(Stats.client.has(local=True))
     if last_stats:
-        query_result = [query.order_by(Stats.date.desc()).first()]
+        query = query.order_by(Stats.date.desc()).limit(5)
     else:
-        query_result = query.filter(Stats.date >= now - timedelta(days=nb_days)).all()
+        query = query.filter(Stats.date >= now - timedelta(days=nb_days))
 
     try:
-        result = getattr(statsservice.lib.processors, processor)(query_result)
+        result = getattr(statsservice.lib.processors, processor)(query.all())
     except AttributeError as e:
         abort(
             500,
@@ -62,16 +63,17 @@ def risks():
     processor = request.args.get(
         "processor", default="threat_average_on_date", type=str
     )
+
     query = Stats.query.filter(Stats.type == "risk")
     if local_stats_only:
         query = query.filter(Stats.client.has(local=True))
     if last_stats:
-        query_result = [query.order_by(Stats.date.desc()).first()]
+        query = query.order_by(Stats.date.desc()).limit(5)
     else:
-        query_result = query.filter(Stats.date >= now - timedelta(days=nb_days)).all()
+        query = query.filter(Stats.date >= now - timedelta(days=nb_days))
 
     try:
-        result = getattr(statsservice.lib.processors, processor)(query_result)
+        result = getattr(statsservice.lib.processors, processor)(query.all())
     except AttributeError:
         abort(
             500,
@@ -91,16 +93,17 @@ def vulnerabilities():
     processor = request.args.get(
         "processor", default="vulnerability_average_on_date", type=str
     )
+
     query = Stats.query.filter(Stats.type == "vulnerability")
     if local_stats_only:
         query = query.filter(Stats.client.has(local=True))
     if last_stats:
-        query_result = [query.order_by(Stats.date.desc()).first()]
+        query = query.order_by(Stats.date.desc()).limit(5)
     else:
-        query_result = query.filter(Stats.date >= now - timedelta(days=nb_days)).all()
+        query = query.filter(Stats.date >= now - timedelta(days=nb_days))
 
     try:
-        result = getattr(statsservice.lib.processors, processor)(query_result)
+        result = getattr(statsservice.lib.processors, processor)(query.all())
     except AttributeError:
         abort(
             500,
