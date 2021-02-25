@@ -226,7 +226,7 @@ screen
 .. code-block:: bash
 
     $ screen -S statsservice
-    $ export FLASK_APP=runserver.py
+    $ export STATS_CONFIG=production.py
     $ poetry run python runserver.py
     $ CTRL+a d
     [detached from 183221.statsservice]
