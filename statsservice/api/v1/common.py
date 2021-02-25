@@ -19,7 +19,7 @@ def uuid_type(value):
 
 
 # Swagger documentation
-uuid_type.__schema__ = {"type": "string", "format": "uuid_type"}
+setattr(uuid_type, '__schema__', {"type": "string", "format": "uuid_type"})
 
 
 def auth_func(func):

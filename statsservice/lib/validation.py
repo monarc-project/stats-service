@@ -6,6 +6,7 @@
 #
 
 import jsonschema
+from typing import Any
 
 
 def validate_data(data={}, type=""):
@@ -13,7 +14,7 @@ def validate_data(data={}, type=""):
     Note: an empty JSON object is validated by any schema but we do not accept
     empty stats.
     """
-    schema = {}
+    schema = {} # type: dict[Any, Any]
     try:
         jsonschema.validate(data, schema)
     except Exception as e:

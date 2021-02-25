@@ -115,9 +115,6 @@ class ProcessingList(Resource):
         anrs = args.get("anrs")
         now = datetime.today()
 
-        if None is processorParams:
-            processorParams = {}
-
         if not processor.startswith(stat_type + "_"):
             abort(
                 400,

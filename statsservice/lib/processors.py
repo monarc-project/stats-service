@@ -12,6 +12,7 @@
 #
 
 import pandas as pd
+from typing import Any
 from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursive_walk
 
 #
@@ -201,7 +202,7 @@ def risk_averages_on_date(risks_stats, processor_params={}):
                 "High risks": {},
             },
         },
-    }
+    } # type: dict[Any, Any]
 
     generators = {
         "current": {
@@ -228,7 +229,7 @@ def risk_averages_on_date(risks_stats, processor_params={}):
                 "High risks": {},
             },
         },
-    }
+    } # type: dict[Any, Any]
 
     params = dict(processor_params)
 

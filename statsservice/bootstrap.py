@@ -3,6 +3,8 @@
 
 import os
 import logging
+import io
+from typing import Any
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel, format_datetime
@@ -24,6 +26,7 @@ def set_logging(
             "statsservice.api.v1.processed",
             "statsservice.commands.stats",
         )
+    handler = io.BytesIO()  # type: Any
     if log_path:
         if not os.path.exists(os.path.dirname(log_path)):
             os.makedirs(os.path.dirname(log_path))

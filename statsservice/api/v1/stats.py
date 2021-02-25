@@ -3,6 +3,7 @@
 
 import logging
 import sqlalchemy.exc
+from typing import Dict, Any
 from flask import request
 from flask_login import current_user
 from flask_restx import Namespace, Resource, fields, reqparse, abort
@@ -160,7 +161,7 @@ class StatsList(Resource):
         result = {
             "data": [],
             "metadata": {"count": 0, "offset": offset, "limit": limit},
-        }
+        } # type: Dict[str, Any]
 
         query = Stats.query
 
@@ -198,8 +199,8 @@ class StatsList(Resource):
         query = query.filter(Stats.date >= date_from, Stats.date <= date_to)
 
         if limit or offset:
-            results = query.limit(limit).offset(offset)
-            result["metadata"]["count"] = results.count()
+            results = query.limit(limit).offset(offset).all()
+            result["metadata"]["count"] = len(results)
         else:
             results = query.all()
             result["metadata"]["count"] = len(results)
@@ -218,7 +219,7 @@ class StatsList(Resource):
         result = {
             "data": [],
             "metadata": {"count": 0, "offset": 0, "limit": 0},
-        }
+        } # type: Dict[Any, Any]
         errors = []
         for stats in stats_ns.payload:
             try:
