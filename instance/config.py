@@ -27,8 +27,8 @@ class Config(object):
 
 class ProductionConfig(Config):
     DB_CONFIG_DICT = {
-        "user": "pgsqluser",
-        "password": "pgsqlpwd",
+        "user": "postgres",
+        "password": "password",
         "host": "localhost",
         "port": 5432,
     }
