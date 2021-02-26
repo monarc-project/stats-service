@@ -37,29 +37,6 @@
             }
         },
         "/client/me": {
-            "get": {
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "$ref": "#/definitions/Clients"
-                        }
-                    }
-                },
-                "operationId": "client_get",
-                "parameters": [
-                    {
-                        "name": "X-Fields",
-                        "in": "header",
-                        "type": "string",
-                        "format": "mask",
-                        "description": "An optional fields mask"
-                    }
-                ],
-                "tags": [
-                    "client"
-                ]
-            },
             "patch": {
                 "responses": {
                     "201": {
@@ -90,9 +67,73 @@
                 "tags": [
                     "client"
                 ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Clients"
+                        }
+                    }
+                },
+                "operationId": "client_get",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "client"
+                ]
             }
         },
         "/stats/": {
+            "post": {
+                "responses": {
+                    "401": {
+                        "description": "Authorization needed"
+                    },
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StatsList"
+                            }
+                        }
+                    }
+                },
+                "summary": "Create a new stats",
+                "operationId": "create_stats",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Stats"
+                            }
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "stats"
+                ]
+            },
             "get": {
                 "responses": {
                     "401": {
@@ -159,52 +200,14 @@
                 "tags": [
                     "stats"
                 ]
-            },
-            "post": {
-                "responses": {
-                    "401": {
-                        "description": "Authorization needed"
-                    },
-                    "201": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/StatsList"
-                            }
-                        }
-                    }
-                },
-                "summary": "Create a new stats",
-                "operationId": "create_stats",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Stats"
-                            }
-                        }
-                    },
-                    {
-                        "name": "X-Fields",
-                        "in": "header",
-                        "type": "string",
-                        "format": "mask",
-                        "description": "An optional fields mask"
-                    }
-                ],
-                "tags": [
-                    "stats"
-                ]
             }
         },
         "/stats/processed/": {
             "get": {
                 "responses": {
+                    "401": {
+                        "description": "Authorization needed"
+                    },
                     "200": {
                         "description": "Success",
                         "schema": {
@@ -278,12 +281,6 @@
         },
         "/stats/{anr}": {
             "parameters": [
-                {
-                    "in": "query",
-                    "description": "The stats identifier",
-                    "name": "uuid",
-                    "type": "string"
-                },
                 {
                     "name": "anr",
                     "in": "path",
@@ -395,8 +392,7 @@
                 },
                 "is_sharing_enabled": {
                     "type": "boolean",
-                    "description": "If the statistics sharing is enabled or not.",
-                    "readOnly": true
+                    "description": "If the statistics sharing is enabled or not."
                 }
             },
             "type": "object"
