@@ -12,6 +12,7 @@ WORKDIR statsservice
 COPY statsservice statsservice/
 COPY contrib contrib/
 COPY instance instance/
+COPY runserver.py .
 COPY pyproject.toml .
 COPY poetry.lock .
 COPY package.json .
