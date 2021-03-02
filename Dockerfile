@@ -24,6 +24,6 @@ RUN poetry install
 ENV FLASK_APP runserver.py
 ENV FLASK_ENV development
 
-poetry run flask db_create
-poetry run flask db_init
-poetry run flask client_create --name user
+RUN poetry run flask db_create
+RUN poetry run flask db_init
+RUN poetry run flask client_create --name user
