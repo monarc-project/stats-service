@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-    db:
+  db:
     image: postgres:latest
     hostname: db
     restart: always
@@ -15,6 +15,11 @@ services:
       - '5532'
     volumes:
       - ./docker/postgres/data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   statsservice:
     build: .
@@ -33,4 +38,5 @@ services:
     ports:
         - "5000:5000"
     depends_on:
-      - db
+      - db:
+        condition: service_healthy
