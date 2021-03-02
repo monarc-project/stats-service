@@ -1,4 +1,0 @@
-files:
-  - source: /statsservice/translations/messages.pot
-    translation: >-
-      /statsservice/translations/%locale_with_underscore%/LC_MESSAGES/messages.po
