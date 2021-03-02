@@ -132,3 +132,26 @@ let retrieve_information_from_mosp = function(uuid, language) {
     });;
   });
 }
+
+let mosp_lookup_by_label = function(label) {
+  return new Promise(function(resolve, reject) {
+    fetch("https://objects.monarc.lu/api/v2/object/?page=1&per_page=10&name="+label, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+    })
+    .then((resp) => resp.json())
+    .then(function(mosp_result) {
+      if (mosp_result["metadata"].count > 0) {
+        resolve(mosp_result["data"][0].json_object.uuid);
+      } else {
+        resolve();
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      reject(Error(error));
+    });;
+  });
+}

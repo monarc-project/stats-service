@@ -138,9 +138,19 @@
               datasets: [{
                   data: Object.values(pie_chart_data),
                   borderWidth: 1,
-                  backgroundColor: chartColors
-              }]
-          }});
+                backgroundColor: chartColors
+            }]
+        },
+        options: {
+          onClick: function(evt) {
+            var object_label = myChart.getElementsAtEvent(evt)[0]._model.label;
+            mosp_lookup_by_label(object_label)
+            .then(function(result_mosp) {
+              window.location = 'https://objects.monarc.lu/object/'+result_mosp;
+            })
+          }
+        }
+    });
 
 
     });
@@ -206,7 +216,17 @@
                   borderWidth: 1,
                   backgroundColor: chartColors
               }]
-          }});
+          },
+          options: {
+            onClick: function(evt) {
+              var object_label = myChart.getElementsAtEvent(evt)[0]._model.label;
+              mosp_lookup_by_label(object_label)
+              .then(function(result_mosp) {
+                window.location = 'https://objects.monarc.lu/object/'+result_mosp;
+              })
+            }
+          }
+        });
     });
   }).catch((error) => {
     console.error('Error:', error);
