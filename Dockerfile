@@ -1,12 +1,24 @@
-FROM ubuntu:focal
+FROM python:3.9-alpine
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update
-RUN apt-get -y upgrade
-RUN apt-get -y install wget python3-dev git python3-venv python3-pip npm
-RUN pip3 install poetry
+RUN apk update && \
+  apk add \
+  build-base \
+  curl \
+  git \
+  python-dev \
+  gettext \
+  freetype-dev \
+  libffi-dev \
+  openssl-dev \
+  libxml2-dev \
+  libxslt-dev \
+  libpq \
+  postgresql-client \
+  postgresql-dev \
+  npm
 
 WORKDIR statsservice
 
@@ -28,6 +40,7 @@ RUN npm install
 RUN mkdir -p statsservice/static/npm_components
 RUN cp -R node_modules/* statsservice/static/npm_components/
 
+RUN pip install poetry
 RUN poetry install
 
 ENV FLASK_APP runserver.py
