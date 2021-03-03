@@ -28,7 +28,7 @@ RUN npm install
 RUN mkdir -p statsservice/static/npm_components
 RUN cp -R node_modules/* statsservice/static/npm_components/
 
-RUN poetry install
+RUN poetry install --no-dev
 
 ENV FLASK_APP runserver.py
 ENV FLASK_ENV development
