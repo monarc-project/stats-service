@@ -42,7 +42,7 @@ RUN cp -R node_modules/* statsservice/static/npm_components/
 
 RUN pip install -U pip setuptools
 RUN pip install poetry
-RUN poetry install
+RUN poetry install --no-dev
 
 ENV FLASK_APP runserver.py
 ENV FLASK_ENV development
