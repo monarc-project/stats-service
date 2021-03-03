@@ -127,6 +127,16 @@ All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 Docker
 ~~~~~~
 
+Depending on how you installed Docker, you might have to use ``sudo``.
+
+From Docker Hub:
+
+.. code-block:: bash
+
+    $ docker pull caseslu/statsservice:latest
+    $ docker run --name statsservice -d  -p 5000:5000 --rm caseslu/statsservice
+
+
 From the GitHub registry:
 
 .. code-block:: bash
@@ -134,7 +144,14 @@ From the GitHub registry:
     $ echo $YOUR-GITHUB_TOKEN | docker login https://docker.pkg.github.com -u <your-github-username> --password-stdin
     $ docker pull docker.pkg.github.com/monarc-project/stats-service/statsservice:mypy
 
-Depending on how you installed Docker, you might have to use ``sudo``.
+
+From source:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/monarc-project/stats-service
+    $ sudo docker-compose up -d
+
 
 
 From the Python Package Index
@@ -169,6 +186,8 @@ If you want to use a custom configuration file:
     $ export STATS_CONFIG=~/production.py
 
 
+
+
 .. _service-management:
 
 Service management
@@ -183,6 +202,9 @@ Several solutions are available:
 
 Daemon
 ~~~~~~
+
+In the case you have installed Stats Service from sources.
+
 Create a file ``/etc/systemd/system/statsservice.service`` with the following contents:
 
 .. code-block:: ini
@@ -230,7 +252,7 @@ to follow the logs:
 screen
 ~~~~~~
 
-(the geeky way)
+Running Stats Service in a screen session.
 
 .. code-block:: bash
 
