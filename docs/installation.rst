@@ -127,7 +127,8 @@ All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 Docker
 ~~~~~~
 
-Depending on how you installed Docker, you might have to use ``sudo``.
+Depending on how you installed Docker, you might have to use ``sudo`` which is
+discouraged.
 
 From Docker Hub:
 
@@ -150,14 +151,15 @@ From source:
 .. code-block:: bash
 
     $ git clone https://github.com/monarc-project/stats-service
-    $ sudo docker-compose up -d
+    $ docker-compose up -d
 
 
 
 From the Python Package Index
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you use this method not all functionalities will be working, for the moment.
+If you use this method not all functionalities will be working (some web assets
+won't be available), for the moment.
 
 .. only:: html
 
@@ -249,8 +251,8 @@ to follow the logs:
     $ journalctl -u statsservice -f
 
 
-screen
-~~~~~~
+GNU Screen
+~~~~~~~~~~
 
 Running Stats Service in a screen session.
 
@@ -276,8 +278,8 @@ Connect to the session:
 
 
 
-mod_wsgi
-~~~~~~~~
+mod_wsgi Apache module
+~~~~~~~~~~~~~~~~~~~~~~
 
 Create a file ``/etc/apache2/sites-available/statsservice.monarc.lu.conf``
 with a content similar to:
