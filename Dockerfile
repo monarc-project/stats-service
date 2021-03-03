@@ -8,7 +8,6 @@ RUN apk update && \
   build-base \
   curl \
   git \
-  python3-dev \
   gettext \
   freetype-dev \
   libffi-dev \
