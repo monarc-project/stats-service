@@ -33,6 +33,8 @@ RUN poetry install --no-dev
 
 ENV FLASK_APP runserver.py
 ENV FLASK_ENV development
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5000
 ENV STATS_CONFIG docker.py
 
 EXPOSE 5000

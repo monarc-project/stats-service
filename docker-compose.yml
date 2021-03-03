@@ -21,6 +21,8 @@ services:
     environment:
         - FLASK_APP=runserver.py
         - FLASK_ENV=development
+        - FLASK_RUN_HOST=0.0.0.0
+        - FLASK_RUN_PORT=5000
         - STATS_CONFIG=docker.py
     command: "./wait-for-postgres.sh db"
     volumes:
