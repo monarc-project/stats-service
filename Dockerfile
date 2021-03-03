@@ -1,4 +1,4 @@
-FROM python:3.8-alpine
+FROM python:3.9-alpine
 
 RUN apk update && \
   apk add \
@@ -38,6 +38,7 @@ RUN npm install
 RUN mkdir -p statsservice/static/npm_components
 RUN cp -R node_modules/* statsservice/static/npm_components/
 
+RUN pip install -U setuptools
 RUN pip install poetry
 RUN poetry install
 
