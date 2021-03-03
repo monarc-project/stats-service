@@ -22,7 +22,7 @@ COPY package-lock.json .
 COPY README.md .
 COPY wait-for-postgres.sh .
 
-RUN chmod +x ./wait-for-postgres.sh
+RUN chmod u+x ./wait-for-postgres.sh
 
 RUN mkdir node_modules
 RUN npm install
@@ -33,5 +33,6 @@ RUN poetry install --no-dev
 
 ENV FLASK_APP runserver.py
 ENV FLASK_ENV development
+ENV STATS_CONFIG docker.py
 
 EXPOSE 5000
