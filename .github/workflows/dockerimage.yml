@@ -17,5 +17,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: cedricbonhomme/statsservice:latest
+          tags: cedricbonhomme/statsservice
           GIT_AUTH_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
