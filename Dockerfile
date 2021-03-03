@@ -18,6 +18,8 @@ RUN apk update && \
   libpq \
   postgresql-client \
   postgresql-dev \
+  libressl-dev \
+  musl-dev \
   npm
 
 WORKDIR statsservice
