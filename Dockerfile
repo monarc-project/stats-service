@@ -1,23 +1,20 @@
-FROM python:3.9-alpine
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-ENV DEBIAN_FRONTEND=noninteractive
+FROM python:3.8-alpine
 
 RUN apk update && \
   apk add \
   build-base \
   curl \
+  gcc \
   git \
   gettext \
   freetype-dev \
   libffi-dev \
-  openssl-dev \
+  openssl \
   libxml2-dev \
   libxslt-dev \
   libpq \
   postgresql-client \
   postgresql-dev \
-  libressl-dev \
   musl-dev \
   npm
 
