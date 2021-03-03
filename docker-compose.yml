@@ -15,11 +15,6 @@ services:
       - '5532'
     volumes:
       - ./docker/postgres/data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   statsservice:
     build: .
@@ -28,15 +23,10 @@ services:
     environment:
         - FLASK_APP=runserver.py
         - FLASK_ENV=development
-    command:
-        - /bin/sh
-        - -c
-        - |
-            poetry run start
+    command: "./wait-for-postgres.sh db"
     volumes:
         - .:/statsservice:rw
     ports:
         - "5000:5000"
     depends_on:
-      - db:
-        condition: service_healthy
+      - db
