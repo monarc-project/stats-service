@@ -1,6 +1,8 @@
 name: Push to docker hub
-
-on: [push]
+on:
+  push:
+    branches:
+      - 'mypy'
 
 jobs:
 
@@ -12,9 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build and push Docker images
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: lookyloo/lookyloo
-          tags: latest
+          GIT_AUTH_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          push: true
