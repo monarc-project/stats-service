@@ -13,6 +13,7 @@ WORKDIR statsservice
 COPY statsservice statsservice/
 COPY contrib contrib/
 COPY instance instance/
+COPY migrations migrations/
 COPY runserver.py .
 COPY pyproject.toml .
 COPY poetry.lock .
@@ -32,3 +33,5 @@ RUN poetry install --no-dev
 
 ENV FLASK_APP runserver.py
 ENV FLASK_ENV development
+
+EXPOSE 5000
