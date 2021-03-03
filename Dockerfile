@@ -9,7 +9,7 @@ RUN apk update && \
   gettext \
   freetype-dev \
   libffi-dev \
-  openssl \
+  openssl-dev \
   libxml2-dev \
   libxslt-dev \
   libpq \
@@ -38,7 +38,8 @@ RUN npm install
 RUN mkdir -p statsservice/static/npm_components
 RUN cp -R node_modules/* statsservice/static/npm_components/
 
-RUN pip install -U setuptools
+RUN export CRYPTOGRAPHY_DONT_BUILD_RUST=1
+RUN pip install -U pip setuptools
 RUN pip install poetry
 RUN poetry install
 
