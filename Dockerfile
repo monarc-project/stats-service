@@ -38,4 +38,4 @@ ENV FLASK_RUN_PORT=5000
 ENV STATS_CONFIG docker.py
 
 EXPOSE 5000
-ENTRYPOINT ["./wait-for-postgres.sh", "db"]
+CMD ["./wait-for-postgres.sh", "db"]
