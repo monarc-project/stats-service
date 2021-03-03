@@ -134,7 +134,7 @@ From the GitHub registry:
     $ echo $YOUR-GITHUB_TOKEN | docker login https://docker.pkg.github.com -u <your-github-username> --password-stdin
     $ docker pull docker.pkg.github.com/monarc-project/stats-service/statsservice:mypy
 
-Depending on how you installed Docker, you might have to use ```sudo```.
+Depending on how you installed Docker, you might have to use ``sudo``.
 
 
 From the Python Package Index
@@ -183,10 +183,7 @@ Several solutions are available:
 
 Daemon
 ~~~~~~
-
-Whichever way you installed the service, you can choose to use systemd to start
-it. Simply create a file ``/etc/systemd/system/statsservice.service`` with the
-following contents:
+Create a file ``/etc/systemd/system/statsservice.service`` with the following contents:
 
 .. code-block:: ini
 

@@ -12,7 +12,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ./docker/postgres/data:/var/lib/postgresql/data
+      - ./postgres-data:/var/lib/postgresql/data
 
   statsservice:
     build: .
@@ -26,5 +26,7 @@ services:
         - .:/statsservice:rw
     ports:
         - "5000:5000"
+    expose:
+        - "5000"
     depends_on:
       - db
