@@ -153,6 +153,9 @@ From source:
     $ git clone https://github.com/monarc-project/stats-service
     $ docker-compose up -d
 
+Stats Service will be available at:
+http://127.0.0.1:5000
+
 
 
 From the Python Package Index
