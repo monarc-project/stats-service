@@ -124,6 +124,18 @@ Create a new client:
 All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 
 
+Docker
+~~~~~~
+
+From the GitHub registry:
+
+.. code-block:: bash
+
+    $ echo $YOUR-GITHUB_TOKEN | docker login https://docker.pkg.github.com -u <your-github-username> --password-stdin
+    $ docker pull docker.pkg.github.com/monarc-project/stats-service/statsservice:mypy
+
+Depending on how you installed Docker, you might have to use ```sudo```.
+
 
 From the Python Package Index
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
