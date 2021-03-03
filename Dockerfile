@@ -6,16 +6,18 @@ RUN apk update && \
   curl \
   gcc \
   git \
+  python3-dev \
   gettext \
   freetype-dev \
   libffi-dev \
-  openssl-dev \
+  libressl-dev \
   libxml2-dev \
   libxslt-dev \
   libpq \
   postgresql-client \
   postgresql-dev \
   musl-dev \
+  cargo \
   npm
 
 WORKDIR statsservice
@@ -38,7 +40,6 @@ RUN npm install
 RUN mkdir -p statsservice/static/npm_components
 RUN cp -R node_modules/* statsservice/static/npm_components/
 
-RUN export CRYPTOGRAPHY_DONT_BUILD_RUST=1
 RUN pip install -U pip setuptools
 RUN pip install poetry
 RUN poetry install
