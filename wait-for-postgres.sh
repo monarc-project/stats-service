@@ -12,6 +12,7 @@ done
 >&2 echo "Postgres is up - executing command"
 poetry run flask db_create
 poetry run flask db_init
+poetry run flask db migrate
 poetry run flask client_create --name user
 poetry run pybabel compile -d statsservice/translations
 poetry run flask run

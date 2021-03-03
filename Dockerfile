@@ -22,7 +22,7 @@ COPY package-lock.json .
 COPY README.md .
 COPY wait-for-postgres.sh .
 
-RUN chmod u+x ./wait-for-postgres.sh
+RUN chmod +x ./wait-for-postgres.sh
 
 RUN mkdir node_modules
 RUN npm install
@@ -38,3 +38,4 @@ ENV FLASK_RUN_PORT=5000
 ENV STATS_CONFIG docker.py
 
 EXPOSE 5000
+ENTRYPOINT ["./wait-for-postgres.sh", "db"]
