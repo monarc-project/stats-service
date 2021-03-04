@@ -130,6 +130,17 @@ Docker
 Depending on how you installed Docker, you might have to use ``sudo`` which is
 discouraged.
 
+From the repository:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/monarc-project/stats-service
+    $ docker-compose up -d
+
+Stats Service will be available at:
+http://127.0.0.1:5000
+
+
 From Docker Hub:
 
 .. code-block:: bash
@@ -145,17 +156,6 @@ From the GitHub registry:
     $ echo $YOUR-GITHUB_TOKEN | docker login https://docker.pkg.github.com -u <your-github-username> --password-stdin
     $ docker pull docker.pkg.github.com/monarc-project/stats-service/statsservice:mypy
     $ docker run --name statsservice -d -p 5000:5000 --rm docker.pkg.github.com/monarc-project/stats-service/statsservice:mypy
-
-
-From source:
-
-.. code-block:: bash
-
-    $ git clone https://github.com/monarc-project/stats-service
-    $ docker-compose up -d
-
-Stats Service will be available at:
-http://127.0.0.1:5000
 
 
 

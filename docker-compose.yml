@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:latest
     hostname: db
-    container_name: db
+    container_name: statsservice_db
     restart: always
     environment:
       - POSTGRES_USER=postgres
@@ -14,11 +14,11 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    networks:
-      - statsnetwork
 
   statsservice:
     build: .
+    container_name: statsservice_web
+    restart: always
     working_dir: /statsservice
     tty: true
     environment:
@@ -36,14 +36,7 @@ services:
         - "5000"
     depends_on:
       - db
-    links:
-      - db:db
-    networks:
-      - statsnetwork
 
-networks:
-  statsnetwork:
-    driver: bridge
 
 volumes:
   postgres_data:
