@@ -140,6 +140,24 @@ From the repository:
 Stats Service will be available at:
 http://127.0.0.1:5000
 
+A client should be already created, check:
+
+.. code-block:: bash
+
+    $ docker exec -it statsservice_web /bin/bash
+
+    root@3fa0646b50da:/statsservice# poetry shell
+    Spawning shell within /root/.cache/pypoetry/virtualenvs/statsservice-B5Jj2TVj-py3.8
+    root@3fa0646b50da:/statsservice# . /root/.cache/pypoetry/virtualenvs/statsservice-B5Jj2TVj-py3.8/bin/activate
+
+    (statsservice-B5Jj2TVj-py3.8) root@3fa0646b50da:/statsservice# flask client_list
+    UUID: b4c6f28a-1819-49e6-bf06-8691b29afbc5
+    Name: user
+    Role: 1
+    Token: nV3gH6uE2yBcKRjpjBbtUacnVrhpRNiBHgcvtirj5v4wAvlipAHiq5iG-lKu_1wxKD4Ta1q-G7GJFo__voDo5A
+    Sharing Enabled: True
+    Created at: 2021-03-04 10:23:59.000847
+
 
 From Docker Hub:
 
