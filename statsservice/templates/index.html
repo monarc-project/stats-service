@@ -4,6 +4,25 @@
 <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 {% endblock %}
 {% block content %}
+<!-- Modal -->
+<div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">You are about to leave this website</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Leave the webiste and see the object on the MONARC Objects Sharing Platform (https://objects.monarc.lu).
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">Close</button>
+        <button type="button" class="btn btn-primary" id="MOSPModalOK">Go to MOSP</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container" role="main">
   <div class="row justify-content-center">
     <div class="col">
@@ -81,6 +100,10 @@
     </div>
 </div><!-- /.container -->
 <script>
+  var myModal = new bootstrap.Modal(document.getElementById('MOSPModal'), {
+    keyboard: false
+  })
+
   fetch("{{ url_for('stats_bp.threats', processor='threat_average_on_date', last_stats=1) | safe }}", {
     method: "GET",
     headers: {
@@ -146,7 +169,12 @@
             var object_label = myChart.getElementsAtEvent(evt)[0]._model.label;
             mosp_lookup_by_label(object_label)
             .then(function(result_mosp) {
-              window.location = 'https://objects.monarc.lu/object/'+result_mosp;
+              myModal.show()
+              document.getElementById("MOSPModalClose").onclick = function(){
+              };
+              document.getElementById("MOSPModalOK").onclick = function(){
+                window.location = 'https://objects.monarc.lu/object/'+result_mosp;
+              };
             })
           }
         }
@@ -222,7 +250,12 @@
               var object_label = myChart.getElementsAtEvent(evt)[0]._model.label;
               mosp_lookup_by_label(object_label)
               .then(function(result_mosp) {
-                window.location = 'https://objects.monarc.lu/object/'+result_mosp;
+                myModal.show()
+                document.getElementById("MOSPModalClose").onclick = function(){
+                };
+                document.getElementById("MOSPModalOK").onclick = function(){
+                  window.location = 'https://objects.monarc.lu/object/'+result_mosp;
+                };
               })
             }
           }
