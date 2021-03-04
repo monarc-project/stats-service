@@ -132,6 +132,8 @@ discouraged.
 
 From the repository:
 
+Currently the recommended way with Docker.
+
 .. code-block:: bash
 
     $ git clone https://github.com/monarc-project/stats-service

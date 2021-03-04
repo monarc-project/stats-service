@@ -6,7 +6,7 @@
     <div class="col-md">
       <h1>Help</h1>
       <ul>
-        <li>a documentation is available <a href="https://monarc-stats-service.readthedocs.io" target="_blank" rel="noopener noreferrer">here</a></li>
+        <li>a documentation is available <a href="{{ url_for('root_bp.documentation', path='') }}" target="_blank" rel="noopener noreferrer">here</a></li>
         <li><a href="{{ url_for('api.doc') }}">OpenAPI Specification</a> of the API</li>
         <li>contact the admin of this Stats Service instance at the address: <a href="mailto:{{ config.ADMIN_EMAIL }}?subject=Stats Service">{{ config.ADMIN_EMAIL }}</a></li>
         <li>our website: <a href="{{ config.ADMIN_URL }}" target="_blank" rel="noopener noreferrer">{{ config.ADMIN_URL }}</a></li>
