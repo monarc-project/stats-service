@@ -135,7 +135,7 @@ From Docker Hub:
 .. code-block:: bash
 
     $ docker pull caseslu/statsservice:latest
-    $ docker run --name statsservice -d  -p 5000:5000 --rm caseslu/statsservice
+    $ docker run --name statsservice -d -p 5000:5000 --rm caseslu/statsservice
 
 
 From the GitHub registry:
@@ -144,6 +144,7 @@ From the GitHub registry:
 
     $ echo $YOUR-GITHUB_TOKEN | docker login https://docker.pkg.github.com -u <your-github-username> --password-stdin
     $ docker pull docker.pkg.github.com/monarc-project/stats-service/statsservice:mypy
+    $ docker run --name statsservice -d -p 5000:5000 --rm docker.pkg.github.com/monarc-project/stats-service/statsservice:mypy
 
 
 From source:
