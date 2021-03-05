@@ -26,6 +26,10 @@
       :alt: PyPi version
 
 
+.. |br| raw:: html
+
+  <br />
+
 
 .. raw:: latex
 
@@ -37,9 +41,11 @@ Presentation
 `This component <https://github.com/monarc-project/stats-service>`_ provides an
 API in order to **collect** statistics from one or several
 `MONARC <https://github.com/monarc-project/MonarcAppFO>`_ instances and to
-**return** these statistics with different filters and aggregation methods.
+**return** these statistics with different filters and aggregation methods. |br| Charts
+from the collected statistics are also available.
 
-It can be deployed just next to a MONARC instance or on a dedicated server.
+The MONARC Stats Service can be deployed just next to a MONARC instance or on a
+dedicated server.
 
 The collected statistics can be sent to an other stats instance.
 

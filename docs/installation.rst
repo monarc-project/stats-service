@@ -123,12 +123,15 @@ Create a new client:
 
 All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
 
+A demo instance is available [here](https://monarc-stats-service.herokuapp.com).
+
+
 
 Docker
 ~~~~~~
 
-Depending on how you installed Docker you might have to use ``sudo``, which is
-discouraged.
+Depending on how you installed Docker on your system, you might have to use ``sudo``,
+which is discouraged.
 
 From the repository (currently the recommended way with Docker)
 ```````````````````````````````````````````````````````````````
@@ -160,8 +163,8 @@ A client should be already created, check:
     Created at: 2021-03-04 10:23:59.000847
 
 
-From Docker Hub
-```````````````
+From the Docker Hub
+```````````````````
 
 .. code-block:: bash
 
@@ -284,7 +287,7 @@ to follow the logs:
 GNU Screen
 ~~~~~~~~~~
 
-Running Stats Service in a screen session.
+You can simply execute Stats Service in a screen session.
 
 .. code-block:: bash
 
@@ -318,7 +321,7 @@ with a content similar to:
 .. code-block:: apacheconf
 
     <VirtualHost *:80>
-            ServerName stats.monarc.lu
+            ServerName dashboard.monarc.lu
 
             ServerAdmin webmaster@localhost
             DocumentRoot /home/monarc/stats-service

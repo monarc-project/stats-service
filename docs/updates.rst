@@ -10,5 +10,3 @@ Updating the application consists of performing the following operations:
     $ poetry install
     $ poetry run flask db upgrade
     $ sudo systemctl restart statsservice.service
-
-To date, no database migrations are required.
