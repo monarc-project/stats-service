@@ -60,7 +60,8 @@ $ flask run
 
 ## Documentation
 
-A [documentation is available](https://monarc-stats-service.readthedocs.io).
+A [documentation is available](https://monarc-stats-service.readthedocs.io) which is
+providing alternative ways of installation and information about the architecture.
 
 
 ## License

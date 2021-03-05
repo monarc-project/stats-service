@@ -130,7 +130,8 @@ Docker
 Depending on how you installed Docker you might have to use ``sudo``, which is
 discouraged.
 
-From the repository (currently the recommended way with Docker):
+From the repository (currently the recommended way with Docker)
+```````````````````````````````````````````````````````````````
 
 .. code-block:: bash
 
@@ -159,7 +160,8 @@ A client should be already created, check:
     Created at: 2021-03-04 10:23:59.000847
 
 
-From Docker Hub:
+From Docker Hub
+```````````````
 
 .. code-block:: bash
 
@@ -172,11 +174,12 @@ If you have issues with the database hostname resolution, try:
     $ docker run --name statsservice -d -p 5000:5000 --add-host db:127.0.0.1 --rm caseslu/statsservice
 
 
-From the GitHub registry:
+From the GitHub registry
+````````````````````````
 
 .. code-block:: bash
 
-    $ echo $YOUR-GITHUB_TOKEN | docker login https://docker.pkg.github.com -u <your-github-username> --password-stdin
+    $ echo $YOUR-GITHUB-TOKEN | docker login https://docker.pkg.github.com -u <your-github-username> --password-stdin
     $ docker pull docker.pkg.github.com/monarc-project/stats-service/statsservice:master
     $ docker run --name statsservice -d -p 5000:5000 --rm docker.pkg.github.com/monarc-project/stats-service/statsservice:master
 
