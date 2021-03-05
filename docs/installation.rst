@@ -177,8 +177,8 @@ From the GitHub registry:
 .. code-block:: bash
 
     $ echo $YOUR-GITHUB_TOKEN | docker login https://docker.pkg.github.com -u <your-github-username> --password-stdin
-    $ docker pull docker.pkg.github.com/monarc-project/stats-service/statsservice:mypy
-    $ docker run --name statsservice -d -p 5000:5000 --rm docker.pkg.github.com/monarc-project/stats-service/statsservice:mypy
+    $ docker pull docker.pkg.github.com/monarc-project/stats-service/statsservice:master
+    $ docker run --name statsservice -d -p 5000:5000 --rm docker.pkg.github.com/monarc-project/stats-service/statsservice:master
 
 
 

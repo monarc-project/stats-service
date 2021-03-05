@@ -2,7 +2,7 @@ name: Push to docker hub
 on:
   push:
     branches:
-      - 'mypy'
+      - 'master'
 
 jobs:
 
