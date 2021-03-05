@@ -130,9 +130,7 @@ Docker
 Depending on how you installed Docker you might have to use ``sudo``, which is
 discouraged.
 
-From the repository:
-
-Currently the recommended way with Docker.
+From the repository (currently the recommended way with Docker):
 
 .. code-block:: bash
 
