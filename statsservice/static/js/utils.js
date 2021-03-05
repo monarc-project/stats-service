@@ -155,3 +155,16 @@ let mosp_lookup_by_label = function(label) {
     });;
   });
 }
+
+let let_pie_charts_modals = function(object_uuid) {
+  if (object_uuid) {
+    MOSPModal.show()
+    document.getElementById("MOSPModalClose").onclick = function(){
+    };
+    document.getElementById("MOSPModalOK").onclick = function(){
+      window.location = 'https://objects.monarc.lu/object/'+object_uuid;
+    };
+  } else {
+    unknowObjectModal.show();
+  }
+}

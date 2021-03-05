@@ -50,7 +50,10 @@ def groups_threats(threats):
         anr_uuid = str(threat_stats.anr)
         for data in threat_stats.data:
             # groups[threat_stats.anr].append(data)
-            str_uuid = str(data["uuid"])
+            try: # temporary try
+                str_uuid = str(data["uuid"])
+            except:
+                continue
             if str_uuid not in groups[anr_uuid].keys():
                 groups[anr_uuid][str_uuid] = []
             # add the related date of this stats
