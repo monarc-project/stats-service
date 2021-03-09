@@ -28,7 +28,8 @@ services:
         - STATS_CONFIG=docker.py
     command: "./wait-for-postgres.sh db"
     volumes:
-      - static_volume:/statsservice/static
+      - .:/statsservice:rw
+      - statsservice/static
     ports:
         - "5000:5000"
     expose:
@@ -38,4 +39,3 @@ services:
 
 volumes:
   postgres_data:
-  static_volume:
