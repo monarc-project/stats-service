@@ -72,7 +72,10 @@ def stats_push(date_from, date_to):
     if date_from > date_to:
         print("Error: --date-from option must be before --date-to.")
 
-    headers = {"X-API-KEY": application.config["REMOTE_STATS_TOKEN"], "content-type": "application/json"}
+    headers = {
+        "X-API-KEY": application.config["REMOTE_STATS_TOKEN"],
+        "content-type": "application/json",
+    }
     payload = []
 
     clients = Client.query.filter(Client.is_sharing_enabled == True)

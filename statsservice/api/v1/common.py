@@ -3,7 +3,7 @@
 
 import uuid
 from flask import request
-from flask_restx import abort
+from flask_restx import abort, fields
 
 from statsservice.models import Client
 from statsservice.api.v1.identity import login_user_bundle
@@ -19,7 +19,7 @@ def uuid_type(value):
 
 
 # Swagger documentation
-setattr(uuid_type, '__schema__', {"type": "string", "format": "uuid_type"})
+setattr(uuid_type, "__schema__", {"type": "string", "format": "uuid_type"})
 
 
 def auth_func(func):
@@ -38,3 +38,36 @@ def auth_func(func):
     wrapper.__doc__ = func.__doc__
     wrapper.__name__ = func.__name__
     return wrapper
+
+
+# Params for models marshalling
+
+metada_params_model = {
+    "count": fields.String(
+        readonly=True, description="Total number of the items of the data."
+    ),
+    "offset": fields.String(
+        readonly=True,
+        description="Position of the first element of the data from the total data amount.",
+    ),
+    "limit": fields.String(readonly=True, description="Requested limit data."),
+}
+
+stats_params_model = {
+    "uuid": fields.String(readonly=True, description="The stats unique identifier"),
+    "anr": fields.String(description="The ANR UUID related to this stats."),
+    "type": fields.String(
+        description="The type of this stats (risk, vulnerability, threat, cartography or compliance)."
+    ),
+    "date": fields.Date(description="The stats date in format 'Y-m-d'"),
+    "data": fields.Raw(description="The stats as a dynamic JSON object."),
+}
+
+clients_params_model = {
+    "name": fields.String(description="The client name."),
+    "token": fields.String(readonly=True, description="The token of the client."),
+    "role": fields.String(readonly=True, description="The client role."),
+    "is_sharing_enabled": fields.Boolean(
+        description="If the statistics sharing is enabled or not."
+    ),
+}

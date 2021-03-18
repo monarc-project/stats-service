@@ -8,7 +8,7 @@ from flask_login import current_user
 
 from statsservice.bootstrap import db
 from statsservice.models import Client
-from statsservice.api.v1.common import auth_func
+from statsservice.api.v1.common import auth_func, clients_params_model
 from statsservice.api.v1.identity import admin_permission
 
 
@@ -17,17 +17,7 @@ logger = logging.getLogger(__name__)
 client_ns = Namespace("client", description="client related operations")
 
 # Response marshalling
-clients = client_ns.model(
-    "Clients",
-    {
-        "name": fields.String(description="The client name."),
-        "token": fields.String(readonly=True, description="The token of the client."),
-        "role": fields.String(readonly=True, description="The client role."),
-        "is_sharing_enabled": fields.Boolean(
-            description="If the statistics sharing is enabled or not."
-        ),
-    },
-)
+clients = client_ns.model("Clients", clients_params_model)
 
 
 @client_ns.route("/")
