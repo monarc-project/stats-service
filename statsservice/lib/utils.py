@@ -44,7 +44,8 @@ def tree():
 
 
 def groups_threats(threats):
-    """Groups stats about threats per ANR (UUID) then per threat UUID."""
+    """Groups stats about threats per ANR (UUID) then per threat UUID.
+    Function not used."""
     groups = tree()
     for threat_stats in threats:
         anr_uuid = str(threat_stats.anr)
@@ -68,7 +69,8 @@ def groups_threats(threats):
 
 
 def groups_vulnerabilities(vulnerabilities):
-    """Groups stats about vulnerabilities per ANR (UUID) then per vulnerability UUID."""
+    """Groups stats about vulnerabilities per ANR (UUID) then per vulnerability UUID.
+    Function not used."""
     # the structure of the stats for the threats and vulnerabilities is the same
     return groups_threats(vulnerabilities)
 

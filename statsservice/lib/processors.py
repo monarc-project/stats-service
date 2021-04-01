@@ -12,7 +12,7 @@
 #
 
 from typing import Any
-from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursive_walk
+from statsservice.lib.utils import tree, mean_gen, dict_recursive_walk
 
 #
 # Processors for threats
