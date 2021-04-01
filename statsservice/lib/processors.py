@@ -11,7 +11,6 @@
 # this variable is for example used in statsservice.api.v1.stats
 #
 
-from collections import defaultdict
 from typing import Any
 from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursive_walk
 
