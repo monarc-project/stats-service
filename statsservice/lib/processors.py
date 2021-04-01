@@ -11,7 +11,6 @@
 # this variable is for example used in statsservice.api.v1.stats
 #
 
-import pandas as pd
 from collections import defaultdict
 from typing import Any
 from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursive_walk
@@ -78,53 +77,6 @@ def threat_average_on_date(threats_stats, processor_params={}):
         }
 
     return result
-
-
-def threat_average_on_date1(threats_stats, processor_params={}):
-    """Aggregation and average of threats per date for each threat (accross all risk
-    analysis).
-    """
-    assert processor_params is not None, "processor_params parameters can not be None."
-    grouped_threats = groups_threats(threats_stats)
-
-    labels = tree()
-    frames = tree()
-    # group all threats of all analysis per date
-    for anr_uuid in grouped_threats:
-        for threat_uuid, stats in grouped_threats[anr_uuid].items():
-            for data in stats:
-                for i in ["1", "2", "3", "4"]:
-                    # store the labels related to the UUID
-                    if data.get("label" + str(i), False):
-                        labels[threat_uuid]["label" + i] = data["label" + i]
-                    # for now we remove from data the labels before processing the frames
-                    if "label" + str(i) in data:
-                        data.pop("label" + str(i))
-
-                # prepare the frames
-                if data["date"] in frames[threat_uuid]:
-                    frames[threat_uuid][data["date"]].append(data)
-                else:
-                    frames[threat_uuid][data["date"]] = [data]
-
-    result = tree()
-    preparedResult = []
-    # evaluate the averages per day for each threats
-    for threat_uuid in frames:
-        result[threat_uuid]["object"] = threat_uuid
-        result[threat_uuid]["labels"] = labels[threat_uuid]
-        result[threat_uuid]["values"] = []
-        for date in frames[threat_uuid]:
-            df = pd.DataFrame(frames[threat_uuid][date])
-            mean = dict(df.mean())
-            mean["date"] = date
-            result[threat_uuid]["values"].append(mean)
-        # averages for each threat
-        df = pd.DataFrame(result[threat_uuid]["values"])
-        result[threat_uuid]["averages"] = dict(df.mean())
-        preparedResult.append(result[threat_uuid])
-
-    return preparedResult
 
 
 #
