@@ -14,7 +14,12 @@ from sqlalchemy.sql.expression import desc
 
 from statsservice.bootstrap import db
 from statsservice.models import Stats, Client
-from statsservice.api.v1.common import auth_func, uuid_type
+from statsservice.api.v1.common import (
+    auth_func,
+    uuid_type,
+    metada_params_model,
+    stats_params_model,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -91,33 +96,8 @@ parser.add_argument(
 
 
 # Response marshalling
-stats = stats_ns.model(
-    "Stats",
-    {
-        "uuid": fields.String(readonly=True, description="The stats unique identifier"),
-        "anr": fields.String(description="The ANR UUID related to this stats."),
-        "type": fields.String(
-            description="The type of this stats (risk, vulnerability, threat, cartography or compliance)."
-        ),
-        "date": fields.Date(description="The stats date in format 'Y-m-d'"),
-        "data": fields.Raw(description="The stats as a dynamic JSON object."),
-    },
-)
-
-metadata = stats_ns.model(
-    "metadata",
-    {
-        "count": fields.String(
-            readonly=True, description="Total number of the items of the data."
-        ),
-        "offset": fields.String(
-            readonly=True,
-            description="Position of the first element of the data from the total data amount.",
-        ),
-        "limit": fields.String(readonly=True, description="Requested limit data."),
-    },
-)
-
+stats = stats_ns.model("Stats", stats_params_model)
+metadata = stats_ns.model("metadata", metada_params_model)
 stats_list_fields = stats_ns.model(
     "StatsList",
     {
@@ -161,7 +141,7 @@ class StatsList(Resource):
         result = {
             "data": [],
             "metadata": {"count": 0, "offset": offset, "limit": limit},
-        } # type: Dict[str, Any]
+        }  # type: Dict[str, Any]
 
         query = Stats.query
 
@@ -219,7 +199,7 @@ class StatsList(Resource):
         result = {
             "data": [],
             "metadata": {"count": 0, "offset": 0, "limit": 0},
-        } # type: Dict[Any, Any]
+        }  # type: Dict[Any, Any]
         errors = []
         for stats in stats_ns.payload:
             try:

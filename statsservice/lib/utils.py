@@ -50,7 +50,7 @@ def groups_threats(threats):
         anr_uuid = str(threat_stats.anr)
         for data in threat_stats.data:
             # groups[threat_stats.anr].append(data)
-            try: # temporary try
+            try:  # temporary try
                 str_uuid = str(data["uuid"])
             except:
                 continue
