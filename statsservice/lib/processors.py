@@ -62,6 +62,7 @@ def threat_average_on_date(threats_stats, processor_params={}):
             averages[str(elem["uuid"])]["maxRisk"] = averages[str(elem["uuid"])]["maxRisk"].send(float(elem["maxRisk"]))
             averages[str(elem["uuid"])]["averageRate"] = averages[str(elem["uuid"])]["averageRate"].send(float(elem["averageRate"]))
 
+    # format the result for the client
     for elem in result:
         for date in averages_per_days[str(elem["object"])]:
             elem["values"].append({
