@@ -62,19 +62,19 @@ def threat_average_on_date(threats_stats, processor_params={}):
             averages[str(elem["uuid"])]["maxRisk"] = averages[str(elem["uuid"])]["maxRisk"].send(float(elem["maxRisk"]))
             averages[str(elem["uuid"])]["averageRate"] = averages[str(elem["uuid"])]["averageRate"].send(float(elem["averageRate"]))
 
-        for elem in result:
-            for date in averages_per_days[str(elem["object"])]:
-                elem["values"].append({
-                    "count": averages_per_days[str(elem["object"])][date]["count"],
-                    "maxRisk": averages_per_days[str(elem["object"])][date]["maxRisk"],
-                    "averageRate": averages_per_days[str(elem["object"])][date]["averageRate"],
-                    "date": date
-                })
-            elem["averages"] = {
-                "count": averages[str(elem["object"])]["count"],
-                "maxRisk": averages[str(elem["object"])]["maxRisk"],
-                "averageRate": averages[str(elem["object"])]["averageRate"],
-            }
+    for elem in result:
+        for date in averages_per_days[str(elem["object"])]:
+            elem["values"].append({
+                "count": averages_per_days[str(elem["object"])][date]["count"],
+                "maxRisk": averages_per_days[str(elem["object"])][date]["maxRisk"],
+                "averageRate": averages_per_days[str(elem["object"])][date]["averageRate"],
+                "date": date
+            })
+        elem["averages"] = {
+            "count": averages[str(elem["object"])]["count"],
+            "maxRisk": averages[str(elem["object"])]["maxRisk"],
+            "averageRate": averages[str(elem["object"])]["averageRate"],
+        }
 
     return result
 
