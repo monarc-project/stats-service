@@ -12,6 +12,7 @@
 #
 
 import pandas as pd
+from collections import defaultdict
 from typing import Any
 from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursive_walk
 
@@ -19,8 +20,66 @@ from statsservice.lib.utils import groups_threats, tree, mean_gen, dict_recursiv
 # Processors for threats
 #
 
-
 def threat_average_on_date(threats_stats, processor_params={}):
+    result = []
+
+    averages = tree()
+    averages_per_days = tree()
+
+    for stats in threats_stats:
+        for elem in stats.data:
+            if str(elem["uuid"]) not in averages_per_days:
+                # initializes structure for a new object UUID
+                new_elem = {
+                    "object": str(elem["uuid"]),
+                    "labels": {
+                        "label1": elem.get("label1", ""),
+                        "label2": elem.get("label2", ""),
+                        "label3": elem.get("label3", ""),
+                        "label4": elem.get("label4", ""),
+                    },
+                    "values": [],
+                    "averages": {}
+                }
+                result.append(new_elem)
+
+            # initializes the generators
+            # generators for averages per days per object
+            averages_per_days[str(elem["uuid"])][str(stats.date)]["count"] = mean_gen()
+            averages_per_days[str(elem["uuid"])][str(stats.date)]["maxRisk"] = mean_gen()
+            averages_per_days[str(elem["uuid"])][str(stats.date)]["averageRate"] = mean_gen()
+            # generators for global averages per object
+            averages[str(elem["uuid"])]["count"] = mean_gen()
+            averages[str(elem["uuid"])]["maxRisk"] = mean_gen()
+            averages[str(elem["uuid"])]["averageRate"] = mean_gen()
+            # process the averages
+            dict_recursive_walk(averages_per_days[str(elem["uuid"])][str(stats.date)], "send", None, {})
+            dict_recursive_walk(averages[str(elem["uuid"])], "send", None, {})
+            averages_per_days[str(elem["uuid"])][str(stats.date)]["count"] = averages_per_days[str(elem["uuid"])][str(stats.date)]["count"].send(float(elem["count"]))
+            averages_per_days[str(elem["uuid"])][str(stats.date)]["maxRisk"] = averages_per_days[str(elem["uuid"])][str(stats.date)]["maxRisk"].send(float(elem["maxRisk"]))
+            averages_per_days[str(elem["uuid"])][str(stats.date)]["averageRate"] = averages_per_days[str(elem["uuid"])][str(stats.date)]["averageRate"].send(float(elem["averageRate"]))
+            averages[str(elem["uuid"])]["count"] = averages[str(elem["uuid"])]["count"].send(float(elem["count"]))
+            averages[str(elem["uuid"])]["maxRisk"] = averages[str(elem["uuid"])]["maxRisk"].send(float(elem["maxRisk"]))
+            averages[str(elem["uuid"])]["averageRate"] = averages[str(elem["uuid"])]["averageRate"].send(float(elem["averageRate"]))
+
+    for elem in result:
+        for date in averages_per_days[str(elem["object"])]:
+            elem["values"].append({
+                "count": averages_per_days[str(elem["object"])][date]["count"],
+                "maxRisk": averages_per_days[str(elem["object"])][date]["maxRisk"],
+                "averageRate": averages_per_days[str(elem["object"])][date]["averageRate"],
+                "date": date
+            })
+        elem["averages"] = {
+            "count": averages[str(elem["object"])]["count"],
+            "maxRisk": averages[str(elem["object"])]["maxRisk"],
+            "averageRate": averages[str(elem["object"])]["averageRate"],
+        }
+
+    return result
+
+
+def threat_average_on_date1(threats_stats, processor_params={}):
     """Aggregation and average of threats per date for each threat (accross all risk
     analysis).
     """
