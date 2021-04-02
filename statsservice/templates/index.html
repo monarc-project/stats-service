@@ -51,7 +51,7 @@
 
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h2 id="trends-threats">{{ _('Top 5 threats') }}</h2>
+      <h2 id="trends-threats">{{ _('Top threats') }}</h2>
       <div class="d-flex justify-content-center">
         <div class="chart-container" style="position: relative; height:40vh; width:80vw">
           <canvas id="threats-pie-chart"></canvas>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="col-md-6">
-      <h2 id="trends-threats">{{ _('Top 5 vulnerabilities') }}</h2>
+      <h2 id="trends-threats">{{ _('Top vulnerabilities') }}</h2>
       <div class="d-flex justify-content-center">
         <div class="chart-container" style="position: relative; height:40vh; width:80vw">
           <canvas id="vulnerabilities-pie-chart"></canvas>
@@ -73,6 +73,7 @@
 
   <div class="row">
     <div class="col-md-12">
+      <p>Charts based on the most recent collected data.</p>
       <p>See the recent <a href="{{ url_for('stats_bp.stats') }}">evolution</a> for the threats and vulnerabilities.</p>
     </div>
   </div>
