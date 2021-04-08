@@ -114,3 +114,9 @@ def documentation():
 def human():
     """Human dot txt page."""
     return render_template("human.txt"), 200, {"Content-Type": "text/plain"}
+
+
+@root_bp.route("dashboard-test", methods=["GET"])
+def dashboard_test():
+    """Test dashboard."""
+    return render_template("dashboard-test.html")

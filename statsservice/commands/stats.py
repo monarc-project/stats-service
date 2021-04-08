@@ -53,6 +53,21 @@ def stats_purge(nb_month):
         print(e)
 
 
+@application.cli.command("stats_remove_duplicate")
+@click.option(
+    "--client-uuid", default="", help="UUID of the lclient related to the stats."
+)
+def stats_remove_duplicate(client_uuid):
+    """Delete the stats older than the number of months specified in parameter."""
+    print("Deleting duplicate stats for {}...".format(client_uuid))
+    # query = Stats.query.filter(Stats.date <= date_to)
+    try:
+        Stats.query.filter(Stats.client.has(uuid=client_uuid))#.delete()
+        db.session.commit()
+    except Exception as e:
+        print(e)
+
+
 @application.cli.command("stats_push")
 @click.option(
     "--date-from",
