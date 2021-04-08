@@ -4,10 +4,334 @@
 <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 {% endblock %}
 {% block content %}
-<div class="container">
+<!-- Modal -->
+<div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="MOSPModalLabel">You are about to leave this website</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">Close</button>
+        <button type="button" class="btn btn-primary" id="MOSPModalOK">See the object on MOSP</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="unknowObjectModal" tabindex="-1" aria-labelledby="unknowObjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="unknowObjectModalLabel">Unknow object</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        We were not able to find this object on MOSP.<br /><br />
+        If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="container" role="main">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h1>{{ _('Current Cybersecurity landscape') }}</h1>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 id="trends-threats">{{ _('Top 5 threats') }}</h2>
+      <div class="d-flex justify-content-center">
+        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+          <canvas id="threats-pie-chart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h2 id="trends-threats">{{ _('Top 5 vulnerabilities') }}</h2>
+      <div class="d-flex justify-content-center">
+        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+          <canvas id="vulnerabilities-pie-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row">
+    <div class="col-md-12">
+      <p>See the recent <a href="{{ url_for('stats_bp.stats') }}">evolution</a> for the threats and vulnerabilities.</p>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 id="trends-risks">Risks</h2>
+      <canvas id="canvas-risks-info"></canvas>
+      <canvas id="canvas-risks-op"></canvas>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="jumbotron m-3">
+        <h2>{{ _('What are these graphics about?') }}</h2>
+        <p class="lead">{{ _('This page depicts the current
+          cybersecurity landscape (in terms of
+          <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
+          <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a> and
+          <a href="https://objects.monarc.lu/schema/16" rel="noreferrer" target="_blank">risks</a>)
+          based on data shared by
+          several <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances<sup><a href="#footnote-1">[1]</a></sup>.') }}<br />
+          <hr class="my-4">
+          <a class="btn btn-primary btn-lg" href="{{ url_for('root_bp.help') }}#how-does-it-work" role="button">{{ _('Learn more') }}</a>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+      <div class="col-md-12">
+        <ol class="footnotes">
+          <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">Details</a> about contributors and the stats on this instance.</li>
+        </ol>
+      </div>
+    </div>
 </div><!-- /.container -->
 <script>
+  var MOSPModal = new bootstrap.Modal(document.getElementById('MOSPModal'), {
+    keyboard: false
+  })
+  var unknowObjectModal = new bootstrap.Modal(document.getElementById('unknowObjectModal'), {
+    keyboard: false
+  })
+
+  fetch("{{ url_for('stats_bp.threats', processor='threat_average_on_date', last_stats=1) | safe }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((resp) => resp.json())
+  .then(function(resp_json) {
+
+    var resp_json_sorted = resp_json
+      .sort(function(a, b) {
+        return b.averages.averageRate - a.averages.averageRate;
+      })
+      .slice(0, 5);
+
+    // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+    threats_by_uuid = {}
+    var promises = resp_json_sorted.map(function(threat) {
+      return retrieve_information_from_mosp(threat.object, "EN")
+      .then(function(result_mosp) {
+        threats_by_uuid[threat.object] = {"object": threat}
+        threats_by_uuid[threat.object]["translated_label"] = result_mosp
+
+        if (result_mosp) {
+          threats_by_uuid[threat.object]["translated_label"] = result_mosp
+        } else {
+          threats_by_uuid[threat.object]["translated_label"] = threat.labels.label2
+        }
+        return threat.object;
+      })
+    })
+
+    // wait that we have all responses from MOSP
+    Promise.all(promises).then(function(results) {
+
+      var pie_chart_data = {};
+
+      resp_json_sorted.map(function(elem) {
+        pie_chart_data[threats_by_uuid[elem["object"]].translated_label] = elem['averages']['averageRate'];
+      });
+
+      var ctx = document.getElementById("threats-pie-chart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'pie',
+          options: {
+            legend: {
+                display: true,
+                position: 'bottom'
+              }
+          },
+          data: {
+              labels: Object.keys(pie_chart_data),
+              datasets: [{
+                  data: Object.values(pie_chart_data),
+                  borderWidth: 1,
+                backgroundColor: chartColors
+            }]
+        },
+        options: {
+          onClick: function(evt) {
+            var object_label = myChart.getElementsAtEvent(evt)[0]._model.label;
+            mosp_lookup_by_label(object_label)
+            .then(function(result_mosp) {
+              let_pie_charts_modals(result_mosp);
+            })
+          }
+        }
+    });
+
+
+    });
+  }).catch((error) => {
+    console.error('Error:', error);
+  });
+
+
+
+  fetch("{{ url_for('stats_bp.vulnerabilities', processor='threat_average_on_date', last_stats=1) | safe }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((resp) => resp.json())
+  .then(function(resp_json) {
+
+    var resp_json_sorted = resp_json
+      .sort(function(a, b) {
+        return b.averages.averageRate - a.averages.averageRate;
+      })
+      .slice(0, 5);
+
+    // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+    vulnerabilities_by_uuid = {}
+    var promises = resp_json_sorted.map(function(vulnerability) {
+      return retrieve_information_from_mosp(vulnerability.object, "EN")
+      .then(function(result_mosp) {
+        vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
+        if (result_mosp) {
+          vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = result_mosp
+        } else {
+          vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = vulnerability.labels.label2;
+        }
+        return vulnerability.object;
+      })
+    })
+
+    // wait that we have all responses from MOSP
+    Promise.all(promises).then(function(results) {
+      var pie_chart_data = {};
+
+      resp_json_sorted.map(function(elem) {
+        pie_chart_data[vulnerabilities_by_uuid[elem["object"]].translated_label] = elem['averages']['averageRate'];
+      });
+
+      var ctx = document.getElementById("vulnerabilities-pie-chart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'pie',
+          options: {
+            legend: {
+                display: true,
+                position: 'bottom'
+              }
+          },
+          data: {
+              labels: Object.keys(pie_chart_data),
+              datasets: [{
+                  data: Object.values(pie_chart_data),
+                  borderWidth: 1,
+                  backgroundColor: chartColors
+              }]
+          },
+          options: {
+            onClick: function(evt) {
+              var object_label = myChart.getElementsAtEvent(evt)[0]._model.label;
+              mosp_lookup_by_label(object_label)
+              .then(function(result_mosp) {
+                let_pie_charts_modals(result_mosp);
+              })
+            }
+          }
+        });
+    });
+  }).catch((error) => {
+    console.error('Error:', error);
+  });;
+
+
+  fetch("{{ url_for('stats_bp.risks', processor='risk_averages', days=365) | safe }}", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((resp) => resp.json())
+  .then(function(resp_json) {
+    // Display data for informational risks
+    config_base_bar_chart_informational_risks["data"]["datasets"].push({
+      label: "Current Risks",
+      backgroundColor: ['rgb(214, 241, 7)', 'rgb(255, 188, 28)','rgb(253, 102, 31)'],
+      data: [
+        resp_json["current"]["informational"]["Low risks"],
+        resp_json["current"]["informational"]["Medium risks"],
+        resp_json["current"]["informational"]["High risks"]
+      ]
+    })
+    config_base_bar_chart_informational_risks["data"]["datasets"].push({
+      label: "Residual Risks",
+      backgroundColor: ['rgb(214, 241, 7, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(253, 102, 31, 0.5)'],
+      data: [
+        resp_json["residual"]["informational"]["Low risks"],
+        resp_json["residual"]["informational"]["Medium risks"],
+        resp_json["residual"]["informational"]["High risks"]
+      ]
+    })
+
+    console.log(config_base_bar_chart_informational_risks);
+    var ctx_risks_info = document.getElementById("canvas-risks-info").getContext("2d");
+    var chart_risks = new Chart(ctx_risks_info, config_base_bar_chart_informational_risks);
+
+    // Display data for operational risks
+    config_base_bar_chart_operational_risks["data"]["datasets"].push({
+      label: "Current Risks",
+      backgroundColor: ['rgb(214, 241, 7)', 'rgb(255, 188, 28)','rgb(253, 102, 31)'],
+      data: [
+        resp_json["current"]["operational"]["Low risks"],
+        resp_json["current"]["operational"]["Medium risks"],
+        resp_json["current"]["operational"]["High risks"]
+      ]
+    })
+    config_base_bar_chart_operational_risks["data"]["datasets"].push({
+      label: "Residual Risks",
+      backgroundColor: ['rgb(214, 241, 7, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(253, 102, 31, 0.5)'],
+      data: [
+        resp_json["residual"]["operational"]["Low risks"],
+        resp_json["residual"]["operational"]["Medium risks"],
+        resp_json["residual"]["operational"]["High risks"]
+      ]
+    })
+    var ctx_risks_op = document.getElementById("canvas-risks-op").getContext("2d");
+    var chart_risks = new Chart(ctx_risks_op, config_base_bar_chart_operational_risks);
+
+  }).catch((error) => {
+    console.error('Error:', error);
+  });;
+
+
+
 
 </script>
 {% endblock %}

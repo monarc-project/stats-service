@@ -81,7 +81,7 @@ var config_base_line_chart = {
 var config_base_bar_chart_informational_risks = {
   type: 'bar',
   data: {
-    labels: ["High", "Low", "Medium"],
+    labels: ["Low", "Medium", "High"],
     datasets: []
   },
   options: {
@@ -97,7 +97,7 @@ var config_base_bar_chart_informational_risks = {
 var config_base_bar_chart_operational_risks = {
   type: 'bar',
   data: {
-    labels: ["High", "Low", "Medium"],
+    labels: ["Low", "Medium", "High"],
     datasets: []
   },
   options: {
