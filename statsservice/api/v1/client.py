@@ -8,7 +8,11 @@ from flask_login import current_user
 
 from statsservice.bootstrap import db
 from statsservice.models import Client
-from statsservice.api.v1.common import auth_func, clients_params_model, check_client_user_agent
+from statsservice.api.v1.common import (
+    auth_func,
+    clients_params_model,
+    check_client_user_agent,
+)
 from statsservice.api.v1.identity import admin_permission
 
 
@@ -24,7 +28,7 @@ clients = client_ns.model("Clients", clients_params_model)
 class ClientsList(Resource):
     """Create new clients."""
 
-    method_decorators=[check_client_user_agent]
+    method_decorators = [check_client_user_agent]
 
     @client_ns.doc("client_create")
     @client_ns.expect(clients)
@@ -47,7 +51,7 @@ class ClientsList(Resource):
 class GetClient(Resource):
     """Get client details."""
 
-    method_decorators=[check_client_user_agent]
+    method_decorators = [check_client_user_agent]
 
     @client_ns.doc("client_get")
     @client_ns.marshal_with(clients, code=200)

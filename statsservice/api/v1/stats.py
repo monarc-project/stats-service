@@ -114,7 +114,7 @@ stats_list_fields = stats_ns.model(
 class StatsList(Resource):
     """Shows a list of all the stats, and lets you POST to add new stats"""
 
-    method_decorators=[check_client_user_agent]
+    method_decorators = [check_client_user_agent]
 
     @stats_ns.doc("list_stats")
     @stats_ns.expect(parser)
