@@ -42,7 +42,7 @@ def auth_func(func):
 
 
 def check_client_user_agent(meth):
-    user_agent = request.headers.get('User-Agent')
+    user_agent = request.headers.get('User-Agent', '')
 
     if "MONARC/" in user_agent:
         try:
