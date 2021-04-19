@@ -32,48 +32,27 @@ var config_base_line_chart = {
   },
   options: {
     scales: {
-      xAxes: [{
-        offset: true,
-        type: "time",
+      x: {
+        type: 'time',
+        max: Date.now(),
         time: {
-          unit: 'day',
-          round: 'day',
+          unit: 'month',
           displayFormats: {
-            day: 'MMM D'
+            quarter: 'MM YYYY'
           }
         }
-      }],
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        align: 'start',
+        labels: {
+          fontFamily: "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
         }
-      }]
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: {
-      display: true,
-      position: 'bottom',
-      align: 'start',
-      fullWidth: true,
-      padding: 40,
-      labels: {
-        fontFamily: "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
-      },
-    },
-    // legendCallback: function(chart) {
-    //   var text = [];
-    //   text.push('<ul class="' + chart.id + '-legend1">');
-    //     for (var i = 0; i < chart.data.datasets.length; i++) {
-    //       text.push('<li><span style="background-color:' + chart.data.datasets[i].backgroundColor + '"></span>');
-    //         if (chart.data.datasets[i].label) {
-    //           text.push(chart.data.datasets[i].label);
-    //         }
-    //         text.push('</li>');
-    //       }
-    //       text.push('</ul>');
-    //       return text.join('');
-    //     },
+      }
+    }
   }
 }
 
