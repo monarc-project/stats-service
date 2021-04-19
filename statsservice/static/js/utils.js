@@ -42,6 +42,16 @@ var config_base_line_chart = {
           }
         }
       }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        align: 'start',
+        labels: {
+          fontFamily: "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+        }
+      }
     }
   }
 }
