@@ -51,18 +51,18 @@
 
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h2 id="trends-threats">{{ _('Top 5 threats') }}</h2>
+      <h2 id="trends-threats">{{ _('Top threats') }}</h2>
       <div class="d-flex justify-content-center">
-        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+        <div class="chart-container" style="position: relative; width:80vw">
           <canvas id="threats-pie-chart"></canvas>
         </div>
       </div>
     </div>
 
     <div class="col-md-6">
-      <h2 id="trends-threats">{{ _('Top 5 vulnerabilities') }}</h2>
+      <h2 id="trends-threats">{{ _('Top vulnerabilities') }}</h2>
       <div class="d-flex justify-content-center">
-        <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+        <div class="chart-container" style="position: relative;  width:80vw">
           <canvas id="vulnerabilities-pie-chart"></canvas>
         </div>
       </div>
@@ -73,6 +73,7 @@
 
   <div class="row">
     <div class="col-md-12">
+      <p>Charts based on the most recent collected data.</p>
       <p>See the recent <a href="{{ url_for('stats_bp.stats') }}">evolution</a> for the threats and vulnerabilities.</p>
     </div>
   </div>
@@ -133,9 +134,15 @@
   .then((resp) => resp.json())
   .then(function(resp_json) {
 
+    var resp_json_sorted = resp_json
+      .sort(function(a, b) {
+        return b.averages.averageRate - a.averages.averageRate;
+      })
+      .slice(0, 5);
+
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
     threats_by_uuid = {}
-    var promises = resp_json.map(function(threat) {
+    var promises = resp_json_sorted.map(function(threat) {
       return retrieve_information_from_mosp(threat.object, "EN")
       .then(function(result_mosp) {
         threats_by_uuid[threat.object] = {"object": threat}
@@ -153,18 +160,10 @@
     // wait that we have all responses from MOSP
     Promise.all(promises).then(function(results) {
 
-      var sorted_data = [];
       var pie_chart_data = {};
 
-      resp_json.map(function(elem) {
-        sorted_data.push([
-          threats_by_uuid[elem["object"]].translated_label, elem['averages']['averageRate']
-        ])
-      });
-      sorted_data.sort(function(a, b) {
-        return b[1] - a[1];
-      }).slice(0, 5).map(function(elem) {
-        pie_chart_data[elem[0]] = elem[1];
+      resp_json_sorted.map(function(elem) {
+        pie_chart_data[threats_by_uuid[elem["object"]].translated_label] = elem['averages']['averageRate'];
       });
 
       var ctx = document.getElementById("threats-pie-chart").getContext('2d');
@@ -172,6 +171,7 @@
           type: 'pie',
           options: {
             legend: {
+                responsive: true,
                 display: true,
                 position: 'bottom'
               }
@@ -186,7 +186,9 @@
         },
         options: {
           onClick: function(evt) {
-            var object_label = myChart.getElementsAtEvent(evt)[0]._model.label;
+            var activePoints = myChart.getElementsAtEventForMode(evt, 'point', myChart.options);
+            var firstPoint = activePoints[0];
+            var object_label = myChart.data.labels[firstPoint.datasetIndex];
             mosp_lookup_by_label(object_label)
             .then(function(result_mosp) {
               let_pie_charts_modals(result_mosp);
@@ -212,9 +214,15 @@
   .then((resp) => resp.json())
   .then(function(resp_json) {
 
+    var resp_json_sorted = resp_json
+      .sort(function(a, b) {
+        return b.averages.averageRate - a.averages.averageRate;
+      })
+      .slice(0, 5);
+
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
     vulnerabilities_by_uuid = {}
-    var promises = resp_json.map(function(vulnerability) {
+    var promises = resp_json_sorted.map(function(vulnerability) {
       return retrieve_information_from_mosp(vulnerability.object, "EN")
       .then(function(result_mosp) {
         vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
@@ -229,18 +237,10 @@
 
     // wait that we have all responses from MOSP
     Promise.all(promises).then(function(results) {
-      var sorted_data = [];
       var pie_chart_data = {};
 
-      resp_json.map(function(elem) {
-        sorted_data.push([
-          vulnerabilities_by_uuid[elem["object"]].translated_label, elem['averages']['averageRate']
-        ])
-      });
-      sorted_data.sort(function(a, b) {
-        return b[1] - a[1];
-      }).slice(0, 5).map(function(elem) {
-        pie_chart_data[elem[0]] = elem[1];
+      resp_json_sorted.map(function(elem) {
+        pie_chart_data[vulnerabilities_by_uuid[elem["object"]].translated_label] = elem['averages']['averageRate'];
       });
 
       var ctx = document.getElementById("vulnerabilities-pie-chart").getContext('2d');
@@ -262,7 +262,9 @@
           },
           options: {
             onClick: function(evt) {
-              var object_label = myChart.getElementsAtEvent(evt)[0]._model.label;
+              var activePoints = myChart.getElementsAtEventForMode(evt, 'point', myChart.options);
+              var firstPoint = activePoints[0];
+              var object_label = myChart.data.labels[firstPoint.datasetIndex];
               mosp_lookup_by_label(object_label)
               .then(function(result_mosp) {
                 let_pie_charts_modals(result_mosp);
@@ -287,27 +289,44 @@
     // Display data for informational risks
     config_base_bar_chart_informational_risks["data"]["datasets"].push({
       label: "Current Risks",
-      backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
-      data: Object.values(resp_json["current"]["informational"])
+      backgroundColor: ['rgb(214, 241, 7)', 'rgb(255, 188, 28)','rgb(253, 102, 31)'],
+      data: [
+        resp_json["current"]["informational"]["Low risks"],
+        resp_json["current"]["informational"]["Medium risks"],
+        resp_json["current"]["informational"]["High risks"]
+      ]
     })
     config_base_bar_chart_informational_risks["data"]["datasets"].push({
       label: "Residual Risks",
-      backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
-      data: Object.values(resp_json["residual"]["informational"])
+      backgroundColor: ['rgb(214, 241, 7, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(253, 102, 31, 0.5)'],
+      data: [
+        resp_json["residual"]["informational"]["Low risks"],
+        resp_json["residual"]["informational"]["Medium risks"],
+        resp_json["residual"]["informational"]["High risks"]
+      ]
     })
+
     var ctx_risks_info = document.getElementById("canvas-risks-info").getContext("2d");
     var chart_risks = new Chart(ctx_risks_info, config_base_bar_chart_informational_risks);
 
     // Display data for operational risks
     config_base_bar_chart_operational_risks["data"]["datasets"].push({
       label: "Current Risks",
-      backgroundColor: ['rgb(253, 102, 31)', 'rgb(255, 188, 28)', 'rgb(214, 241, 7)'],
-      data: Object.values(resp_json["current"]["operational"])
+      backgroundColor: ['rgb(214, 241, 7)', 'rgb(255, 188, 28)','rgb(253, 102, 31)'],
+      data: [
+        resp_json["current"]["operational"]["Low risks"],
+        resp_json["current"]["operational"]["Medium risks"],
+        resp_json["current"]["operational"]["High risks"]
+      ]
     })
     config_base_bar_chart_operational_risks["data"]["datasets"].push({
       label: "Residual Risks",
-      backgroundColor: ['rgb(253, 102, 31, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(214, 241, 7, 0.5)'],
-      data: Object.values(resp_json["residual"]["operational"])
+      backgroundColor: ['rgb(214, 241, 7, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(253, 102, 31, 0.5)'],
+      data: [
+        resp_json["residual"]["operational"]["Low risks"],
+        resp_json["residual"]["operational"]["Medium risks"],
+        resp_json["residual"]["operational"]["High risks"]
+      ]
     })
     var ctx_risks_op = document.getElementById("canvas-risks-op").getContext("2d");
     var chart_risks = new Chart(ctx_risks_op, config_base_bar_chart_operational_risks);
