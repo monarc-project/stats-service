@@ -9,7 +9,7 @@
   "author": "Cédric Bonhomme",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "bootstrap": "^5.0.0-alpha1",
+    "bootstrap": "^5.0.0-beta3",
     "chart.js": "^3.1.1",
     "popper.js": "^1.16.1"
   },
