@@ -34,7 +34,7 @@ var config_base_line_chart = {
     scales: {
       x: {
         type: 'time',
-        parsing: false,
+        max: Date.now(),
         time: {
           unit: 'month',
           displayFormats: {
