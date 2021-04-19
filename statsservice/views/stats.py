@@ -38,7 +38,7 @@ def threats():
     if local_stats_only:
         query = query.filter(Stats.client.has(local=True))
     if last_stats:
-        query = query.order_by(Stats.date.desc()).limit(5)
+        query = query.order_by(Stats.date.desc()).limit(40)
     else:
         query = query.filter(Stats.date >= now - timedelta(days=nb_days))
 
@@ -68,7 +68,7 @@ def risks():
     if local_stats_only:
         query = query.filter(Stats.client.has(local=True))
     if last_stats:
-        query = query.order_by(Stats.date.desc()).limit(5)
+        query = query.order_by(Stats.date >= now - timedelta(days=40))
     else:
         query = query.filter(Stats.date >= now - timedelta(days=nb_days))
 
@@ -98,7 +98,7 @@ def vulnerabilities():
     if local_stats_only:
         query = query.filter(Stats.client.has(local=True))
     if last_stats:
-        query = query.order_by(Stats.date.desc()).limit(5)
+        query = query.order_by(Stats.date >= now - timedelta(days=40))
     else:
         query = query.filter(Stats.date >= now - timedelta(days=nb_days))
 

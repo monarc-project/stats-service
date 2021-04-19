@@ -62,7 +62,7 @@ def stats_remove_duplicate(client_uuid):
     print("Deleting duplicate stats for {}...".format(client_uuid))
     # query = Stats.query.filter(Stats.date <= date_to)
     try:
-        Stats.query.filter(Stats.client.has(uuid=client_uuid))#.delete()
+        Stats.query.filter(Stats.client.has(uuid=client_uuid))  # .delete()
         db.session.commit()
     except Exception as e:
         print(e)

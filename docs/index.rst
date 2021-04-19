@@ -79,3 +79,14 @@ Blueprints
 
    api-v1
    stats
+
+
+License
+=======
+
+MONARC Stats Service is licensed under
+`GNU Affero General Public License version 3 <https://www.gnu.org/licenses/agpl-3.0.html>`_.
+
+
+* Copyright (C) 2020-2021 Cédric Bonhomme
+* Copyright (C) 2020-2021 SECURITYMADEIN.LU

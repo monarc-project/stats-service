@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import uuid
+from packaging import version
 from flask import request
 from flask_restx import abort, fields
 
@@ -38,6 +39,22 @@ def auth_func(func):
     wrapper.__doc__ = func.__doc__
     wrapper.__name__ = func.__name__
     return wrapper
+
+
+def check_client_user_agent(meth):
+    """Check the User-Agent sent by a MONARC client."""
+    user_agent = request.headers.get("User-Agent", "")
+
+    if "MONARC/" in user_agent:
+        try:
+            monarc_version = user_agent.split("/")[1]
+        except:
+            # failed to extract the version of MONARC, cancels the check
+            return meth
+        if version.parse(monarc_version) < version.parse("2.10.2"):
+            abort(426, Error="This service requires use of MONARC version >= 2.10.2.")
+
+    return meth
 
 
 # Params for models marshalling
