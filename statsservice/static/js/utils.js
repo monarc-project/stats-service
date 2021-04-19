@@ -38,7 +38,7 @@ var config_base_line_chart = {
         time: {
           unit: 'month',
           displayFormats: {
-            quarter: 'MMM YYYY'
+            quarter: 'MM YYYY'
           }
         }
       }
