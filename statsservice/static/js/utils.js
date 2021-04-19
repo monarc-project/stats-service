@@ -25,36 +25,7 @@ chartColors = [
 
 
 // basic configuration of the charts (threats and vulnerabilities)
-var config_base_line_chart = {
-  type: 'line',
-  data: {
-    datasets: []
-  },
-  options: {
-    scales: {
-      x: {
-        type: 'time',
-        max: Date.now(),
-        time: {
-          unit: 'month',
-          displayFormats: {
-            quarter: 'MM YYYY'
-          }
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        display: true,
-        position: 'bottom',
-        align: 'start',
-        labels: {
-          fontFamily: "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
-        }
-      }
-    }
-  }
-}
+
 
 
 var config_base_bar_chart_informational_risks = {
