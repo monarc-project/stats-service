@@ -29,9 +29,16 @@ var chartColors = [
 
 //  Object of charts canvas data
 var charts = {
-  threats: undefined,
-  vulnerabilities: undefined,
+    threats: {
+      by_uuid: [],
+      canvas: undefined
+    },
+    vulnerabilities: {
+      by_uuid: [],
+      canvas: undefined
+    },
 };
+
 
 // basic configuration of the charts (threats and vulnerabilities)
 var config_base_bar_chart_informational_risks = {
@@ -151,44 +158,50 @@ function getModals() {
  */
 
 function  updateChart(allData, valueTop, chart, ctx, config) {
-  let by_uuid = {};
   let chart_data = {};
+  let promises = [];
   let resp_json_sorted = allData.slice(0, parseInt(valueTop));
+  resp_json_sorted.forEach(item => {
+    if (!Object.keys(charts[chart].by_uuid).includes(item.object) ) {
+      promises.push(
+        retrieve_information_from_mosp(item.object)
+            .then(function(result_mosp) {
+                charts[chart].by_uuid[item.object] = {"object": item}
+                charts[chart].by_uuid[item.object]["translated_label"] = result_mosp
 
-  let promises = resp_json_sorted.map(function(item) {
-      return retrieve_information_from_mosp(item.object)
-      .then(function(result_mosp) {
-          by_uuid[item.object] = {"object": item}
-          by_uuid[item.object]["translated_label"] = result_mosp
+                if (result_mosp) {
+                  charts[chart].by_uuid[item.object]["translated_label"] = result_mosp
+                } else {
+                  charts[chart].by_uuid[item.object]["translated_label"] = item.labels.label2
+                }
 
-          if (result_mosp) {
-            by_uuid[item.object]["translated_label"] = result_mosp
-          } else {
-            by_uuid[item.object]["translated_label"] = item.labels.label2
+                return item.object;
+            })
+      );
+    }
+
+    Promise.all(promises).then(function() {
+        chart_data[charts[chart].by_uuid[item["object"]].translated_label] = item['averages']['averageRate'];
+          if (Object.keys(chart_data).length == valueTop) {
+              let data = {
+                labels: Object.keys(chart_data),
+                datasets: [{
+                    data: Object.values(chart_data),
+                    borderWidth: 1,
+                    backgroundColor: chartColors
+                }]
+              };
+
+              if (charts[chart].canvas) {
+                charts[chart].canvas.config.data = data;
+                charts[chart].canvas.update();
+              }else {
+                config.data = data;
+                charts[chart].canvas = new Chart(ctx,config);
+              }
           }
-          return item.object;
-      });
-  });
 
-  // wait that we have all responses from MOSP
-  Promise.all(promises).then(function() {
-      resp_json_sorted.map(function(elem) {
-        chart_data[by_uuid[elem["object"]].translated_label] = elem['averages']['averageRate'];
-      });
-      let data = {
-        labels: Object.keys(chart_data),
-        datasets: [{
-            data: Object.values(chart_data),
-            borderWidth: 1,
-            backgroundColor: chartColors
-        }]
-      };
-      if (charts[chart]) {
-        charts[chart].config.data = data;
-        charts[chart].update();
-      }else {
-        config.data = data;
-        charts[chart] = new Chart(ctx,config);
-      }
-  });
+
+    });
+  })
 }
