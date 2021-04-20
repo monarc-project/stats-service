@@ -26,7 +26,10 @@ chartColors = [
 
 // basic configuration of the charts (threats and vulnerabilities)
 
-
+var charts = {
+  threats: undefined,
+  vulnerabilities: undefined,
+};
 
 var config_base_bar_chart_informational_risks = {
   type: 'bar',
@@ -123,4 +126,57 @@ let let_pie_charts_modals = function(object_uuid) {
   } else {
     unknowObjectModal.show();
   }
+}
+
+/**
+ * Update chart
+ *
+ * @param {Array} allData All elements from MOSP query.
+ * @param {number} valueTop Number of items to display.
+ * @param {string} chart Name of items (threats,vulnerabilities).
+ * @param {object} ctx Canvas context.
+ * @param {object} config Chart config.
+ */
+
+function  updateChart(allData, valueTop, chart, ctx, config) {
+  let by_uuid = {};
+  let chart_data = {};
+  let resp_json_sorted = allData.slice(0, parseInt(valueTop));
+
+  let promises = resp_json_sorted.map(function(item) {
+      return retrieve_information_from_mosp(item.object)
+      .then(function(result_mosp) {
+          by_uuid[item.object] = {"object": item}
+          by_uuid[item.object]["translated_label"] = result_mosp
+
+          if (result_mosp) {
+            by_uuid[item.object]["translated_label"] = result_mosp
+          } else {
+            by_uuid[item.object]["translated_label"] = item.labels.label2
+          }
+          return item.object;
+      });
+  });
+
+  // wait that we have all responses from MOSP
+  Promise.all(promises).then(function() {
+      resp_json_sorted.map(function(elem) {
+        chart_data[by_uuid[elem["object"]].translated_label] = elem['averages']['averageRate'];
+      });
+      let data = {
+        labels: Object.keys(chart_data),
+        datasets: [{
+            data: Object.values(chart_data),
+            borderWidth: 1,
+            backgroundColor: chartColors
+        }]
+      };
+      if (charts[chart]) {
+        charts[chart].config.data = data;
+        charts[chart].update();
+      }else {
+        config.data = data;
+        charts[chart] = new Chart(ctx,config);
+      }
+  });
 }
