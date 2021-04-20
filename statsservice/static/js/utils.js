@@ -60,7 +60,13 @@ var config_base_bar_chart_operational_risks = {
 };
 
 
-let retrieve_information_from_mosp = function(uuid, language) {
+let retrieve_information_from_mosp = function(uuid) {
+  language = "EN";
+  try {
+    language = navigator.language.split("-")[0].toUpperCase()
+  } catch (e) {
+    language = "EN";
+  }
   return new Promise(function(resolve, reject) {
     fetch("https://objects.monarc.lu/api/v2/object/?language="+language+"&uuid="+uuid, {
       method: "GET",

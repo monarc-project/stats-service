@@ -46,7 +46,7 @@ function drawEvolutionChart() {
     // (we limit the datasets to the number of previously defined colors)
     threats_by_uuid = {}
     var promises = resp_json.slice(0, chartColors.length).map(function(threat) {
-      return retrieve_information_from_mosp(threat.object, "EN")
+      return retrieve_information_from_mosp(threat.object)
       .then(function(result_mosp) {
         threats_by_uuid[threat.object] = {"object": threat}
         threats_by_uuid[threat.object]["translated_label"] = result_mosp
@@ -114,7 +114,7 @@ function drawEvolutionChart() {
     // (we limit the datasets to the number of previously defined colors)
     vulnerabilities_by_uuid = {}
     var promises = resp_json.slice(0, chartColors.length).map(function(vulnerability) {
-      return retrieve_information_from_mosp(vulnerability.object, "")
+      return retrieve_information_from_mosp(vulnerability.object)
       .then(function(result_mosp) {
         vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
         vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = result_mosp
