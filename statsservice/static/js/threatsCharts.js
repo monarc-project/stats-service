@@ -51,7 +51,7 @@ function drawThreatsChart() {
         let pie_chart_data = {};
 
         var promises = resp_json_sorted.map(function(threat) {
-          return retrieve_information_from_mosp(threat.object, "EN")
+          return retrieve_information_from_mosp(threat.object)
           .then(function(result_mosp) {
             threats_by_uuid[threat.object] = {"object": threat}
             threats_by_uuid[threat.object]["translated_label"] = result_mosp

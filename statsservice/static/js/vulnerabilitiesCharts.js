@@ -52,7 +52,7 @@ function drawVulnerabilitiesChart() {
       let pie_chart_data = {};
 
       var promises = resp_json_sorted.map(function(vulnerability) {
-        return retrieve_information_from_mosp(vulnerability.object, "EN")
+        return retrieve_information_from_mosp(vulnerability.object)
         .then(function(result_mosp) {
           vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
           if (result_mosp) {
