@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: MONARC Stats Service\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2021-04-20 08:44+0200\n"
-"PO-Revision-Date: 2021-04-20 08:47+0200\n"
+"PO-Revision-Date: 2021-04-20 08:57+0000\n"
 "Last-Translator: Cédric Bonhomme <cedric@cedricbonhomme.org>\n"
-"Language-Team: fr_FR <LL@li.org>\n"
+"Language-Team: French <https://translate.monarc.lu/projects/"
+"monarc-stats-service/stats-service/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 "Generated-By: Babel 2.9.0\n"
-"X-Generator: Poedit 2.3\n"
 
 #: statsservice/templates/about.html:9
 msgid ""
@@ -207,7 +208,7 @@ msgstr "Si vous recherches les objets MONARC vous pouvez regarder sur"
 
 #: statsservice/templates/help.html:77
 msgid "MONARC Objects Sharing Platform"
-msgstr "MOSP, la platforme de partage d'objets MONARC"
+msgstr "MOSP, la plateforme de partage d'objets MONARC"
 
 #: statsservice/templates/help.html:78
 msgid ""
@@ -344,7 +345,7 @@ msgstr "En savoir plus"
 
 #: statsservice/templates/index.html:130
 msgid "Details"
-msgstr "Déþails"
+msgstr "Détails"
 
 #: statsservice/templates/index.html:130
 msgid "about contributors and the stats on this instance."
