@@ -12,15 +12,15 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="MOSPModalLabel">You are about to leave this website</h5>
+        <h5 class="modal-title" id="MOSPModalLabel">{{ _('You are about to leave this website') }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).
+        {{ _('Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).') }}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">Close</button>
-        <button type="button" class="btn btn-primary" id="MOSPModalOK">See the object on MOSP</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
+        <button type="button" class="btn btn-primary" id="MOSPModalOK">{{ _('See the object on MOSP') }}</button>
       </div>
     </div>
   </div>
@@ -29,15 +29,15 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="unknowObjectModalLabel">Unknow object</h5>
+        <h5 class="modal-title" id="unknowObjectModalLabel">{{ _('Unknow object') }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        We were not able to find this object on MOSP.<br /><br />
-        If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.
+      {{ _('We were not able to find this object on MOSP.') }}<br /><br />
+      {{ _('If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.') }}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
       </div>
     </div>
   </div>
@@ -88,8 +88,8 @@
 
   <div class="row">
     <div class="col-md-12">
-      <p>Charts based on the most recent collected data.</p>
-      <p>See the recent <a href="{{ url_for('stats_bp.stats') }}">evolution</a> for the threats and vulnerabilities.</p>
+      <p>{{ _('Charts based on the most recent collected data.') }}</p>
+      <p>{{ _('See the recent') }} <a href="{{ url_for('stats_bp.stats') }}">{{ _('evolution') }}</a> {{ _('for the threats and vulnerabilities.') }}</p>
     </div>
   </div>
 
@@ -97,7 +97,7 @@
 
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h2 id="trends-risks">Risks</h2>
+      <h2 id="trends-risks">{{ _('Risks') }}</h2>
       <canvas id="canvas-risks-info"></canvas>
       <canvas id="canvas-risks-op"></canvas>
     </div>
@@ -127,7 +127,7 @@
     <div class="row">
       <div class="col-md-12">
         <ol class="footnotes">
-          <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">Details</a> about contributors and the stats on this instance.</li>
+          <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">{{ _('Details') }}</a> {{ _('about contributors and the stats on this instance.') }}</li>
         </ol>
       </div>
     </div>
@@ -199,9 +199,5 @@
   }).catch((error) => {
     console.error('Error:', error);
   });;
-
-
-
-
 </script>
 {% endblock %}

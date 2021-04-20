@@ -6,14 +6,14 @@
     <div class="col-md">
       <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="240" class="mx-auto d-block" alt="Logo of MONARC Stats Service" title="Logo of MONARC Stats Service">
       <h1>MONARC Stats Service</h1>
-      <p>This software is released under AGPLv3 license and is maintained by
-        <a href="https://www.cases.lu/" target="_blank" rel="noopener noreferrer">CASES Luxembourg</a>.
+      <p>{{ _('This software is released under AGPLv3 license and is maintained by
+        <a href="https://www.cases.lu/" target="_blank" rel="noopener noreferrer">CASES Luxembourg</a>.') }}
         <br />
-        You are welcome to copy, modify or
+        {{ _('You are welcome to copy, modify or
         redistribute the <a href="https://github.com/monarc-project/stats-service" target="_blank" rel="noopener noreferrer">source code</a>
         according to the <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener noreferrer">Affero GPL</a> license.</p>
-        <p>Found a bug? Report it <a href="https://github.com/monarc-project/stats-service/issues" target="_blank" rel="noopener noreferrer">here</a>.
-        <p class="text-justify"><a href="{{ url_for('root_bp.about_more') }}">More information</a> about this instance.</p>
+        <p>Found a bug? Report it <a href="https://github.com/monarc-project/stats-service/issues" target="_blank" rel="noopener noreferrer">here</a>.') }}
+        <p class="text-justify"><a href="{{ url_for('root_bp.about_more') }}">{{ _('More information') }}</a> {{ _('about this instance.') }}</p>
     </div>
   </div>
 </div><!-- /.container -->
