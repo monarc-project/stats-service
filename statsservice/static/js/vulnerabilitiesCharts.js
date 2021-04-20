@@ -50,18 +50,18 @@ function drawVulnerabilitiesChart() {
       let chart_data = {};
       let resp_json_sorted = allVulnerabilities.slice(0, parseInt(valueTop));
 
-      var promises = resp_json_sorted.map(function(vulnerability) {
-        return retrieve_information_from_mosp(vulnerability.object)
-        .then(function(result_mosp) {
-          vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
-          if (result_mosp) {
-            vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = result_mosp
-          } else {
-            vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = vulnerability.labels.label2;
-          }
-          return vulnerability.object;
-        })
-      })
+      let promises = resp_json_sorted.map(function(vulnerability) {
+          return retrieve_information_from_mosp(vulnerability.object)
+          .then(function(result_mosp) {
+              vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
+              if (result_mosp) {
+                vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = result_mosp
+              } else {
+                vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = vulnerability.labels.label2;
+              }
+              return vulnerability.object;
+          });
+      });
 
       // wait that we have all responses from MOSP
       Promise.all(promises).then(function() {
