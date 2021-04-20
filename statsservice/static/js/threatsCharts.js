@@ -1,5 +1,8 @@
 function drawThreatsChart() {
   let myChart;
+  let ctx = document.getElementById("threats-chart").getContext('2d');
+  let topThreatsInput = document.getElementById("topThreats")
+  let valueTop = topThreatsInput.value;
   let config = {
       data: {},
       type: 'bar',
@@ -23,36 +26,32 @@ function drawThreatsChart() {
   };
 
   fetch("stats/threats.json?processor=threat_average_on_date&last_stats=1", {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-    },
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+      },
   })
   .then((resp) => resp.json())
   .then(function(resp_json) {
-      let ctx = document.getElementById("threats-pie-chart").getContext('2d');
-      let topThreatsInput = document.getElementById("topThreats")
-      let valueTop = topThreatsInput.value;
-      topThreatsInput.onchange = function() {
-        valueTop = topThreatsInput.value;
-        resp_json_sorted = resp_json.slice(0, parseInt(valueTop));
-        updateChart();
-      }
-      var resp_json_sorted = resp_json
-        .sort(function(a, b) {
+      allThreats = resp_json;
+      allThreats.sort(function(a, b) {
           return b.averages.averageRate - a.averages.averageRate;
-        })
-        .slice(0, parseInt(valueTop));
+      });
 
       updateChart();
 
-      function  updateChart() {
-        let threats_by_uuid = {};
-        let pie_chart_data = {};
+  }).catch((error) => {
+      console.error('Error:', error);
+  });
 
-        var promises = resp_json_sorted.map(function(threat) {
-          return retrieve_information_from_mosp(threat.object, "EN")
-          .then(function(result_mosp) {
+  function  updateChart() {
+    let threats_by_uuid = {};
+    let chart_data = {};
+    let resp_json_sorted = allThreats.slice(0, parseInt(valueTop));
+
+    let promises = resp_json_sorted.map(function(threat) {
+        return retrieve_information_from_mosp(threat.object, "EN")
+        .then(function(result_mosp) {
             threats_by_uuid[threat.object] = {"object": threat}
             threats_by_uuid[threat.object]["translated_label"] = result_mosp
 
@@ -62,34 +61,34 @@ function drawThreatsChart() {
               threats_by_uuid[threat.object]["translated_label"] = threat.labels.label2
             }
             return threat.object;
-          })
-        })
-
-        // wait that we have all responses from MOSP
-        Promise.all(promises).then(function() {
-          resp_json_sorted.map(function(elem) {
-            pie_chart_data[threats_by_uuid[elem["object"]].translated_label] = elem['averages']['averageRate'];
-          });
-          let data = {
-            labels: Object.keys(pie_chart_data),
-            datasets: [{
-                data: Object.values(pie_chart_data),
-                borderWidth: 1,
-                backgroundColor: chartColors
-            }]
-          };
-          if (myChart) {
-            myChart.config.data = data;
-            myChart.update();
-          }else {
-            config.data = data;
-            myChart = new Chart(ctx,config);
-          }
         });
-      }
-      // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+    });
 
-  }).catch((error) => {
-    console.error('Error:', error);
-  });
+    // wait that we have all responses from MOSP
+    Promise.all(promises).then(function() {
+        resp_json_sorted.map(function(elem) {
+          chart_data[threats_by_uuid[elem["object"]].translated_label] = elem['averages']['averageRate'];
+        });
+        let data = {
+          labels: Object.keys(chart_data),
+          datasets: [{
+              data: Object.values(chart_data),
+              borderWidth: 1,
+              backgroundColor: chartColors
+          }]
+        };
+        if (myChart) {
+          myChart.config.data = data;
+          myChart.update();
+        }else {
+          config.data = data;
+          myChart = new Chart(ctx,config);
+        }
+      });
+  }
+
+  topThreatsInput.onchange = function() {
+      valueTop = topThreatsInput.value;
+      updateChart();
+  }
 }
