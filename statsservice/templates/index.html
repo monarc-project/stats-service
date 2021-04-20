@@ -1,11 +1,4 @@
 {% extends "layout.html" %}
-{% block head %}
-{{ super() }}
-<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-<script src="{{ url_for('static', filename='js/threatsCharts.js') }}"></script>
-<script src="{{ url_for('static', filename='js/vulnerabilitiesCharts.js') }}"></script>
-
-{% endblock %}
 {% block content %}
 <!-- Modal -->
 <div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
@@ -133,13 +126,7 @@
     </div>
 </div><!-- /.container -->
 <script>
-  var MOSPModal = new bootstrap.Modal(document.getElementById('MOSPModal'), {
-    keyboard: false
-  })
-  var unknowObjectModal = new bootstrap.Modal(document.getElementById('unknowObjectModal'), {
-    keyboard: false
-  })
-
+  getModals();
   drawThreatsChart();
   drawVulnerabilitiesChart();
   drawRisksChart();

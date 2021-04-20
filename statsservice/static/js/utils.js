@@ -1,5 +1,9 @@
+// modal variables
+var MOSPModal;
+var unknowObjectModal;
+
 // define some colors for the lines of the chart
-chartColors = [
+var chartColors = [
   'rgba(230, 25, 75, 0.8)',
   'rgba(60, 180, 75, 0.8)',
   'rgba(255, 225, 25, 0.8)',
@@ -23,14 +27,13 @@ chartColors = [
   'rgba(0, 0, 0, 0.8)'
 ];
 
-
-// basic configuration of the charts (threats and vulnerabilities)
-
+//  Object of charts canvas data
 var charts = {
   threats: undefined,
   vulnerabilities: undefined,
 };
 
+// basic configuration of the charts (threats and vulnerabilities)
 var config_base_bar_chart_informational_risks = {
   type: 'bar',
   data: {
@@ -126,6 +129,15 @@ let let_pie_charts_modals = function(object_uuid) {
   } else {
     unknowObjectModal.show();
   }
+}
+
+function getModals() {
+  MOSPModal = new bootstrap.Modal(document.getElementById('MOSPModal'), {
+    keyboard: false
+  })
+  unknowObjectModal = new bootstrap.Modal(document.getElementById('unknowObjectModal'), {
+    keyboard: false
+  })
 }
 
 /**
