@@ -73,37 +73,13 @@ var config_base_bar_chart = {
     },
 };
 
-var config_base_bar_chart_informational_risks = {
+var config_base_bar_chart_risks = {
   type: 'bar',
   data: {
     labels: ["Low", "Medium", "High"],
     datasets: []
-  },
-  options: {
-    legend: { display: true },
-    title: {
-      display: true,
-      text: 'Informational risks'
-    }
   }
 };
-
-
-var config_base_bar_chart_operational_risks = {
-  type: 'bar',
-  data: {
-    labels: ["Low", "Medium", "High"],
-    datasets: []
-  },
-  options: {
-    legend: { display: true },
-    title: {
-      display: true,
-      text: 'Operational risks'
-    }
-  }
-};
-
 
 let retrieve_information_from_mosp = function(uuid) {
   language = "EN";
@@ -201,43 +177,40 @@ function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
     if (!Object.keys(charts[chart].by_uuid).includes(item.object) ) {
       promises.push(
         retrieve_information_from_mosp(item.object)
-            .then(function(result_mosp) {
-                charts[chart].by_uuid[item.object] = {"object": item}
+          .then(function(result_mosp) {
+              charts[chart].by_uuid[item.object] = {"object": item}
+              charts[chart].by_uuid[item.object]["translated_label"] = result_mosp
+
+              if (result_mosp) {
                 charts[chart].by_uuid[item.object]["translated_label"] = result_mosp
-
-                if (result_mosp) {
-                  charts[chart].by_uuid[item.object]["translated_label"] = result_mosp
-                } else {
-                  charts[chart].by_uuid[item.object]["translated_label"] = item.labels.label2
-                }
-
-                return item.object;
-            })
+              } else {
+                charts[chart].by_uuid[item.object]["translated_label"] = item.labels.label2
+              }
+              return item.object;
+          })
       );
     }
 
     Promise.all(promises).then(function() {
         chart_data[charts[chart].by_uuid[item["object"]].translated_label] = item['averages'][valueDisplay];
-          if (Object.keys(chart_data).length == valueTop) {
-              let data = {
-                labels: Object.keys(chart_data),
-                datasets: [{
-                    data: Object.values(chart_data),
-                    borderWidth: 1,
-                    backgroundColor: chartColors
-                }]
-              };
+        if (Object.keys(chart_data).length == valueTop) {
+            let data = {
+              labels: Object.keys(chart_data),
+              datasets: [{
+                  data: Object.values(chart_data),
+                  borderWidth: 1,
+                  backgroundColor: chartColors
+              }]
+            };
 
-              if (charts[chart].canvas) {
-                charts[chart].canvas.config.data = data;
-                charts[chart].canvas.update();
-              }else {
-                config.data = data;
-                charts[chart].canvas = new Chart(ctx,config);
-              }
-          }
-
-
+            if (charts[chart].canvas) {
+              charts[chart].canvas.config.data = data;
+              charts[chart].canvas.update();
+            }else {
+              config.data = data;
+              charts[chart].canvas = new Chart(ctx,config);
+            }
+        }
     });
   })
 }
