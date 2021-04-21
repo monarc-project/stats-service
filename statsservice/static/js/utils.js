@@ -161,6 +161,9 @@ function getModals() {
 function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
   let chart_data = {};
   let promises = [];
+  if (valueTop > allData.length) {
+    valueTop = allData.length
+  }
   let resp_json_sorted = allData.slice(0, parseInt(valueTop));
   resp_json_sorted.forEach(item => {
     if (!Object.keys(charts[chart].by_uuid).includes(item.object) ) {
