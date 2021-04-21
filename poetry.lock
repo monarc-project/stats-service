@@ -376,7 +376,7 @@ python-versions = "*"
 name = "packaging"
 version = "20.9"
 description = "Core utilities for Python packages"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -449,7 +449,7 @@ requests = ">=2.25.1,<3.0.0"
 name = "pyparsing"
 version = "2.4.7"
 description = "Python parsing module"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -751,7 +751,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3d5aeab8a5dda1f124c223f4c9988b3625a01e633dc95d3ad616a7f29ce0b4cc"
+content-hash = "9b2e15ae4fa617d900f53b5c6a07a4aceded878c4b1da650ef272cd344b7554e"
 
 [metadata.files]
 alabaster = [
