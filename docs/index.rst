@@ -62,7 +62,7 @@ The collected statistics can be sent to an other Stats Service instance.
 
 .. note::
 
-    The public official instance operated by `CASES <https://www.cases.lu/>`_ is
+    The public official instance operated by `CASES <https://www.cases.lu>`_ is
     available at `dashboard.monarc.lu <https://dashboard.monarc.lu>`_.
 
 

@@ -11,17 +11,34 @@
 
 ## Presentation
 
-[This component](https://github.com/monarc-project/stats-service) provides an API
-in order to **collect** statistics from one or several
-[MONARC](https://github.com/monarc-project/MonarcAppFO) instances and to
-**return** these statistics with different filters and aggregation methods.
+[MONARC Stats Service](https://github.com/monarc-project/stats-service) is a libre
+software which is providing:
 
-It can be deployed just next to a MONARC instance or on a dedicated server.
+* an API in order to **collect** statistics from one or several
+  [MONARC](https://github.com/monarc-project/MonarcAppFO) instances and to **return**
+  these statistics with different filters and aggregation methods;
+* a dashboard that summarizes the **current cybersecurity landscape**. The charts are
+  based on the statistics collected.
 
-The collected statistics can be sent to an other stats instance.
+This software can be deployed just next to a MONARC instance or on a dedicated server.
+
+The collected statistics can be sent to an other Stats Service instance.
+
+The public official instance operated by [CASES](https://www.cases.lu) is
+available at [https://dashboard.monarc.lu](https://dashboard.monarc.lu).
 
 
-## Deployment
+## Documentation
+
+A [documentation is available](https://monarc-stats-service.readthedocs.io) which is
+providing several ways of
+[installation](https://monarc-stats-service.readthedocs.io/en/latest/installation.html)
+and information about the architecture.
+The [update procedure](https://monarc-stats-service.readthedocs.io/en/latest/updates.html)
+is also described.
+
+
+## Quick deployment
 
 The following assumes you have already installed ``git``, ``poetry``,  and
 ``Python >= 3.8``.
@@ -57,15 +74,7 @@ $ flask run
  * Debugger PIN: 268-178-811
 ```
 
-
-## Documentation
-
-A [documentation is available](https://monarc-stats-service.readthedocs.io) which is
-providing alternative ways of
-[installation](https://monarc-stats-service.readthedocs.io/en/latest/installation.html)
-and information about the architecture.
-The [update procedure](https://monarc-stats-service.readthedocs.io/en/latest/updates.html)
-is also described.
+or use the [docker image](https://hub.docker.com/r/caseslu/statsservice).
 
 
 ## License
