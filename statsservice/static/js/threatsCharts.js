@@ -13,9 +13,9 @@ function drawThreatsChart() {
           }
         },
         onClick: function(evt) {
-          let activePoints = charts.threats.getElementsAtEventForMode(evt, 'point', charts.threats.options);
+          let activePoints = charts.threats.canvas.getElementsAtEventForMode(evt, 'point', charts.threats.canvas.options);
           let firstPoint = activePoints[0];
-          let object_label = charts.threats.data.labels[firstPoint.index];
+          let object_label = charts.threats.canvas.data.labels[firstPoint.index];
           mosp_lookup_by_label(object_label)
           .then(function(result_mosp) {
             let_pie_charts_modals(result_mosp);

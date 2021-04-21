@@ -14,9 +14,9 @@ function drawVulnerabilitiesChart() {
           }
         },
         onClick: function(evt) {
-          let activePoints = charts.vulnerabilities.getElementsAtEventForMode(evt, 'point', charts.vulnerabilities.options);
+          let activePoints = charts.vulnerabilities.canvas.getElementsAtEventForMode(evt, 'point', charts.vulnerabilities.canvas.options);
           let firstPoint = activePoints[0];
-          let object_label = charts.vulnerabilities.data.labels[firstPoint.index];
+          let object_label = charts.vulnerabilities.canvas.data.labels[firstPoint.index];
           mosp_lookup_by_label(object_label)
           .then(function(result_mosp) {
             let_pie_charts_modals(result_mosp);
