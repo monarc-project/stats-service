@@ -25,6 +25,14 @@
       :target: https://pypi.org/project/statsservice
       :alt: PyPi version
 
+   .. image:: https://img.shields.io/github/license/monarc-project/stats-service.svg?style=flat-square
+      :target: https://www.gnu.org/licenses/agpl-3.0.html
+      :alt: License AGPLv3
+
+  .. image:: https://translate.monarc.lu/widgets/monarc-stats-service/-/svg-badge.svg
+      :target: https://translate.monarc.lu/engage/monarc-stats-service/
+      :alt: Translate Stats Servie
+
 
 .. |br| raw:: html
 
@@ -48,6 +56,11 @@ The MONARC Stats Service can be deployed just next to a MONARC instance or on a
 dedicated server.
 
 The collected statistics can be sent to an other stats instance.
+
+.. note::
+
+    The public official instance operated by `CASES <https://www.cases.lu/>`_ is
+    available at `dashboard.monarc.lu <https://dashboard.monarc.lu>`_.
 
 
 Technical considerations

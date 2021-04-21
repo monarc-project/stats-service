@@ -24,7 +24,7 @@ The collected statistics can be sent to an other stats instance.
 ## Deployment
 
 The following assumes you have already installed ``git``, ``poetry``,  and
-``Python >= 3.6.12``.
+``Python >= 3.8``.
 
 ```bash
 $ sudo apt install postgresql
@@ -32,7 +32,7 @@ $ git clone https://github.com/monarc-project/stats-service
 $ cd stats-service/
 $ npm install
 $ cp instance/production.py.cfg instance/production.py
-$ poetry install
+$ poetry install --no-dev
 $ poetry shell
 $ pybabel compile -d statsservice/translations
 $ export FLASK_APP=runserver.py
@@ -61,7 +61,11 @@ $ flask run
 ## Documentation
 
 A [documentation is available](https://monarc-stats-service.readthedocs.io) which is
-providing alternative ways of installation and information about the architecture.
+providing alternative ways of
+[installation](https://monarc-stats-service.readthedocs.io/en/latest/installation.html)
+and information about the architecture.
+The [update procedure](https://monarc-stats-service.readthedocs.io/en/latest/updates.html)
+is also described.
 
 
 ## License
