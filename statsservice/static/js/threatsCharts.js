@@ -5,27 +5,21 @@ function drawThreatsChart() {
   let valueTop = topThreatsInput.value;
   let displayThreatsBy = document.getElementById("displayThreatsBy")
   let valueDisplay = displayThreatsBy.value;
-  let config = {
-      data: {},
-      type: 'bar',
-      options: {
-        indexAxis: 'y',
-        plugins : {
-          legend: {
-            display: false,
-          }
-        },
-        onClick: function(evt) {
-          let activePoints = charts.threats.canvas.getElementsAtEventForMode(evt, 'point', charts.threats.canvas.options);
-          let firstPoint = activePoints[0];
-          let object_label = charts.threats.canvas.data.labels[firstPoint.index];
-          mosp_lookup_by_label(object_label)
-          .then(function(result_mosp) {
-            let_pie_charts_modals(result_mosp);
-          })
-        }
-      },
+  let specificOptions = {
+      onClick: function(evt) {
+        let activePoints = charts.threats.canvas.getElementsAtEventForMode(evt, 'point', charts.threats.canvas.options);
+        let firstPoint = activePoints[0];
+        let object_label = charts.threats.canvas.data.labels[firstPoint.index];
+        mosp_lookup_by_label(object_label)
+        .then(function(result_mosp) {
+          let_pie_charts_modals(result_mosp);
+        })
+      }
   };
+
+  config_base_bar_chart.options.onClick = specificOptions.onClick;
+
+  let config = Object.assign({},config_base_bar_chart)
 
   fetch("stats/threats.json?processor=threat_average_on_date&last_stats=1", {
       method: "GET",

@@ -3,28 +3,29 @@ var MOSPModal;
 var unknowObjectModal;
 
 // define some colors for the lines of the chart
+var transparency = 0.4;
 var chartColors = [
-  'rgba(230, 25, 75, 0.8)',
-  'rgba(60, 180, 75, 0.8)',
-  'rgba(255, 225, 25, 0.8)',
-  'rgba(0, 130, 200, 0.8)',
-  'rgba(245, 130, 48, 0.8)',
-  'rgba(145, 30, 180, 0.8)',
-  'rgba(70, 240, 240, 0.8)',
-  'rgba(240, 50, 230, 0.8)',
-  'rgba(210, 245, 60, 0.8)',
-  'rgba(250, 190, 190, 0.8)',
-  'rgba(0, 128, 128, 0.8)',
-  'rgba(230, 190, 255, 0.8)',
-  'rgba(170, 110, 40, 0.8)',
-  'rgba(255, 250, 200, 0.8)',
-  'rgba(128, 0, 0, 0.8)',
-  'rgba(170, 255, 195, 0.8)',
-  'rgba(128, 128, 0, 0.8)',
-  'rgba(255, 215, 180, 0.8)',
-  'rgba(0, 0, 128, 0.8)',
-  'rgba(128, 128, 128, 0.8)',
-  'rgba(0, 0, 0, 0.8)'
+  `rgba(230, 25, 75, ${transparency})`,
+  `rgba(60, 180, 75, ${transparency})`,
+  `rgba(255, 225, 25, ${transparency})`,
+  `rgba(0, 130, 200, ${transparency})`,
+  `rgba(245, 130, 48, ${transparency})`,
+  `rgba(145, 30, 180, ${transparency})`,
+  `rgba(70, 240, 240, ${transparency})`,
+  `rgba(240, 50, 230, ${transparency})`,
+  `rgba(210, 245, 60, ${transparency})`,
+  `rgba(250, 190, 190, ${transparency})`,
+  `rgba(0, 128, 128, ${transparency})`,
+  `rgba(230, 190, 255, ${transparency})`,
+  `rgba(170, 110, 40, ${transparency})`,
+  `rgba(255, 250, 200, ${transparency})`,
+  `rgba(128, 0, 0, ${transparency})`,
+  `rgba(170, 255, 195, ${transparency})`,
+  `rgba(128, 128, 0, ${transparency})`,
+  `rgba(255, 215, 180, ${transparency})`,
+  `rgba(0, 0, 128, ${transparency})`,
+  `rgba(128, 128, 128, ${transparency})`,
+  `rgba(0, 0, 0, ${transparency})`
 ];
 
 //  Object of charts canvas data
@@ -41,6 +42,37 @@ var charts = {
 
 
 // basic configuration of the charts (threats and vulnerabilities)
+var config_base_bar_chart = {
+    data: {},
+    type: 'bar',
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      scales: {
+        y: {
+            ticks: {
+                mirror: 'true',
+                z: 100,
+                color: 'black',
+                callback: function(value) {
+                    let label = this.getLabelForValue(value);
+                    let truncate = 100;
+                    if (label.length > truncate) {
+                      return label.substr(0, truncate) + '...';
+                    }
+                    return label;
+                },
+            }
+        },
+      },
+      plugins : {
+        legend: {
+          display: false,
+        }
+      },
+    },
+};
+
 var config_base_bar_chart_informational_risks = {
   type: 'bar',
   data: {
