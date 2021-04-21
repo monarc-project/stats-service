@@ -54,6 +54,12 @@
         <option value="10">10</option>
         <option value="15">15</option>
       </select>
+      <label for="displayThreatsBy">{{ _('Display by')}}</label>
+      <select id="displayThreatsBy">
+        <option value="averageRate" selected>{{ _('Probability')}}</option>
+        <option value="count">{{ _('Occurrence')}}</option>
+        <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+      </select>
       <div class="d-flex justify-content-center">
         <div class="chart-container" style="position: relative; width:80vw">
           <canvas id="threats-chart"></canvas>
@@ -68,6 +74,12 @@
         <option value="5" selected>5</option>
         <option value="10">10</option>
         <option value="15">15</option>
+      </select>
+      <label for="displayVulnerabilitiesBy">{{ _('Display by')}}</label>
+      <select id="displayVulnerabilitiesBy">
+        <option value="averageRate" selected>{{ _('Qualification')}}</option>
+        <option value="count">{{ _('Occurrence')}}</option>
+        <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
       </select>
       <div class="d-flex justify-content-center">
         <div class="chart-container" style="position: relative;  width:80vw">

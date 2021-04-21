@@ -152,12 +152,13 @@ function getModals() {
  *
  * @param {Array} allData All elements from MOSP query.
  * @param {number} valueTop Number of items to display.
+ * @param {string} valueDisplay Average name to display.
  * @param {string} chart Name of items (threats,vulnerabilities).
  * @param {object} ctx Canvas context.
  * @param {object} config Chart config.
  */
 
-function  updateChart(allData, valueTop, chart, ctx, config) {
+function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
   let chart_data = {};
   let promises = [];
   let resp_json_sorted = allData.slice(0, parseInt(valueTop));
@@ -181,7 +182,7 @@ function  updateChart(allData, valueTop, chart, ctx, config) {
     }
 
     Promise.all(promises).then(function() {
-        chart_data[charts[chart].by_uuid[item["object"]].translated_label] = item['averages']['averageRate'];
+        chart_data[charts[chart].by_uuid[item["object"]].translated_label] = item['averages'][valueDisplay];
           if (Object.keys(chart_data).length == valueTop) {
               let data = {
                 labels: Object.keys(chart_data),

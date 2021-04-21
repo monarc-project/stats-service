@@ -1,7 +1,10 @@
 function drawThreatsChart() {
+  let allThreats = [];
   let ctx = document.getElementById("threats-chart").getContext('2d');
   let topThreatsInput = document.getElementById("topThreats")
   let valueTop = topThreatsInput.value;
+  let displayThreatsBy = document.getElementById("displayThreatsBy")
+  let valueDisplay = displayThreatsBy.value;
   let config = {
       data: {},
       type: 'bar',
@@ -34,10 +37,10 @@ function drawThreatsChart() {
   .then(function(resp_json) {
       allThreats = resp_json;
       allThreats.sort(function(a, b) {
-          return b.averages.averageRate - a.averages.averageRate;
+          return b.averages[valueDisplay] - a.averages[valueDisplay];
       });
 
-      updateChart(allThreats, valueTop, 'threats', ctx, config);
+      updateChart(allThreats, valueTop, valueDisplay, 'threats', ctx, config);
 
   }).catch((error) => {
       console.error('Error:', error);
@@ -45,6 +48,14 @@ function drawThreatsChart() {
 
   topThreatsInput.onchange = function() {
       valueTop = topThreatsInput.value;
-      updateChart(allThreats, valueTop, 'threats', ctx, config);
+      updateChart(allThreats, valueTop, valueDisplay, 'threats', ctx, config);
+  }
+
+  displayThreatsBy.onchange = function() {
+      valueDisplay = displayThreatsBy.value;
+      allThreats.sort(function(a, b) {
+          return b.averages[valueDisplay] - a.averages[valueDisplay];
+      });
+      updateChart(allThreats, valueTop, valueDisplay, 'threats', ctx, config);
   }
 }

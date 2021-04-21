@@ -1,8 +1,10 @@
 function drawVulnerabilitiesChart() {
+  let allVulnerabilities = [];
   let ctx = document.getElementById("vulnerabilities-chart").getContext('2d');
   let topVulnerabilitiesInput = document.getElementById("topVulnerabilities")
-  let allVulnerabilities = [];
   let valueTop = topVulnerabilitiesInput.value;
+  let displayVulnerabilitiesBy = document.getElementById("displayVulnerabilitiesBy")
+  let valueDisplay = displayVulnerabilitiesBy.value;
   let config = {
       data: {},
       type: 'bar',
@@ -35,10 +37,10 @@ function drawVulnerabilitiesChart() {
   .then(function(resp_json) {
       allVulnerabilities = resp_json;
       allVulnerabilities.sort(function(a, b) {
-        return b.averages.averageRate - a.averages.averageRate;
-      })
+        return b.averages[valueDisplay] - a.averages[valueDisplay];
+      });
 
-      updateChart(allVulnerabilities, valueTop, 'vulnerabilities', ctx, config);
+      updateChart(allVulnerabilities, valueTop, valueDisplay, 'vulnerabilities', ctx, config);
 
   }).catch((error) => {
       console.error('Error:', error);
@@ -46,6 +48,14 @@ function drawVulnerabilitiesChart() {
 
   topVulnerabilitiesInput.onchange = function() {
       valueTop = topVulnerabilitiesInput.value;
-      updateChart(allVulnerabilities, valueTop, 'vulnerabilities', ctx, config);
+      updateChart(allVulnerabilities, valueTop, valueDisplay, 'vulnerabilities', ctx, config);
+  }
+
+  displayVulnerabilitiesBy.onchange = function() {
+      valueDisplay = displayVulnerabilitiesBy.value;
+      allVulnerabilities.sort(function(a, b) {
+        return b.averages[valueDisplay] - a.averages[valueDisplay];
+      });
+      updateChart(allVulnerabilities, valueTop, valueDisplay, 'vulnerabilities', ctx, config);
   }
 }
