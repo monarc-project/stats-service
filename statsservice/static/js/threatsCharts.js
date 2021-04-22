@@ -17,9 +17,8 @@ function drawThreatsChart() {
       }
   };
 
-  config_base_bar_chart.options.onClick = specificOptions.onClick;
-
-  let config = Object.assign({},config_base_bar_chart)
+  let config = cloneDeep(config_base_bar_chart);
+  config.options.onClick = specificOptions.onClick;
 
   fetch("stats/threats.json?processor=threat_average_on_date&last_stats=1", {
       method: "GET",
