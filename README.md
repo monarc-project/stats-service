@@ -11,20 +11,41 @@
 
 ## Presentation
 
-[This component](https://github.com/monarc-project/stats-service) provides an API
-in order to **collect** statistics from one or several
-[MONARC](https://github.com/monarc-project/MonarcAppFO) instances and to
-**return** these statistics with different filters and aggregation methods.
+[MONARC Stats Service](https://github.com/monarc-project/stats-service) is a libre
+software which is providing:
 
-It can be deployed just next to a MONARC instance or on a dedicated server.
+* an API in order to **collect** statistics from one or several
+  [MONARC](https://github.com/monarc-project/MonarcAppFO) instances and to **return**
+  these statistics with different filters and aggregation methods;
+* a dashboard that summarizes the **current cybersecurity landscape**. The charts are
+  based on the statistics collected.
 
-The collected statistics can be sent to an other stats instance.
+This software can be deployed just next to a MONARC instance or on a dedicated server.
+
+The collected statistics can be sent to an other Stats Service instance.
+
+The public official instance operated by [CASES](https://www.cases.lu) is
+available at [https://dashboard.monarc.lu](https://dashboard.monarc.lu).
 
 
-## Deployment
+## Documentation
+
+To be found in the ``docs`` directory of the source code, or
+viewed online [here](https://monarc-stats-service.readthedocs.io).
+
+Several
+[installation](https://monarc-stats-service.readthedocs.io/en/latest/installation.html)
+ways are described.
+
+The
+[update procedure](https://monarc-stats-service.readthedocs.io/en/latest/updates.html)
+is also described.
+
+
+## Quick deployment
 
 The following assumes you have already installed ``git``, ``poetry``,  and
-``Python >= 3.6.12``.
+``Python >= 3.8``.
 
 ```bash
 $ sudo apt install postgresql
@@ -32,7 +53,7 @@ $ git clone https://github.com/monarc-project/stats-service
 $ cd stats-service/
 $ npm install
 $ cp instance/production.py.cfg instance/production.py
-$ poetry install
+$ poetry install --no-dev
 $ poetry shell
 $ pybabel compile -d statsservice/translations
 $ export FLASK_APP=runserver.py
@@ -57,11 +78,7 @@ $ flask run
  * Debugger PIN: 268-178-811
 ```
 
-
-## Documentation
-
-A [documentation is available](https://monarc-stats-service.readthedocs.io) which is
-providing alternative ways of installation and information about the architecture.
+or use the [docker image](https://hub.docker.com/r/caseslu/statsservice).
 
 
 ## License

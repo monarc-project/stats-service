@@ -25,6 +25,14 @@
       :target: https://pypi.org/project/statsservice
       :alt: PyPi version
 
+   .. image:: https://img.shields.io/github/license/monarc-project/stats-service.svg?style=flat-square
+      :target: https://www.gnu.org/licenses/agpl-3.0.html
+      :alt: License AGPLv3
+
+  .. image:: https://translate.monarc.lu/widgets/monarc-stats-service/-/svg-badge.svg
+      :target: https://translate.monarc.lu/engage/monarc-stats-service/
+      :alt: Translate Stats Servie
+
 
 .. |br| raw:: html
 
@@ -38,16 +46,24 @@
 Presentation
 ============
 
-`This component <https://github.com/monarc-project/stats-service>`_ provides an
-API in order to **collect** statistics from one or several
-`MONARC <https://github.com/monarc-project/MonarcAppFO>`_ instances and to
-**return** these statistics with different filters and aggregation methods. |br| Charts
-from the collected statistics are also available.
+`MONARC Stats Service <https://github.com/monarc-project/stats-service>`_ is a libre
+software which is providing:
 
-The MONARC Stats Service can be deployed just next to a MONARC instance or on a
+* an API in order to **collect** statistics from one or several
+  `MONARC <https://github.com/monarc-project/MonarcAppFO>`_ instances and to **return**
+  these statistics with different filters and aggregation methods;
+* a dashboard that summarizes the **current cybersecurity landscape**. The charts are
+  based on the statistics collected. 
+
+This software can be deployed just next to a MONARC instance or on a
 dedicated server.
 
-The collected statistics can be sent to an other stats instance.
+The collected statistics can be sent to an other Stats Service instance.
+
+.. note::
+
+    The public official instance operated by `CASES <https://www.cases.lu>`_ is
+    available at `dashboard.monarc.lu <https://dashboard.monarc.lu>`_.
 
 
 Technical considerations
@@ -81,6 +97,14 @@ Blueprints
    stats
 
 
+Bugs
+====
+
+Please report feature requests and problems to:
+
+https://github.com/monarc-project/stats-service/issues
+
+
 License
 =======
 
@@ -88,5 +112,22 @@ MONARC Stats Service is licensed under
 `GNU Affero General Public License version 3 <https://www.gnu.org/licenses/agpl-3.0.html>`_.
 
 
+MONARC Stats Service.
+
 * Copyright (C) 2020-2021 Cédric Bonhomme
 * Copyright (C) 2020-2021 SECURITYMADEIN.LU
+
+For more information: https://github.com/monarc-project/stats-service
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
