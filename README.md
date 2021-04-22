@@ -31,7 +31,7 @@ available at [https://dashboard.monarc.lu](https://dashboard.monarc.lu).
 ## Documentation
 
 To be found in the ``docs`` directory of the source code, or
-viewed online [here](https://monarc-stats-service.readthedocs.io)
+viewed online [here](https://monarc-stats-service.readthedocs.io).
 
 Several
 [installation](https://monarc-stats-service.readthedocs.io/en/latest/installation.html)
