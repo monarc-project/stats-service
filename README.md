@@ -35,7 +35,7 @@ viewed online [here](https://monarc-stats-service.readthedocs.io).
 
 Several
 [installation](https://monarc-stats-service.readthedocs.io/en/latest/installation.html)
-process are described.
+ways are described.
 
 The
 [update procedure](https://monarc-stats-service.readthedocs.io/en/latest/updates.html)
