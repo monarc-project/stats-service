@@ -1,20 +1,8 @@
 Updates
 =======
 
-Updating the application consists of performing the following operations:
-
-.. code-block:: bash
-
-    $ cd stats-service/
-    $ export FLASK_APP=runserver.py
-    $ git pull origin master --tags
-    $ poetry install --no-dev
-    $ poetry run pybabel compile -d statsservice/translations
-    $ poetry run flask db upgrade
-    $ sudo systemctl restart statsservice.service
-
-
-Alternatively you can simply use the provided script:
+If you have installed Stats Service from the sources you can simply use the provided
+script:
 
 .. code-block:: bash
 

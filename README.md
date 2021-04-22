@@ -30,11 +30,15 @@ available at [https://dashboard.monarc.lu](https://dashboard.monarc.lu).
 
 ## Documentation
 
-A [documentation is available](https://monarc-stats-service.readthedocs.io) which is
-providing several ways of
+To be found in the ``docs`` directory of the source code, or
+viewed online [here](https://monarc-stats-service.readthedocs.io)
+
+Several
 [installation](https://monarc-stats-service.readthedocs.io/en/latest/installation.html)
-and information about the architecture.
-The [update procedure](https://monarc-stats-service.readthedocs.io/en/latest/updates.html)
+process are described.
+
+The
+[update procedure](https://monarc-stats-service.readthedocs.io/en/latest/updates.html)
 is also described.
 
 
