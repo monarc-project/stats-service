@@ -12,9 +12,9 @@ function drawEvolutionChart() {
       return b.averages.averageRate - a.averages.averageRate ;
     });
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
-    // (we limit the datasets to the number of previously defined colors)
+    // we limit the datasets to 15
     threats_by_uuid = {}
-    var promises = resp_json.slice(0, chartColors.length).map(function(threat) {
+    var promises = resp_json.slice(0, 15).map(function(threat) {
       return retrieve_information_from_mosp(threat.object)
       .then(function(result_mosp) {
         threats_by_uuid[threat.object] = {"object": threat}
@@ -34,9 +34,9 @@ function drawEvolutionChart() {
         if (threats_by_uuid[threat_uuid]["translated_label"] !== undefined) {
           data = [];
           dataset = {
-            "label": threats_by_uuid[threat_uuid]["translated_label"],
-            "backgroundColor": colors[index],
-            "borderColor": colors[index],
+            label: threats_by_uuid[threat_uuid]["translated_label"],
+            backgroundColor: colors[index],
+            borderColor: colors[index],
           };
 
           threats_by_uuid[threat_uuid]["object"]['values']
@@ -81,9 +81,9 @@ function drawEvolutionChart() {
   .then((resp) => resp.json())
   .then(function(resp_json) {
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
-    // (we limit the datasets to the number of previously defined colors)
+    // we limit the datasets to 15
     vulnerabilities_by_uuid = {}
-    var promises = resp_json.slice(0, chartColors.length).map(function(vulnerability) {
+    var promises = resp_json.slice(0, 15).map(function(vulnerability) {
       return retrieve_information_from_mosp(vulnerability.object)
       .then(function(result_mosp) {
         vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
@@ -101,9 +101,9 @@ function drawEvolutionChart() {
       Object.keys(vulnerabilities_by_uuid).map(function(vulnerability_uuid, index) {
         data = [];
         dataset = {
-          "label": vulnerabilities_by_uuid[vulnerability_uuid]["translated_label"],
-          "backgroundColor": colors[index],
-          "borderColor": colors[index],
+          label: vulnerabilities_by_uuid[vulnerability_uuid]["translated_label"],
+          backgroundColor: colors[index],
+          borderColor: colors[index],
         };
 
         vulnerabilities_by_uuid[vulnerability_uuid]["object"]['values']
