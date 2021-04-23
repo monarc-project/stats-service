@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: MONARC Stats Service\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2021-04-20 08:44+0200\n"
-"PO-Revision-Date: 2021-04-20 08:57+0000\n"
+"PO-Revision-Date: 2021-04-23 13:13+0000\n"
 "Last-Translator: Cédric Bonhomme <cedric@cedricbonhomme.org>\n"
 "Language-Team: French <https://translate.monarc.lu/projects/"
 "monarc-stats-service/stats-service/fr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.6.1-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: statsservice/templates/about.html:9
@@ -134,6 +134,10 @@ msgid ""
 "        <a href=\"https://monarc-stats-service.readthedocs.io/en/latest/"
 "architecture.html\" rel=\"noreferrer\" target=\"_blank\">documentation</a>."
 msgstr ""
+"Des informations plus détaillées sur le partage des statistiques sont "
+"fournies dans la\n"
+" <a href=\"https://monarc-stats-service.readthedocs.io/en/latest/architecture"
+".html\" rel=\"noreferrer\" target=\"_blank\">documentation</a>."
 
 #: statsservice/templates/help.html:42
 msgid "Want to contribute by sharing statistics?"
@@ -204,7 +208,7 @@ msgstr "Que sont les objets MONARC?"
 
 #: statsservice/templates/help.html:76
 msgid "If you are looking for the MONARC objects you can look at the official"
-msgstr "Si vous recherches les objets MONARC vous pouvez regarder sur"
+msgstr "Si vous recherchez les objets MONARC, vous pouvez regarder sur"
 
 #: statsservice/templates/help.html:77
 msgid "MONARC Objects Sharing Platform"
@@ -227,6 +231,9 @@ msgid ""
 "      <a href=\"https://github.com/monarc-project/stats-service/discussions/"
 "categories/q-a\">here</a>."
 msgstr ""
+"Vous pouvez rechercher des questions déjà posées ou en ajouter une nouvelle\n"
+" <a href=\"https://github.com/monarc-project/stats-service/discussions/"
+"categories/q-a\">ici</a>."
 
 #: statsservice/templates/index.html:15
 msgid "You are about to leave this website"
@@ -238,6 +245,9 @@ msgid ""
 "lu\" target=\"_blank\" rel=\"noopener noreferrer\">MONARC Objects Sharing "
 "Platform</a> (MOSP)."
 msgstr ""
+"Quittez le site Web et voyez l'objet sur la <a href=\"https://objects.monarc."
+"lu\" target=\"_blank\" rel=\"noopener noreferrer\">plateforme de partage "
+"d'objets de MONARC</a> (MOSP)."
 
 #: statsservice/templates/index.html:22 statsservice/templates/index.html:40
 msgid "Close"
