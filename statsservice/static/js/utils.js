@@ -3,30 +3,19 @@ var MOSPModal;
 var unknowObjectModal;
 
 // define some colors for the lines of the chart
-var transparency = 0.4;
-var chartColors = [
-  `rgba(230, 25, 75, ${transparency})`,
-  `rgba(60, 180, 75, ${transparency})`,
-  `rgba(255, 225, 25, ${transparency})`,
-  `rgba(0, 130, 200, ${transparency})`,
-  `rgba(245, 130, 48, ${transparency})`,
-  `rgba(145, 30, 180, ${transparency})`,
-  `rgba(70, 240, 240, ${transparency})`,
-  `rgba(240, 50, 230, ${transparency})`,
-  `rgba(210, 245, 60, ${transparency})`,
-  `rgba(250, 190, 190, ${transparency})`,
-  `rgba(0, 128, 128, ${transparency})`,
-  `rgba(230, 190, 255, ${transparency})`,
-  `rgba(170, 110, 40, ${transparency})`,
-  `rgba(255, 250, 200, ${transparency})`,
-  `rgba(128, 0, 0, ${transparency})`,
-  `rgba(170, 255, 195, ${transparency})`,
-  `rgba(128, 128, 0, ${transparency})`,
-  `rgba(255, 215, 180, ${transparency})`,
-  `rgba(0, 0, 128, ${transparency})`,
-  `rgba(128, 128, 128, ${transparency})`,
-  `rgba(0, 0, 0, ${transparency})`
-];
+var colors = colorSchemeGenerator();
+
+function colorSchemeGenerator() {
+    let opacity = 0.5;
+    let colorRgbaScheme = [];
+    let colorHexScheme = [...d3.schemeCategory10, ...d3.schemeDark2, ...d3.schemePaired];
+    colorHexScheme.forEach(colorHex => {
+      let rgb = d3.rgb(colorHex);
+      let rgba = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
+      colorRgbaScheme.push(rgba);
+    })
+    return colorRgbaScheme;
+}
 
 //  Object of charts canvas data
 var charts = {
@@ -39,7 +28,6 @@ var charts = {
       canvas: undefined
     },
 };
-
 
 // basic configuration of the charts (threats and vulnerabilities)
 var config_base_bar_chart = {
@@ -81,7 +69,40 @@ var config_base_bar_chart_risks = {
   }
 };
 
-let retrieve_information_from_mosp = function(uuid) {
+var config_base_evolution_chart = {
+  type: 'line',
+  data: {
+    datasets: []
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        type: 'time',
+        max: Date.now(),
+        time: {
+          unit: 'month',
+          displayFormats: {
+            quarter: 'MM YYYY'
+          }
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'right',
+        align: 'start',
+        labels: {
+          fontFamily: "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+        }
+      }
+    }
+  }
+}
+
+function retrieve_information_from_mosp(uuid) {
   language = "EN";
   try {
     language = navigator.language.split("-")[0].toUpperCase()
@@ -110,7 +131,7 @@ let retrieve_information_from_mosp = function(uuid) {
   });
 }
 
-let mosp_lookup_by_label = function(label) {
+function mosp_lookup_by_label(label) {
   return new Promise(function(resolve, reject) {
     fetch("https://objects.monarc.lu/api/v2/object/?page=1&per_page=10&name="+label, {
       method: "GET",
@@ -133,7 +154,7 @@ let mosp_lookup_by_label = function(label) {
   });
 }
 
-let let_pie_charts_modals = function(object_uuid) {
+function let_pie_charts_modals(object_uuid) {
   if (object_uuid) {
     MOSPModal.show()
     document.getElementById("MOSPModalClose").onclick = function(){
@@ -199,7 +220,7 @@ function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
               datasets: [{
                   data: Object.values(chart_data),
                   borderWidth: 1,
-                  backgroundColor: chartColors
+                  backgroundColor: colors
               }]
             };
 
