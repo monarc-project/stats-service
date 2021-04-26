@@ -12,7 +12,7 @@ function drawEvolutionChart() {
       return b.averages.averageRate - a.averages.averageRate ;
     });
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
-    // (we limit the datasets to the number of previously defined colors)
+    // we limit the datasets to 15
     threats_by_uuid = {}
     var promises = resp_json.slice(0, 15).map(function(threat) {
       return retrieve_information_from_mosp(threat)
@@ -33,9 +33,9 @@ function drawEvolutionChart() {
       .forEach(function(threat_uuid, index) {
           data = [];
           dataset = {
-            "label": threats_by_uuid[threat_uuid]["translated_label"],
-            "backgroundColor": colors[index],
-            "borderColor": colors[index],
+            label: threats_by_uuid[threat_uuid]["translated_label"],
+            backgroundColor: colors[index],
+            borderColor: colors[index],
           };
 
           threats_by_uuid[threat_uuid]["object"]['values']
@@ -82,7 +82,7 @@ function drawEvolutionChart() {
       return b.averages.averageRate - a.averages.averageRate ;
     });
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
-    // (we limit the datasets to the number of previously defined colors)
+    // we limit the datasets to 15
     vulnerabilities_by_uuid = {}
     var promises = resp_json.slice(0, 15).map(function(vulnerability) {
       return retrieve_information_from_mosp(vulnerability)
@@ -102,14 +102,19 @@ function drawEvolutionChart() {
       Object.keys(vulnerabilities_by_uuid).map(function(vulnerability_uuid, index) {
           data = [];
           dataset = {
-            "label": vulnerabilities_by_uuid[vulnerability_uuid]["translated_label"],
-            "backgroundColor": colors[index],
-            "borderColor": colors[index],
+            label: vulnerabilities_by_uuid[vulnerability_uuid]["translated_label"],
+            backgroundColor: colors[index],
+            borderColor: colors[index],
           };
 
           vulnerabilities_by_uuid[vulnerability_uuid]["object"]['values']
           .sort(function(a, b) {
             return new Date(a.date) - new Date(b.date) ;
+          })
+          .map(function(elem) {
+            data.push({
+              x: new Date(elem.date),
+              y: elem.averageRate
           })
           .map(function(elem) {
             data.push({
