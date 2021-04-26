@@ -217,13 +217,7 @@ function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
         retrieve_information_from_mosp(item)
           .then(function(result_mosp) {
               charts[chart].by_uuid[item.object] = {"object": item}
-              charts[chart].by_uuid[item.object]["translated_label"] = result_mosp
-
-              if (result_mosp) {
-                charts[chart].by_uuid[item.object]["translated_label"] = result_mosp
-              } else {
-                charts[chart].by_uuid[item.object]["translated_label"] = item.labels.label2
-              }
+              charts[chart].by_uuid[item.object]["translated_label"] = result_mosp;
               return item.object;
           })
       );
