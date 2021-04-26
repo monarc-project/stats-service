@@ -102,7 +102,24 @@ var config_base_evolution_chart = {
   }
 }
 
-function retrieve_information_from_mosp(uuid) {
+var languageIndex = {fr:1,en:2,de:3, nl:4};
+
+function getLabel(language, labels){
+
+  let currentLanguage = languageIndex[language.toLowerCase()];
+  if (labels['label' + currentLanguage]) {
+    return labels['label' + currentLanguage];
+  }else {
+    return Object.values(labels).find(label => {
+      if(label) {
+        return label;
+      }
+    });
+  };
+}
+
+function retrieve_information_from_mosp(query) {
+  let uuid = query.object;
   language = "EN";
   try {
     language = navigator.language.split("-")[0].toUpperCase()
@@ -121,7 +138,7 @@ function retrieve_information_from_mosp(uuid) {
       if (mosp_result["metadata"].count > 0) {
         resolve(mosp_result["data"][0].name);
       } else {
-        resolve();
+        resolve(getLabel(language, query.labels));
       }
     })
     .catch((error) => {
@@ -197,7 +214,7 @@ function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
   resp_json_sorted.forEach(item => {
     if (!Object.keys(charts[chart].by_uuid).includes(item.object) ) {
       promises.push(
-        retrieve_information_from_mosp(item.object)
+        retrieve_information_from_mosp(item)
           .then(function(result_mosp) {
               charts[chart].by_uuid[item.object] = {"object": item}
               charts[chart].by_uuid[item.object]["translated_label"] = result_mosp

@@ -14,8 +14,8 @@ function drawEvolutionChart() {
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
     // (we limit the datasets to the number of previously defined colors)
     threats_by_uuid = {}
-    var promises = resp_json.slice(0, chartColors.length).map(function(threat) {
-      return retrieve_information_from_mosp(threat.object)
+    var promises = resp_json.slice(0, 15).map(function(threat) {
+      return retrieve_information_from_mosp(threat)
       .then(function(result_mosp) {
         threats_by_uuid[threat.object] = {"object": threat}
         threats_by_uuid[threat.object]["translated_label"] = result_mosp
@@ -31,7 +31,6 @@ function drawEvolutionChart() {
       datasets = [];
       Object.keys(threats_by_uuid)
       .forEach(function(threat_uuid, index) {
-        if (threats_by_uuid[threat_uuid]["translated_label"] !== undefined) {
           data = [];
           dataset = {
             "label": threats_by_uuid[threat_uuid]["translated_label"],
@@ -51,7 +50,6 @@ function drawEvolutionChart() {
           });
           dataset["data"] = data;
           datasets.push(dataset);
-        }
       })
 
       // finally set the datasets in the config variable
@@ -80,11 +78,14 @@ function drawEvolutionChart() {
   })
   .then((resp) => resp.json())
   .then(function(resp_json) {
+    resp_json.sort(function(a, b) {
+      return b.averages.averageRate - a.averages.averageRate ;
+    });
     // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
     // (we limit the datasets to the number of previously defined colors)
     vulnerabilities_by_uuid = {}
-    var promises = resp_json.slice(0, chartColors.length).map(function(vulnerability) {
-      return retrieve_information_from_mosp(vulnerability.object)
+    var promises = resp_json.slice(0, 15).map(function(vulnerability) {
+      return retrieve_information_from_mosp(vulnerability)
       .then(function(result_mosp) {
         vulnerabilities_by_uuid[vulnerability.object] = {"object": vulnerability}
         vulnerabilities_by_uuid[vulnerability.object]["translated_label"] = result_mosp
@@ -99,25 +100,25 @@ function drawEvolutionChart() {
       // construct the datasets
       datasets = [];
       Object.keys(vulnerabilities_by_uuid).map(function(vulnerability_uuid, index) {
-        data = [];
-        dataset = {
-          "label": vulnerabilities_by_uuid[vulnerability_uuid]["translated_label"],
-          "backgroundColor": colors[index],
-          "borderColor": colors[index],
-        };
+          data = [];
+          dataset = {
+            "label": vulnerabilities_by_uuid[vulnerability_uuid]["translated_label"],
+            "backgroundColor": colors[index],
+            "borderColor": colors[index],
+          };
 
-        vulnerabilities_by_uuid[vulnerability_uuid]["object"]['values']
-        .sort(function(a, b) {
-          return new Date(a.date) - new Date(b.date) ;
-        })
-        .map(function(elem) {
-          data.push({
-            x: new Date(elem.date),
-            y: elem.averageRate
+          vulnerabilities_by_uuid[vulnerability_uuid]["object"]['values']
+          .sort(function(a, b) {
+            return new Date(a.date) - new Date(b.date) ;
           })
-        });
-        dataset["data"] = data;
-        datasets.push(dataset);
+          .map(function(elem) {
+            data.push({
+              x: new Date(elem.date),
+              y: elem.averageRate
+            })
+          });
+          dataset["data"] = data;
+          datasets.push(dataset);
       })
 
       // finally set the datasets in the config variable
