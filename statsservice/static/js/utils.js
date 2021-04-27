@@ -200,7 +200,7 @@ function getModals() {
  * @param {object} config Chart config.
  */
 
-function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
+function updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
   let chart_data = {};
   let promises = [];
   if (valueTop > allData.length) {
@@ -241,6 +241,66 @@ function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
         }
     });
   })
+}
+
+/**
+ * Update evolution charts
+ *
+ * @param {Array} chartData elements sorted from MOSP query.
+ * @param {number} limitDatasets Number of items to display.
+ * @param {string} chart Name of items (threats,vulnerabilities).
+ * @param {object} ctx Canvas context.
+ * @param {object} config Chart config.
+ */
+
+function updateEvolutionCharts (chartData, limitDatasets, chart, ctx,config){
+  let data_by_uuid = {};
+  let promises = [];
+  let datasets = [];
+  chartData.forEach((item,index) => {
+    let data = [];
+
+    promises.push(
+      // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+      retrieve_information_from_mosp(item)
+        .then(function(result_mosp) {
+            data_by_uuid[item.object] = {object: item};
+            data_by_uuid[item.object].translated_label = result_mosp;
+        })
+    );
+
+    Promise.all(promises)
+    .then(function() {
+        // construct the datasets
+        let dataset = {
+          label: truncateText(data_by_uuid[item.object].translated_label, 40),
+          backgroundColor: colors[index],
+          borderColor: colors[index],
+        };
+
+        data_by_uuid[item.object].object.values
+        .sort(function(a, b) {
+          return new Date(a.date) - new Date(b.date) ;
+        })
+        .map(function(elem) {
+          data.push({
+            x: new Date(elem.date),
+            y: elem.averageRate
+          });
+        });
+
+        dataset.data = data;
+        datasets.push(dataset);
+
+        // finally set the datasets in the config variable
+        if (index + 1 == limitDatasets) {
+            config.data.datasets = datasets;
+            document.getElementById("spinner-" + chart).remove();
+            // draw the chart
+            new Chart(ctx, config);
+        }
+    })
+  });
 }
 
 function truncateText(text,width) {
