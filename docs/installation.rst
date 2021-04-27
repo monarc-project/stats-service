@@ -174,6 +174,7 @@ From the Docker Hub
 If you have issues with the database hostname resolution, try:
 
 .. code-block:: bash
+
     $ docker run --name statsservice -d -p 5000:5000 --add-host db:127.0.0.1 --rm caseslu/statsservice
 
 
