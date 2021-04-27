@@ -105,7 +105,6 @@ var config_base_evolution_chart = {
 var languageIndex = {fr:1,en:2,de:3, nl:4};
 
 function getLabel(language, labels){
-
   let currentLanguage = languageIndex[language.toLowerCase()];
   if (labels['label' + currentLanguage]) {
     return labels['label' + currentLanguage];
@@ -211,21 +210,20 @@ function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
     valueTop = allData.length
   }
   let resp_json_sorted = allData.slice(0, parseInt(valueTop));
-  resp_json_sorted.forEach(item => {
+  resp_json_sorted.forEach((item,index) => {
     if (!Object.keys(charts[chart].by_uuid).includes(item.object) ) {
       promises.push(
         retrieve_information_from_mosp(item)
           .then(function(result_mosp) {
-              charts[chart].by_uuid[item.object] = {"object": item}
-              charts[chart].by_uuid[item.object]["translated_label"] = result_mosp;
-              return item.object;
+              charts[chart].by_uuid[item.object] = {object: item}
+              charts[chart].by_uuid[item.object].translated_label = result_mosp;
           })
       );
     }
 
     Promise.all(promises).then(function() {
-        chart_data[charts[chart].by_uuid[item["object"]].translated_label] = item['averages'][valueDisplay];
-        if (Object.keys(chart_data).length == valueTop) {
+        chart_data[charts[chart].by_uuid[item.object].translated_label] = item.averages[valueDisplay];
+        if (index == valueTop - 1) {
             let data = {
               labels: Object.keys(chart_data),
               datasets: [{
