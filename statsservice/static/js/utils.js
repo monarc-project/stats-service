@@ -31,8 +31,9 @@ var charts = {
 
 // basic configuration of the charts (threats and vulnerabilities)
 var config_base_bar_chart = {
-    data: {},
     type: 'bar',
+    height: 200,
+    data: {},
     options: {
       responsive: true,
       indexAxis: 'y',
@@ -44,11 +45,7 @@ var config_base_bar_chart = {
                 color: 'black',
                 callback: function(value) {
                     let label = this.getLabelForValue(value);
-                    let truncate = 100;
-                    if (label.length > truncate) {
-                      return label.substr(0, truncate) + '...';
-                    }
-                    return label;
+                    return truncateText(label,100);
                 },
             }
         },
@@ -71,12 +68,12 @@ var config_base_bar_chart_risks = {
 
 var config_base_evolution_chart = {
   type: 'line',
+  height: 100,
   data: {
     datasets: []
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false,
     scales: {
       x: {
         type: 'time',
@@ -237,10 +234,19 @@ function  updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
               charts[chart].canvas.config.data = data;
               charts[chart].canvas.update();
             }else {
+              ctx.canvas.height = config.height;
               config.data = data;
               charts[chart].canvas = new Chart(ctx,config);
             }
         }
     });
   })
+}
+
+function truncateText(text,width) {
+    let label = text;
+    if (text.length > width) {
+      return label.substr(0, width) + '...';
+    }
+    return label;
 }
