@@ -28,9 +28,12 @@ def clients():
     for client in clients:
         query = Stats.query.filter(Stats.type == "threat", Stats.client_id == client.id)
         query = query.order_by(Stats.date.desc()).limit(40)
+        if not query.count():
+            continue
         threats = getattr(statsservice.lib.processors, "threat_average_on_date")(
             query.all()
         )
+
         max_threat = max(
             [(threat["averages"]["count"], threat["object"]) for threat in threats],
             key=operator.itemgetter(0),
@@ -40,6 +43,8 @@ def clients():
             Stats.type == "vulnerability", Stats.client_id == client.id
         )
         query = query.order_by(Stats.date.desc()).limit(40)
+        if not query.count():
+            continue
         vulnerabilities = getattr(
             statsservice.lib.processors, "vulnerability_average_on_date"
         )(query.all())
