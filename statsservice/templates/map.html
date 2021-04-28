@@ -12,7 +12,8 @@
   <h1>{{ _('Cybersecurity Weather Map') }}</h1>
   <div class="row">
     <div class="col-md">
-      <div id="cyberweathermap" class="map map-home" style="height: 650px; margin-top: 50px"></div>
+      <div id="cyberweathermap" class="map map-home" style="height: 650px; margin-top: 10px"></div>
+      <p>{{ _('Based on the statistics collected, this map presents the highest current threats and vulnerabilities, by region.') }}</p>
     </div>
   </div>
 </div><!-- /.container -->
@@ -23,6 +24,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+let translations = {};
+
 fetch("/map/clients.json", {
     method: "GET",
     headers: {
@@ -32,11 +35,31 @@ fetch("/map/clients.json", {
 .then((resp) => resp.json())
 .then(function(resp_json) {
   resp_json.map(function(client){
-
-    L.marker([client.latitude, client.longitude])
-    .addTo(map)
-    .bindPopup('<b>#1 Threat:</b> ' + client.max_threat[1] + '<br /><b>#1 Vulnerability:</b> ' +  client.max_vulnerability[1]);
-
+    let promises = [];
+    var queries = [
+      {"object": client.max_threat[1], "labels": ""},
+      {"object": client.max_vulnerability[1], "labels": ""}
+    ];
+    queries.map(function(item) {
+      if (!(item.uuid in translations)) {
+        // if not already translated
+        promises.push(
+          retrieve_information_from_mosp(item)
+            .then(function(result_mosp) {
+              translations[item.object] = result_mosp;
+            })
+        );
+      }
+    })
+    Promise.all(promises).then(function() {
+      L.marker([client.latitude, client.longitude])
+      .addTo(map)
+      .bindPopup('<b>#1 Threat:</b> ' +
+                 translations[client.max_threat[1]] +
+                 '<br /><b>#1 Vulnerability:</b> ' +
+                 translations[client.max_vulnerability[1]] +
+                 '<br /><a href="">Details for this area.</a>');
+    })
   })
 })
 </script>
