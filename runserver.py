@@ -63,6 +63,7 @@ with application.app_context():
 
     application.register_blueprint(views.root_bp)
     application.register_blueprint(views.stats_bp)
+    application.register_blueprint(views.map_bp)
 
     register_commands(application)
 
