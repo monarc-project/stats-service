@@ -14,46 +14,55 @@
     <div class="row justify-content-center">
       <div class="col-md-12">
         <h2 id="trends-threats">{{ _('Threats') }}</h2>
+        <label for="displayThreatsEvolutionBy">{{ _('Display by')}}</label>
+        <select id="displayThreatsEvolutionBy">
+          <option value="averageRate" selected>{{ _('Probability')}}</option>
+          <option value="count">{{ _('Occurrence')}}</option>
+          <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+        </select>
+        <label for="orderThreatsEvolutionBy">{{ _('Order by')}}</label>
+        <select id="orderThreatsEvolutionBy">
+          <option value="highest" selected>{{ '20 ' +_('Highest')}}</option>
+          <option value="lowest">{{ '20 ' + _('Lowest')}}</option>
+        </select>
         <div class="d-flex justify-content-center">
-          <div id="spinner-threats" class="spinner-border" style="width: 8rem; height: 8rem;"></div>
+          <div id="spinner-threatsEvolution" class="spinner-border" style="width: 8rem; height: 8rem;"></div>
         </div>
+        <br />
         <div class="d-flex justify-content-center">
           <div class="chart-container" style="position: relative; width:80vw">
-            <canvas id="canvas-threats"></canvas>
+            <canvas id="canvas-threatsEvolution"></canvas>
           </div>
         </div>
-        <!-- <div id="my-legend-con" class="legend-con"></div> -->
-        <br />
-        <p>The values are based on the <i>averageRate</i> of the <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a>.<sup><a href="#footnote-1">[1]</a></sup>.</p>
       </div>
     </div>
     <br /><hr /><br />
     <div class="row justify-content-center">
       <div class="col">
         <h2 id="trends-vulnerabilities">{{ _('Vulnerabilities') }}</h2>
+        <label for="displayVulnerabilitiesEvolutionBy">{{ _('Display by')}}</label>
+        <select id="displayVulnerabilitiesEvolutionBy">
+          <option value="averageRate" selected>{{ _('Probability')}}</option>
+          <option value="count">{{ _('Occurrence')}}</option>
+          <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+        </select>
+        <label for="orderVulnerabilitiesEvolutionBy">{{ _('Order by')}}</label>
+        <select id="orderVulnerabilitiesEvolutionBy">
+          <option value="highest" selected>{{ '20 ' + _('Highest')}}</option>
+          <option value="lowest">{{ '20 ' + _('Lowest')}}</option>
+        </select>
         <div class="d-flex justify-content-center">
-          <div id="spinner-vulnerabilities" class="spinner-border" style="width: 8rem; height: 8rem;"></div>
-        </div>
-        <div class="d-flex justify-content-center">
-          <div class="chart-container" style="position: relative; width:80vw">
-            <canvas id="canvas-vulnerabilities"></canvas>
-          </div>
+          <div id="spinner-vulnerabilitiesEvolution" class="spinner-border" style="width: 8rem; height: 8rem;"></div>
         </div>
         <br />
-        <p>The values are based on the <i>averageRate</i> of the <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>.<sup><a href="#footnote-1">[1]</a></sup>.</p>
+        <div class="d-flex justify-content-center">
+          <div class="chart-container" style="position: relative; width:80vw">
+            <canvas id="canvas-vulnerabilitiesEvolution"></canvas>
+          </div>
+        </div>
       </div>
     </div>
-
-    <hr />
-
-    <div class="row">
-      <div class="col-md-12">
-        <ol class="footnotes">
-          <li id="footnote-1">Averages per date of the different averageRate for threats and vulnerabilities.</li>
-        </ol>
-      </div>
-    </div>
-  </div><!-- /.container -->
+  </div>
   <script>
       drawEvolutionChart();
   </script>

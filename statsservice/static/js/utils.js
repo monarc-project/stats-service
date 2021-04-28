@@ -27,6 +27,14 @@ var charts = {
       by_uuid: [],
       canvas: undefined
     },
+    threatsEvolution: {
+      by_uuid: [],
+      canvas: undefined
+    },
+    vulnerabilitiesEvolution: {
+      by_uuid: [],
+      canvas: undefined
+    },
 };
 
 // basic configuration of the charts (threats and vulnerabilities)
@@ -68,7 +76,7 @@ var config_base_bar_chart_risks = {
 
 var config_base_evolution_chart = {
   type: 'line',
-  height: 100,
+  height: 120,
   data: {
     datasets: []
   },
@@ -247,45 +255,69 @@ function updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
  * Update evolution charts
  *
  * @param {Array} chartData elements sorted from MOSP query.
- * @param {number} limitDatasets Number of items to display.
- * @param {string} chart Name of items (threats,vulnerabilities).
+ * @param {string} sortParams sort params of chart display.
+ * @param {string} chart Name of items (threatsEvolution,vulnerabilitiesEvolution).
  * @param {object} ctx Canvas context.
  * @param {object} config Chart config.
  */
 
-function updateEvolutionCharts (chartData, limitDatasets, chart, ctx,config){
-  let data_by_uuid = {};
+function updateEvolutionCharts (allData, sortParams, chart, ctx, config){
+  let limitDatasets = 20; // we limit the datasets to 20
   let promises = [];
   let datasets = [];
-  chartData.forEach((item,index) => {
+
+  if (limitDatasets > allData.length) {
+    limitDatasets = allData.length
+  }
+
+  allData.map(data =>
+    data.rate = data.values
+      .map(value => value[sortParams.valueDisplay])
+      .reduce((a, b) => a + b) / data.values.length
+  );
+
+  let dataSorted = allData
+    .sort(function(a, b) {
+      if (sortParams.valueOrder == 'lowest') {
+        config.options.plugins.legend.reverse = true;
+        return a.rate - b.rate;
+      }
+      config.options.plugins.legend.reverse = false;
+      return b.rate - a.rate;
+    })
+    .slice(0, limitDatasets);
+
+  dataSorted.forEach((item,index) => {
     let data = [];
 
-    promises.push(
-      // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
-      retrieve_information_from_mosp(item)
-        .then(function(result_mosp) {
-            data_by_uuid[item.object] = {object: item};
-            data_by_uuid[item.object].translated_label = result_mosp;
-        })
-    );
+    if (!Object.keys(charts[chart].by_uuid).includes(item.object) ) {
+      promises.push(
+        // retrieve the labels from MOSP corresponding to the UUID in the result with a promise
+        retrieve_information_from_mosp(item)
+          .then(function(result_mosp) {
+              charts[chart].by_uuid[item.object] = {object: item};
+              charts[chart].by_uuid[item.object].translated_label = result_mosp;
+          })
+      );
+    }
 
     Promise.all(promises)
     .then(function() {
         // construct the datasets
         let dataset = {
-          label: truncateText(data_by_uuid[item.object].translated_label, 40),
+          label: truncateText(charts[chart].by_uuid[item.object].translated_label, 40),
           backgroundColor: colors[index],
           borderColor: colors[index],
         };
 
-        data_by_uuid[item.object].object.values
+        charts[chart].by_uuid[item.object].object.values
         .sort(function(a, b) {
           return new Date(a.date) - new Date(b.date) ;
         })
         .map(function(elem) {
           data.push({
             x: new Date(elem.date),
-            y: elem.averageRate
+            y: elem[sortParams.valueDisplay]
           });
         });
 
@@ -294,10 +326,15 @@ function updateEvolutionCharts (chartData, limitDatasets, chart, ctx,config){
 
         // finally set the datasets in the config variable
         if (index + 1 == limitDatasets) {
-            config.data.datasets = datasets;
-            document.getElementById("spinner-" + chart).remove();
-            // draw the chart
-            new Chart(ctx, config);
+            if (charts[chart].canvas) {
+              charts[chart].canvas.config.data.datasets = datasets;
+              charts[chart].canvas.update();
+            }else {
+              document.getElementById("spinner-" + chart).remove();
+              ctx.canvas.height = config.height;
+              config.data.datasets = datasets;
+              charts[chart].canvas = new Chart(ctx,config);
+            }
         }
     })
   });

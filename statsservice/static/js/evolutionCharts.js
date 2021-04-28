@@ -1,5 +1,23 @@
 function drawEvolutionChart() {
-  var limitDatasets = 15; // we limit the datasets to 15
+  let allThreats = [];
+  let config_threats = cloneDeep(config_base_evolution_chart);
+  let ctx_threats = document.getElementById("canvas-threatsEvolution").getContext("2d");
+  let displayThreatsEvolutionBy = document.getElementById("displayThreatsEvolutionBy")
+  let orderThreatsEvolutionBy = document.getElementById("orderThreatsEvolutionBy")
+  let sortParams_threats = {
+    valueDisplay : displayThreatsEvolutionBy.value,
+    valueOrder_threats : orderThreatsEvolutionBy.value,
+  }
+
+  let allVulnerabilities = [];
+  let config_vulnerabilities = cloneDeep(config_base_evolution_chart);
+  let ctx_vulnerabilities = document.getElementById("canvas-vulnerabilitiesEvolution").getContext("2d");
+  let displayVulnerabilitiesEvolutionBy = document.getElementById("displayVulnerabilitiesEvolutionBy")
+  let orderVulnerabilitiesEvolutionBy = document.getElementById("orderVulnerabilitiesEvolutionBy")
+  let sortParams_vulnerabilities = {
+    valueDisplay : displayVulnerabilitiesEvolutionBy.value,
+    valueOrder : orderVulnerabilitiesEvolutionBy.value,
+  }
 
   // fetch stats for threats (averages per threats per date)  and display the chart
   fetch("/stats/threats.json?processor=threat_average_on_date&days=180", {
@@ -10,26 +28,20 @@ function drawEvolutionChart() {
   })
   .then((resp) => resp.json())
   .then(function(resp_json) {
-    let config = cloneDeep(config_base_evolution_chart);
-    let ctx_threats = document.getElementById("canvas-threats").getContext("2d");
-    ctx_threats.canvas.height = config.height;
-
-    resp_json.map(threat =>
-      threat.rate = threat.values
-        .map(value => value.averageRate)
-        .reduce((a, b) => a + b) / threat.values.length
-    );
-
-    let threats = resp_json
-      .sort(function(a, b) {
-        return b.rate - a.rate;
-      })
-      .slice(0, limitDatasets);
-
-    updateEvolutionCharts(threats,limitDatasets,'threats',ctx_threats,config);
+    allThreats = resp_json;
+    updateEvolutionCharts(allThreats,sortParams_threats,'threatsEvolution',ctx_threats,config_threats);
   }).catch((error) => {
     console.error('Error:', error);
   });
+
+  displayThreatsEvolutionBy.onchange = function() {
+      sortParams_threats.valueDisplay = displayThreatsEvolutionBy.value;
+      updateEvolutionCharts(allThreats,sortParams_threats,'threatsEvolution',ctx_threats,config_threats);
+  }
+  orderThreatsEvolutionBy.onchange = function() {
+      sortParams_threats.valueOrder = orderThreatsEvolutionBy.value;
+      updateEvolutionCharts(allThreats,sortParams_threats,'threatsEvolution',ctx_threats,config_threats);
+  }
 
   // fetch stats for vulnerabilities (averages per vulnerabilities per date)  and display the chart
   fetch("/stats/vulnerabilities.json?processor=vulnerability_average_on_date&days=180", {
@@ -40,25 +52,19 @@ function drawEvolutionChart() {
   })
   .then((resp) => resp.json())
   .then(function(resp_json) {
-    let config = cloneDeep(config_base_evolution_chart);
-    let ctx_vulnerabilities = document.getElementById("canvas-vulnerabilities").getContext("2d");
-    ctx_vulnerabilities.canvas.height = config.height;
-
-    resp_json.map(vulnerability =>
-      vulnerability.rate = vulnerability.values
-        .map(value => value.averageRate)
-        .reduce((a, b) => a + b) / vulnerability.values.length
-    );
-
-    let vulnerabilities = resp_json
-      .sort(function(a, b) {
-        return b.rate - a.rate;
-      })
-      .slice(0, limitDatasets);
-
-    updateEvolutionCharts(vulnerabilities,limitDatasets,'vulnerabilities',ctx_vulnerabilities,config);
-
+    allVulnerabilities = resp_json;
+    updateEvolutionCharts(allVulnerabilities,sortParams_vulnerabilities,'vulnerabilitiesEvolution',ctx_vulnerabilities,config_vulnerabilities);
   }).catch((error) => {
     console.error('Error:', error);
   });
+
+  displayVulnerabilitiesEvolutionBy.onchange = function() {
+      sortParams_vulnerabilities.valueDisplay = displayVulnerabilitiesEvolutionBy.value;
+      updateEvolutionCharts(allVulnerabilities,sortParams_vulnerabilities,'vulnerabilitiesEvolution',ctx_vulnerabilities,config_vulnerabilities);
+  }
+
+  orderVulnerabilitiesEvolutionBy.onchange = function() {
+      sortParams_vulnerabilities.valueOrder = orderVulnerabilitiesEvolutionBy.value;
+      updateEvolutionCharts(allVulnerabilities,sortParams_vulnerabilities,'vulnerabilitiesEvolution',ctx_vulnerabilities,config_vulnerabilities);
+  }
 }
