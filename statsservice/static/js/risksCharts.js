@@ -33,6 +33,7 @@ function drawRisksChart() {
       ]
     })
 
+    ctx_risks_info.canvas.height = 200;
     let chartInfoRisks = new Chart(ctx_risks_info, configInfoRisks);
 
     // Display data for operational risks
@@ -54,6 +55,7 @@ function drawRisksChart() {
         resp_json["residual"]["operational"]["High risks"]
       ]
     })
+    ctx_risks_op.canvas.height = 200;
     let chartOpRisks = new Chart(ctx_risks_op, configOPRisks);
 
   }).catch((error) => {
