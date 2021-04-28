@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import operator
 from flask import Blueprint, render_template, request, jsonify, abort
 
 import statsservice.lib.processors
@@ -18,21 +19,45 @@ def index():
 
 @map_bp.route("/clients.json", methods=["GET"])
 def clients():
-    clients = Client.query.filter(Client.latitude != None, Client.longitude != None).all()
+    clients = Client.query.filter(
+        Client.latitude != None, Client.longitude != None
+    ).all()
 
     result = []
 
     for client in clients:
-
         query = Stats.query.filter(Stats.type == "threat", Stats.client_id == client.id)
         query = query.order_by(Stats.date.desc()).limit(40)
-        threats = getattr(statsservice.lib.processors, "threat_average_on_date")(query.all())
-        for threat in threats:
-            print(threat)
+        threats = getattr(statsservice.lib.processors, "threat_average_on_date")(
+            query.all()
+        )
+        max_threat = max(
+            [(threat["averages"]["count"], threat["object"]) for threat in threats],
+            key=operator.itemgetter(0),
+        )
 
-        result.append({
-            "latitude": client.latitude,
-            "longitude": client.longitude,
-        })
+        query = Stats.query.filter(
+            Stats.type == "vulnerability", Stats.client_id == client.id
+        )
+        query = query.order_by(Stats.date.desc()).limit(40)
+        vulnerabilities = getattr(
+            statsservice.lib.processors, "vulnerability_average_on_date"
+        )(query.all())
+        max_vulnerability = max(
+            [
+                (vulnerability["averages"]["count"], vulnerability["object"])
+                for vulnerability in vulnerabilities
+            ],
+            key=operator.itemgetter(0),
+        )
+
+        result.append(
+            {
+                "latitude": client.latitude,
+                "longitude": client.longitude,
+                "max_threat": max_threat,
+                "max_vulnerability": max_vulnerability,
+            }
+        )
 
     return jsonify(result)
