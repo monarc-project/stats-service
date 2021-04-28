@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='npm_components/leaflet/dist/leaflet.css') }}" />
+<script src="{{ url_for('static', filename='npm_components/leaflet/dist/leaflet.js') }}"></script>
+<style>
+#mapid { height: 180px; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col-md">
+      <div id="cyberweathermap" class="map map-home" style="height: 700px; margin-top: 50px"></div>
+    </div>
+  </div>
+</div><!-- /.container -->
+<script>
+var map = L.map('cyberweathermap').setView([49.611621, 6.1319346], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+fetch("/map/clients.json", {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+})
+.then((resp) => resp.json())
+.then(function(resp_json) {
+  resp_json.map(function(client){
+
+    L.marker([client.latitude, client.longitude])
+    .addTo(map)
+    .bindPopup('Threats: <br />Vulnerabilities: ');
+
+  })
+})
+</script>
+{% endblock %}
