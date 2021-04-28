@@ -5,18 +5,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{{ _('MONARC Dashboard') }}" />
+  <meta name="author" content="CASES.lu - Cyberworld Awareness and Security Enhancement Services" />
+   <meta name="keywords" content="MONARC, stats, threats, vulnerabilities, infosec">
   <link rel="author" type="text/plain"  href="{{ url_for('root_bp.human')  }}" />
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}" />
   <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" />
-  <meta name="author" content="" />
   <title>Global dashboard</title>
   {% block head_css %}
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='npm_components/bootstrap/dist/css/bootstrap.min.css') }}" media="screen" />
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}" />
   {% endblock %}
-  <script type="application/javascript">document.interestCohort = null;</script>
-  <script type="text/javascript" src="{{ url_for('static', filename='npm_components/popper.js/dist/umd/popper.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='npm_components/@popperjs/core/dist/umd/popper.min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='npm_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
   <script src="{{ url_for('static', filename='npm_components/chart.js/dist/chart.min.js') }}"></script>
   <script src="{{ url_for('static', filename='npm_components/moment/min/moment.min.js') }}"></script>
@@ -46,6 +46,9 @@
       {% block menu_links %}
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto w-100 justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('root_bp.evolution') }}" title="{{ _('Evolution') }}">{{ _('Evolution') }}</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('root_bp.about') }}" title="{{ _('About') }}">{{ _('About') }}</a>
           </li>
