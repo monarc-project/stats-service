@@ -9,10 +9,10 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-  <br />
+  <h1>{{ _('Cybersecurity Weather Map') }}</h1>
   <div class="row">
     <div class="col-md">
-      <div id="cyberweathermap" class="map map-home" style="height: 700px; margin-top: 50px"></div>
+      <div id="cyberweathermap" class="map map-home" style="height: 650px; margin-top: 50px"></div>
     </div>
   </div>
 </div><!-- /.container -->
@@ -35,7 +35,7 @@ fetch("/map/clients.json", {
 
     L.marker([client.latitude, client.longitude])
     .addTo(map)
-    .bindPopup('Threats: <br />Vulnerabilities: ');
+    .bindPopup('<b>#1 Threat:</b> ' + client.max_threat[1] + '<br /><b>#1 Vulnerability:</b> ' +  client.max_vulnerability[1]);
 
   })
 })
