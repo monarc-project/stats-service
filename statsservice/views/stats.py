@@ -15,14 +15,6 @@ stats_bp = Blueprint("stats_bp", __name__, url_prefix="/stats")
 # contradiction with the finality of this blueprint.
 
 
-@stats_bp.route("/", methods=["GET"])
-def stats():
-    """The only view of this blueprint which is supposed to return a HTML file.
-    Routes defined in the following can be used in this HTML file.
-    """
-    return render_template("stats.html")
-
-
 @stats_bp.route("/threats.json", methods=["GET"])
 def threats():
     """Returns threats with custom processings."""

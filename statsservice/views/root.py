@@ -37,6 +37,14 @@ def home():
     return render_template("index.html")
 
 
+@root_bp.route("evolution", methods=["GET"])
+def evolution():
+    """The only view of this blueprint which is supposed to return a HTML file.
+    Routes defined in the following can be used in this HTML file.
+    """
+    return render_template("evolution.html")
+
+
 @root_bp.route("help", methods=["GET"])
 def help():
     """About page."""
