@@ -25,6 +25,8 @@ class Client(db.Model, UserMixin):
     name = db.Column(db.String(100), unique=True)  # client easy to read identifier
     token = db.Column(db.String(100), unique=True, default=secret_token)
     role = db.Column(db.Integer, default=ROLE_USER)
+    latitude = db.Column(db.Float(), default=None, nullable=True)
+    longitude = db.Column(db.Float(), default=None, nullable=True)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     local = db.Column(db.Boolean(), default=True)
     is_sharing_enabled = db.Column(db.Boolean(), default=True)
