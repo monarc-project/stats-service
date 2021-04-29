@@ -3,9 +3,6 @@
 {{ super() }}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='npm_components/leaflet/dist/leaflet.css') }}" />
 <script src="{{ url_for('static', filename='npm_components/leaflet/dist/leaflet.js') }}"></script>
-<style>
-#mapid { height: 180px; }
-</style>
 {% endblock %}
 {% block content %}
 <div class="container">
