@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<div class="container" role="main">
+<div class="container-fluid double-padding" role="main">
   <div class="row justify-content-center">
     <div class="col">
       <h1>{{ _('Current Cybersecurity landscape') }}</h1>
@@ -60,6 +60,11 @@
         <option value="count">{{ _('Occurrence')}}</option>
         <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
       </select>
+      <label for="orderThreatsBy">{{ _('Order by')}}</label>
+      <select id="orderThreatsBy">
+        <option value="highest" selected>{{('Highest')}}</option>
+        <option value="lowest">{{('Lowest')}}</option>
+      </select>
       <div class="d-flex justify-content-center">
         <div class="chart-container" style="position: relative; width:80vw">
           <canvas id="threats-chart"></canvas>
@@ -80,6 +85,11 @@
         <option value="averageRate" selected>{{ _('Qualification')}}</option>
         <option value="count">{{ _('Occurrence')}}</option>
         <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+      </select>
+      <label for="orderVulnerabilitiesBy">{{ _('Order by')}}</label>
+      <select id="orderVulnerabilitiesBy">
+        <option value="highest" selected>{{ _('Highest')}}</option>
+        <option value="lowest">{{ _('Lowest')}}</option>
       </select>
       <div class="d-flex justify-content-center">
         <div class="chart-container" style="position: relative;  width:80vw">
