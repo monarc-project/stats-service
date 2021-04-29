@@ -1,12 +1,15 @@
 {
   "name": "stats-service",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Stats Service for MONARC.",
   "private": true,
   "scripts": {
     "postinstall": "cd statsservice/static/ ; ln -sf ../../node_modules npm_components"
   },
-  "author": "Cédric Bonhomme",
+  "author": "Cédric Bonhomme <cedric@cedricbonhomme.org> (https://cedricbonhomme.org)",
+  "contributors": [
+    "Juan Rocha <juan.rocha@securitymadein.lu>"
+  ],
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@popperjs/core": "^2.9.2",
