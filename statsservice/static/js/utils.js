@@ -90,7 +90,8 @@ var config_base_evolution_chart = {
           unit: 'month',
           displayFormats: {
             quarter: 'MM YYYY'
-          }
+          },
+          tooltipFormat: 'MMMM DD YYYY'
         }
       }
     },
@@ -201,21 +202,31 @@ function getModals() {
  * Update chart
  *
  * @param {Array} allData All elements from MOSP query.
- * @param {number} valueTop Number of items to display.
- * @param {string} valueDisplay Average name to display.
+ * @param {object} sortParams sort params of chart display.
  * @param {string} chart Name of items (threats,vulnerabilities).
  * @param {object} ctx Canvas context.
  * @param {object} config Chart config.
  */
 
-function updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
+function updateChart(allData, sortParams, chart, ctx, config) {
   let chart_data = {};
   let promises = [];
-  if (valueTop > allData.length) {
-    valueTop = allData.length
+  if (sortParams.valueTop > allData.length) {
+    sortParams.valueTop = allData.length
   }
-  let resp_json_sorted = allData.slice(0, parseInt(valueTop));
-  resp_json_sorted.forEach((item,index) => {
+  let dataSorted = allData
+    .filter(data => data.averages[sortParams.valueDisplay] > 0)
+    .sort(function(a, b) {
+      if (sortParams.valueOrder == 'lowest') {
+        config.options.scales.y.reverse = true;
+        return a.averages[sortParams.valueDisplay] - b.averages[sortParams.valueDisplay];
+      }
+      config.options.scales.y.reverse = false;
+      return b.averages[sortParams.valueDisplay] - a.averages[sortParams.valueDisplay];
+    })
+    .slice(0, parseInt(sortParams.valueTop));
+
+  dataSorted.forEach((item,index) => {
     if (!Object.keys(charts[chart].by_uuid).includes(item.object) ) {
       promises.push(
         retrieve_information_from_mosp(item)
@@ -227,8 +238,10 @@ function updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
     }
 
     Promise.all(promises).then(function() {
-        chart_data[charts[chart].by_uuid[item.object].translated_label] = item.averages[valueDisplay];
-        if (index == valueTop - 1) {
+        if (!chart_data[charts[chart].by_uuid[item.object].translated_label]) {
+          chart_data[charts[chart].by_uuid[item.object].translated_label] = item.averages[sortParams.valueDisplay];
+        }
+        if (index == sortParams.valueTop - 1) {
             let data = {
               labels: Object.keys(chart_data),
               datasets: [{
@@ -255,7 +268,7 @@ function updateChart(allData, valueTop, valueDisplay, chart, ctx, config) {
  * Update evolution charts
  *
  * @param {Array} chartData elements sorted from MOSP query.
- * @param {string} sortParams sort params of chart display.
+ * @param {object} sortParams sort params of chart display.
  * @param {string} chart Name of items (threatsEvolution,vulnerabilitiesEvolution).
  * @param {object} ctx Canvas context.
  * @param {object} config Chart config.
@@ -277,6 +290,7 @@ function updateEvolutionCharts (allData, sortParams, chart, ctx, config){
   );
 
   let dataSorted = allData
+    .filter(data => data.rate > 0)
     .sort(function(a, b) {
       if (sortParams.valueOrder == 'lowest') {
         config.options.plugins.legend.reverse = true;
@@ -316,7 +330,7 @@ function updateEvolutionCharts (allData, sortParams, chart, ctx, config){
         })
         .map(function(elem) {
           data.push({
-            x: new Date(elem.date),
+            x: elem.date,
             y: elem[sortParams.valueDisplay]
           });
         });

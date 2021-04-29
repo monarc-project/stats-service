@@ -4,6 +4,7 @@ function drawEvolutionChart() {
   let ctx_threats = document.getElementById("canvas-threatsEvolution").getContext("2d");
   let displayThreatsEvolutionBy = document.getElementById("displayThreatsEvolutionBy")
   let orderThreatsEvolutionBy = document.getElementById("orderThreatsEvolutionBy")
+  let inverseThreatsSelection = document.getElementById("inverseThreatsSelection");
   let sortParams_threats = {
     valueDisplay : displayThreatsEvolutionBy.value,
     valueOrder_threats : orderThreatsEvolutionBy.value,
@@ -14,6 +15,7 @@ function drawEvolutionChart() {
   let ctx_vulnerabilities = document.getElementById("canvas-vulnerabilitiesEvolution").getContext("2d");
   let displayVulnerabilitiesEvolutionBy = document.getElementById("displayVulnerabilitiesEvolutionBy")
   let orderVulnerabilitiesEvolutionBy = document.getElementById("orderVulnerabilitiesEvolutionBy")
+  let inverseVulnerabilitiesSelection = document.getElementById("inverseVulnerabilitiesSelection");
   let sortParams_vulnerabilities = {
     valueDisplay : displayVulnerabilitiesEvolutionBy.value,
     valueOrder : orderVulnerabilitiesEvolutionBy.value,
@@ -43,6 +45,14 @@ function drawEvolutionChart() {
       updateEvolutionCharts(allThreats,sortParams_threats,'threatsEvolution',ctx_threats,config_threats);
   }
 
+  inverseThreatsSelection.onclick = function() {
+      charts['threatsEvolution'].canvas.data.datasets.forEach(function(dataset,index) {
+        let meta = charts['threatsEvolution'].canvas.getDatasetMeta(index);
+        meta.hidden = !meta.hidden || null;
+      });
+      charts['threatsEvolution'].canvas.update();
+  };
+
   // fetch stats for vulnerabilities (averages per vulnerabilities per date)  and display the chart
   fetch("/stats/vulnerabilities.json?processor=vulnerability_average_on_date&days=180", {
     method: "GET",
@@ -67,4 +77,12 @@ function drawEvolutionChart() {
       sortParams_vulnerabilities.valueOrder = orderVulnerabilitiesEvolutionBy.value;
       updateEvolutionCharts(allVulnerabilities,sortParams_vulnerabilities,'vulnerabilitiesEvolution',ctx_vulnerabilities,config_vulnerabilities);
   }
+
+  inverseVulnerabilitiesSelection.onclick = function() {
+      charts['vulnerabilitiesEvolution'].canvas.data.datasets.forEach(function(dataset,index) {
+        let meta = charts['vulnerabilitiesEvolution'].canvas.getDatasetMeta(index);
+        meta.hidden = !meta.hidden || null;
+      });
+      charts['vulnerabilitiesEvolution'].canvas.update();
+  };
 }
