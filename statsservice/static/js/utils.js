@@ -291,6 +291,7 @@ function updateEvolutionCharts (allData, sortParams, chart, ctx, config){
   );
 
   let dataSorted = allData
+    .filter(data => data.rate > 0)
     .sort(function(a, b) {
       if (sortParams.valueOrder == 'lowest') {
         config.options.plugins.legend.reverse = true;
