@@ -90,7 +90,8 @@ var config_base_evolution_chart = {
           unit: 'month',
           displayFormats: {
             quarter: 'MM YYYY'
-          }
+          },
+          tooltipFormat: 'MMMM DD YYYY'
         }
       }
     },
@@ -217,15 +218,13 @@ function updateChart(allData, sortParams, chart, ctx, config) {
     .filter(data => data.averages[sortParams.valueDisplay] > 0)
     .sort(function(a, b) {
       if (sortParams.valueOrder == 'lowest') {
+        config.options.scales.y.reverse = true;
         return a.averages[sortParams.valueDisplay] - b.averages[sortParams.valueDisplay];
       }
+      config.options.scales.y.reverse = false;
       return b.averages[sortParams.valueDisplay] - a.averages[sortParams.valueDisplay];
     })
     .slice(0, parseInt(sortParams.valueTop));
-
-  if (sortParams.valueOrder == 'lowest') {
-    dataSorted.reverse();
-  }
 
   dataSorted.forEach((item,index) => {
     if (!Object.keys(charts[chart].by_uuid).includes(item.object) ) {
@@ -331,7 +330,7 @@ function updateEvolutionCharts (allData, sortParams, chart, ctx, config){
         })
         .map(function(elem) {
           data.push({
-            x: new Date(elem.date),
+            x: elem.date,
             y: elem[sortParams.valueDisplay]
           });
         });
