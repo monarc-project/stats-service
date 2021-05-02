@@ -1,42 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<!-- Modal -->
-<div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="MOSPModalLabel">{{ _('You are about to leave this website') }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        {{ _('Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).') }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
-        <button type="button" class="btn btn-primary" id="MOSPModalOK">{{ _('See the object on MOSP') }}</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="unknowObjectModal" tabindex="-1" aria-labelledby="unknowObjectModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="unknowObjectModalLabel">{{ _('Unknow object') }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      {{ _('We were not able to find this object on MOSP.') }}<br /><br />
-      {{ _('If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.') }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container" role="main">
+<div class="container-fluid double-padding" role="main">
   <div class="row justify-content-center">
     <div class="col">
       <h1>{{ _('Current Cybersecurity landscape') }}</h1>
@@ -48,19 +12,35 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <h2 id="trends-threats">{{ _('Top threats')}}</h2>
-      <label for="topThreats">{{ _('Number of threats')}}</label>
-      <select id="topThreats">
-        <option value="5" selected>5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-      </select>
-      <label for="displayThreatsBy">{{ _('Display by')}}</label>
-      <select id="displayThreatsBy">
-        <option value="averageRate" selected>{{ _('Probability')}}</option>
-        <option value="count">{{ _('Occurrence')}}</option>
-        <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
-      </select>
-      <div class="d-flex justify-content-center">
+      <div class="col d-flex justify-content-between">
+        <label for="topThreats">{{ _('Number of threats')}}</label>
+        <select id="topThreats">
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </select>
+        <label for="displayThreatsBy">{{ _('Display by')}}</label>
+        <select id="displayThreatsBy">
+          <option value="averageRate" selected>{{ _('Probability')}}</option>
+          <option value="count">{{ _('Occurrence')}}</option>
+          <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+        </select>
+        <label for="orderThreatsBy">{{ _('Order by')}}</label>
+        <select id="orderThreatsBy">
+          <option value="highest" selected>{{('Highest')}}</option>
+          <option value="lowest">{{('Lowest')}}</option>
+        </select>
+        <div class="dropdown" data-toggle="tooltip" title="{{ _ ('Export')}}">
+          <i class="bi-save-fill text-primary" type="button" id="threatsMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+          </i>
+          <ul class="dropdown-menu" aria-labelledby="threatsMenuExport" style="min-width:1rem">
+            <li><a class="dropdown-item" type="button" id="exportThreatsPNG">.png</a></li>
+            <li><a class="dropdown-item" id="exportThreatsCSV">.csv</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col d-flex justify-content-center">
         <div class="chart-container" style="position: relative; width:80vw">
           <canvas id="threats-chart"></canvas>
         </div>
@@ -69,18 +49,33 @@
 
     <div class="col-md-6">
       <h2 id="trends-threats">{{ _('Top vulnerabilities') }}</h2>
-      <label for="topVulnerabilities">{{ _('Number of vulnerabilities')}}</label>
-      <select id="topVulnerabilities">
-        <option value="5" selected>5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-      </select>
-      <label for="displayVulnerabilitiesBy">{{ _('Display by')}}</label>
-      <select id="displayVulnerabilitiesBy">
-        <option value="averageRate" selected>{{ _('Qualification')}}</option>
-        <option value="count">{{ _('Occurrence')}}</option>
-        <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
-      </select>
+      <div class="col d-flex justify-content-between">
+        <label for="topVulnerabilities">{{ _('Number of vulnerabilities')}}</label>
+        <select id="topVulnerabilities">
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </select>
+        <label for="displayVulnerabilitiesBy">{{ _('Display by')}}</label>
+        <select id="displayVulnerabilitiesBy">
+          <option value="averageRate" selected>{{ _('Qualification')}}</option>
+          <option value="count">{{ _('Occurrence')}}</option>
+          <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+        </select>
+        <label for="orderVulnerabilitiesBy">{{ _('Order by')}}</label>
+        <select id="orderVulnerabilitiesBy">
+          <option value="highest" selected>{{ _('Highest')}}</option>
+          <option value="lowest">{{ _('Lowest')}}</option>
+        </select>
+        <div class="dropdown" data-toggle="tooltip" title="{{ _ ('Export')}}">
+          <i class="bi-save-fill text-primary" type="button" id="vulnerabilitiesMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+          </i>
+          <ul class="dropdown-menu" aria-labelledby="vulnerabilitiesMenuExport" style="min-width:1rem">
+            <li><a class="dropdown-item" type="button" id="exportVulnerabilitiesPNG">.png</a></li>
+            <li><a class="dropdown-item" id="exportVulnerabilitiesCSV">.csv</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="d-flex justify-content-center">
         <div class="chart-container" style="position: relative;  width:80vw">
           <canvas id="vulnerabilities-chart"></canvas>
@@ -140,6 +135,76 @@
       </div>
     </div>
 </div><!-- /.container -->
+<!-- Modal -->
+<div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="MOSPModalLabel">{{ _('You are about to leave this website') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ _('Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).') }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
+        <button type="button" class="btn btn-primary" id="MOSPModalOK">{{ _('See the object on MOSP') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="unknowObjectModal" tabindex="-1" aria-labelledby="unknowObjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="unknowObjectModalLabel">{{ _('Unknow object') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      {{ _('We were not able to find this object on MOSP.') }}<br /><br />
+      {{ _('If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.') }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="unknowObjectModalClose">{{ _('Close') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="MOSPModalLabel">{{ _('You are about to leave this website') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ _('Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).') }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
+        <button type="button" class="btn btn-primary" id="MOSPModalOK">{{ _('See the object on MOSP') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="unknowObjectModal" tabindex="-1" aria-labelledby="unknowObjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="unknowObjectModalLabel">{{ _('Unknow object') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      {{ _('We were not able to find this object on MOSP.') }}<br /><br />
+      {{ _('If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.') }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
   getModals();
   drawThreatsChart();

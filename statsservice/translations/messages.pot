@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-20 08:44+0200\n"
+"POT-Creation-Date: 2021-04-29 10:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,59 @@ msgstr ""
 msgid "Contact:"
 msgstr ""
 
-#: statsservice/templates/help.html:7 statsservice/templates/layout.html:57
+#: statsservice/templates/evolution.html:11
+#: statsservice/templates/layout.html:50
+msgid "Evolution"
+msgstr ""
+
+#: statsservice/templates/evolution.html:16
+msgid "Threats"
+msgstr ""
+
+#: statsservice/templates/evolution.html:17
+#: statsservice/templates/evolution.html:43
+#: statsservice/templates/index.html:57 statsservice/templates/index.html:78
+msgid "Display by"
+msgstr ""
+
+#: statsservice/templates/evolution.html:19
+#: statsservice/templates/evolution.html:45
+#: statsservice/templates/index.html:59
+msgid "Probability"
+msgstr ""
+
+#: statsservice/templates/evolution.html:20
+#: statsservice/templates/evolution.html:46
+#: statsservice/templates/index.html:60 statsservice/templates/index.html:81
+msgid "Occurrence"
+msgstr ""
+
+#: statsservice/templates/evolution.html:21
+#: statsservice/templates/evolution.html:47
+#: statsservice/templates/index.html:61 statsservice/templates/index.html:82
+msgid "Max. associated risk level"
+msgstr ""
+
+#: statsservice/templates/evolution.html:23
+#: statsservice/templates/evolution.html:49
+msgid "Order by"
+msgstr ""
+
+#: statsservice/templates/evolution.html:25
+#: statsservice/templates/evolution.html:51
+msgid "Highest"
+msgstr ""
+
+#: statsservice/templates/evolution.html:26
+#: statsservice/templates/evolution.html:52
+msgid "Lowest"
+msgstr ""
+
+#: statsservice/templates/evolution.html:42
+msgid "Vulnerabilities"
+msgstr ""
+
+#: statsservice/templates/help.html:7 statsservice/templates/layout.html:72
 msgid "Help"
 msgstr ""
 
@@ -78,7 +130,7 @@ msgstr ""
 msgid "here"
 msgstr ""
 
-#: statsservice/templates/help.html:10 statsservice/templates/layout.html:59
+#: statsservice/templates/help.html:10 statsservice/templates/layout.html:74
 msgid "OpenAPI Specification"
 msgstr ""
 
@@ -192,34 +244,34 @@ msgid ""
 "service/discussions/categories/q-a\">here</a>."
 msgstr ""
 
-#: statsservice/templates/index.html:15
+#: statsservice/templates/index.html:8
 msgid "You are about to leave this website"
 msgstr ""
 
-#: statsservice/templates/index.html:19
+#: statsservice/templates/index.html:12
 msgid ""
 "Leave the webiste and see the object on the <a "
 "href=\"https://objects.monarc.lu\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">MONARC Objects Sharing Platform</a> (MOSP)."
 msgstr ""
 
-#: statsservice/templates/index.html:22 statsservice/templates/index.html:40
+#: statsservice/templates/index.html:15 statsservice/templates/index.html:33
 msgid "Close"
 msgstr ""
 
-#: statsservice/templates/index.html:23
+#: statsservice/templates/index.html:16
 msgid "See the object on MOSP"
 msgstr ""
 
-#: statsservice/templates/index.html:32
+#: statsservice/templates/index.html:25
 msgid "Unknow object"
 msgstr ""
 
-#: statsservice/templates/index.html:36
+#: statsservice/templates/index.html:29
 msgid "We were not able to find this object on MOSP."
 msgstr ""
 
-#: statsservice/templates/index.html:37
+#: statsservice/templates/index.html:30
 msgid ""
 "If you are the author of this object or know more information, you can <a"
 " href=\"https://objects.monarc.lu/help#join_the_community\" "
@@ -227,51 +279,59 @@ msgid ""
 "Objects Sharing Platform."
 msgstr ""
 
-#: statsservice/templates/index.html:49
+#: statsservice/templates/index.html:42
 msgid "Current Cybersecurity landscape"
 msgstr ""
 
-#: statsservice/templates/index.html:57
+#: statsservice/templates/index.html:50
 msgid "Top threats"
 msgstr ""
 
-#: statsservice/templates/index.html:58
+#: statsservice/templates/index.html:51
 msgid "Number of threats"
 msgstr ""
 
-#: statsservice/templates/index.html:72
+#: statsservice/templates/index.html:71
 msgid "Top vulnerabilities"
 msgstr ""
 
-#: statsservice/templates/index.html:73
+#: statsservice/templates/index.html:72
 msgid "Number of vulnerabilities"
 msgstr ""
 
-#: statsservice/templates/index.html:91
+#: statsservice/templates/index.html:80
+msgid "Qualification"
+msgstr ""
+
+#: statsservice/templates/index.html:96
 msgid "Charts based on the most recent collected data."
 msgstr ""
 
-#: statsservice/templates/index.html:92
+#: statsservice/templates/index.html:97
 msgid "See the recent"
 msgstr ""
 
-#: statsservice/templates/index.html:92
+#: statsservice/templates/index.html:97
 msgid "evolution"
 msgstr ""
 
-#: statsservice/templates/index.html:92
+#: statsservice/templates/index.html:97
 msgid "for the threats and vulnerabilities."
 msgstr ""
 
-#: statsservice/templates/index.html:100
-msgid "Risks"
+#: statsservice/templates/index.html:105
+msgid "Information Risks"
 msgstr ""
 
-#: statsservice/templates/index.html:111
+#: statsservice/templates/index.html:109
+msgid "Operational Risks"
+msgstr ""
+
+#: statsservice/templates/index.html:119
 msgid "What are these graphics about?"
 msgstr ""
 
-#: statsservice/templates/index.html:112
+#: statsservice/templates/index.html:120
 msgid ""
 "This page depicts the current\n"
 "          cybersecurity landscape (in terms of\n"
@@ -287,15 +347,15 @@ msgid ""
 "href=\"#footnote-1\">[1]</a></sup>."
 msgstr ""
 
-#: statsservice/templates/index.html:120
+#: statsservice/templates/index.html:128
 msgid "Learn more"
 msgstr ""
 
-#: statsservice/templates/index.html:130
+#: statsservice/templates/index.html:138
 msgid "Details"
 msgstr ""
 
-#: statsservice/templates/index.html:130
+#: statsservice/templates/index.html:138
 msgid "about contributors and the stats on this instance."
 msgstr ""
 
@@ -303,19 +363,21 @@ msgstr ""
 msgid "MONARC Dashboard"
 msgstr ""
 
-#: statsservice/templates/layout.html:41 statsservice/templates/layout.html:55
+#: statsservice/templates/layout.html:53
+msgid "Map"
+msgstr ""
+
+#: statsservice/templates/layout.html:56 statsservice/templates/layout.html:70
 msgid "About"
 msgstr ""
 
-#: statsservice/templates/stats.html:11
-msgid "Evolution"
+#: statsservice/templates/map.html:9
+msgid "Cybersecurity Weather Map"
 msgstr ""
 
-#: statsservice/templates/stats.html:16
-msgid "Threats"
-msgstr ""
-
-#: statsservice/templates/stats.html:33
-msgid "Vulnerabilities"
+#: statsservice/templates/map.html:13
+msgid ""
+"Based on the statistics collected, this map presents the highest current "
+"threats and vulnerabilities, by region."
 msgstr ""
 

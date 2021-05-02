@@ -148,3 +148,7 @@ h6{
 .footer a{
     color: #FFFFFF;
 }
+
+.double-padding {
+  padding : 24px;
+}
