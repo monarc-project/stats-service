@@ -70,13 +70,24 @@ def client_delete(uuid, yes):
 
 
 @application.cli.command("client_coordinates_set")
-@click.option("--uuid", required=True, help="Name of the client.")
-@click.option("--latitude", default="", help="Latitude for the client.")
-@click.option("--longitude", default="", help="Longitude for the client.")
+@click.option("--uuid", required=True, help="UUID of the client.")
+@click.option("--latitude", required=True, help="Latitude of the client.")
+@click.option("--longitude", required=True, help="Longitude of the client.")
 def client_coordinates_set(uuid, latitude, longitude):
-    """"""
+    """Set the coordinates of the client specified with its UUID."""
     cl = Client.query.filter(Client.uuid == uuid).first()
     cl.latitude = latitude
     cl.longitude = longitude
+    db.session.add(cl)
+    db.session.commit()
+
+
+@application.cli.command("client_coordinates_unset")
+@click.option("--uuid", required=True, help="UUID of the client.")
+def client_coordinates_unset(uuid):
+    """Unset the coordinates of the client specified with its UUID."""
+    cl = Client.query.filter(Client.uuid == uuid).first()
+    cl.latitude = None
+    cl.longitude = None
     db.session.add(cl)
     db.session.commit()

@@ -30,6 +30,7 @@ from statsservice.commands import (
     client_list,
     client_delete,
     client_coordinates_set,
+    client_coordinates_unset,
     stats_delete,
     stats_pull,
     stats_push,
@@ -48,6 +49,7 @@ def register_commands(app):
     app.cli.add_command(client_list)
     app.cli.add_command(client_delete)
     app.cli.add_command(client_coordinates_set)
+    app.cli.add_command(client_coordinates_unset)
     # stats
     app.cli.add_command(stats_delete)
     app.cli.add_command(stats_push)

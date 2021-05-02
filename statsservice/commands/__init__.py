@@ -4,6 +4,7 @@ from statsservice.commands.client import (
     client_list,
     client_delete,
     client_coordinates_set,
+    client_coordinates_unset,
 )
 from statsservice.commands.stats import stats_delete, stats_pull, stats_push
 from statsservice.commands.mosp import mosp_is_object_published
