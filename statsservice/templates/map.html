@@ -67,8 +67,7 @@ fetch("/map/clients.json", {
       .bindPopup('<b>#1 Threat:</b> ' +
                  translations[client.max_threat[1]] +
                  '<br /><b>#1 Vulnerability:</b> ' +
-                 translations[client.max_vulnerability[1]] +
-                 '<br /><a href="">Details for this area.</a>');
+                 translations[client.max_vulnerability[1]]);
     })
   })
 })
