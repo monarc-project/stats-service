@@ -110,7 +110,22 @@ var config_base_evolution_chart = {
 
 var languageIndex = {fr:1,en:2,de:3, nl:4};
 
-function getLabel(language, labels){
+var language = userLanguage();
+
+function userLanguage() {
+  let language;
+  try {
+    language = navigator.language.split("-")[0].toUpperCase()
+    if (!Object.keys(languageIndex).includes(language.toLowerCase())) {
+      language = 'EN';
+    }
+  } catch (e) {
+    language = 'EN';
+  }
+  return language;
+}
+
+function getLabel(labels){
   let currentLanguage = languageIndex[language.toLowerCase()];
   if (labels['label' + currentLanguage]) {
     return labels['label' + currentLanguage];
@@ -125,12 +140,6 @@ function getLabel(language, labels){
 
 function retrieve_information_from_mosp(query) {
   let uuid = query.object;
-  language = "EN";
-  try {
-    language = navigator.language.split("-")[0].toUpperCase()
-  } catch (e) {
-    language = "EN";
-  }
   return new Promise(function(resolve, reject) {
     fetch("https://objects.monarc.lu/api/v2/object/?language="+language+"&uuid="+uuid, {
       method: "GET",
@@ -143,7 +152,7 @@ function retrieve_information_from_mosp(query) {
       if (mosp_result["metadata"].count > 0) {
         resolve(mosp_result["data"][0].name);
       } else {
-        resolve(getLabel(language, query.labels));
+        resolve(getLabel(query.labels));
       }
     })
     .catch((error) => {
@@ -360,4 +369,27 @@ function truncateText(text,width) {
       return label.substr(0, width) + '...';
     }
     return label;
+}
+
+function exportPNG(chart,filename) {
+    let file = document.createElement('a');
+    file.href = charts[chart].canvas.toBase64Image();
+    file.download = filename;
+    file.click();
+}
+
+function exportCSV(json,filename){
+    let file = document.createElement("a");
+    let csvContent = "data:text/csv;charset=UTF-8,\uFEFF";
+    let replace = (key, value) => value === null ? '' : value;
+    let header = Object.keys(json[0])
+
+    let csv = [
+      header.join(','), // header row first
+      ...json.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replace)).join(','))
+    ].join('\r\n')
+
+    file.href = encodeURI(csvContent + csv);
+    file.download = filename;
+    file.click();
 }

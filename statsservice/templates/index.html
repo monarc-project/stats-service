@@ -12,24 +12,35 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <h2 id="trends-threats">{{ _('Top threats')}}</h2>
-      <label for="topThreats">{{ _('Number of threats')}}</label>
-      <select id="topThreats">
-        <option value="5" selected>5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-      </select>
-      <label for="displayThreatsBy">{{ _('Display by')}}</label>
-      <select id="displayThreatsBy">
-        <option value="averageRate" selected>{{ _('Probability')}}</option>
-        <option value="count">{{ _('Occurrence')}}</option>
-        <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
-      </select>
-      <label for="orderThreatsBy">{{ _('Order by')}}</label>
-      <select id="orderThreatsBy">
-        <option value="highest" selected>{{('Highest')}}</option>
-        <option value="lowest">{{('Lowest')}}</option>
-      </select>
-      <div class="d-flex justify-content-center">
+      <div class="col d-flex justify-content-between">
+        <label for="topThreats">{{ _('Number of threats')}}</label>
+        <select id="topThreats">
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </select>
+        <label for="displayThreatsBy">{{ _('Display by')}}</label>
+        <select id="displayThreatsBy">
+          <option value="averageRate" selected>{{ _('Probability')}}</option>
+          <option value="count">{{ _('Occurrence')}}</option>
+          <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+        </select>
+        <label for="orderThreatsBy">{{ _('Order by')}}</label>
+        <select id="orderThreatsBy">
+          <option value="highest" selected>{{('Highest')}}</option>
+          <option value="lowest">{{('Lowest')}}</option>
+        </select>
+        <div class="dropdown" data-toggle="tooltip" title="{{ _ ('Export')}}">
+          <i class="bi-save-fill text-primary" type="button" id="threatsMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+          </i>
+          <ul class="dropdown-menu" aria-labelledby="threatsMenuExport" style="min-width:1rem">
+            <li><a class="dropdown-item" type="button" id="exportThreatsPNG">.png</a></li>
+            <li><a class="dropdown-item" id="exportThreatsCSV">.csv</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col d-flex justify-content-center">
         <div class="chart-container" style="position: relative; width:80vw">
           <canvas id="threats-chart"></canvas>
         </div>
@@ -38,23 +49,33 @@
 
     <div class="col-md-6">
       <h2 id="trends-threats">{{ _('Top vulnerabilities') }}</h2>
-      <label for="topVulnerabilities">{{ _('Number of vulnerabilities')}}</label>
-      <select id="topVulnerabilities">
-        <option value="5" selected>5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-      </select>
-      <label for="displayVulnerabilitiesBy">{{ _('Display by')}}</label>
-      <select id="displayVulnerabilitiesBy">
-        <option value="averageRate" selected>{{ _('Qualification')}}</option>
-        <option value="count">{{ _('Occurrence')}}</option>
-        <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
-      </select>
-      <label for="orderVulnerabilitiesBy">{{ _('Order by')}}</label>
-      <select id="orderVulnerabilitiesBy">
-        <option value="highest" selected>{{ _('Highest')}}</option>
-        <option value="lowest">{{ _('Lowest')}}</option>
-      </select>
+      <div class="col d-flex justify-content-between">
+        <label for="topVulnerabilities">{{ _('Number of vulnerabilities')}}</label>
+        <select id="topVulnerabilities">
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </select>
+        <label for="displayVulnerabilitiesBy">{{ _('Display by')}}</label>
+        <select id="displayVulnerabilitiesBy">
+          <option value="averageRate" selected>{{ _('Qualification')}}</option>
+          <option value="count">{{ _('Occurrence')}}</option>
+          <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+        </select>
+        <label for="orderVulnerabilitiesBy">{{ _('Order by')}}</label>
+        <select id="orderVulnerabilitiesBy">
+          <option value="highest" selected>{{ _('Highest')}}</option>
+          <option value="lowest">{{ _('Lowest')}}</option>
+        </select>
+        <div class="dropdown" data-toggle="tooltip" title="{{ _ ('Export')}}">
+          <i class="bi-save-fill text-primary" type="button" id="vulnerabilitiesMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+          </i>
+          <ul class="dropdown-menu" aria-labelledby="vulnerabilitiesMenuExport" style="min-width:1rem">
+            <li><a class="dropdown-item" type="button" id="exportVulnerabilitiesPNG">.png</a></li>
+            <li><a class="dropdown-item" id="exportVulnerabilitiesCSV">.csv</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="d-flex justify-content-center">
         <div class="chart-container" style="position: relative;  width:80vw">
           <canvas id="vulnerabilities-chart"></canvas>

@@ -1,9 +1,12 @@
 function drawVulnerabilitiesChart() {
   let allVulnerabilities = [];
   let ctx = document.getElementById("vulnerabilities-chart").getContext('2d');
-  let topVulnerabilitiesInput = document.getElementById("topVulnerabilities")
-  let displayVulnerabilitiesBy = document.getElementById("displayVulnerabilitiesBy")
-  let orderVulnerabilitiesBy = document.getElementById("orderVulnerabilitiesBy")
+  let topVulnerabilitiesInput = document.getElementById("topVulnerabilities");
+  let displayVulnerabilitiesBy = document.getElementById("displayVulnerabilitiesBy");
+  let orderVulnerabilitiesBy = document.getElementById("orderVulnerabilitiesBy");
+  let exportVulnerabilitiesPNG = document.getElementById("exportVulnerabilitiesPNG");
+  let exportVulnerabilitiesCSV = document.getElementById("exportVulnerabilitiesCSV");
+
   let sortParams = {
     valueTop: topVulnerabilitiesInput.value,
     valueDisplay : displayVulnerabilitiesBy.value,
@@ -52,5 +55,23 @@ function drawVulnerabilitiesChart() {
   orderVulnerabilitiesBy.onchange = function() {
       sortParams.valueOrder = orderVulnerabilitiesBy.value;
       updateChart(allVulnerabilities, sortParams, 'vulnerabilities', ctx, config);
+  }
+  exportVulnerabilitiesPNG.onclick = function() {
+    let filename = `Top${topVulnerabilitiesInput.value}Vulnerabilities_${displayVulnerabilitiesBy.value}.png`;
+    exportPNG('vulnerabilities',filename)
+  }
+  exportVulnerabilitiesCSV.onclick = function() {
+    let filename = 'AllVulnerabilities.csv';
+    let jsonFormatted = allVulnerabilities.map(vulnerability =>{
+      let row = {
+        vulnerability: getLabel(vulnerability.labels),
+        qualification: vulnerability.averages.averageRate.toString().replace(/\./g, ','),
+        ocurrence: vulnerability.averages.count.toString().replace(/\./g, ','),
+        ['Max. associated risk level']: vulnerability.averages.maxRisk.toString().replace(/\./g, ','),
+      }
+      return row;
+    });
+
+    exportCSV(jsonFormatted,filename)
   }
 }
