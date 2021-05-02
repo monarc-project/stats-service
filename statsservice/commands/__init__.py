@@ -3,7 +3,7 @@ from statsservice.commands.client import (
     client_create,
     client_list,
     client_delete,
-    client_set_coordinates,
+    client_coordinates_set,
 )
 from statsservice.commands.stats import stats_delete, stats_pull, stats_push
 from statsservice.commands.mosp import mosp_is_object_published

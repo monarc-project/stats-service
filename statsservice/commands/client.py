@@ -69,11 +69,11 @@ def client_delete(uuid, yes):
             print(e)
 
 
-@application.cli.command("client_set_coordinates")
+@application.cli.command("client_coordinates_set")
 @click.option("--uuid", required=True, help="Name of the client.")
 @click.option("--latitude", default="", help="Latitude for the client.")
 @click.option("--longitude", default="", help="Longitude for the client.")
-def client_set_coordinates(uuid, latitude, longitude):
+def client_coordinates_set(uuid, latitude, longitude):
     """"""
     cl = Client.query.filter(Client.uuid == uuid).first()
     cl.latitude = latitude
