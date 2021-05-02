@@ -1,9 +1,11 @@
 function drawThreatsChart() {
   let allThreats = [];
   let ctx = document.getElementById("threats-chart").getContext('2d');
-  let topThreatsInput = document.getElementById("topThreats")
-  let displayThreatsBy = document.getElementById("displayThreatsBy")
-  let orderThreatsBy = document.getElementById("orderThreatsBy")
+  let topThreatsInput = document.getElementById("topThreats");
+  let displayThreatsBy = document.getElementById("displayThreatsBy");
+  let orderThreatsBy = document.getElementById("orderThreatsBy");
+  let exportThreatsPNG = document.getElementById('exportThreatsPNG');
+  let exportThreatsCSV = document.getElementById('exportThreatsCSV');
   let sortParams = {
     valueTop: topThreatsInput.value,
     valueDisplay : displayThreatsBy.value,
@@ -53,5 +55,23 @@ function drawThreatsChart() {
   orderThreatsBy.onchange = function() {
       sortParams.valueOrder = orderThreatsBy.value;
       updateChart(allThreats, sortParams, 'threats', ctx, config);
+  }
+  exportThreatsPNG.onclick = function() {
+    let filename = `Top${topThreatsInput.value}Threats_${displayThreatsBy.value}.png`;
+    exportPNG('threats',filename)
+  }
+
+  exportThreatsCSV.onclick = function() {
+    let filename = 'AllThreats.csv';
+    let jsonFormatted = allThreats.map(threat =>{
+      let row = {
+        threat: getLabel(threat.labels),
+        probability: threat.averages.averageRate.toString().replace(/\./g, ','),
+        ocurrence: threat.averages.count.toString().replace(/\./g, ','),
+        ['Max. associated risk level']: threat.averages.maxRisk.toString().replace(/\./g, ','),
+      }
+      return row;
+    });
+    exportCSV(jsonFormatted,filename)
   }
 }
