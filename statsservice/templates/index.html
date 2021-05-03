@@ -1,41 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-<!-- Modal -->
-<div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="MOSPModalLabel">{{ _('You are about to leave this website') }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        {{ _('Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).') }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
-        <button type="button" class="btn btn-primary" id="MOSPModalOK">{{ _('See the object on MOSP') }}</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="unknowObjectModal" tabindex="-1" aria-labelledby="unknowObjectModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="unknowObjectModalLabel">{{ _('Unknow object') }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      {{ _('We were not able to find this object on MOSP.') }}<br /><br />
-      {{ _('If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.') }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="container-fluid double-padding" role="main">
   <div class="row justify-content-center">
     <div class="col">
@@ -171,6 +135,76 @@
       </div>
     </div>
 </div><!-- /.container -->
+<!-- Modal -->
+<div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="MOSPModalLabel">{{ _('You are about to leave this website') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ _('Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).') }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
+        <button type="button" class="btn btn-primary" id="MOSPModalOK">{{ _('See the object on MOSP') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="unknowObjectModal" tabindex="-1" aria-labelledby="unknowObjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="unknowObjectModalLabel">{{ _('Unknow object') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      {{ _('We were not able to find this object on MOSP.') }}<br /><br />
+      {{ _('If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.') }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="unknowObjectModalClose">{{ _('Close') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="MOSPModalLabel">{{ _('You are about to leave this website') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ _('Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).') }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
+        <button type="button" class="btn btn-primary" id="MOSPModalOK">{{ _('See the object on MOSP') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="unknowObjectModal" tabindex="-1" aria-labelledby="unknowObjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="unknowObjectModalLabel">{{ _('Unknow object') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      {{ _('We were not able to find this object on MOSP.') }}<br /><br />
+      {{ _('If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.') }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
   getModals();
   drawThreatsChart();
