@@ -4,7 +4,9 @@ function drawEvolutionChart() {
   let ctx_threats = document.getElementById("canvas-threatsEvolution").getContext("2d");
   let displayThreatsEvolutionBy = document.getElementById("displayThreatsEvolutionBy")
   let orderThreatsEvolutionBy = document.getElementById("orderThreatsEvolutionBy")
-  let inverseThreatsSelection = document.getElementById("inverseThreatsSelection");
+  let inverseThreatsSelection = document.getElementById("inversethreatsEvolutionSelection");
+  let exportThreatsEvolutionPNG = document.getElementById('exportThreatsEvolutionPNG');
+  let exportThreatsEvolutionCSV = document.getElementById('exportThreatsEvolutionCSV');
   let sortParams_threats = {
     valueDisplay : displayThreatsEvolutionBy.value,
     valueOrder_threats : orderThreatsEvolutionBy.value,
@@ -15,7 +17,9 @@ function drawEvolutionChart() {
   let ctx_vulnerabilities = document.getElementById("canvas-vulnerabilitiesEvolution").getContext("2d");
   let displayVulnerabilitiesEvolutionBy = document.getElementById("displayVulnerabilitiesEvolutionBy")
   let orderVulnerabilitiesEvolutionBy = document.getElementById("orderVulnerabilitiesEvolutionBy")
-  let inverseVulnerabilitiesSelection = document.getElementById("inverseVulnerabilitiesSelection");
+  let inverseVulnerabilitiesSelection = document.getElementById("inverseVulnerabilitiesEvolutionSelection");
+  let exportVulnerabilitiesEvolutionPNG = document.getElementById('exportVulnerabilitiesEvolutionPNG');
+  let exportVulnerabilitiesEvolutionCSV = document.getElementById('exportVulnerabilitiesEvolutionCSV');
   let sortParams_vulnerabilities = {
     valueDisplay : displayVulnerabilitiesEvolutionBy.value,
     valueOrder : orderVulnerabilitiesEvolutionBy.value,
@@ -44,7 +48,29 @@ function drawEvolutionChart() {
       sortParams_threats.valueOrder = orderThreatsEvolutionBy.value;
       updateEvolutionCharts(allThreats,sortParams_threats,'threatsEvolution',ctx_threats,config_threats);
   }
-
+  exportThreatsEvolutionPNG.onclick = function() {
+    let filename = `EvolutionThreats_${displayThreatsEvolutionBy.value}.png`;
+    exportPNG('threatsEvolution',filename)
+  }
+  exportThreatsEvolutionCSV.onclick = function() {
+    let filename = `EvolutionThreats_${displayThreatsEvolutionBy.value}.csv`;
+    let dates = [...new Set(allThreats.flatMap(threat => threat.values.map(value => value.date)))];
+    let jsonFormatted = allThreats.map(threat =>{
+      let row = {
+        threat: getLabel(threat.labels),
+      }
+      dates.forEach(date =>{
+        row[date] = '';
+        threat.values.forEach(data => {
+             if (data.date === date) {
+               row[date] = data[displayThreatsEvolutionBy.value];
+             }
+        });
+      });
+      return row;
+    });
+    exportCSV(jsonFormatted,filename)
+  }
   inverseThreatsSelection.onclick = function() {
       charts['threatsEvolution'].canvas.data.datasets.forEach(function(dataset,index) {
         let meta = charts['threatsEvolution'].canvas.getDatasetMeta(index);
@@ -77,7 +103,29 @@ function drawEvolutionChart() {
       sortParams_vulnerabilities.valueOrder = orderVulnerabilitiesEvolutionBy.value;
       updateEvolutionCharts(allVulnerabilities,sortParams_vulnerabilities,'vulnerabilitiesEvolution',ctx_vulnerabilities,config_vulnerabilities);
   }
-
+  exportVulnerabilitiesEvolutionPNG.onclick = function() {
+    let filename = `EvolutionVulnerabilities_${displayVulnerabilitiesEvolutionBy.value}.png`;
+    exportPNG('threatsEvolution',filename)
+  }
+  exportVulnerabilitiesEvolutionCSV.onclick = function() {
+    let filename = `EvolutionVulnerabilities_${displayVulnerabilitiesEvolutionBy.value}.csv`;
+    let dates = [...new Set(allVulnerabilities.flatMap(vulnerability => vulnerability.values.map(value => value.date)))];
+    let jsonFormatted = allVulnerabilities.map(vulnerability =>{
+      let row = {
+        vulnerability: getLabel(vulnerability.labels),
+      }
+      dates.forEach(date =>{
+        row[date] = '';
+        vulnerability.values.forEach(data => {
+             if (data.date === date) {
+               row[date] = data[displayVulnerabilitiesEvolutionBy.value];
+             }
+        });
+      });
+      return row;
+    });
+    exportCSV(jsonFormatted,filename)
+  }
   inverseVulnerabilitiesSelection.onclick = function() {
       charts['vulnerabilitiesEvolution'].canvas.data.datasets.forEach(function(dataset,index) {
         let meta = charts['vulnerabilitiesEvolution'].canvas.getDatasetMeta(index);

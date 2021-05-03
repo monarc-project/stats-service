@@ -354,6 +354,7 @@ function updateEvolutionCharts (allData, sortParams, chart, ctx, config){
               charts[chart].canvas.update();
             }else {
               document.getElementById("spinner-" + chart).remove();
+              document.getElementById(`inverse${chart}Selection`).style.display = 'inline-block';
               ctx.canvas.height = config.height;
               config.data.datasets = datasets;
               charts[chart].canvas = new Chart(ctx,config);
