@@ -31,6 +31,8 @@ from statsservice.commands import (
     client_delete,
     client_coordinates_set,
     client_coordinates_unset,
+    client_sharing_activate,
+    client_sharing_deactivate,
     stats_delete,
     stats_pull,
     stats_push,
@@ -50,6 +52,8 @@ def register_commands(app):
     app.cli.add_command(client_delete)
     app.cli.add_command(client_coordinates_set)
     app.cli.add_command(client_coordinates_unset)
+    app.cli.add_command(client_sharing_activate)
+    app.cli.add_command(client_sharing_deactivate)
     # stats
     app.cli.add_command(stats_delete)
     app.cli.add_command(stats_push)
