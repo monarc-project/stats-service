@@ -46,7 +46,37 @@
       </button>
       {% block menu_links %}
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="currentStatsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{_('Current stats')}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="currentStatsDropdown">
+              <li><a class="dropdown-item" role="button" href="{{ url_for('root_bp.home') }}">{{_('Top threats')}}</a></li>
+              <li><a class="dropdown-item" role="button" href="{{ url_for('root_bp.home') }}">{{_('Top vulnerabilities')}}</a></li>
+              <li><a class="dropdown-item" role="button" href="{{ url_for('root_bp.home') }}">{{_('Top risks')}}</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="evolutionStatsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{_('Evolution stats')}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="evolutionStatsDropdown">
+              <li><a class="dropdown-item" href="{{ url_for('root_bp.evolution') }}">{{_('Threats')}}</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('root_bp.evolution') }}">{{_('Vulnerabilities')}}</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('map_bp.index') }}">{{_('Map')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('root_bp.about') }}">{{_('About')}}</a>
+          </li>
+        </ul>
+
+        <!-- <ul class="navbar-nav mr-auto w-100 justify-content-end">
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('root_bp.evolution') }}" title="{{ _('Evolution') }}">{{ _('Evolution') }}</a>
           </li>
@@ -56,7 +86,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('root_bp.about') }}" title="{{ _('About') }}">{{ _('About') }}</a>
           </li>
-        </ul>
+        </ul> -->
       </div>
       {% endblock %}
     </div>

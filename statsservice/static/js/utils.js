@@ -40,10 +40,11 @@ var charts = {
 // basic configuration of the charts (threats and vulnerabilities)
 var config_base_bar_chart = {
     type: 'bar',
-    height: 200,
+    height: 400,
     data: {},
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       indexAxis: 'y',
       scales: {
         y: {
@@ -76,7 +77,7 @@ var config_base_bar_chart_risks = {
 
 var config_base_evolution_chart = {
   type: 'line',
-  height: 120,
+  height: 100,
   data: {
     datasets: []
   },

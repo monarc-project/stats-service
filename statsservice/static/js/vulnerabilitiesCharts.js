@@ -71,7 +71,6 @@ function drawVulnerabilitiesChart() {
       }
       return row;
     });
-
     exportCSV(jsonFormatted,filename)
   }
 }

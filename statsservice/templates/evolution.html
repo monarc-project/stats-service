@@ -6,80 +6,85 @@
 {% endblock %}
 {% block content %}
 <div class="container-fluid p-2" role="main">
-  <h1>{{ _('Evolution') }}</h1>
-  <div class="ps-2">
-      <h2 id="trends-threats">{{ _('Threats') }}</h2>
-      <div class="row">
-          <div class="col-md-auto">
-              <label for="displayThreatsEvolutionBy">{{ _('Display by')}}</label>
-              <select id="displayThreatsEvolutionBy">
-                <option value="averageRate" selected>{{ _('Probability')}}</option>
-                <option value="count">{{ _('Occurrence')}}</option>
-                <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
-              </select>
+  <h2>{{ _('Evolution') }}</h2>
+  <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-threatsEvolution-tab" data-bs-toggle="tab" href="#nav-threatsEvolution" role="tab" aria-controls="nav-threatsEvolution" aria-selected="true">{{ _('Threats evolution')}}</a>
+        <a class="nav-item nav-link" id="nav-vulnerabilitiesEvolution-tab" data-bs-toggle="tab" href="#nav-vulnerabilitiesEvolution" role="tab" aria-controls="nav-vulnerabilitiesEvolution" aria-selected="false">{{ _('Vulnerabilities evolution') }}</a>
+      </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active p-4" id="nav-threatsEvolution" role="tabpanel" aria-labelledby="nav-threatsEvolution-tab">
+          <div class="row d-flex justify-content-center">
+              <div class="col-md-auto">
+                  <label for="displayThreatsEvolutionBy">{{ _('Display by')}}</label>
+                  <select id="displayThreatsEvolutionBy">
+                    <option value="averageRate" selected>{{ _('Probability')}}</option>
+                    <option value="count">{{ _('Occurrence')}}</option>
+                    <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+                  </select>
+              </div>
+              <div class="col-md-auto">
+                  <label for="orderThreatsEvolutionBy">{{ _('Order by')}}</label>
+                  <select id="orderThreatsEvolutionBy">
+                    <option value="highest" selected>{{ '20 ' +_('Highest')}}</option>
+                    <option value="lowest">{{ '20 ' + _('Lowest')}}</option>
+                  </select>
+              </div>
+              <div class="dropdown col-1" data-toggle="tooltip" title="{{ _ ('Export')}}">
+                  <i class="bi-save-fill text-primary" type="button" id="threatsEvolutionMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+                  </i>
+                  <ul class="dropdown-menu" aria-labelledby="threatsEvolutionMenuExport" style="min-width:1rem">
+                    <li><a class="dropdown-item" type="button" id="exportThreatsEvolutionPNG">.png</a></li>
+                    <li><a class="dropdown-item" id="exportThreatsEvolutionCSV">.csv</a></li>
+                  </ul>
+              </div>
           </div>
-          <div class="col-md-auto">
-              <label for="orderThreatsEvolutionBy">{{ _('Order by')}}</label>
-              <select id="orderThreatsEvolutionBy">
-                <option value="highest" selected>{{ '20 ' +_('Highest')}}</option>
-                <option value="lowest">{{ '20 ' + _('Lowest')}}</option>
-              </select>
+          <div class="d-flex justify-content-center py-5" id="spinner-threatsEvolution">
+              <div class="spinner-border " style="width: 8rem; height: 8rem;"></div>
           </div>
-          <div class="dropdown col-1" data-toggle="tooltip" title="{{ _ ('Export')}}">
-              <i class="bi-save-fill text-primary" type="button" id="threatsEvolutionMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
-              </i>
-              <ul class="dropdown-menu" aria-labelledby="threatsEvolutionMenuExport" style="min-width:1rem">
-                <li><a class="dropdown-item" type="button" id="exportThreatsEvolutionPNG">.png</a></li>
-                <li><a class="dropdown-item" id="exportThreatsEvolutionCSV">.csv</a></li>
-              </ul>
+          <div class="row">
+              <canvas class="col-md-auto align-self-center py-3" id="canvas-threatsEvolution"></canvas>
+              <div class="col d-flex flex-column pe-5">
+                <button type="button" class="col-2 align-self-end btn btn-secondary" style="display: none;" id="inversethreatsEvolutionSelection">{{ _('Inverse selection')}}</button>
+              </div>
           </div>
       </div>
-      <div class="d-flex justify-content-center">
-          <div id="spinner-threatsEvolution" class="spinner-border" style="width: 8rem; height: 8rem;"></div>
-      </div>
-      <div class="row">
-          <canvas class="col-md-auto align-self-center py-3" id="canvas-threatsEvolution"></canvas>
-          <div class="col d-flex flex-column pe-5">
-            <button type="button" class="col-2 align-self-end btn btn-secondary" style="display: none;" id="inversethreatsEvolutionSelection">{{ _('Inverse selection')}}</button>
-          </div>
-      </div>
-  </div>
-
-  <div class="ps-2 pt-4">
-      <h2 id="trends-vulnerabilities">{{ _('Vulnerabilities') }}</h2>
-      <div class="row">
-          <div class="col-md-auto">
-              <label for="displayVulnerabilitiesEvolutionBy">{{ _('Display by')}}</label>
-              <select id="displayVulnerabilitiesEvolutionBy">
-                <option value="averageRate" selected>{{ _('Probability')}}</option>
-                <option value="count">{{ _('Occurrence')}}</option>
-                <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
-              </select>
-          </div>
-          <div class="col-md-auto">
-              <label for="orderVulnerabilitiesEvolutionBy">{{ _('Order by')}}</label>
-              <select id="orderVulnerabilitiesEvolutionBy">
-                <option value="highest" selected>{{ '20 ' + _('Highest')}}</option>
-                <option value="lowest">{{ '20 ' + _('Lowest')}}</option>
-              </select>
-          </div>
-          <div class="dropdown col-1" data-toggle="tooltip" title="{{ _ ('Export')}}">
-            <i class="bi-save-fill text-primary" type="button" id="vulnerabilitiesEvolutionMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
-            </i>
-            <ul class="dropdown-menu" aria-labelledby="vulnerabilitiesEvolutionMenuExport" style="min-width:1rem">
-              <li><a class="dropdown-item" type="button" id="exportVulnerabilitiesEvolutionPNG">.png</a></li>
-              <li><a class="dropdown-item" id="exportVulnerabilitiesEvolutionCSV">.csv</a></li>
-            </ul>
-          </div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <div id="spinner-vulnerabilitiesEvolution" class="spinner-border" style="width: 8rem; height: 8rem;"></div>
-      </div>
-      <div class="row">
-          <canvas class="col-md-auto align-self-center py-3" id="canvas-vulnerabilitiesEvolution"></canvas>
-          <div class="col d-flex flex-column pe-5">
-            <button type="button" class="col-2 align-self-end btn btn-secondary" style="display: none;" id="inversevulnerabilitiesEvolutionSelection">{{ _('Inverse selection')}}</button>
-          </div>
+      <div class="tab-pane fade p-4" id="nav-vulnerabilitiesEvolution" role="tabpanel" aria-labelledby="nav-vulnerabilitiesEvolution-tab">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-auto">
+                    <label for="displayVulnerabilitiesEvolutionBy">{{ _('Display by')}}</label>
+                    <select id="displayVulnerabilitiesEvolutionBy">
+                      <option value="averageRate" selected>{{ _('Probability')}}</option>
+                      <option value="count">{{ _('Occurrence')}}</option>
+                      <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+                    </select>
+                </div>
+                <div class="col-md-auto">
+                    <label for="orderVulnerabilitiesEvolutionBy">{{ _('Order by')}}</label>
+                    <select id="orderVulnerabilitiesEvolutionBy">
+                      <option value="highest" selected>{{ '20 ' + _('Highest')}}</option>
+                      <option value="lowest">{{ '20 ' + _('Lowest')}}</option>
+                    </select>
+                </div>
+                <div class="dropdown col-1" data-toggle="tooltip" title="{{ _ ('Export')}}">
+                  <i class="bi-save-fill text-primary" type="button" id="vulnerabilitiesEvolutionMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+                  </i>
+                  <ul class="dropdown-menu" aria-labelledby="vulnerabilitiesEvolutionMenuExport" style="min-width:1rem">
+                    <li><a class="dropdown-item" type="button" id="exportVulnerabilitiesEvolutionPNG">.png</a></li>
+                    <li><a class="dropdown-item" id="exportVulnerabilitiesEvolutionCSV">.csv</a></li>
+                  </ul>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center py-5" id="spinner-vulnerabilitiesEvolution">
+              <div class="spinner-border" style="width: 8rem; height: 8rem;"></div>
+            </div>
+            <div class="row">
+                <canvas class="col-md-auto align-self-center py-3" id="canvas-vulnerabilitiesEvolution"></canvas>
+                <div class="col d-flex flex-column pe-5">
+                  <button type="button" class="col-2 align-self-end btn btn-secondary" style="display: none;" id="inversevulnerabilitiesEvolutionSelection">{{ _('Inverse selection')}}</button>
+                </div>
+            </div>
       </div>
   </div>
 </div>

@@ -1,139 +1,108 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container-fluid double-padding" role="main">
-  <div class="row justify-content-center">
-    <div class="col">
-      <h1>{{ _('Current Cybersecurity landscape') }}</h1>
+<div class="container-fluid p-2" role="main">
+  <h2>{{ _('Current Cybersecurity landscape') }}</h2>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-threats-tab" data-bs-toggle="tab" href="#nav-threats" role="tab" aria-controls="nav-threats" aria-selected="true">{{ _('Top threats')}}</a>
+      <a class="nav-item nav-link" id="nav-vulnerabilities-tab" data-bs-toggle="tab" href="#nav-vulnerabilities" role="tab" aria-controls="nav-vulnerabilities" aria-selected="false">{{ _('Top vulnerabilities') }}</a>
+      <a class="nav-item nav-link" id="nav-risks-tab" data-bs-toggle="tab" href="#nav-risks" role="tab" aria-controls="nav-risks" aria-selected="false">{{ _('Risks') }}</a>
     </div>
-  </div>
-
-  <br />
-
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h2 id="trends-threats">{{ _('Top threats')}}</h2>
-      <div class="col d-flex justify-content-between">
-        <label for="topThreats">{{ _('Number of threats')}}</label>
-        <select id="topThreats">
-          <option value="5" selected>5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-        </select>
-        <label for="displayThreatsBy">{{ _('Display by')}}</label>
-        <select id="displayThreatsBy">
-          <option value="averageRate" selected>{{ _('Probability')}}</option>
-          <option value="count">{{ _('Occurrence')}}</option>
-          <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
-        </select>
-        <label for="orderThreatsBy">{{ _('Order by')}}</label>
-        <select id="orderThreatsBy">
-          <option value="highest" selected>{{('Highest')}}</option>
-          <option value="lowest">{{('Lowest')}}</option>
-        </select>
-        <div class="dropdown" data-toggle="tooltip" title="{{ _ ('Export')}}">
-          <i class="bi-save-fill text-primary" type="button" id="threatsMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
-          </i>
-          <ul class="dropdown-menu" aria-labelledby="threatsMenuExport" style="min-width:1rem">
-            <li><a class="dropdown-item" type="button" id="exportThreatsPNG">.png</a></li>
-            <li><a class="dropdown-item" id="exportThreatsCSV">.csv</a></li>
-          </ul>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-threats" role="tabpanel" aria-labelledby="nav-threats-tab">
+      <div class="p-4">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-auto">
+            <label for="topThreats">{{ _('Number of threats')}}</label>
+            <select id="topThreats">
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          <div class="col-md-auto">
+            <label for="displayThreatsBy">{{ _('Display by')}}</label>
+            <select id="displayThreatsBy">
+              <option value="averageRate" selected>{{ _('Probability')}}</option>
+              <option value="count">{{ _('Occurrence')}}</option>
+              <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+            </select>
+          </div>
+          <div class="col-md-auto">
+            <label for="orderThreatsBy">{{ _('Order by')}}</label>
+            <select id="orderThreatsBy">
+              <option value="highest" selected>{{('Highest')}}</option>
+              <option value="lowest">{{('Lowest')}}</option>
+            </select>
+          </div>
+          <div class="dropdown col-1" data-toggle="tooltip" title="{{ _ ('Export')}}">
+            <i class="bi-save-fill text-primary" type="button" id="threatsMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+            </i>
+            <ul class="dropdown-menu" aria-labelledby="threatsMenuExport" style="min-width:1rem">
+              <li><a class="dropdown-item" type="button" id="exportThreatsPNG">.png</a></li>
+              <li><a class="dropdown-item" id="exportThreatsCSV">.csv</a></li>
+            </ul>
+          </div>
         </div>
-      </div>
-
-      <div class="col d-flex justify-content-center">
-        <div class="chart-container" style="position: relative; width:80vw">
+        <div class="mx-auto py-3 chart-container currentChart">
           <canvas id="threats-chart"></canvas>
         </div>
       </div>
     </div>
-
-    <div class="col-md-6">
-      <h2 id="trends-threats">{{ _('Top vulnerabilities') }}</h2>
-      <div class="col d-flex justify-content-between">
-        <label for="topVulnerabilities">{{ _('Number of vulnerabilities')}}</label>
-        <select id="topVulnerabilities">
-          <option value="5" selected>5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-        </select>
-        <label for="displayVulnerabilitiesBy">{{ _('Display by')}}</label>
-        <select id="displayVulnerabilitiesBy">
-          <option value="averageRate" selected>{{ _('Qualification')}}</option>
-          <option value="count">{{ _('Occurrence')}}</option>
-          <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
-        </select>
-        <label for="orderVulnerabilitiesBy">{{ _('Order by')}}</label>
-        <select id="orderVulnerabilitiesBy">
-          <option value="highest" selected>{{ _('Highest')}}</option>
-          <option value="lowest">{{ _('Lowest')}}</option>
-        </select>
-        <div class="dropdown" data-toggle="tooltip" title="{{ _ ('Export')}}">
-          <i class="bi-save-fill text-primary" type="button" id="vulnerabilitiesMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
-          </i>
-          <ul class="dropdown-menu" aria-labelledby="vulnerabilitiesMenuExport" style="min-width:1rem">
-            <li><a class="dropdown-item" type="button" id="exportVulnerabilitiesPNG">.png</a></li>
-            <li><a class="dropdown-item" id="exportVulnerabilitiesCSV">.csv</a></li>
-          </ul>
+    <div class="tab-pane fade" id="nav-vulnerabilities" role="tabpanel" aria-labelledby="nav-vulnerabilities-tab">
+      <div class="p-4">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-auto">
+            <label for="topVulnerabilities">{{ _('Number of vulnerabilities')}}</label>
+            <select id="topVulnerabilities">
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          <div class="col-md-auto">
+            <label for="displayVulnerabilitiesBy">{{ _('Display by')}}</label>
+            <select id="displayVulnerabilitiesBy">
+              <option value="averageRate" selected>{{ _('Qualification')}}</option>
+              <option value="count">{{ _('Occurrence')}}</option>
+              <option value="maxRisk">{{ _('Max. associated risk level')}}</option>
+            </select>
+          </div>
+          <div class="col-md-auto">
+            <label for="orderVulnerabilitiesBy">{{ _('Order by')}}</label>
+            <select id="orderVulnerabilitiesBy">
+              <option value="highest" selected>{{ _('Highest')}}</option>
+              <option value="lowest">{{ _('Lowest')}}</option>
+            </select>
+          </div>
+          <div class="dropdown col-1" data-toggle="tooltip" title="{{ _ ('Export')}}">
+            <i class="bi-save-fill text-primary" type="button" id="vulnerabilitiesMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+            </i>
+            <ul class="dropdown-menu" aria-labelledby="vulnerabilitiesMenuExport" style="min-width:1rem">
+              <li><a class="dropdown-item" type="button" id="exportVulnerabilitiesPNG">.png</a></li>
+              <li><a class="dropdown-item" id="exportVulnerabilitiesCSV">.csv</a></li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <div class="chart-container" style="position: relative;  width:80vw">
+        <div class="mx-auto py-3 chart-container currentChart">
           <canvas id="vulnerabilities-chart"></canvas>
         </div>
       </div>
     </div>
-  </div>
-
-  <br />
-
-  <div class="row">
-    <div class="col-md-12">
-      <p>{{ _('Charts based on the most recent collected data.') }}</p>
-      <p>{{ _('See the recent') }} <a href="{{ url_for('root_bp.evolution') }}">{{ _('evolution') }}</a> {{ _('for the threats and vulnerabilities.') }}</p>
-    </div>
-  </div>
-
-  <br />
-
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h2 id="trends-risks">{{ _('Information Risks') }}</h2>
-      <canvas id="canvas-risks-info"></canvas>
-    </div>
-    <div class="col-md-6">
-      <h2 id="trends-risks">{{ _('Operational Risks') }}</h2>
-      <canvas id="canvas-risks-op"></canvas>
-    </div>
-  </div>
-
-  <br />
-
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="jumbotron m-3">
-        <h2>{{ _('What are these graphics about?') }}</h2>
-        <p class="lead">{{ _('This page depicts the current
-          cybersecurity landscape (in terms of
-          <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
-          <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a> and
-          <a href="https://objects.monarc.lu/schema/16" rel="noreferrer" target="_blank">risks</a>)
-          based on data shared by
-          several <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances<sup><a href="#footnote-1">[1]</a></sup>.') }}<br />
-          <hr class="my-4">
-          <a class="btn btn-primary btn-lg" href="{{ url_for('root_bp.help') }}#how-does-it-work" role="button">{{ _('Learn more') }}</a>
+    <div class="tab-pane fade" id="nav-risks" role="tabpanel" aria-labelledby="nav-risks-tab">
+        <div class="row p-4 text-center">
+          <div class="col-md-6">
+            <h2 id="trends-risks">{{ _('Information Risks') }}</h2>
+            <canvas class="px-3" id="canvas-risks-info"></canvas>
+          </div>
+          <div class="col-md-6">
+            <h2 id="trends-risks">{{ _('Operational Risks') }}</h2>
+            <canvas class="px-3" id="canvas-risks-op"></canvas>
         </div>
       </div>
     </div>
-
-    <hr />
-
-    <div class="row">
-      <div class="col-md-12">
-        <ol class="footnotes">
-          <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">{{ _('Details') }}</a> {{ _('about contributors and the stats on this instance.') }}</li>
-        </ol>
-      </div>
-    </div>
+  </div>
 </div><!-- /.container -->
 <!-- Modal -->
 <div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
