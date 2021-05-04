@@ -1,4 +1,16 @@
 function drawRisksChart() {
+  let allRisks = [];
+
+  let ctx_risks_info = document.getElementById("canvas-risks-info").getContext("2d");
+  let configInfoRisks = cloneDeep(config_base_bar_chart_risks);
+  let exportInfoRisksPNG = document.getElementById("exportInfoRisksPNG");
+  let exportInfoRisksCSV = document.getElementById("exportInfoRisksCSV");
+
+  let ctx_risks_op = document.getElementById("canvas-risks-op").getContext("2d");
+  let configOPRisks = cloneDeep(config_base_bar_chart_risks);
+  let exportOpRisksPNG = document.getElementById("exportOpRisksPNG");
+  let exportOpRisksCSV = document.getElementById("exportOpRisksCSV");
+
   fetch("stats/risks.json?processor=risk_averages&days=365", {
     method: "GET",
     headers: {
@@ -7,58 +19,76 @@ function drawRisksChart() {
   })
   .then((resp) => resp.json())
   .then(function(resp_json) {
-    let ctx_risks_info = document.getElementById("canvas-risks-info").getContext("2d");
-    let ctx_risks_op = document.getElementById("canvas-risks-op").getContext("2d");
-
-    let configInfoRisks = cloneDeep(config_base_bar_chart_risks);
-    let configOPRisks = cloneDeep(config_base_bar_chart_risks);
-
+    allRisks = resp_json;
     // Display data for informational risks
     configInfoRisks.data.datasets.push({
       label: "Current Risks",
       backgroundColor: ['rgb(214, 241, 7)', 'rgb(255, 188, 28)','rgb(253, 102, 31)'],
       data: [
-        resp_json["current"]["informational"]["Low risks"],
-        resp_json["current"]["informational"]["Medium risks"],
-        resp_json["current"]["informational"]["High risks"]
+        allRisks["current"]["informational"]["Low risks"],
+        allRisks["current"]["informational"]["Medium risks"],
+        allRisks["current"]["informational"]["High risks"]
       ]
     });
     configInfoRisks.data.datasets.push({
       label: "Residual Risks",
       backgroundColor: ['rgb(214, 241, 7, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(253, 102, 31, 0.5)'],
       data: [
-        resp_json["residual"]["informational"]["Low risks"],
-        resp_json["residual"]["informational"]["Medium risks"],
-        resp_json["residual"]["informational"]["High risks"]
+        allRisks["residual"]["informational"]["Low risks"],
+        allRisks["residual"]["informational"]["Medium risks"],
+        allRisks["residual"]["informational"]["High risks"]
       ]
     })
 
-    ctx_risks_info.canvas.height = 200;
-    let chartInfoRisks = new Chart(ctx_risks_info, configInfoRisks);
+    ctx_risks_info.canvas.height = configInfoRisks.height;
+    charts.infoRisks.canvas = new Chart(ctx_risks_info, configInfoRisks);
 
     // Display data for operational risks
     configOPRisks.data.datasets.push({
       label: "Current Risks",
       backgroundColor: ['rgb(214, 241, 7)', 'rgb(255, 188, 28)','rgb(253, 102, 31)'],
       data: [
-        resp_json["current"]["operational"]["Low risks"],
-        resp_json["current"]["operational"]["Medium risks"],
-        resp_json["current"]["operational"]["High risks"]
+        allRisks["current"]["operational"]["Low risks"],
+        allRisks["current"]["operational"]["Medium risks"],
+        allRisks["current"]["operational"]["High risks"]
       ]
     })
     configOPRisks.data.datasets.push({
       label: "Residual Risks",
       backgroundColor: ['rgb(214, 241, 7, 0.5)', 'rgb(255, 188, 28, 0.5)', 'rgb(253, 102, 31, 0.5)'],
       data: [
-        resp_json["residual"]["operational"]["Low risks"],
-        resp_json["residual"]["operational"]["Medium risks"],
-        resp_json["residual"]["operational"]["High risks"]
+        allRisks["residual"]["operational"]["Low risks"],
+        allRisks["residual"]["operational"]["Medium risks"],
+        allRisks["residual"]["operational"]["High risks"]
       ]
     })
-    ctx_risks_op.canvas.height = 200;
-    let chartOpRisks = new Chart(ctx_risks_op, configOPRisks);
+    ctx_risks_op.canvas.height = configOPRisks.height;
+    charts.opRisks.canvas = new Chart(ctx_risks_op, configOPRisks);
 
   }).catch((error) => {
     console.error('Error:', error);
   });
+
+  exportInfoRisksPNG.onclick = function() {
+    let filename = `information_Risks.png`;
+    exportPNG('infoRisks',filename)
+  }
+  exportInfoRisksCSV.onclick = function() {
+    let filename = 'information_Risks.csv';
+    let currentRisks = { risks: 'Current Risks', ...allRisks.current.informational};
+    let residualRisks = { risks: 'Residual Risks', ...allRisks.residual.informational};
+    let jsonFormatted = [currentRisks,residualRisks];
+    exportCSV(jsonFormatted,filename)
+  }
+  exportOpRisksPNG.onclick = function() {
+    let filename = `operational_Risks.png`;
+    exportPNG('opRisks',filename)
+  }
+  exportOpRisksCSV.onclick = function() {
+    let filename = 'operational_Risks.csv';
+    let currentRisks = { risks: 'Current Risks', ...allRisks.current.operational};
+    let residualRisks = { risks: 'Residual Risks', ...allRisks.residual.operational};
+    let jsonFormatted = [currentRisks,residualRisks];
+    exportCSV(jsonFormatted,filename)
+  }
 }

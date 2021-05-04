@@ -27,6 +27,12 @@ var charts = {
       by_uuid: [],
       canvas: undefined
     },
+    infoRisks: {
+      canvas: undefined
+    },
+    opRisks: {
+      canvas: undefined
+    },
     threatsEvolution: {
       by_uuid: [],
       canvas: undefined
@@ -69,6 +75,7 @@ var config_base_bar_chart = {
 
 var config_base_bar_chart_risks = {
   type: 'bar',
+  height: 171,
   data: {
     labels: ["Low", "Medium", "High"],
     datasets: []

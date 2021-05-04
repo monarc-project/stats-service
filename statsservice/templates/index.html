@@ -90,11 +90,31 @@
     <div class="tab-pane fade" id="nav-risks" role="tabpanel" aria-labelledby="nav-risks-tab">
         <div class="row p-4 text-center">
           <div class="col-md-6">
-            <h2>{{ _('Information Risks') }}</h2>
+            <div class="row d-flex justify-content-center align-items-center">
+              <h2 class="col-md-auto">{{ _('Information Risks') }}</h2>
+              <div class="dropdown col-1 pb-1" data-toggle="tooltip" title="{{ _ ('Export')}}">
+                <i class="bi-save-fill text-primary align-middle" type="button" id="infoRisksMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+                </i>
+                <ul class="dropdown-menu" aria-labelledby="infoRisksMenuExport" style="min-width:1rem">
+                  <li><a class="dropdown-item" type="button" id="exportInfoRisksPNG">.png</a></li>
+                  <li><a class="dropdown-item" id="exportInfoRisksCSV">.csv</a></li>
+                </ul>
+            </div>
+            </div>
             <canvas class="px-3" id="canvas-risks-info"></canvas>
           </div>
           <div class="col-md-6">
-            <h2>{{ _('Operational Risks') }}</h2>
+            <div class="row d-flex justify-content-center align-items-center">
+              <h2 class="col-md-auto">{{ _('Operational Risks') }}</h2>
+              <div class="dropdown col-1 pb-1" data-toggle="tooltip" title="{{ _ ('Export')}}">
+                <i class="bi-save-fill text-primary align-middle" type="button" id="opRisksMenuExport" data-bs-toggle="dropdown" aria-expanded="false">
+                </i>
+                <ul class="dropdown-menu" aria-labelledby="opRisksMenuExport" style="min-width:1rem">
+                  <li><a class="dropdown-item" type="button" id="exportOpRisksPNG">.png</a></li>
+                  <li><a class="dropdown-item" id="exportOpRisksCSV">.csv</a></li>
+                </ul>
+            </div>
+            </div>
             <canvas class="px-3" id="canvas-risks-op"></canvas>
         </div>
       </div>
