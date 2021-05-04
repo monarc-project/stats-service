@@ -63,7 +63,7 @@ function drawEvolutionChart() {
         row[date] = '';
         threat.values.forEach(data => {
              if (data.date === date) {
-               row[date] = data[displayThreatsEvolutionBy.value];
+               row[date] = data[displayThreatsEvolutionBy.value].toString().replace(/\./g, ',');
              }
         });
       });
@@ -118,7 +118,7 @@ function drawEvolutionChart() {
         row[date] = '';
         vulnerability.values.forEach(data => {
              if (data.date === date) {
-               row[date] = data[displayVulnerabilitiesEvolutionBy.value];
+               row[date] = data[displayVulnerabilitiesEvolutionBy.value].toString().replace(/\./g, ',');
              }
         });
       });
