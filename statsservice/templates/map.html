@@ -5,12 +5,13 @@
 <script src="{{ url_for('static', filename='npm_components/leaflet/dist/leaflet.js') }}"></script>
 {% endblock %}
 {% block content %}
-<div class="container">
+<div class="container-fluid">
   <h1>{{ _('Cybersecurity Weather Map') }}</h1>
   <div class="row">
     <div class="col-md">
       <div id="cyberweathermap" class="map map-home" style="height: 650px; margin-top: 10px"></div>
       <p>{{ _('Based on the statistics collected, this map presents the highest current threats and vulnerabilities, by region.') }}</p>
+      <p>{{ _('You can also') }} <a href="{{ url_for('root_bp.help') }}#share">{{ _('share statistics') }}</a>.</p>
     </div>
   </div>
 </div><!-- /.container -->

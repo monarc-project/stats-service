@@ -91,3 +91,23 @@ def client_coordinates_unset(uuid):
     cl.longitude = None
     db.session.add(cl)
     db.session.commit()
+
+
+@application.cli.command("client_sharing_activate")
+@click.option("--uuid", required=True, help="UUID of the client.")
+def client_sharing_activate(uuid):
+    """Set the is_sharing_enabled attribute of a local client, specified with its UUID, to True."""
+    cl = Client.query.filter(Client.uuid == uuid, Client.local == True).first()
+    cl.is_sharing_enabled = True
+    db.session.add(cl)
+    db.session.commit()
+
+
+@application.cli.command("client_sharing_deactivate")
+@click.option("--uuid", required=True, help="UUID of the client.")
+def client_sharing_deactivate(uuid):
+    """Set the is_sharing_enabled attribute of a local client, specified with its UUID, to False."""
+    cl = Client.query.filter(Client.uuid == uuid, Client.local == True).first()
+    cl.is_sharing_enabled = False
+    db.session.add(cl)
+    db.session.commit()
