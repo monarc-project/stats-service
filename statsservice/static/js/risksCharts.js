@@ -75,8 +75,16 @@ function drawRisksChart() {
   }
   exportInfoRisksCSV.onclick = function() {
     let filename = 'information_Risks.csv';
-    let currentRisks = { risks: 'Current Risks', ...allRisks.current.informational};
-    let residualRisks = { risks: 'Residual Risks', ...allRisks.residual.informational};
+    let currentValues = {}
+    let residualValues = {}
+
+    Object.keys(allRisks.current.informational).forEach(risk => {
+      currentValues[risk] = allRisks.current.informational[risk].toString().replace(/\./g, ',');
+      residualValues[risk] = allRisks.residual.informational[risk].toString().replace(/\./g, ',');
+    });
+
+    let currentRisks = { risks: 'Current Risks', ...currentValues};
+    let residualRisks = { risks: 'Residual Risks', ...residualValues};
     let jsonFormatted = [currentRisks,residualRisks];
     exportCSV(jsonFormatted,filename)
   }
@@ -86,8 +94,16 @@ function drawRisksChart() {
   }
   exportOpRisksCSV.onclick = function() {
     let filename = 'operational_Risks.csv';
-    let currentRisks = { risks: 'Current Risks', ...allRisks.current.operational};
-    let residualRisks = { risks: 'Residual Risks', ...allRisks.residual.operational};
+    let currentValues = {}
+    let residualValues = {}
+
+    Object.keys(allRisks.current.operational).forEach(risk => {
+      currentValues[risk] = allRisks.current.operational[risk].toString().replace(/\./g, ',');
+      residualValues[risk] = allRisks.residual.operational[risk].toString().replace(/\./g, ',');
+    });
+
+    let currentRisks = { risks: 'Current Risks', ...currentValues};
+    let residualRisks = { risks: 'Residual Risks', ...residualValues};
     let jsonFormatted = [currentRisks,residualRisks];
     exportCSV(jsonFormatted,filename)
   }
