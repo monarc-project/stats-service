@@ -11,8 +11,7 @@
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-threats" role="tabpanel" aria-labelledby="nav-threats-tab">
-      <div class="p-4">
+    <div class="tab-pane fade show active p-4" id="nav-threats" role="tabpanel" aria-labelledby="nav-threats-tab">
         <div class="row d-flex justify-content-center">
           <div class="col-md-auto">
             <label for="topThreats">{{ _('Number of threats')}}</label>
@@ -49,10 +48,8 @@
         <div class="mx-auto py-3 chart-container currentChart">
           <canvas id="threats-chart"></canvas>
         </div>
-      </div>
     </div>
-    <div class="tab-pane fade" id="nav-vulnerabilities" role="tabpanel" aria-labelledby="nav-vulnerabilities-tab">
-      <div class="p-4">
+    <div class="tab-pane fade p-4" id="nav-vulnerabilities" role="tabpanel" aria-labelledby="nav-vulnerabilities-tab">
         <div class="row d-flex justify-content-center">
           <div class="col-md-auto">
             <label for="topVulnerabilities">{{ _('Number of vulnerabilities')}}</label>
@@ -89,7 +86,6 @@
         <div class="mx-auto py-3 chart-container currentChart">
           <canvas id="vulnerabilities-chart"></canvas>
         </div>
-      </div>
     </div>
     <div class="tab-pane fade" id="nav-risks" role="tabpanel" aria-labelledby="nav-risks-tab">
         <div class="row p-4 text-center">
