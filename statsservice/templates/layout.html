@@ -35,6 +35,7 @@
 {% block page_body %}
 <body>
   {% block menu %}
+  {% set active_page = active_page|default('index') -%}
   <div id="headerNav">
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-blue">
       <div class="container-fluid">
@@ -49,16 +50,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="{{ url_for('root_bp.home') }}">{{_('Current stats')}}</a>
+              <a class="nav-link {% if active_page == "index" %}active{%endif%}" href="{{ url_for('root_bp.home') }}">{{_('Current stats')}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('root_bp.evolution') }}">{{_('Evolution stats')}}</a>
+              <a class="nav-link {% if active_page == "evolution" %}active{%endif%}" href="{{ url_for('root_bp.evolution') }}">{{_('Evolution stats')}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('map_bp.index') }}">{{_('Map')}}</a>
+              <a class="nav-link {% if active_page == "map" %}active{%endif%}" href="{{ url_for('map_bp.index') }}">{{_('Map')}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('root_bp.about') }}">{{_('About')}}</a>
+              <a class="nav-link {% if active_page == "about" %}active{%endif%}" href="{{ url_for('root_bp.about') }}">{{_('About')}}</a>
             </li>
           </ul>
 

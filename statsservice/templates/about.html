@@ -1,28 +1,11 @@
 {% extends "layout.html" %}
+{% set active_page = "about" %}
 {% block content %}
 <div class="container" role="main">
   <br />
   <div class="row">
-    <div class="col-md">
+    <div class="co">
       <h1>MONARC Stats Service</h1>
-      <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="240" class="mx-auto d-block" alt="Logo of MONARC Stats Service" title="Logo of MONARC Stats Service">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="jumbotron m-3">
-            <h2>{{ _('What are these graphics about?') }}</h2>
-            <p class="lead">{{ _('This page depicts the current
-              cybersecurity landscape (in terms of
-              <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
-              <a href="https://objects.monarc.lu/schema/15" rel="noreferrer" target="_blank">threats</a> and
-              <a href="https://objects.monarc.lu/schema/16" rel="noreferrer" target="_blank">risks</a>)
-              based on data shared by
-              several <a href="https://www.monarc.lu" rel="noreferrer" target="_blank">MONARC</a> instances<sup><a href="#footnote-1">[1]</a></sup>.') }}<br />
-              <hr class="my-4">
-              <a class="btn btn-primary btn-lg" href="{{ url_for('root_bp.help') }}#how-does-it-work" role="button">{{ _('Learn more') }}</a>
-            </div>
-          </div>
-        </div>
-
         <p>{{ _('This software is released under AGPLv3 license and is maintained by
         <a href="https://www.cases.lu/" target="_blank" rel="noopener noreferrer">CASES Luxembourg</a>.') }}
         <br />
@@ -30,16 +13,11 @@
         redistribute the <a href="https://github.com/monarc-project/stats-service" target="_blank" rel="noopener noreferrer">source code</a>
         according to the <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener noreferrer">Affero GPL</a> license.</p>
         <p>Found a bug? Report it <a href="https://github.com/monarc-project/stats-service/issues" target="_blank" rel="noopener noreferrer">here</a>.') }}
-        <p class="text-justify"><a href="{{ url_for('root_bp.about_more') }}">{{ _('More information') }}</a> {{ _('about this instance.') }}</p>
-    </div>
-  </div>
-  <hr />
-
-  <div class="row">
-    <div class="col-md-12">
-      <ol class="footnotes">
-        <li id="footnote-1"><a href="{{ url_for('root_bp.about_more') }}">{{ _('Details') }}</a> {{ _('about contributors and the stats on this instance.') }}</li>
-      </ol>
+        <p class="text-justify">
+          <a href="{{ url_for('root_bp.about_more') }}">{{ _('More information') }}</a> {{ _('about this instance.') }}
+          <a href="{{ url_for('root_bp.help') }}">{{ _('Help and documentation.') }}</a>
+        </p>
+        <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="240" class="mx-auto d-block" alt="Logo of MONARC Stats Service" title="Logo of MONARC Stats Service">
     </div>
   </div>
 </div><!-- /.container -->
