@@ -6,11 +6,15 @@
 <script src="{{ url_for('static', filename='npm_components/leaflet/dist/leaflet.js') }}"></script>
 {% endblock %}
 {% block content %}
-<div class="container-fluid p-2" role="main">
+<div class="container-fluid" role="main">
   <h1>{{ _('Cybersecurity Weather Map') }}</h1>
   <div class="row">
-    <div class="col-md">
-      <div id="cyberweathermap" class="map map-home" style="height: 650px; margin-top: 10px"></div>
+    <div class="col">
+      <div id="cyberweathermap" class="map map-home" style="height: 650px;"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
       <p>{{ _('Based on the statistics collected, this map presents the highest current threats and vulnerabilities, by region.') }}</p>
       <p>{{ _('You can also') }} <a href="{{ url_for('root_bp.help') }}#share">{{ _('share statistics') }}</a>.</p>
     </div>
@@ -26,7 +30,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var monarcIcon = L.icon({
     iconUrl: '/static/img/monarc-logo.png',
     // shadowUrl: 'leaf-shadow.png',
-
     iconSize:     [42, 42], // size of the icon
     // shadowSize:   [50, 64], // size of the shadow
     // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
