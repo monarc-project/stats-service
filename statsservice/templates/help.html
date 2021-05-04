@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container" role="main">
-  <br />
   <div class="row">
     <div class="col-md">
       <h1>{{ _('Help') }}</h1>
       <ul>
-        <li>{{ _('a documentation is available') }} <a href="{{ url_for('root_bp.documentation', path='') }}" target="_blank" rel="noopener noreferrer">{{ _('here') }}</a></li>
+        <li>{{ _('a documentation is available') }} <a href="{{ url_for('root_bp.documentation') }}" target="_blank" rel="noopener noreferrer">{{ _('here') }}</a></li>
         <li><a href="{{ url_for('api.doc') }}">{{ _('OpenAPI Specification') }}</a> {{ _('of the API') }}</li>
         <li>{{ _('contact the admin of this Stats Service instance at the address:') }} <a href="mailto:{{ config.ADMIN_EMAIL }}?subject=Stats Service">{{ config.ADMIN_EMAIL }}</a></li>
         <li>{{ _('our website:') }} <a href="{{ config.ADMIN_URL }}" target="_blank" rel="noopener noreferrer">{{ config.ADMIN_URL }}</a></li>
