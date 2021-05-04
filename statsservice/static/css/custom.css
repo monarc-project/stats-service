@@ -51,8 +51,16 @@ a.disabled {
   border-radius: .3rem;
 }
 
-.nav-link.active {
+.navbar-nav .nav-link.active {
   color: #FFD740 !important;
+}
+.nav-tabs .nav-link.active {
+  background: 0;
+  border-bottom-color: #FFD740;
+  color: #006FBA;
+}
+.nav-tabs .nav-link {
+  color: #495057;
 }
 
 h1{
