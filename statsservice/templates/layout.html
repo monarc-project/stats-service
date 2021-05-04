@@ -36,49 +36,35 @@
 <body>
   {% block menu %}
   {% set active_page = active_page|default('index') -%}
-  <div id="headerNav">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-blue">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('root_bp.home') }}">
-          <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-          MONARC Dashboard
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        {% block menu_links %}
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link {% if active_page == "index" %}active{%endif%}" href="{{ url_for('root_bp.home') }}">{{_('Current stats')}}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {% if active_page == "evolution" %}active{%endif%}" href="{{ url_for('root_bp.evolution') }}">{{_('Evolution')}}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {% if active_page == "map" %}active{%endif%}" href="{{ url_for('map_bp.index') }}">{{_('Map')}}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {% if active_page == "about" %}active{%endif%}" href="{{ url_for('root_bp.about') }}">{{_('About')}}</a>
-            </li>
-          </ul>
-
-          <!-- <ul class="navbar-nav mr-auto w-100 justify-content-end">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('root_bp.evolution') }}" title="{{ _('Evolution') }}">{{ _('Evolution') }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('map_bp.index') }}" title="{{ _('Map') }}">{{ _('Map') }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('root_bp.about') }}" title="{{ _('About') }}">{{ _('About') }}</a>
-            </li>
-          </ul> -->
-        </div>
-        {% endblock %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom-blue">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('root_bp.home') }}">
+        <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+        MONARC Dashboard
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      {% block menu_links %}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link {% if active_page == "index" %}active{%endif%}" href="{{ url_for('root_bp.home') }}">{{_('Current stats')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if active_page == "evolution" %}active{%endif%}" href="{{ url_for('root_bp.evolution') }}">{{_('Evolution')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if active_page == "map" %}active{%endif%}" href="{{ url_for('map_bp.index') }}">{{_('Map')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if active_page == "about" %}active{%endif%}" href="{{ url_for('root_bp.about') }}">{{_('About')}}</a>
+          </li>
+        </ul>
       </div>
-    </nav>
-  </div>
+      {% endblock %}
+    </div>
+  </nav>
   {% endblock %}
   {% block content %}{% endblock %}
   <br />
