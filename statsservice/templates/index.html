@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container-fluid p-2" role="main">
   <h1>{{ _('Current Cybersecurity landscape') }}</h1>
-  <nav>
+  <nav aria-label="currrent-stats-navtabs">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-threats-tab" data-bs-toggle="tab" href="#nav-threats" role="tab" aria-controls="nav-threats" aria-selected="true">{{ _('Top threats')}}</a>
       <a class="nav-item nav-link" id="nav-vulnerabilities-tab" data-bs-toggle="tab" href="#nav-vulnerabilities" role="tab" aria-controls="nav-vulnerabilities" aria-selected="false">{{ _('Top vulnerabilities') }}</a>
@@ -121,7 +121,7 @@
     </div>
   </div>
 </div><!-- /.container -->
-<!-- Modal -->
+<!-- Modals -->
 <div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -152,41 +152,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="unknowObjectModalClose">{{ _('Close') }}</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="MOSPModal" tabindex="-1" aria-labelledby="MOSPModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="MOSPModalLabel">{{ _('You are about to leave this website') }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        {{ _('Leave the webiste and see the object on the <a href="https://objects.monarc.lu" target="_blank" rel="noopener noreferrer">MONARC Objects Sharing Platform</a> (MOSP).') }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
-        <button type="button" class="btn btn-primary" id="MOSPModalOK">{{ _('See the object on MOSP') }}</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="unknowObjectModal" tabindex="-1" aria-labelledby="unknowObjectModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="unknowObjectModalLabel">{{ _('Unknow object') }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      {{ _('We were not able to find this object on MOSP.') }}<br /><br />
-      {{ _('If you are the author of this object or know more information, you can <a href="https://objects.monarc.lu/help#join_the_community" target="_blank" rel="noopener noreferrer">add it</a> to our MONARC Objects Sharing Platform.') }}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="MOSPModalClose">{{ _('Close') }}</button>
       </div>
     </div>
   </div>

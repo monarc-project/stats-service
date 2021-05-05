@@ -51,9 +51,17 @@ a.disabled {
   border-radius: .3rem;
 }
 
+.navbar-nav  {
+  color: #FFD740
+}
 .navbar-nav .nav-link.active {
+  font-weight: bolder;
   color: #FFD740 !important;
 }
+.navbar-nav .nav-link {
+  color: white !important;
+}
+
 .nav-tabs .nav-link.active {
   background: 0;
   border-bottom-color: #FFD740;
