@@ -46,7 +46,6 @@ var charts = {
 // basic configuration of the charts (threats and vulnerabilities)
 var config_base_bar_chart = {
     type: 'bar',
-    height: 400,
     data: {},
     options: {
       responsive: true,
@@ -79,17 +78,21 @@ var config_base_bar_chart_risks = {
   data: {
     labels: ["Low", "Medium", "High"],
     datasets: []
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
   }
 };
 
 var config_base_evolution_chart = {
   type: 'line',
-  height: 100,
   data: {
     datasets: []
   },
   options: {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         type: 'time',
@@ -272,7 +275,6 @@ function updateChart(allData, sortParams, chart, ctx, config) {
               charts[chart].canvas.config.data = data;
               charts[chart].canvas.update();
             }else {
-              ctx.canvas.height = config.height;
               config.data = data;
               charts[chart].canvas = new Chart(ctx,config);
             }
@@ -363,7 +365,6 @@ function updateEvolutionCharts (allData, sortParams, chart, ctx, config){
             }else {
               document.getElementById("spinner-" + chart).remove();
               document.getElementById(`inverse${chart}Selection`).style.display = 'inline-block';
-              ctx.canvas.height = config.height;
               config.data.datasets = datasets;
               charts[chart].canvas = new Chart(ctx,config);
             }

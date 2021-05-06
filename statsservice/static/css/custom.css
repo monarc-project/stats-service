@@ -112,6 +112,16 @@ h6{
 /* Charts */
 .currentChart {
   position: relative;
-  height:60vh;
+  height:57vh;
   width:80vw;
+}
+.evolutionChart {
+  position: relative;
+  height:70vh;
+  width:80vw;
+}
+.riskChart {
+  position: relative;
+  height:56vh;
+  width:45vw;
 }
