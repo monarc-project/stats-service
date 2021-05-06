@@ -1,9 +1,8 @@
 {% extends "layout.html" %}
 {% set active_page = "about" %}
 {% block content %}
-<div class="container" role="main">
-  <div class="row">
-    <div class="co">
+<div class="container-fluid p-2" role="main">
+    <div class="col-md-12">
       <h1>MONARC Stats Service</h1>
         <p>{{ _('This software is released under AGPLv3 license and is maintained by
         <a href="https://www.cases.lu/" target="_blank" rel="noopener noreferrer">CASES Luxembourg</a>.') }}
@@ -16,8 +15,7 @@
           <a href="{{ url_for('root_bp.about_more') }}">{{ _('More information') }}</a> {{ _('about this instance.') }}
           <a href="{{ url_for('root_bp.help') }}">{{ _('Help and documentation.') }}</a>
         </p>
-        <img src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="240" class="mx-auto d-block" alt="Logo of MONARC Stats Service" title="Logo of MONARC Stats Service">
+        <img class="mx-auto d-block" src="{{ url_for('static', filename='img/apple-touch-icon.png') }}" width="240" alt="Logo of MONARC Stats Service" title="Logo of MONARC Stats Service">
     </div>
-  </div>
 </div><!-- /.container -->
 {% endblock %}
