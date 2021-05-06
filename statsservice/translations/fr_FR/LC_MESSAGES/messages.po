@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MONARC Stats Service\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-05 10:10+0200\n"
-"PO-Revision-Date: 2021-05-05 10:14+0200\n"
+"POT-Creation-Date: 2021-05-06 09:41+0200\n"
+"PO-Revision-Date: 2021-05-06 09:45+0200\n"
 "Last-Translator: Cédric Bonhomme <cedric@cedricbonhomme.org>\n"
 "Language-Team: French <https://translate.monarc.lu/projects/monarc-stats-"
 "service/stats-service/fr/>\n"
@@ -141,7 +141,7 @@ msgstr "Plus bas"
 #: statsservice/templates/evolution.html:34
 #: statsservice/templates/evolution.html:70
 #: statsservice/templates/index.html:39 statsservice/templates/index.html:77
-#: statsservice/templates/index.html:95 statsservice/templates/index.html:109
+#: statsservice/templates/index.html:95 statsservice/templates/index.html:111
 msgid "Export"
 msgstr "Exporter"
 
@@ -341,15 +341,15 @@ msgstr "Qualification"
 msgid "Information Risks"
 msgstr "Risques de l'information"
 
-#: statsservice/templates/index.html:108
+#: statsservice/templates/index.html:110
 msgid "Operational Risks"
 msgstr "Risques opérationnels"
 
-#: statsservice/templates/index.html:129
+#: statsservice/templates/index.html:133
 msgid "You are about to leave this website"
 msgstr "Vous êtes sur le point de quitter ce site web"
 
-#: statsservice/templates/index.html:133
+#: statsservice/templates/index.html:137
 msgid ""
 "Leave the webiste and see the object on the <a href=\"https://objects.monarc."
 "lu\" target=\"_blank\" rel=\"noopener noreferrer\">MONARC Objects Sharing "
@@ -359,23 +359,23 @@ msgstr ""
 "lu\" target=\"_blank\" rel=\"noopener noreferrer\">plateforme de partage "
 "d'objets de MONARC</a> (MOSP)."
 
-#: statsservice/templates/index.html:136 statsservice/templates/index.html:154
+#: statsservice/templates/index.html:140 statsservice/templates/index.html:158
 msgid "Close"
 msgstr "Fermer"
 
-#: statsservice/templates/index.html:137
+#: statsservice/templates/index.html:141
 msgid "See the object on MOSP"
 msgstr "Voire l'objet sur MOSP"
 
-#: statsservice/templates/index.html:146
+#: statsservice/templates/index.html:150
 msgid "Unknow object"
 msgstr "Objet inconnu"
 
-#: statsservice/templates/index.html:150
+#: statsservice/templates/index.html:154
 msgid "We were not able to find this object on MOSP."
 msgstr "Nous n'avons pas pu trouver cet objet sur MOSP."
 
-#: statsservice/templates/index.html:151
+#: statsservice/templates/index.html:155
 msgid ""
 "If you are the author of this object or know more information, you can <a "
 "href=\"https://objects.monarc.lu/help#join_the_community\" target=\"_blank\" "
@@ -422,75 +422,3 @@ msgstr "Vous pouvez aussi"
 #: statsservice/templates/map.html:19
 msgid "share statistics"
 msgstr "partager des statistiques"
-
-#, fuzzy
-#~| msgid "Evolution"
-#~ msgid "Evolution stats"
-#~ msgstr "Évolution"
-
-#~ msgid "Threats"
-#~ msgstr "Menaces"
-
-#~ msgid "Charts based on the most recent collected data."
-#~ msgstr "Graphiques basés sur les données collectées les plus récentes."
-
-#~ msgid "See the recent"
-#~ msgstr "Voir la récente"
-
-#~ msgid "for the threats and vulnerabilities."
-#~ msgstr "pour les menaces et vulnérabilités."
-
-#~ msgid "What are these graphics about?"
-#~ msgstr "De quoi parlent ces graphiques?"
-
-#~ msgid ""
-#~ "This page depicts the current\n"
-#~ "          cybersecurity landscape (in terms of\n"
-#~ "          <a href=\"https://objects.monarc.lu/schema/14\" rel=\"noreferrer"
-#~ "\" target=\"_blank\">vulnerabilities</a>,\n"
-#~ "          <a href=\"https://objects.monarc.lu/schema/15\" rel=\"noreferrer"
-#~ "\" target=\"_blank\">threats</a> and\n"
-#~ "          <a href=\"https://objects.monarc.lu/schema/16\" rel=\"noreferrer"
-#~ "\" target=\"_blank\">risks</a>)\n"
-#~ "          based on data shared by\n"
-#~ "          several <a href=\"https://www.monarc.lu\" rel=\"noreferrer\" "
-#~ "target=\"_blank\">MONARC</a> instances<sup><a href=\"#footnote-1\">[1]</"
-#~ "a></sup>."
-#~ msgstr ""
-#~ "Cette page décrit les tendances actuelles \n"
-#~ "          de la cybersécurité (en termes de\n"
-#~ "          <a href=\"https://objects.monarc.lu/schema/14\" rel=\"noreferrer"
-#~ "\" target=\"_blank\">vulnérabilités</a>,\n"
-#~ "          <a href=\"https://objects.monarc.lu/schema/15\" rel=\"noreferrer"
-#~ "\" target=\"_blank\">menaces</a> et\n"
-#~ "          <a href=\"https://objects.monarc.lu/schema/16\" rel=\"noreferrer"
-#~ "\" target=\"_blank\">risques</a>)\n"
-#~ "          basées sur des données partagées par \n"
-#~ "          différentes instances <a href=\"https://www.monarc.lu\" rel="
-#~ "\"noreferrer\" target=\"_blank\">MONARC</a><sup><a href="
-#~ "\"#footnote-1\">[1]</a></sup>."
-
-#~ msgid "Learn more"
-#~ msgstr "En savoir plus"
-
-#~ msgid "Details"
-#~ msgstr "Détails"
-
-#~ msgid "about contributors and the stats on this instance."
-#~ msgstr "à propos des contributeurs des statistiques de cette instance."
-
-#~ msgid ""
-#~ "contact the admin of this Stats Service instance at the address: <a href="
-#~ "\"mailto:{{ config.ADMIN_EMAIL }}?subject=Stats Service\">{{ config."
-#~ "ADMIN_EMAIL }}</a>"
-#~ msgstr ""
-#~ "contactez l'admin de Stats Service à l'adresse email: <a href=\"mailto:"
-#~ "{{ config.ADMIN_EMAIL }}?subject=Stats Service\">{{ config.ADMIN_EMAIL }}"
-#~ "</a>"
-
-#~ msgid ""
-#~ "our website: <a href=\"{{ config.ADMIN_URL }}\" target=\"_blank\" rel="
-#~ "\"noopener noreferrer\">{{ config.ADMIN_URL }}</a>"
-#~ msgstr ""
-#~ "notre site Web: <a href=\"{{ config.ADMIN_URL }}\" target=\"_blank\" rel="
-#~ "\"noopener noreferrer\">{{ config.ADMIN_URL }}</a>"
