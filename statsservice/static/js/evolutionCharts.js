@@ -17,7 +17,7 @@ function drawEvolutionChart() {
   let ctx_vulnerabilities = document.getElementById("canvas-vulnerabilitiesEvolution").getContext("2d");
   let displayVulnerabilitiesEvolutionBy = document.getElementById("displayVulnerabilitiesEvolutionBy")
   let orderVulnerabilitiesEvolutionBy = document.getElementById("orderVulnerabilitiesEvolutionBy")
-  let inverseVulnerabilitiesSelection = document.getElementById("inverseVulnerabilitiesEvolutionSelection");
+  let inverseVulnerabilitiesSelection = document.getElementById("inversevulnerabilitiesEvolutionSelection");
   let exportVulnerabilitiesEvolutionPNG = document.getElementById('exportVulnerabilitiesEvolutionPNG');
   let exportVulnerabilitiesEvolutionCSV = document.getElementById('exportVulnerabilitiesEvolutionCSV');
   let sortParams_vulnerabilities = {
