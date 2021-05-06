@@ -113,6 +113,25 @@ var config_base_evolution_chart = {
         align: 'start',
         labels: {
           fontFamily: "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+        },
+        onHover: function(ev, legendItem, legend){
+          let index = legendItem.datasetIndex;
+          let dataset = legend.chart.getDatasetMeta(index)._dataset;
+          let tooltip = document.getElementById(`legendTooltip-${dataset.chart}`);
+          let windowsSize = window.innerWidth;
+          if (windowsSize <= 780 || dataset.label.length != dataset.longLabel.length) {
+            let y = ev.y - 40;
+            tooltip.style.visibility  = 'visible';
+            tooltip.textContent  = dataset.longLabel;
+            tooltip.style.left = ev.x + "px";
+            tooltip.style.top = y + "px";
+          }
+        },
+        onLeave: function(ev, legendItem, legend){
+          let index = legendItem.datasetIndex;
+          let dataset = legend.chart.getDatasetMeta(index)._dataset;
+          let tooltip = document.getElementById(`legendTooltip-${dataset.chart}`);
+          tooltip.style.visibility  = 'hidden';
         }
       }
     }
@@ -338,6 +357,8 @@ function updateEvolutionCharts (allData, sortParams, chart, ctx, config){
     .then(function() {
         // construct the datasets
         let dataset = {
+          chart : chart,
+          longLabel :  charts[chart].by_uuid[item.object].translated_label,
           label: truncateText(charts[chart].by_uuid[item.object].translated_label, 40),
           backgroundColor: colors[index],
           borderColor: colors[index],

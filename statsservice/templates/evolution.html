@@ -44,6 +44,7 @@
               <div class="spinner-border " style="width: 8rem; height: 8rem;"></div>
           </div>
           <div class="mx-auto py-3 chart-container evolutionChart">
+            <div class="legend-tooltip" role="tooltip" id="legendTooltip-threatsEvolution"></div>
             <canvas id="canvas-threatsEvolution"></canvas>
             <div class="d-flex justify-content-end pe-5 pt-2">
               <button class="btn btn-secondary" type="button" style="display: none;" id="inversethreatsEvolutionSelection">{{ _('Inverse selection')}}</button>
@@ -80,6 +81,7 @@
             <div class="spinner-border" style="width: 8rem; height: 8rem;"></div>
           </div>
           <div class="mx-auto py-3 chart-container evolutionChart">
+            <div class="legend-tooltip" id="legendTooltip-vulnerabilitiesEvolution"></div>
             <canvas id="canvas-vulnerabilitiesEvolution"></canvas>
             <div class="d-flex justify-content-end pe-5 pt-2">
               <button class="btn btn-secondary" type="button" style="display: none;" id="inversevulnerabilitiesEvolutionSelection">{{ _('Inverse selection')}}</button>

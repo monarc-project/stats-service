@@ -125,3 +125,15 @@ h6{
   height:56vh;
   width:45vw;
 }
+.legend-tooltip {
+  visibility: hidden;
+  background-color: #000;
+  color: #fff;
+  position: absolute;
+  display:inline-block;
+  font-size: 10px;
+  max-width: 15vw;
+  opacity: 0.8;
+  padding: 5px;
+  border-radius: 5px;
+}
