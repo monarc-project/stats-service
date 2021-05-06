@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-05 10:10+0200\n"
+"POT-Creation-Date: 2021-05-06 09:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,7 +128,7 @@ msgstr ""
 #: statsservice/templates/evolution.html:34
 #: statsservice/templates/evolution.html:70
 #: statsservice/templates/index.html:39 statsservice/templates/index.html:77
-#: statsservice/templates/index.html:95 statsservice/templates/index.html:109
+#: statsservice/templates/index.html:95 statsservice/templates/index.html:111
 msgid "Export"
 msgstr ""
 
@@ -295,38 +295,38 @@ msgstr ""
 msgid "Information Risks"
 msgstr ""
 
-#: statsservice/templates/index.html:108
+#: statsservice/templates/index.html:110
 msgid "Operational Risks"
 msgstr ""
 
-#: statsservice/templates/index.html:129
+#: statsservice/templates/index.html:133
 msgid "You are about to leave this website"
 msgstr ""
 
-#: statsservice/templates/index.html:133
+#: statsservice/templates/index.html:137
 msgid ""
 "Leave the webiste and see the object on the <a "
 "href=\"https://objects.monarc.lu\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">MONARC Objects Sharing Platform</a> (MOSP)."
 msgstr ""
 
-#: statsservice/templates/index.html:136 statsservice/templates/index.html:154
+#: statsservice/templates/index.html:140 statsservice/templates/index.html:158
 msgid "Close"
 msgstr ""
 
-#: statsservice/templates/index.html:137
+#: statsservice/templates/index.html:141
 msgid "See the object on MOSP"
 msgstr ""
 
-#: statsservice/templates/index.html:146
+#: statsservice/templates/index.html:150
 msgid "Unknow object"
 msgstr ""
 
-#: statsservice/templates/index.html:150
+#: statsservice/templates/index.html:154
 msgid "We were not able to find this object on MOSP."
 msgstr ""
 
-#: statsservice/templates/index.html:151
+#: statsservice/templates/index.html:155
 msgid ""
 "If you are the author of this object or know more information, you can <a"
 " href=\"https://objects.monarc.lu/help#join_the_community\" "
