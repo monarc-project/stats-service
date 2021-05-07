@@ -1,7 +1,22 @@
 Architecture
 ============
 
-These architecture diagrams presents the idea behind the decentralized nature
+Higher level architecture 
+-------------------------
+
+.. image:: _static/architecture-stats-organization-level.png
+   :alt: Organization level
+
+
+A company has the possibility to `push stats <command-line-interface.html#pushing-data>`_
+from selected clients with the same
+account on, for example, dashboard.monarc.lu. The service behind dashboard.monarc.lu
+is operated by CASES Luxembourg and aims to provide relevant data about the
+current cybersecurity trends, focused in the Luxembourg area.
+
+
+
+These following diagrams presents the idea behind the decentralized nature
 of the Stats Service API.
 
 
@@ -80,19 +95,6 @@ Important notes
     It is as well possible to run your own alternative to dashboard.monarc.lu. And then
     you can configure the variable *REMOTE_STATS_SERVER* of your local Stats Service
     instance with the address of your "global" instance.
-
-
-Organization level
-------------------
-
-.. image:: _static/architecture-stats-organization-level.png
-   :alt: Higher architecture level
-
-A company has the possibility to `push stats <command-line-interface.html#pushing-data>`_
-from selected clients with the same
-account on, for example, dashboard.monarc.lu. The service behind dashboard.monarc.lu
-is operated by CASES Luxembourg and aims to provide relevant data about the
-current cybersecurity trends, focused in the Luxembourg area.
 
 
 
