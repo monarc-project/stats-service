@@ -1,8 +1,8 @@
 Architecture
 ============
 
-Higher level architecture 
--------------------------
+High level architecture 
+-----------------------
 
 .. image:: _static/architecture-stats-organization-level.png
    :alt: Organization level
