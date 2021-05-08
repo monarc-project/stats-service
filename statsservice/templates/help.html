@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container" role="main">
-  <div class="row">
-    <div class="col-md">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
       <h1>{{ _('Help') }}</h1>
       <ul>
         <li>{{ _('a documentation is available') }} <a href="https://www.monarc.lu/documentation/stats-service/" target="_blank" rel="noopener noreferrer">{{ _('here') }}</a></li>
@@ -13,16 +13,15 @@
     </div>
   </div>
 
-  <hr />
-
-  <div class="row">
-    <div class="col-md">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <hr />
       <h1>{{ _('Q&A') }}</h1>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
       <h2 id="how-does-it-work">{{ _('How does it work?') }}</h2>
       <p>
         {{ _('The charts are generated with aggregated statistics from multiple
@@ -36,8 +35,8 @@
   </div>
 
 
-  <div class="row">
-    <div class="col-md">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
       <h2 id="share">{{ _('Want to contribute by sharing statistics?') }}</h2>
       <p>{{ _('If you have your own MONARC instance you have the possibility to share some high level statistics with
       the MONARC community. If you are interested simply contact') }} <a href="mailto:{{ config.ADMIN_EMAIL }}?subject=Sharing stats with MONARC">{{ config.ADMIN_EMAIL }}</a>.</p>
@@ -45,8 +44,8 @@
   </div>
 
 
-  <div class="row">
-    <div class="col-md">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
       <h2>{{ _('What kind of data is involved ?') }}</h2>
       <p>{{ _('This dashboard attempts to provide meaningful insights based on the
         <a href="https://objects.monarc.lu/schema/14" rel="noreferrer" target="_blank">vulnerabilities</a>,
@@ -60,8 +59,8 @@
   </div>
 
 
-  <div class="row">
-    <div class="col-md">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
       <h2 id="send-stats">{{ _('How to send stats to dashboard.monarc.lu ?') }}</h2>
       <p>{{ _('A client is provided in order to let you push your stats. A documentation is available
         <a href="https://www.monarc.lu/documentation/stats-service/command-line-interface.html#pushing-data">here</a>.') }}</p>
@@ -69,9 +68,9 @@
   </div>
 
 
-  <div class="row">
-    <div class="col-md">
-      <h2 id="share">{{ _('What are MONARC objects ?') }}</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 id="monarc-objects">{{ _('What are MONARC objects ?') }}</h2>
       <p>{{ _('If you are looking for the MONARC objects you can look at the official') }}
       <a href="{{ config['MOSP_URL'] }}" target="_blank" rel="noopener noreferrer" title="MONARC Objects Sharing Platform">{{ _('MONARC Objects Sharing Platform') }}</a>
       {{ _('(MOSP) which is providing an API in order to create and share JSON objects. MOSP can be
@@ -80,9 +79,9 @@
   </div>
 
 
-  <div class="row">
-    <div class="col-md">
-      <h2 id="share">{{ _('Your question is not here ?') }}</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 id="question">{{ _('Your question is not here ?') }}</h2>
       <p>{{ _('You can look for already asked questions or add a new one
       <a href="https://github.com/monarc-project/stats-service/discussions/categories/q-a">here</a>.') }}</p>
     </div>

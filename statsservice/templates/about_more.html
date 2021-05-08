@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container" role="main">
-    <div class="row">
-        <div class="col">
-           <br />
-            <ul class="list-group">
-                <li class="list-group-item">{{ _('Stats service version:') }} <a href="{{version_url}}" target="_blank" rel="noopener noreferrer">{{stats_service_version}}</a></li>
-                <li class="list-group-item">{{ _('Python version:') }} {{python_version}}</li>
-                <li class="list-group-item">{{ _('Number of contributors:') }} {{nb_contributors}}</li>
-                <li class="list-group-item">{{ _('Number of stats:') }} {{nb_stats}}</li>
-                <li class="list-group-item">{{ _('Contact:') }} <a href="mailto:{{ config['ADMIN_EMAIL'] }}">{{ config['ADMIN_EMAIL'] }}</a></li>
-            </ul>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+          <h1>Characteristics of the current instance</h1>
+          <ul class="list-group">
+            <li class="list-group-item">{{ _('Stats service version:') }} <a href="{{version_url}}" target="_blank" rel="noopener noreferrer">{{stats_service_version}}</a></li>
+            <li class="list-group-item">{{ _('Python version:') }} {{python_version}}</li>
+            <li class="list-group-item">{{ _('Number of contributors:') }} {{nb_contributors}}</li>
+            <li class="list-group-item">{{ _('Number of stats:') }} {{nb_stats}}</li>
+            <li class="list-group-item">{{ _('Contact:') }} <a href="mailto:{{ config['ADMIN_EMAIL'] }}">{{ config['ADMIN_EMAIL'] }}</a></li>
+          </ul>
         </div>
     </div>
 </div>
