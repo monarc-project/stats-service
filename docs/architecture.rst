@@ -22,8 +22,8 @@ current cybersecurity trends, focused in the Luxembourg area.
 Examples
 --------
 
-These following diagrams presents the idea behind the decentralized nature
-of the Stats Service API.
+The following diagrams presents the idea behind the decentralized nature of
+Stats Service.
 
 
 Scenario 1
@@ -109,6 +109,6 @@ Integration with external services
 ----------------------------------
 
 MOSP
-````
+''''
 
 A Stats Service instance is able to query MOSP.

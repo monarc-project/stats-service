@@ -54,6 +54,7 @@ The collected statistics can be sent to an other Stats Service instance.
 
    api-v1
    stats
+   root
 
 
 Bugs
@@ -98,10 +99,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 .. image:: https://img.shields.io/github/release/monarc-project/stats-service.svg?style=flat-square
   :target: https://github.com/monarc-project/stats-service/releases/latest
   :alt: Latest release
-
-.. image:: https://readthedocs.org/projects/monarc-stats-service/badge/?version=latest
-  :target: https://monarc-stats-service.readthedocs.io/en/latest/?badge=latest
-  :alt: Documentation Status
 
 .. image:: https://github.com/monarc-project/stats-service/workflows/Python%20application/badge.svg?style=flat-square
   :target: https://github.com/monarc-project/stats-service/actions?query=workflow%3A%22Python+application%22

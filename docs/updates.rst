@@ -11,7 +11,7 @@ script:
       * branch            master     -> FETCH_HEAD
     Already up to date.
 
-    > stats-service@0.2.0 postinstall
+    > stats-service@0.3.0 postinstall
     > cd statsservice/static/ ; ln -sf ../../node_modules npm_components
 
 

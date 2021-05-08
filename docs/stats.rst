@@ -4,14 +4,18 @@ Blueprint stats
 The goal of this blueprint is to return formatted custom stats. It is in
 read-only mode with only public routes (no authentication required).
 
-Endpoints
----------
+Routes
+------
 
-- /stats. At that time this route simply returns a HTML file. Some charts can be
-  displayed for example with the data from the following routes.
-- /stats/threats.json
-- /stats/vulnerabilities.json
-- /stats/risks.json
++---------------------------+---------+-----------------------------+--------------------------------------+
+|   Endpoint                | Methods |    Rule                     |    Comment                           |
++===========================+=========+=============================+======================================+
+| stats_bp.risks            |  GET    | /stats/risks.json           |                                      |
++---------------------------+---------+-----------------------------+--------------------------------------+
+| stats_bp.threats          |  GET    | /stats/threats.json         |                                      |
++---------------------------+---------+-----------------------------+--------------------------------------+
+| stats_bp.vulnerabilities  |  GET    | /stats/vulnerabilities.json |                                      |
++---------------------------+---------+-----------------------------+--------------------------------------+
 
 
 Threats

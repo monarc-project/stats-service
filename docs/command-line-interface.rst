@@ -63,26 +63,25 @@ Will ask for confirmation and eventually drop all collections.
 Clients
 -------
 
-Creating a client
-~~~~~~~~~~~~~~~~~
+Create a client
+~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
     $ flask client_create --help
     Usage: flask client_create [OPTIONS]
 
-      Create a new client.
+    Create a new local client.
 
     Options:
-      --name TEXT   Name of the client.  [required]
-      --uuid TEXT   UUID of the client.
-      --token TEXT  Token of the client.
-      --role TEXT   Role of the client (user or admin).  [default: user]
-      --help        Show this message and exit.
+    --name TEXT   Name of the client.  [required]
+    --uuid TEXT   UUID of the client.
+    --token TEXT  Token of the client.
+    --role TEXT   Role of the client (user or admin).  [default: user]
+    --help        Show this message and exit.
 
 
-Actually a client name must be specified and is unique.
-
+A client name must be specified and is unique.
 
 Example:
 
@@ -139,6 +138,69 @@ Delete a client
 
       --help       Show this message and exit.
 
+
+Set a location for a client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ flask client_coordinates_set --help
+    Usage: flask client_coordinates_set [OPTIONS]
+
+    Set the coordinates of the client specified with its UUID.
+
+    Options:
+    --uuid TEXT       UUID of the client.  [required]
+    --latitude TEXT   Latitude of the client.  [required]
+    --longitude TEXT  Longitude of the client.  [required]
+    --help            Show this message and exit.
+
+
+Unset the location for a client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ flask client_coordinates_unset --help
+    Usage: flask client_coordinates_unset [OPTIONS]
+
+      Unset the coordinates of the client specified with its UUID.
+
+    Options:
+      --uuid TEXT  UUID of the client.  [required]
+      --help       Show this message and exit.
+
+
+Activate the stats sharing for a client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ flask client_sharing_activate --help
+    Usage: flask client_sharing_activate [OPTIONS]
+
+      Set the is_sharing_enabled attribute of a local client, specified with its
+      UUID, to True.
+
+    Options:
+      --uuid TEXT  UUID of the client.  [required]
+      --help       Show this message and exit.
+
+
+Deactivate the stats sharing for a client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ flask client_sharing_deactivate --help
+    Usage: flask client_sharing_deactivate [OPTIONS]
+
+      Set the is_sharing_enabled attribute of a local client, specified with its
+      UUID, to False.
+
+    Options:
+      --uuid TEXT  UUID of the client.  [required]
+      --help       Show this message and exit.
 
 
 Stats
