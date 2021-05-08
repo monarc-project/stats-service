@@ -3,45 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. only:: html
-
-   .. image:: https://img.shields.io/github/release/monarc-project/stats-service.svg?style=flat-square
-      :target: https://github.com/monarc-project/stats-service/releases/latest
-      :alt: Latest release
-
-   .. image:: https://readthedocs.org/projects/monarc-stats-service/badge/?version=latest
-      :target: https://monarc-stats-service.readthedocs.io/en/latest/?badge=latest
-      :alt: Documentation Status
-
-   .. image:: https://github.com/monarc-project/stats-service/workflows/Python%20application/badge.svg?style=flat-square
-      :target: https://github.com/monarc-project/stats-service/actions?query=workflow%3A%22Python+application%22
-      :alt: Workflow
-
-   .. image:: https://img.shields.io/github/contributors/monarc-project/stats-service.svg?style=flat-square
-      :target: https://github.com/monarc-project/stats-service/graphs/contributors
-      :alt: Contributors
-
-   .. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
-      :target: https://pypi.org/project/statsservice
-      :alt: PyPi version
-
-   .. image:: https://img.shields.io/github/license/monarc-project/stats-service.svg?style=flat-square
-      :target: https://www.gnu.org/licenses/agpl-3.0.html
-      :alt: License AGPLv3
-
-  .. image:: https://translate.monarc.lu/widgets/monarc-stats-service/-/svg-badge.svg
-      :target: https://translate.monarc.lu/engage/monarc-stats-service/
-      :alt: Translate Stats Servie
-
-
-.. |br| raw:: html
-
-  <br />
-
-
-.. raw:: latex
-
-  \clearpage
 
 Presentation
 ============
@@ -66,11 +27,11 @@ The collected statistics can be sent to an other Stats Service instance.
     available at `dashboard.monarc.lu <https://dashboard.monarc.lu>`_.
 
 
-Technical considerations
-------------------------
 
 .. toctree::
+   :caption: Technical considerations
    :maxdepth: 3
+   :hidden:
 
    installation
    updates
@@ -78,20 +39,18 @@ Technical considerations
    logging
 
 
-Conceptual considerations
--------------------------
-
 .. toctree::
+   :caption: Conceptual considerations
    :maxdepth: 3
+   :hidden:
 
    architecture
 
 
-Blueprints
-----------
-
 .. toctree::
+   :caption: Blueprints
    :maxdepth: 3
+   :hidden:
 
    api-v1
    stats
@@ -105,6 +64,8 @@ Please report feature requests and problems to:
 https://github.com/monarc-project/stats-service/issues
 
 
+
+
 License
 =======
 
@@ -115,6 +76,7 @@ MONARC Stats Service is licensed under
 MONARC Stats Service.
 
 * Copyright (C) 2020-2021 Cédric Bonhomme
+* Copyright (C) 2020-2021 Juan Rocha
 * Copyright (C) 2020-2021 SECURITYMADEIN.LU
 
 For more information: https://github.com/monarc-project/stats-service
@@ -131,3 +93,32 @@ GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+.. image:: https://img.shields.io/github/release/monarc-project/stats-service.svg?style=flat-square
+  :target: https://github.com/monarc-project/stats-service/releases/latest
+  :alt: Latest release
+
+.. image:: https://readthedocs.org/projects/monarc-stats-service/badge/?version=latest
+  :target: https://monarc-stats-service.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation Status
+
+.. image:: https://github.com/monarc-project/stats-service/workflows/Python%20application/badge.svg?style=flat-square
+  :target: https://github.com/monarc-project/stats-service/actions?query=workflow%3A%22Python+application%22
+  :alt: Workflow
+
+.. image:: https://img.shields.io/github/contributors/monarc-project/stats-service.svg?style=flat-square
+  :target: https://github.com/monarc-project/stats-service/graphs/contributors
+  :alt: Contributors
+
+.. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
+  :target: https://pypi.org/project/statsservice
+  :alt: PyPi version
+
+.. image:: https://img.shields.io/github/license/monarc-project/stats-service.svg?style=flat-square
+  :target: https://www.gnu.org/licenses/agpl-3.0.html
+  :alt: License AGPLv3
+
+.. image:: https://translate.monarc.lu/widgets/monarc-stats-service/-/svg-badge.svg
+  :target: https://translate.monarc.lu/engage/monarc-stats-service/
+  :alt: Translate Stats Servie

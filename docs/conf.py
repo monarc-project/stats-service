@@ -43,19 +43,40 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+numfig = True
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_book_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 #html_static_path = ['_static']
 
+html_theme_options = {
+    "theme_dev_mode": True,
+    "path_to_docs": "docs",
+    "repository_url": "https://github.com/monarc-project/stats-service",
+    # "repository_branch": "gh-pages",  # For testing
+    "launch_buttons": {
+        "binderhub_url": "https://github.com/monarc-project/stats-service",
+    },
+    "use_edit_page_button": True,
+    "use_issues_button": True,
+    "use_repository_button": True,
+    "use_download_button": True,
+    # For testing
+    # "use_fullscreen_button": False,
+    # "home_page_in_toc": True,
+    # "single_page": True,
+    # "extra_footer": "<a href='https://google.com'>Test</a>",  # DEPRECATED KEY
+    # "extra_navbar": "<a href='https://google.com'>Test</a>",
+    # "show_navbar_depth": 2,
+}
 
 # -- Options for LaTeX output -------------------------------------------------
 

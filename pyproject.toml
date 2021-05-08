@@ -59,6 +59,7 @@ sphinx_rtd_theme = "^0.5.2"
 pytest = "^6.2.3"
 gitchangelog = "^3.0.4"
 mypy = "^0.812"
+sphinx-book-theme = "^0.1.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

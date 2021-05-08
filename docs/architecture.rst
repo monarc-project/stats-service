@@ -8,6 +8,9 @@ High level architecture
    :alt: Organization level
 
 
+MONARC clients hosted on FO1 and FO2 push regularly stats about risk analysis to
+a local Stats Service instance (dashboard.my.monarc.lu).
+
 A company has the possibility to `push stats <command-line-interface.html#pushing-data>`_
 from selected clients with the same
 account on, for example, dashboard.monarc.lu. The service behind dashboard.monarc.lu
@@ -16,12 +19,15 @@ current cybersecurity trends, focused in the Luxembourg area.
 
 
 
+Examples
+--------
+
 These following diagrams presents the idea behind the decentralized nature
 of the Stats Service API.
 
 
 Scenario 1
-----------
+''''''''''
 
 .. image:: _static/architecture-stats-scenario1.png
    :alt: Stats Service API interaction with MONARC
@@ -38,8 +44,9 @@ for the dashboard of the MONARC users (with the CEO role).
 The stats collection (from the FO to the stats node) can be triggered with a
 `cron job <installation.html#integration-with-monarc-and-collect-of-the-stats>`__.
 
+
 Scenario 2
-----------
+''''''''''
 
 .. image:: _static/architecture-stats-scenario2.png
    :alt: Stats Service API interaction with MONARC
@@ -51,7 +58,7 @@ on a dedicated server. The server hosting the back office of MONARC is a good ch
 
 
 Scenario 3
-----------
+''''''''''
 
 .. image:: _static/architecture-stats-scenario3.png
    :alt: Stats Service API interaction with MONARC
@@ -62,7 +69,7 @@ client instances in this company. But also, in the future, for the MONARC back o
 
      
 Scenario 4
-----------
+''''''''''
 
 .. image:: _static/architecture-stats-scenario4.png
    :alt: Stats Service API interaction with MONARC
