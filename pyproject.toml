@@ -9,7 +9,7 @@ readme = "README.md"
 
 homepage = "https://github.com/monarc-project/stats-service"
 repository = "https://github.com/monarc-project/stats-service"
-documentation = "https://monarc-stats-service.readthedocs.io"
+documentation = "https://www.monarc.lu/documentation/stats-service"
 
 keywords = ["monarc", "security", "stats", "flask", "api"]
 

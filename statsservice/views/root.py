@@ -112,12 +112,6 @@ def about_json():
     )
 
 
-@root_bp.route("/documentation", methods=["GET"])
-def documentation():
-    """Documentation page."""
-    return redirect("https://monarc-stats-service.readthedocs.io", code=308)
-
-
 @root_bp.route("human.txt", methods=["GET"])
 def human():
     """Human dot txt page."""

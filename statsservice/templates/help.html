@@ -5,7 +5,7 @@
     <div class="col-md">
       <h1>{{ _('Help') }}</h1>
       <ul>
-        <li>{{ _('a documentation is available') }} <a href="{{ url_for('root_bp.documentation') }}" target="_blank" rel="noopener noreferrer">{{ _('here') }}</a></li>
+        <li>{{ _('a documentation is available') }} <a href="https://www.monarc.lu/documentation/stats-service/" target="_blank" rel="noopener noreferrer">{{ _('here') }}</a></li>
         <li><a href="{{ url_for('api.doc') }}">{{ _('OpenAPI Specification') }}</a> {{ _('of the API') }}</li>
         <li>{{ _('contact the admin of this Stats Service instance at the address:') }} <a href="mailto:{{ config.ADMIN_EMAIL }}?subject=Stats Service">{{ config.ADMIN_EMAIL }}</a></li>
         <li>{{ _('our website:') }} <a href="{{ config.ADMIN_URL }}" target="_blank" rel="noopener noreferrer">{{ config.ADMIN_URL }}</a></li>
@@ -30,7 +30,7 @@
       </p>
       <p>
         {{ _('More detailed information on the sharing of statistics is provided in the in the
-        <a href="https://monarc-stats-service.readthedocs.io/en/latest/architecture.html" rel="noreferrer" target="_blank">documentation</a>.') }}
+        <a href="https://www.monarc.lu/documentation/stats-service/architecture.html" rel="noreferrer" target="_blank">documentation</a>.') }}
       </p>
     </div>
   </div>
@@ -64,7 +64,7 @@
     <div class="col-md">
       <h2 id="send-stats">{{ _('How to send stats to dashboard.monarc.lu ?') }}</h2>
       <p>{{ _('A client is provided in order to let you push your stats. A documentation is available
-        <a href="https://monarc-stats-service.readthedocs.io/en/latest/command-line-interface.html#pushing-data">here</a>.') }}</p>
+        <a href="https://www.monarc.lu/documentation/stats-service/command-line-interface.html#pushing-data">here</a>.') }}</p>
     </div>
   </div>
 

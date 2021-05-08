@@ -5,7 +5,6 @@
 [![Contributors](https://img.shields.io/github/contributors/monarc-project/stats-service.svg?style=flat-square)](https://github.com/monarc-project/stats-service/graphs/contributors)
 [![Workflow](https://github.com/monarc-project/stats-service/workflows/Python%20application/badge.svg?style=flat-square)](https://github.com/monarc-project/stats-service/actions?query=workflow%3A%22Python+application%22)
 [![CodeQL](https://github.com/monarc-project/stats-service/workflows/CodeQL/badge.svg?style=flat-square)](https://github.com/monarc-project/stats-service/actions?query=workflow%3A%22CodeQL%22)
-[![Documentation status](https://readthedocs.org/projects/monarc-stats-service/badge/?version=latest&style=flat-square)](https://monarc-stats-service.readthedocs.io/en/latest/?badge=latest)
 [![Translation status](https://translate.monarc.lu/widgets/monarc-stats-service/-/svg-badge.svg)](https://translate.monarc.lu/engage/monarc-stats-service/)
 [![PyPi version](https://img.shields.io/pypi/v/statsservice.svg?style=flat-square)](https://pypi.org/project/statsservice)
 
@@ -31,14 +30,14 @@ available at [https://dashboard.monarc.lu](https://dashboard.monarc.lu).
 ## Documentation
 
 To be found in the ``docs`` directory of the source code, or
-viewed online [here](https://monarc-stats-service.readthedocs.io).
+viewed online [here](https://www.monarc.lu/documentation/stats-service/).
 
 Several
-[installation](https://monarc-stats-service.readthedocs.io/en/latest/installation.html)
+[installation](https://www.monarc.lu/documentation/stats-service/installation.html)
 ways are described.
 
 The
-[update procedure](https://monarc-stats-service.readthedocs.io/en/latest/updates.html)
+[update procedure](https://www.monarc.lu/documentation/stats-service/updates.html)
 is also described.
 
 
