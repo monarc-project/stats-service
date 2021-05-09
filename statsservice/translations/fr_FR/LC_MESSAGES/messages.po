@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MONARC Stats Service\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-06 09:41+0200\n"
-"PO-Revision-Date: 2021-05-06 09:45+0200\n"
+"POT-Creation-Date: 2021-05-09 22:42+0200\n"
+"PO-Revision-Date: 2021-05-09 22:50+0200\n"
 "Last-Translator: Cédric Bonhomme <cedric@cedricbonhomme.org>\n"
 "Language-Team: French <https://translate.monarc.lu/projects/monarc-stats-"
 "service/stats-service/fr/>\n"
@@ -63,6 +63,10 @@ msgstr "à propos de cette instance."
 msgid "Help and documentation."
 msgstr "Aide et documentation."
 
+#: statsservice/templates/about_more.html:6
+msgid "Information about this instance"
+msgstr "Information à propos de cette instance"
+
 #: statsservice/templates/about_more.html:8
 msgid "Stats service version:"
 msgstr "Version de Stats Service:"
@@ -97,56 +101,56 @@ msgid "Vulnerabilities evolution"
 msgstr "Évolution des vulnérabilités"
 
 #: statsservice/templates/evolution.html:20
-#: statsservice/templates/evolution.html:56
+#: statsservice/templates/evolution.html:57
 #: statsservice/templates/index.html:25 statsservice/templates/index.html:63
 msgid "Display by"
 msgstr "Afficher par"
 
 #: statsservice/templates/evolution.html:22
-#: statsservice/templates/evolution.html:58
+#: statsservice/templates/evolution.html:59
 #: statsservice/templates/index.html:27
 msgid "Probability"
 msgstr "Probabilité"
 
 #: statsservice/templates/evolution.html:23
-#: statsservice/templates/evolution.html:59
+#: statsservice/templates/evolution.html:60
 #: statsservice/templates/index.html:28 statsservice/templates/index.html:66
 msgid "Occurrence"
 msgstr "Occurence"
 
 #: statsservice/templates/evolution.html:24
-#: statsservice/templates/evolution.html:60
+#: statsservice/templates/evolution.html:61
 #: statsservice/templates/index.html:29 statsservice/templates/index.html:67
 msgid "Max. associated risk level"
 msgstr "Niveau max. du risque associé"
 
 #: statsservice/templates/evolution.html:28
-#: statsservice/templates/evolution.html:64
+#: statsservice/templates/evolution.html:65
 #: statsservice/templates/index.html:33 statsservice/templates/index.html:71
 msgid "Order by"
 msgstr "Trier par"
 
 #: statsservice/templates/evolution.html:30
-#: statsservice/templates/evolution.html:66
+#: statsservice/templates/evolution.html:67
 #: statsservice/templates/index.html:73
 msgid "Highest"
 msgstr "Plus élevé"
 
 #: statsservice/templates/evolution.html:31
-#: statsservice/templates/evolution.html:67
+#: statsservice/templates/evolution.html:68
 #: statsservice/templates/index.html:74
 msgid "Lowest"
 msgstr "Plus bas"
 
 #: statsservice/templates/evolution.html:34
-#: statsservice/templates/evolution.html:70
+#: statsservice/templates/evolution.html:71
 #: statsservice/templates/index.html:39 statsservice/templates/index.html:77
 #: statsservice/templates/index.html:95 statsservice/templates/index.html:111
 msgid "Export"
 msgstr "Exporter"
 
-#: statsservice/templates/evolution.html:49
-#: statsservice/templates/evolution.html:85
+#: statsservice/templates/evolution.html:50
+#: statsservice/templates/evolution.html:87
 msgid "Inverse selection"
 msgstr "Inverser la sélection"
 
@@ -179,15 +183,15 @@ msgstr ""
 msgid "our website:"
 msgstr "notre site Web:"
 
-#: statsservice/templates/help.html:20
+#: statsservice/templates/help.html:19
 msgid "Q&A"
 msgstr "Q&R"
 
-#: statsservice/templates/help.html:26
+#: statsservice/templates/help.html:25
 msgid "How does it work?"
 msgstr "Comment cela fonctionne?"
 
-#: statsservice/templates/help.html:28
+#: statsservice/templates/help.html:27
 msgid ""
 "The charts are generated with aggregated statistics from multiple\n"
 "        <a href=\"https://www.monarc.lu\" rel=\"noreferrer\" target=\"_blank"
@@ -198,23 +202,23 @@ msgstr ""
 "        <a href=\"https://www.monarc.lu\" rel=\"noreferrer\" target=\"_blank"
 "\">MONARC</a>."
 
-#: statsservice/templates/help.html:32
+#: statsservice/templates/help.html:31
 msgid ""
 "More detailed information on the sharing of statistics is provided in the in "
 "the\n"
-"        <a href=\"https://monarc-stats-service.readthedocs.io/en/latest/"
+"        <a href=\"https://www.monarc.lu/documentation/stats-service/"
 "architecture.html\" rel=\"noreferrer\" target=\"_blank\">documentation</a>."
 msgstr ""
 "Des informations plus détaillées sur le partage des statistiques sont "
 "fournies dans la\n"
-" <a href=\"https://monarc-stats-service.readthedocs.io/en/latest/"
-"architecture.html\" rel=\"noreferrer\" target=\"_blank\">documentation</a>."
+" <a href=\"https://www.monarc.lu/documentation/stats-service/architecture."
+"html\" rel=\"noreferrer\" target=\"_blank\">documentation</a>."
 
-#: statsservice/templates/help.html:41
+#: statsservice/templates/help.html:40
 msgid "Want to contribute by sharing statistics?"
 msgstr "Voulez-vous contribuer en partageant des statistiques?"
 
-#: statsservice/templates/help.html:42
+#: statsservice/templates/help.html:41
 msgid ""
 "If you have your own MONARC instance you have the possibility to share some "
 "high level statistics with\n"
@@ -224,11 +228,11 @@ msgstr ""
 "partager des statistiques de haut niveau avec\n"
 "      la communauté MONARC. Si vous êtes intéressé, contactez simplement"
 
-#: statsservice/templates/help.html:50
+#: statsservice/templates/help.html:49
 msgid "What kind of data is involved ?"
 msgstr "Quel type de données est impliqué?"
 
-#: statsservice/templates/help.html:51
+#: statsservice/templates/help.html:50
 msgid ""
 "This dashboard attempts to provide meaningful insights based on the\n"
 "        <a href=\"https://objects.monarc.lu/schema/14\" rel=\"noreferrer\" "
@@ -257,35 +261,35 @@ msgstr ""
 "\"noreferrer\" target=\"_blank\">MONARC</a><sup><a href=\"#footnote-1\">[1]</"
 "a></sup>."
 
-#: statsservice/templates/help.html:65
+#: statsservice/templates/help.html:64
 msgid "How to send stats to dashboard.monarc.lu ?"
 msgstr "Comment envoyer des statistiques à dashboard.monarc.lu ?"
 
-#: statsservice/templates/help.html:66
+#: statsservice/templates/help.html:65
 msgid ""
 "A client is provided in order to let you push your stats. A documentation is "
 "available\n"
-"        <a href=\"https://monarc-stats-service.readthedocs.io/en/latest/"
-"command-line-interface.html#pushing-data\">here</a>."
+"        <a href=\"https://www.monarc.lu/documentation/stats-service/command-"
+"line-interface.html#pushing-data\">here</a>."
 msgstr ""
 "Un client est fourni pour vous permettre de partager vos statistiques. Une "
 "documentation est disponible\n"
-"        <a href=\"https://monarc-stats-service.readthedocs.io/en/latest/"
-"command-line-interface.html#pushing-data\">ici</a>."
+"        <a href=\"https://www.monarc.lu/documentation/stats-service/command-"
+"line-interface.html#pushing-data\">ici</a>."
 
-#: statsservice/templates/help.html:74
+#: statsservice/templates/help.html:73
 msgid "What are MONARC objects ?"
 msgstr "Que sont les objets MONARC?"
 
-#: statsservice/templates/help.html:75
+#: statsservice/templates/help.html:74
 msgid "If you are looking for the MONARC objects you can look at the official"
 msgstr "Si vous recherchez les objets MONARC, vous pouvez regarder sur"
 
-#: statsservice/templates/help.html:76
+#: statsservice/templates/help.html:75
 msgid "MONARC Objects Sharing Platform"
 msgstr "MOSP, la plateforme de partage d'objets MONARC"
 
-#: statsservice/templates/help.html:77
+#: statsservice/templates/help.html:76
 msgid ""
 "(MOSP) which is providing an API in order to create and share JSON objects. "
 "MOSP can be\n"
@@ -295,11 +299,11 @@ msgstr ""
 "être \n"
 "      connecté à une instance MONARC.."
 
-#: statsservice/templates/help.html:85
+#: statsservice/templates/help.html:84
 msgid "Your question is not here ?"
 msgstr "Votre question n'est pas ici?"
 
-#: statsservice/templates/help.html:86
+#: statsservice/templates/help.html:85
 msgid ""
 "You can look for already asked questions or add a new one\n"
 "      <a href=\"https://github.com/monarc-project/stats-service/discussions/"
@@ -403,11 +407,11 @@ msgstr "Carte"
 msgid "About"
 msgstr "À propos"
 
-#: statsservice/templates/map.html:10
+#: statsservice/templates/map.html:11
 msgid "Cybersecurity Weather Map"
 msgstr "Carte météo de la cybersécurité"
 
-#: statsservice/templates/map.html:18
+#: statsservice/templates/map.html:14
 msgid ""
 "Based on the statistics collected, this map presents the highest current "
 "threats and vulnerabilities, by region."
@@ -415,10 +419,10 @@ msgstr ""
 "Sur la base des statistiques collectées, cette carte présente les menaces et "
 "vulnérabilités actuelles les plus élevées, par région."
 
-#: statsservice/templates/map.html:19
+#: statsservice/templates/map.html:15
 msgid "You can also"
 msgstr "Vous pouvez aussi"
 
-#: statsservice/templates/map.html:19
+#: statsservice/templates/map.html:15
 msgid "share statistics"
 msgstr "partager des statistiques"
