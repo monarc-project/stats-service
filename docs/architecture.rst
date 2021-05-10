@@ -9,13 +9,24 @@ High level architecture
 
 
 MONARC clients hosted on FO1 and FO2 push regularly stats about risk analysis to
-a local Stats Service instance (dashboard.my.monarc.lu).
+a local Stats Service instance (dashboard.my.monarc.lu). This local Stats Service
+instance provides the required functionalities for the Global Dashboard of the MONARC
+clients. This step is the **collection of stats** and is local.
 
-A company has the possibility to `push stats <command-line-interface.html#pushing-data>`_
-from selected clients with the same
-account on, for example, dashboard.monarc.lu. The service behind dashboard.monarc.lu
-is operated by CASES Luxembourg and aims to provide relevant data about the
-current cybersecurity trends, focused in the Luxembourg area.
+.. note::
+
+    The collection of stats can be disabled per analysis.
+
+The next step is the **sharing of stats**. Indeed, a company has the possibility to
+`push stats <command-line-interface.html#pushing-data>`_
+from the local Stats Service to, for example, dashboard.monarc.lu.
+
+.. note::
+
+    The sharing of stats can be disabled per client.
+
+The service behind dashboard.monarc.lu is operated by CASES Luxembourg and aims to
+provide relevant data about the current cybersecurity trends, focused in the Luxembourg area.
 
 
 
@@ -23,7 +34,7 @@ Examples
 --------
 
 The following diagrams presents the idea behind the decentralized nature of
-Stats Service.
+i Stats Service.
 
 
 Scenario 1
@@ -32,9 +43,9 @@ Scenario 1
 .. image:: _static/architecture-stats-scenario1.png
    :alt: Stats Service API interaction with MONARC
 
-The Stats Service is installed on a dedicated server, gathering stats sent by the
-front office (FO). It can also return the aggregated stats to the MONARC backend (FO)
-for the dashboard of the MONARC users (with the CEO role).
+The Stats Service API (*stats*) is installed on the same server where the MONARC back
+office is deployed. Not on on a dedicated server. The server hosting the back office of
+MONARC is a good choice.
 
 .. note::
 
@@ -51,30 +62,17 @@ Scenario 2
 .. image:: _static/architecture-stats-scenario2.png
    :alt: Stats Service API interaction with MONARC
 
-In the company A, the difference is that Stats Service API (*stats*) is
-installed on the same server where the MONARC back office is deployed. Not on
-on a dedicated server. The server hosting the back office of MONARC is a good choice.
 
-
-
-Scenario 3
-''''''''''
-
-.. image:: _static/architecture-stats-scenario3.png
-   :alt: Stats Service API interaction with MONARC
-
-*stats* collects data from the two MONARC front offices of the company B.
-These aggregated data can be used for the dashboard for the CEO role of MONARC
-client instances in this company. But also, in the future, for the MONARC back office.
+The Stats Service is installed on a dedicated server.
 
      
-Scenario 4
+Scenario 3
 ''''''''''
 
 .. image:: _static/architecture-stats-scenario4.png
    :alt: Stats Service API interaction with MONARC
 
-Wendy is simply connected to a MONARC front office deployed in a local
+The user is simply connected to a MONARC front office deployed in a local
 Virtual Box instance. Stats Service (*stats*) is running next to MONARC in this virtual
 machine.
 
@@ -86,7 +84,7 @@ Important notes
 .. note::
 
     In all scenario, **locally collected** statistics (in *stats* node)
-    can optionally be sent to `dashboard.monarc.lu <https://dashboard.monarc.lu>`_ which is
+    can optionally be shared with `dashboard.monarc.lu <https://dashboard.monarc.lu>`_ which is
     a global instance. It's the same software. You can configure the
     global dashboard statistics **sharing** option in the
     `General Settings / Sharing statistics  <https://www.monarc.lu/documentation/user-guide/#global-dashboard>`_
