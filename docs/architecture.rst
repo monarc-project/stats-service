@@ -10,8 +10,9 @@ High level architecture
 
 MONARC clients hosted on FO1 and FO2 push regularly stats about risk analysis to
 a local Stats Service instance (dashboard.my.monarc.lu). This local Stats Service
-instance provides the required functionalities for the Global Dashboard of the MONARC
-clients. This step is the **collection of stats** and is local.
+instance provides the required functionalities for the
+`Global Dashboard <https://www.monarc.lu/documentation/user-guide/#global-dashboard>`_
+of the MONARC clients. This step is the **collection of stats** and is local.
 
 .. note::
 
