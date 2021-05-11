@@ -2,6 +2,497 @@ Changelog
 =========
 
 
+v0.4.0 (2021-05-11)
+-------------------
+
+New
+~~~
+- [map] added new command to unset the coordinates of a client. [Cédric
+  Bonhomme]
+- [templates] Added draft template in order to display a map with
+  leaflet. [Cédric Bonhomme]
+- [commands] Added commant to set coordinates of a client. [Cédric
+  Bonhomme]
+- [view] Added new necessary routes for the map. [Cédric Bonhomme]
+- [models] Added new optional latitude and longitude columns for the
+  clients. [Cédric Bonhomme]
+- [security] Set up a security policy. [Cédric Bonhomme]
+- [chartjs] added evolutionCharts.js. [Cédric Bonhomme]
+- [API] The API is now able to check the version of the MONARC client
+  instance. [Cédric Bonhomme]
+- [templates] make the new improved version of the dashboard the default
+  one. [Cédric Bonhomme]
+- [dashboard] added a test page/route for the dashboard. [Cédric
+  Bonhomme]
+- [connection] lookup object fron MOSP. first way. [Cédric Bonhomme]
+- [docker] added configuration for dockerhub. [Cédric Bonhomme]
+- [docker] added docker config file for flask app. [Cédric Bonhomme]
+- [mypy] fixed some duplicate definition and inconsistent type
+  definitions. [Cédric Bonhomme]
+- [documentation] launch the app under screen session. [Cédric Bonhomme]
+- [views] added index route which is replacing the redirect for
+  stats_bp.stats route (/). [Cédric Bonhomme]
+- [Internationalization] Added i18n and l10n support with a draft po
+  file for French. [Cédric Bonhomme]
+- [GitHub] added template for managemenr of stale issues. [Cédric
+  Bonhomme]
+- [configuration] Added sample webserver.wsgi file. [Cédric Bonhomme]
+- [typing] added optional static type checker. [Cédric Bonhomme]
+- [configuration] Added sample configuration files for systemd and
+  Apache. [Cédric Bonhomme]
+- [documentation] Added gitchangelog in pyproject.toml and retrieved
+  details about changelog of past releases, initially missing in the
+  CHANGELOG.md file. [Cédric Bonhomme]
+- [addons] added Alembic configurations files for migrations. [Cédric
+  Bonhomme]
+
+Changes
+~~~~~~~
+- [documentation] Improved explanations about the architecture. [Cédric
+  Bonhomme]
+- [documentation] Improved explanations about the architecture. [Cédric
+  Bonhomme]
+- [translations] Updated French translations. [Cédric Bonhomme]
+- [translations] updated pot file. [Cédric Bonhomme]
+- [templates] Updated title of the about/more page. [Cédric Bonhomme]
+- Updated dependencies. [Cédric Bonhomme]
+- [documentation] Replaced Sphinx RTD theme with Book theme. [Cédric
+  Bonhomme]
+- [documentation] added section for the blueprint root. [Cédric
+  Bonhomme]
+- [templates] shorten the lines to ease the reading of the text. [Cédric
+  Bonhomme]
+- [documentation] Updated link to the documentation. [Cédric Bonhomme]
+- [documentation] various updates to the documentation. [Cédric
+  Bonhomme]
+- [documentation] update architecture presentation for the organization
+  level. [Cédric Bonhomme]
+- [translations] Removed fuzzy entries. [Cédric Bonhomme]
+- [internationalisation] updated French translations. [Cédric Bonhomme]
+- [style] fixed some CSS and HTML accessibility issues. [Cédric
+  Bonhomme]
+- [map] minor layout update. [Cédric Bonhomme]
+- [templates] minor accessibility improvements. [Cédric Bonhomme]
+- [templates] minor accessibility improvements. [Cédric Bonhomme]
+- [translations] Updated some french translations. [Cédric Bonhomme]
+- [templates] removed useless vertical space. [Cédric Bonhomme]
+- [templates] updated about page and main nav-bar. [Cédric Bonhomme]
+- [commands] added commands client_sharing_activate and
+  client_sharing_deactivate. [Cédric Bonhomme]
+- [map] using container-fluid for the map. [Cédric Bonhomme]
+- [evolution] Added btn-secondary class to the inverse selection
+  buttons. [Cédric Bonhomme]
+- [map] renamed command client_set_coordinates to
+  client_coordinates_set. [Cédric Bonhomme]
+- [map] removed link to the details about an area. [Cédric Bonhomme]
+- Fixed conflict. [Cédric Bonhomme]
+- [templates] improved accessibility. [Cédric Bonhomme]
+- [JavaScript] Updated package.json meta information. [Cédric Bonhomme]
+- [internationalization] Updated French translations. [Cédric Bonhomme]
+- [map template] Now using a custom L.icon for the markers. [Cédric
+  Bonhomme]
+- [template] Fixed the navbar toogler. [Cédric Bonhomme]
+- [map] skip region with no data. [Cédric Bonhomme]
+- [map template] translation of labels with MOSP. [Cédric Bonhomme]
+- [templates] Updated map template. Basic functions are working. [Cédric
+  Bonhomme]
+- [format] Reformat with black. [Cédric Bonhomme]
+- [views] Updated clients.json endpoint. [Cédric Bonhomme]
+- [JavaScript] Updated Chart.js. [Cédric Bonhomme]
+- [templates] Improved global layout and added link to evolution page.
+  [Cédric Bonhomme]
+- [views] Renamed stats_bp.stats to root_bp.evolution. [Cédric Bonhomme]
+- Replaced 'npm install --no-save --from-lock-file' by 'npm ci'. [Cédric
+  Bonhomme]
+- Updated popper.js. [Cédric Bonhomme]
+- Updated npm commands in order to have reproductible builds. [Cédric
+  Bonhomme]
+- Removed charColors variable from evolutionCharts.js. [Cédric Bonhomme]
+- Updated package-lock.json. [Cédric Bonhomme]
+- Updated Python dependencies and overall checks. [Cédric Bonhomme]
+- [documentation] Typo. [Cédric Bonhomme]
+- [documentation] Updated updates.rst file. [Cédric Bonhomme]
+- [documentation] SImplify presentation and README. [Cédric Bonhomme]
+- [documentation] Updated presentation. [Cédric Bonhomme]
+- [documentation] Updated information about the update procedure.
+  [Cédric Bonhomme]
+- [documentation] Updated information about the update procedure.
+  [Cédric Bonhomme]
+- Improved updated script. [Cédric Bonhomme]
+- Updated requirements.txt. [Cédric Bonhomme]
+- Updated Python runtime. [Cédric Bonhomme]
+- [javascript] Updated node engines version. [Cédric Bonhomme]
+- [javascript] updated node engine. [Cédric Bonhomme]
+- [internationalisation] auto translate object labels via MOSP calls.
+  [Cédric Bonhomme]
+- [translations] Updated source strings and translation. [Cédric
+  Bonhomme]
+- [chartjs] configure legend for the line charts (time scale). [Cédric
+  Bonhomme]
+- [chartjs] set a maximum date for the x axis. [Cédric Bonhomme]
+- [chartjs] Added Chartjs moment adapter and moment. [Cédric Bonhomme]
+- Cosmethic changes. [Cédric Bonhomme]
+- [code] Updated dependencies. [Cédric Bonhomme]
+- Fix merge conflict. [Cédric Bonhomme]
+- Updated dependencies (SQLAlchemy). [Cédric Bonhomme]
+- [documentaion] Minor change in the index file. [Cédric Bonhomme]
+- [templates] Explaind on what are based the charts. [Cédric Bonhomme]
+- [stats_bp] the limit of the 5 last stats has been replaced by the last
+  60 days of stats. [Cédric Bonhomme]
+- [templates] Changed the link to MOSP. [Cédric Bonhomme]
+- [contrib] updated Python dependencies with only no-dev packages.
+  [Cédric Bonhomme]
+- Removed useless import of group_threats which is no more used. [Cédric
+  Bonhomme]
+- Updated requirements.txt file. [Cédric Bonhomme]
+- [processors] Removed useless import of defaultdict. [Cédric Bonhomme]
+- [processors] Removed the processors which uses pandas and removed the
+  dependency to pandas. [Cédric Bonhomme]
+- Added comment. [Cédric Bonhomme]
+- Updated poetry.lock. [Cédric Bonhomme]
+- [processors] Improved threat_average_on_date processor. [Cédric
+  Bonhomme]
+- Updated dependencies. [Cédric Bonhomme]
+- [processors] Improved threat_average_on_date processor. [Cédric
+  Bonhomme]
+- [processors] Improved threat_average_on_date processor. [Cédric
+  Bonhomme]
+- [MOSP] The lib/mosp.py helper is now using PyMOSP in order to check if
+  an object is present on MOSP (objects.monarc.lu). [Cédric Bonhomme]
+- [API] Improved managemt of models for marshalling of API result.
+  [Cédric Bonhomme]
+- [docker] added a new volume to share the code between the host and the
+  container. [Cédric Bonhomme]
+- [documentation] Various minor improvements. [Cédric Bonhomme]
+- Updated requirements.txt. [Cédric Bonhomme]
+- Updated Heroku runtime. [Cédric Bonhomme]
+- Updated README. [Cédric Bonhomme]
+- Typo. [Cédric Bonhomme]
+- [docker] Container generation against master branch. [Cédric Bonhomme]
+- [documentation] Cosmetic changes. [Cédric Bonhomme]
+- [templates] Improved management of modals and checking of object
+  existence on MOSP. [Cédric Bonhomme]
+- [templates] Added a model to inform the user he/she is about to leave
+  the website. [Cédric Bonhomme]
+- [documentation] small update. [Cédric Bonhomme]
+- [docker] exposes postgres. [Cédric Bonhomme]
+- [docker] removed network bridges. [Cédric Bonhomme]
+- [docker] defined a birdged networks for the services. [Cédric
+  Bonhomme]
+- [docker] upgrade db. [Cédric Bonhomme]
+- [documentation] Updated informations related to deployments. [Cédric
+  Bonhomme]
+- [docker] Updated documentation. [Cédric Bonhomme]
+- [docker] replace CMD ENTRYPONT by CMD. [Cédric Bonhomme]
+- [docker] added entry point. [Cédric Bonhomme]
+- [docker] changed docker id. [Cédric Bonhomme]
+- [docker] push only mypy branch for now. [Cédric Bonhomme]
+- [docker] push only mypy branch for now. [Cédric Bonhomme]
+- [docker] push only mypy branch for now. [Cédric Bonhomme]
+- [docker] push only mypy branch for now. [Cédric Bonhomme]
+- [docker] push only mypy branch for now. [Cédric Bonhomme]
+- [docker] set FLASK_RUN_PORT variable. [Cédric Bonhomme]
+- [docker] test. [Cédric Bonhomme]
+- [docker] change the persistent volume name on host. [Cédric Bonhomme]
+- [docker] not exposes the app on port 5000. [Cédric Bonhomme]
+- [docker] exposes the app on port 5000. [Cédric Bonhomme]
+- [docker] bumped numpy version. [Cédric Bonhomme]
+- [docker] replaces ash by bash. [Cédric Bonhomme]
+- [docker] uses again Ubuntu focal. [Cédric Bonhomme]
+- Updated documentation. [Cédric Bonhomme]
+- [docker] test. [Cédric Bonhomme]
+- [docker] test. [Cédric Bonhomme]
+- [docker] test. [Cédric Bonhomme]
+- [docker] test. [Cédric Bonhomme]
+- [docker] test. [Cédric Bonhomme]
+- [docker] use the pulled version of Python. [Cédric Bonhomme]
+- [docker] cryptography is requiring new dependencies. [Cédric Bonhomme]
+- [docker] now uses Alpine. [Cédric Bonhomme]
+- [docker] now uses Alpine. [Cédric Bonhomme]
+- [docker] set ENV DEBIAN_FRONTEND=noninteractive. [Cédric Bonhomme]
+- [docker] change postgres port. [Cédric Bonhomme]
+- [docker] install npm. [Cédric Bonhomme]
+- [docker] wait for postgres to be ready. [Cédric Bonhomme]
+- [docker] Use DB healthcheck to check if the database is ready, [Cédric
+  Bonhomme]
+- FLASK env variable prefix command should be useless. [Cédric Bonhomme]
+- CP runserver.py. [Cédric Bonhomme]
+- Set env variable before the installation. [Cédric Bonhomme]
+- Set env variable before the installation. [Cédric Bonhomme]
+- Added missing type info in validation.py. [Cédric Bonhomme]
+- [documentation] Updated swagger definition file. [Cédric Bonhomme]
+- [mypy] verbose is a bool. [Cédric Bonhomme]
+- [templates] labels from object fetched on the index page are now
+  resolved via MOSP. [Cédric Bonhomme]
+- [misc] added translation status badge in README. [Cédric Bonhomme]
+- [documentation] provide STATS_CONFIG env variable instead of FLASP_APP
+  when deploying with screen. [Cédric Bonhomme]
+- [stats_bp] get more recent stats when the client is using the
+  arguments last_stats, not only the most recent day. [Cédric Bonhomme]
+- [templates] Revamped index and stats Jinja HTML templates. [Cédric
+  Bonhomme]
+- [views] the stats_bp.vulnerabilities route is now accepting the
+  argument last_stats if the user only wants to execute the processor on
+  the last (most recent) stats for each different vulnerabilities.
+  [Cédric Bonhomme]
+- [misc] added jinja html syntax highlithing for .html files. [Cédric
+  Bonhomme]
+- [views] the stats_bp.threats route is now accepting the argument
+  last_stats if the user only wants to execute the processor on the last
+  (most recent) stats for each different threats. [Cédric Bonhomme]
+- [documentation] Updated details about the push of stats and the
+  architecture, [Cédric Bonhomme]
+- [Heroku] Updated Python runtime. [Cédric Bonhomme]
+- [models] minor update to a comment in order to explain the point of
+  the attribute name of clients. [Cédric Bonhomme]
+- [commands] added help message to the new --data-from and --date-to
+  commands. [Cédric Bonhomme]
+- [commands] added options --data-from ad --date-to to the stats_push
+  commands. [Cédric Bonhomme]
+- [core] os.devnull is now used for stderr in subprocess.run when
+  getting the version number of the software. [Cédric Bonhomme]
+- [documentation] add command to upgrade the database in the
+  documentation. [Cédric Bonhomme]
+- [contrib] run db migratons when updating app. [Cédric Bonhomme]
+
+Fix
+~~~
+- [documentation] typo in architecture.rst title page. [Cédric Bonhomme]
+- [documentation] Bad code block. [Cédric Bonhomme]
+- [chartjs] bad display format for the date on the x axis. [Cédric
+  Bonhomme]
+- [chartjs] fixed the time series charts. [Cédric Bonhomme]
+- [charts] Updated bootstrap. [Cédric Bonhomme]
+- [charts] replaced datasetIndex with index. [Cédric Bonhomme]
+- [type] Unsupported right operand type for in ("Optional[str]").
+  [Cédric Bonhomme]
+- [contrib] The protocol name for the database URI is postgresql and not
+  postgres. [Cédric Bonhomme]
+- Forgot to prefix the commands with RUN. [Cédric Bonhomme]
+- [templates] fixed a typo in involved word. [Cédric Bonhomme]
+- [core] handle case distribution is not installed in case of deployment
+  via pypi. [Cédric Bonhomme]
+- [API] removed duplicated import of abort. [Cédric Bonhomme]
+- [commands] Typo in the help message for the stats_push commands.
+  [Cédric Bonhomme]
+- [commands] F821 undefined name 'client'. [Cédric Bonhomme]
+- [API] Fixed lint errors. [Cédric Bonhomme]
+
+Other
+~~~~~
+- Translations tag for the new title of the about/more page. [Cédric
+  Bonhomme]
+- Improved map page. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Improved layout for about page. [jfrocha]
+- Added legend tooltip to evolution charts. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Fixed typo. [jfrocha]
+- Improved responsive charts layout. [jfrocha]
+- Fixed format number in risks CSV export. [jfrocha]
+- Fixed number format in evolution CSV export. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Merge branch 'dashboard-test' of github.com:monarc-project/stats-
+  service into dashboard-test. [Cédric Bonhomme]
+- Fix merge conflict. [Cédric Bonhomme]
+- Added export PNG and CSV in risk tab. [jfrocha]
+- Removed useless code. [jfrocha]
+- Removed wrong ids. [jfrocha]
+- Changed Tabs CSS. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Removed useless code. [jfrocha]
+- Removed nav dropdown items. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Improved layout adding tabs. [jfrocha]
+- Fixed conflict. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Merge pull request #10 from monarc-project/map. [Cedric]
+
+  Map
+- Merge branch 'dashboard-test' into map. [Cédric Bonhomme]
+- Merge branch 'dashboard-test' of github.com:monarc-project/stats-
+  service into dashboard-test. [Cédric Bonhomme]
+- Merge branch 'dashboard-test' of github.com:monarc-project/stats-
+  service into dashboard-test. [Cédric Bonhomme]
+- Merge branch 'dashboard-test' of github.com:monarc-project/stats-
+  service into dashboard-test. [Cédric Bonhomme]
+- Merge branch 'dashboard-test' into map. [Cédric Bonhomme]
+- Improved layout evolution charts view. [jfrocha]
+- Added export PNG/CSV to evolutions charts. [jfrocha]
+- Added export PNG and CSV to current charts. [jfrocha]
+- Added bootstrap-icons package. [jfrocha]
+- Improved chart format. [jfrocha]
+- Added filter to ignore all data equal to zero. [jfrocha]
+- Added order by option in top charts. [jfrocha]
+- Added inverse selection button in evolution charts. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Improved evolution charts adding display options. [jfrocha]
+- Merge branch 'dashboard-test' of github.com:monarc-project/stats-
+  service into dashboard-test. [Cédric Bonhomme]
+- Factorized update evolution charts function. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Improved size and truncate text of canvas. [jfrocha]
+- Fixed loss data in update. [jfrocha]
+- Fixed and improved code. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Added JavaScript trick to block Chrome’s FLoC. [Cédric Bonhomme]
+- Translated using Weblate (French) [Cédric Bonhomme]
+
+  Currently translated at 98.3% (58 of 59 strings)
+- Merge branch 'master' of github.com:monarc-project/stats-service.
+  [Cédric Bonhomme]
+- Translated using Weblate (French) [Cédric Bonhomme]
+
+  Currently translated at 98.3% (58 of 59 strings)
+- Merge branch 'dashboard-test' [Cédric Bonhomme]
+- Merge branch 'dashboard-test' [Cédric Bonhomme]
+- Improved MOSP query. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Added color scheme generator using d3.js. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Updated dependencies. [Cédric Bonhomme]
+- Factorized code with cloneDeep module. [jfrocha]
+- Added lodash.clonedeep module. [jfrocha]
+- Factorized some variables. [jfrocha]
+- Add check in valueTop. [jfrocha]
+- Added select average to display. [jfrocha]
+- Merge branch 'dashboard-test' of github.com:monarc-project/stats-
+  service into dashboard-test. [Cédric Bonhomme]
+- Improved layout of index view. [jfrocha]
+- Fixed missing canvas route. [jfrocha]
+- Added data buffer. [jfrocha]
+- Refactored JS dependecies. [jfrocha]
+- Created risksCharts js file. [jfrocha]
+- Factorized updateChart function. [jfrocha]
+- Cosmethic changes. [jfrocha]
+- Merged code. [jfrocha]
+- Translated using Weblate (French) [Cédric Bonhomme]
+
+  Currently translated at 93.2% (55 of 59 strings)
+- Improved code. [jfrocha]
+- Merge branch 'dashboard-test' of https://github.com/monarc-
+  project/stats-service into dashboard-test. [jfrocha]
+- Improved code spliting js from html sources. [jfrocha]
+- Migrated Chart.js. [Cédric Bonhomme]
+- Merge branch 'master' into dashboard-test. [Cédric Bonhomme]
+- Fix conflict. [Cédric Bonhomme]
+- Migrated Chart.js. [Cédric Bonhomme]
+- Merge branch 'dashboard-test' of github.com:monarc-project/stats-
+  service into dashboard-test. [Cédric Bonhomme]
+- Improved risks chart. [jfrocha]
+- Improved data sort doing before MOSP queries. [jfrocha]
+- Merge branch 'master' of github.com:monarc-project/stats-service into
+  dashboard-test. [Cédric Bonhomme]
+- Chg [core]: Updated requirements.txt. [Cédric Bonhomme]
+- Merge branch 'mosp-lookup' into mypy. [Cédric Bonhomme]
+- Check: [docker] define a new volume for static resources. [Cédric
+  Bonhomme]
+- Updated documentation. [Cédric Bonhomme]
+- Renamed Dockerfile for Alpine. [Cédric Bonhomme]
+- Deleted crowdin.yml configuration file. [Cédric Bonhomme]
+- Testing github packages. [Cédric Bonhomme]
+- Merge pull request #4 from monarc-project/feature/is-sharing-enabled.
+  [Ruslan Baidan]
+
+  Added the option for the client and endpoint.
+- Merge remote-tracking branch 'origin/master' into feature/is-sharing-
+  enabled. [Ruslan Baidan]
+
+  * origin/master:
+    fix: [templates] fixed a typo in involved word.
+    Update Crowdin configuration file
+    new: [Internationalization] Added i18n and l10n support with a draft po file for French.
+    chg: [documentation] Updated details about the push of stats and the architecture,
+    chg: [Heroku] Updated Python runtime.
+    fix: [core] handle case distribution is not installed in case of deployment via pypi
+    new: [GitHub] added template for managemenr of stale issues.
+    fix: [API] removed duplicated import of abort.
+    new: [configuration] Added sample webserver.wsgi file.
+    new: [typing] added optional static type checker.
+    new: [configuration] Added sample configuration files for systemd and Apache.
+    new: [documentation] Added gitchangelog in pyproject.toml and retrieved details about changelog of past releases, initially missing in the CHANGELOG.md file.
+
+  # Conflicts:
+  #	contrib/update.sh
+  #	poetry.lock
+  #	pyproject.toml
+  #	statsservice/bootstrap.py
+- Merge branch 'master' of github.com:monarc-project/stats-service.
+  [Cédric Bonhomme]
+- Update Crowdin configuration file. [Cedric]
+- Renamed the constant to be aligned with the linked name. [Ruslan
+  Baidan]
+- Added the upgarde command to the readme. [Ruslan Baidan]
+- Modified the stats push to send the stats for all the clients. [Ruslan
+  Baidan]
+- Fixed the migration's default value. [Ruslan Baidan]
+- Merge remote-tracking branch 'origin/master' into feature/is-sharing-
+  enabled. [Ruslan Baidan]
+
+  * origin/master:
+    chg: [core] os.devnull is now used for stderr in subprocess.run when getting the version number of the software.
+- Updated the migration properties. [Ruslan Baidan]
+- Merge branches 'feature/is-sharing-enabled' and 'feature/is-sharing-
+  enabled' of https://github.com/monarc-project/stats-service into
+  feature/is-sharing-enabled. [Ruslan Baidan]
+
+  * 'feature/is-sharing-enabled' of https://github.com/monarc-project/stats-service:
+    chg: [documentation] add command to upgrade the database in the documentation.
+    new: [addons] added Alembic configurations files for migrations.
+    chg: [contrib] run db migratons when updating app
+    fix: [API] Fixed lint errors.
+
+  * 'feature/is-sharing-enabled' of https://github.com/monarc-project/stats-service:
+    chg: [documentation] add command to upgrade the database in the documentation.
+    new: [addons] added Alembic configurations files for migrations.
+    chg: [contrib] run db migratons when updating app
+    fix: [API] Fixed lint errors.
+
+  # Conflicts:
+  #	statsservice/api/v1/client.py
+- Fixed the typo in the name. [Ruslan Baidan]
+- Added the option for the client and endpoint. [Ruslan Baidan]
+- Merge branch 'master' of https://github.com/monarc-project/stats-
+  service. [Ruslan Baidan]
+
+  * 'master' of https://github.com/monarc-project/stats-service: (26 commits)
+    chg: [config] updated pyproject.toml and configuration for the version 0.3.0.
+    Updated documentation
+    new: [documentation] Added section about integration with MONARC and collect of the stats.
+    chg: [documentation] Make the note about the collection and sharing more clear.
+    chg: [documentation] Added details about the security model.
+    chg: [documentation] Added note in architecture doc.
+    chg: [documentation] Rephrasing.
+    chg: [documentation] simplification of the presentation of the architecture.
+    new: [documentation] Added more help/information for the potential contributors.
+    chg: [style] Reformat web resources.
+    fix: error when templating the configuration of the two bar charts.
+    chg: [javascript] Moved to async function when getting infor from MOSP
+    chg: [template] moving JS configuration variables in a dedicated file.
+    chg: [template] Charts for threats and vulnerabilities are now useing the averageRate values from MONARC.
+    chg: [commands] Try to improve the display of the legend.
+    chg: [commands] More responsiev charts.
+    chg: [commands] Removed debug print in commands/stats.py
+    new: [templates] display visual data about risks.
+    chg: [template] Improved stats.html template.
+    chg: [documentation] typo.
+    ...
+- Create create_new_client.sh. [Ruslan Baidan]
+
+  Added the script to create a new client from cli.
+
+
 v0.3.0 (2021-02-12)
 -------------------
 
