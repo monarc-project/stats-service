@@ -23,3 +23,5 @@ echo -e "✨ 🌟 ✨"
 echo -e "${GREEN}Stats Service updated. You can now restart the service.${NC} Examples:"
 echo "    sudo systemctl restart statsservice.service"
 echo "    sudo systemctl restart apache2.service"
+
+exit 0
