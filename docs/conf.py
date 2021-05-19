@@ -22,7 +22,7 @@ copyright = 'SECURITYMADEIN.LU <info@cases.lu>'
 author = 'Cédric Bonhomme <cedric@cedricbonhomme.org>'
 
 # The full version, including alpha/beta/rc tags
-release = '0.3.0'
+release = '0.4.0'
 
 
 # -- General configuration ---------------------------------------------------
