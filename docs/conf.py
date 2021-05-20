@@ -33,10 +33,25 @@ master_doc = 'index'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "sphinx_multiversion",
 ]
+
+# Patterns
+# smv_tag_whitelist = r"^refs/tags/v\d+\.\d+\.\d+$|latest"
+smv_released_pattern = r"^refs/tags/v\d+\.\d+\.\d+$"
+smv_branch_whitelist = r'master$'
+smv_remote_whitelist = None
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+html_sidebars = {
+    '**': [
+        'sbt-sidebar-nav.html',
+        'versioning.html',
+    ],
+}
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
