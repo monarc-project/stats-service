@@ -21,38 +21,38 @@ admin_bp = Blueprint("admin_bp", __name__, url_prefix="/admin")
 @login_required
 @admin_permission.require(http_exception=403)
 def client_sharing_activate(client_uuid):
-    """Enable the sharing of stats for a client.
-    """
+    """Enable the sharing of stats for a client."""
     env = os.environ.copy()
-    env['FLASK_APP'] = 'runserver.py'
+    env["FLASK_APP"] = "runserver.py"
     cmd = [
         sys.exec_prefix + "/bin/flask",
         "client_sharing_activate",
-        "--uuid", str(client_uuid),
+        "--uuid",
+        str(client_uuid),
     ]
 
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env)
-    #stdout, stderr = process.communicate()
-    #print(stdout)
+    # stdout, stderr = process.communicate()
+    # print(stdout)
 
     return jsonify({"result": "OK"})
 
 
 @admin_bp.route("/client_sharing_deactivate.json/<client_uuid>", methods=["GET"])
 def client_sharing_deactivate(client_uuid):
-    """Disable the sharing of stats for a client.
-    """
+    """Disable the sharing of stats for a client."""
     env = os.environ.copy()
-    env['FLASK_APP'] = 'runserver.py'
+    env["FLASK_APP"] = "runserver.py"
     cmd = [
         sys.exec_prefix + "/bin/flask",
         "client_sharing_deactivate",
-        "--uuid", str(client_uuid),
+        "--uuid",
+        str(client_uuid),
     ]
 
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env)
-    #stdout, stderr = process.communicate()
-    #print(stdout)
+    # stdout, stderr = process.communicate()
+    # print(stdout)
 
     return jsonify({"result": "OK"})
 

@@ -10,11 +10,10 @@ from flask_principal import (
     Principal,
     Identity,
     UserNeed,
-    Permission,
     RoleNeed,
+    Permission,
     identity_changed,
     identity_loaded,
-    session_identity_loader,
 )
 from statsservice.models.client import ROLE_USER, ROLE_ADMIN
 from statsservice.models import Client
@@ -25,6 +24,8 @@ principals = Principal(current_app)
 login_manager = OriginalLoginManager()
 login_manager.init_app(current_app)
 
+
+# Definitions of roles and permissions
 user_role = RoleNeed(ROLE_USER)
 admin_role = RoleNeed(ROLE_ADMIN)
 
@@ -33,17 +34,19 @@ admin_permission = Permission(admin_role)
 
 
 class CustomSessionInterface(SecureCookieSessionInterface):
-    """Prevent creating session from API requests."""
+    """Prevent creating session from API requests (/admin endpoints)."""
+
     def should_set_cookie(self, *args, **kwargs):
         return False
 
     def save_session(self, *args, **kwargs):
-        if g.get('login_via_header'):
+        if g.get("login_via_header"):
             return
-        return super(CustomSessionInterface, self).save_session(*args,
-                                                                **kwargs)
+        return super(CustomSessionInterface, self).save_session(*args, **kwargs)
+
 
 application.session_interface = CustomSessionInterface()
+
 
 @user_loaded_from_header.connect
 def user_loaded_from_header(self, user=None):
@@ -58,13 +61,11 @@ class LoginManager(OriginalLoginManager):
 
 @login_manager.request_loader
 def load_user_from_request(request):
-    """
-    Load user from Authentication header.
-    """
-    if request.headers.get('X-API-KEY', False):
-        user = Client.query.filter(Client.token == request.headers.get('X-API-KEY', False)).first()
+    """Load user from authentication header."""
+    token = request.headers.get("X-API-KEY", False)
+    if token:
+        user = Client.query.filter(Client.token == token).first()
         if user:
-            print(user)
             login_user(user)
             identity_changed.send(current_app, identity=Identity(user.id))
             return user
@@ -77,7 +78,6 @@ def load_user_from_request(request):
 @login_manager.user_loader
 def load_user(client_id):
     return Client.query.filter(Client.id == client_id).first()
-
 
 
 @identity_loaded.connect_via(current_app._get_current_object())
