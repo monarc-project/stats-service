@@ -53,8 +53,8 @@ The collected statistics can be sent to an other Stats Service instance.
    :hidden:
 
    api-v1
-   stats
    root
+   stats
    admin
 
 
