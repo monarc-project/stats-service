@@ -7,6 +7,7 @@ import subprocess
 from flask import Blueprint, jsonify
 from flask_login import current_user, login_required
 from statsservice.views.common import admin_permission
+from statsservice.bootstrap import application
 
 
 # stats_bp: blueprint for
@@ -61,4 +62,11 @@ def client_sharing_deactivate(client_uuid):
 
 @admin_bp.route("/update.json", methods=["GET"])
 def update():
-    pass
+    root_path = os.path.dirname(application.instance_path)
+    process = subprocess.Popen(["./contrib/update.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=root_path)
+    process.wait()
+    content = ""
+    for line in process.stdout.readlines():
+        print(line)
+        content += str(line)
+    return jsonify({"result": "OK", "output": content})
