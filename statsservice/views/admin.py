@@ -9,17 +9,19 @@ from flask_login import current_user, login_required
 from statsservice.views.common import admin_permission
 
 
-# import statsservice.lib.processors
-# from statsservice.models import Client, Stats
-
-
 # stats_bp: blueprint for
 admin_bp = Blueprint("admin_bp", __name__, url_prefix="/admin")
 
 
-@admin_bp.route("/client_sharing_activate.json/<client_uuid>", methods=["GET"])
+@admin_bp.before_request
 @login_required
 @admin_permission.require(http_exception=403)
+def restrict_bp_to_admins():
+    """Decorator to restrict the blueprint to users with admin permissions."""
+    pass
+
+
+@admin_bp.route("/client_sharing_activate.json/<client_uuid>", methods=["GET"])
 def client_sharing_activate(client_uuid):
     """Enable the sharing of stats for a client."""
     env = os.environ.copy()
