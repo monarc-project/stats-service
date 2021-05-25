@@ -9,7 +9,7 @@ Generally speaking, requirements are the following:
 - A GNU/Linux distribution (tested on Debian and Ubuntu);
 - Python: version >= 3.8 (preferably use `pyenv <https://github.com/pyenv/pyenv>`_)
   and a dependency manager (for example `Poetry <https://python-poetry.org>`_);
-- A PostgreSQL server 12.x: persistent storage.
+- A PostgreSQL server >= 12.x: persistent storage.
 
 
 Additionally:
@@ -129,6 +129,8 @@ A demo instance is available [here](https://monarc-stats-service.herokuapp.com).
 
 Docker
 ~~~~~~
+
+Deployment with Docker is well suited for development purposes.
 
 Depending on how you installed Docker on your system, you might have to use ``sudo``,
 which is discouraged.

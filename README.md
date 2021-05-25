@@ -33,11 +33,11 @@ To be found in the ``docs`` directory of the source code, or
 viewed online [here](https://www.monarc.lu/documentation/stats-service/).
 
 Several
-[installation](https://www.monarc.lu/documentation/stats-service/installation.html)
+[installation](https://www.monarc.lu/documentation/stats-service/master/installation.html)
 ways are described.
 
 The
-[update procedure](https://www.monarc.lu/documentation/stats-service/updates.html)
+[update procedure](https://www.monarc.lu/documentation/stats-service/master/updates.html)
 is also described.
 
 
