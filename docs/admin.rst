@@ -1,5 +1,5 @@
-Blueprint root
-==============
+Blueprint admin
+===============
 
 Security model
 --------------
