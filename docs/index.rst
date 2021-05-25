@@ -60,7 +60,7 @@ The collected statistics can be sent to an other Stats Service instance.
 Bugs
 ====
 
-Please report feature requests and problems to:
+Please report bugs to:
 
 https://github.com/monarc-project/stats-service/issues
 
