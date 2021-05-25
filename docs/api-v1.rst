@@ -12,7 +12,7 @@ Security model
 
 First, an overview of the security model.
 
-Clients needs to have an account on the Stats Service and a token in order to submit
+Clients needs to have an activated account and a token in order to submit
 new stats and to query the API. New clients can be created with the
 `dedicated command <command-line-interface.html#creating-a-client>`_.
 

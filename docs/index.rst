@@ -55,6 +55,7 @@ The collected statistics can be sent to an other Stats Service instance.
    api-v1
    stats
    root
+   admin
 
 
 Bugs
