@@ -86,7 +86,8 @@ def update():
     )
     process.wait()
     content = ""
-    for line in process.stdout.readlines():
-        print(line)
-        content += str(line)
+    if process.stdout:
+        for line in process.stdout.readlines():
+            print(line)
+            content += str(line)
     return jsonify({"result": "OK", "stdout": content})

@@ -49,7 +49,7 @@ application.session_interface = CustomSessionInterface()
 
 
 @user_loaded_from_header.connect
-def user_loaded_from_header(self, user=None):
+def user_loaded_from_header_custom(self, user=None):
     g.login_via_header = True
 
 
