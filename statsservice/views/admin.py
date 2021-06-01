@@ -34,11 +34,18 @@ def client_sharing_activate(client_uuid):
         str(client_uuid),
     ]
 
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env)
-    # stdout, stderr = process.communicate()
-    # print(stdout)
+    process = subprocess.Popen(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env
+    )
+    stdout, stderr = process.communicate()
+    if stderr:
+        result = "KO"
+        http_code = 400
+    else:
+        result = "OK"
+        http_code = 200
 
-    return jsonify({"result": "OK"})
+    return jsonify({"result": result, "stderr": str(stderr)}), http_code
 
 
 @admin_bp.route("/client_sharing_deactivate.json/<client_uuid>", methods=["GET"])
@@ -53,20 +60,33 @@ def client_sharing_deactivate(client_uuid):
         str(client_uuid),
     ]
 
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env)
-    # stdout, stderr = process.communicate()
-    # print(stdout)
+    process = subprocess.Popen(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env
+    )
+    stdout, stderr = process.communicate()
+    if stderr:
+        result = "KO"
+        http_code = 400
+    else:
+        result = "OK"
+        http_code = 200
 
-    return jsonify({"result": "OK"})
+    return jsonify({"result": result, "stderr": str(stderr)}), http_code
 
 
 @admin_bp.route("/update.json", methods=["GET"])
 def update():
+    """Trigger the update of Stats Service with the shell script: ./contrib/update.sh."""
     root_path = os.path.dirname(application.instance_path)
-    process = subprocess.Popen(["./contrib/update.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=root_path)
+    process = subprocess.Popen(
+        ["./contrib/update.sh"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        cwd=root_path,
+    )
     process.wait()
     content = ""
     for line in process.stdout.readlines():
         print(line)
         content += str(line)
-    return jsonify({"result": "OK", "output": content})
+    return jsonify({"result": "OK", "stdout": content})

@@ -1,3 +1,4 @@
+import sys
 import click
 import secrets
 
@@ -64,7 +65,7 @@ def client_delete(uuid, yes):
                 db.session.delete(cl)
                 db.session.commit()
             else:
-                print("No such client.")
+                print("No such client.", file=sys.stderr)
         except Exception as e:
             print(e)
 
@@ -76,6 +77,9 @@ def client_delete(uuid, yes):
 def client_coordinates_set(uuid, latitude, longitude):
     """Set the coordinates of the client specified with its UUID."""
     cl = Client.query.filter(Client.uuid == uuid).first()
+    if not cl:
+        print("No such client.", file=sys.stderr)
+        return
     cl.latitude = latitude
     cl.longitude = longitude
     db.session.add(cl)
@@ -87,6 +91,9 @@ def client_coordinates_set(uuid, latitude, longitude):
 def client_coordinates_unset(uuid):
     """Unset the coordinates of the client specified with its UUID."""
     cl = Client.query.filter(Client.uuid == uuid).first()
+    if not cl:
+        print("No such client.", file=sys.stderr)
+        return
     cl.latitude = None
     cl.longitude = None
     db.session.add(cl)
@@ -98,6 +105,9 @@ def client_coordinates_unset(uuid):
 def client_sharing_activate(uuid):
     """Set the is_sharing_enabled attribute of a local client, specified with its UUID, to True."""
     cl = Client.query.filter(Client.uuid == uuid, Client.local == True).first()
+    if not cl:
+        print("No such client.", file=sys.stderr)
+        return
     cl.is_sharing_enabled = True
     db.session.add(cl)
     db.session.commit()
@@ -108,6 +118,9 @@ def client_sharing_activate(uuid):
 def client_sharing_deactivate(uuid):
     """Set the is_sharing_enabled attribute of a local client, specified with its UUID, to False."""
     cl = Client.query.filter(Client.uuid == uuid, Client.local == True).first()
+    if not cl:
+        print("No such client.", file=sys.stderr)
+        return
     cl.is_sharing_enabled = False
     db.session.add(cl)
     db.session.commit()
