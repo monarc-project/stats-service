@@ -117,7 +117,7 @@ The Stats Service is installed on a dedicated server.
 Scenario 3
 ''''''''''
 
-.. image:: _static/architecture-stats-scenario4.png
+.. image:: _static/architecture-stats-scenario3.png
    :alt: Stats Service API interaction with MONARC
 
 The user is simply connected to a MONARC front office deployed in a local
