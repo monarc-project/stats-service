@@ -99,7 +99,7 @@ Then, in the configuration file of Stats Service, you will have to set the varia
 
 Finally the service should be available at: https://my.monarc.lu/dashboardBO/
 
-An other solution, probably cleaner, is to deploy a public instance of Stats Service
+Another solution, probably cleaner, is to deploy a public instance of Stats Service
 and to push the stats from the internal Stats Service to the public one. With this
 solution you can select the stats you want to push and thus make public.
 
