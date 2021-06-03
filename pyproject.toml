@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "statsservice"
-version = "0.3.0"
+version = "0.4.0"
 description = "Stats Service for MONARC."
 authors = ["Cédric Bonhomme <cedric@cedricbonhomme.org>"]
 license = "AGPL-3.0-or-later"
@@ -9,7 +9,7 @@ readme = "README.md"
 
 homepage = "https://github.com/monarc-project/stats-service"
 repository = "https://github.com/monarc-project/stats-service"
-documentation = "https://monarc-stats-service.readthedocs.io"
+documentation = "https://www.monarc.lu/documentation/stats-service"
 
 keywords = ["monarc", "security", "stats", "flask", "api"]
 
@@ -51,15 +51,15 @@ alembic = "^1.5.8"
 Flask-Migrate = "^2.7.0"
 pymosp = "^0.4.2"
 packaging = "^20.9"
-Werkzeug = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
 sphinx = "^3.0.3"
+sphinx-book-theme = "^0.1.0"
 flake8 = "^3.9.1"
-sphinx_rtd_theme = "^0.5.2"
 pytest = "^6.2.3"
 gitchangelog = "^3.0.4"
 mypy = "^0.812"
+sphinx-multiversion = "^0.2.4"
 
 [build-system]
 requires = ["poetry>=0.12"]

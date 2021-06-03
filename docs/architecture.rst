@@ -56,6 +56,53 @@ MONARC is a good choice.
 The stats collection (from the FO to the stats node) can be triggered with a
 `cron job <installation.html#integration-with-monarc-and-collect-of-the-stats>`__.
 
+The Stats Service instance instance is not exposed on the Web, this is not the
+finality of this internal component. The Front Office servers will simply
+contact the API of the Stats Service inside the environment.
+
+However if you want to expose this internal component this is possible by setting
+``X-Forwarded-Prefix`` in a VirtualHost on the back office server. For example:
+
+.. code-block:: apacheconf
+
+    <VirtualHost *:80>
+        ServerName dashboard.my.monarc.lu
+        ServerAdmin info@cases.lu
+
+        DocumentRoot /var/lib/monarc/stats-service
+        WSGIDaemonProcess statsservice user=www-data group=www-data threads=5 python-home=/home/ansible/.cache/pypoetry/virtualenvs/statsservice-KKeyDYL6-py3.8 python-path=/var/lib/monarc/stats-service/
+        WSGIScriptAlias / /var/lib/monarc/stats-service/webserver.wsgi
+
+        <Directory /var/lib/monarc/stats-service>
+            WSGIApplicationGroup %{GLOBAL}
+            WSGIProcessGroup statsservice
+            WSGIPassAuthorization On
+
+            Options Indexes FollowSymLinks
+            Require all granted
+        </Directory>
+
+        SetEnv STATS_CONFIG production.py
+
+        CustomLog /var/log/apache2/stats-service-access.log combined
+        ErrorLog /var/log/apache2/stats-service-error.log
+
+        <IfModule mod_headers.c>
+            RequestHeader set X-Forwarded-Host "my.monarc.lu"
+            RequestHeader set X-Forwarded-Prefix "/dashboardBO"
+        </IfModule>
+    </VirtualHost>
+
+
+Then, in the configuration file of Stats Service, you will have to set the variable
+``FIX_PROXY`` to ``True`` (see `here <https://github.com/monarc-project/stats-service/blob/master/instance/production.py.cfg#L7>`_)
+
+Finally the service should be available at: https://my.monarc.lu/dashboardBO/
+
+An other solution, probably cleaner, is to deploy a public instance of Stats Service
+and to push the stats from the internal Stats Service to the public one. With this
+solution you can select the stats you want to push and thus make public.
+
 
 Scenario 2
 ''''''''''
