@@ -51,6 +51,7 @@ alembic = "^1.5.8"
 Flask-Migrate = "^2.7.0"
 pymosp = "^0.4.2"
 packaging = "^20.9"
+flask-reverse-proxy-fix = "^0.2.1"
 
 [tool.poetry.dev-dependencies]
 sphinx = "^3.0.3"

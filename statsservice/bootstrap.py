@@ -9,6 +9,7 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel, format_datetime
 from flask_migrate import Migrate
+from flask_reverse_proxy_fix.middleware import ReverseProxyPrefixFix
 
 
 def set_logging(
@@ -83,6 +84,9 @@ migrate = Migrate(application, db)
 
 # Internationalization
 babel = Babel(application)
+
+if application.config["REVERSE_PROXY_PATH"]:
+    ReverseProxyPrefixFix(application)
 
 application.jinja_env.filters["datetime"] = format_datetime
 
