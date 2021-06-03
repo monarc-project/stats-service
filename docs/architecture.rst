@@ -60,8 +60,8 @@ The Stats Service instance instance is not exposed on the Web, this is not the
 finality of this internal component. The Front Office servers will simply
 contact the API of the Stats Service inside the environment.
 
-However if you want to expose this internal component this is possible by setting
-``X-Forwarded-Prefix`` in a VirtualHost on the back office server. For example:
+However, if you want to expose this internal component, this can be done by setting
+``X-Forwarded-Prefix`` in a VirtualHost (on the back office server). For example:
 
 .. code-block:: apacheconf
 
