@@ -77,6 +77,9 @@ else:
 if not application.config.get("SECRET_KEY", False):
     application.config["SECRET_KEY"] = os.urandom(24)
 
+if application.config["FIX_PROXY"]:
+    application.wsgi_app = ProxyFix(application.wsgi_app, x_host=1, x_prefix=1)
+
 set_logging(application.config.get("LOG_PATH", None))
 
 db = SQLAlchemy(application)
@@ -84,9 +87,6 @@ migrate = Migrate(application, db)
 
 # Internationalization
 babel = Babel(application)
-
-if application.config["REVERSE_PROXY_PATH"]:
-    application.wsgi_app = ProxyFix(application.wsgi_app)
 
 application.jinja_env.filters["datetime"] = format_datetime
 

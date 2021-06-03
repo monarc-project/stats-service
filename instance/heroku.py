@@ -5,6 +5,7 @@ PORT = os.environ.get("PORT")
 DEBUG = False
 TESTING = False
 INSTANCE_URL = ""
+FIX_PROXY = False
 
 ADMIN_EMAIL = "info@cases.lu"
 ADMIN_URL = "https://www.cases.lu"
