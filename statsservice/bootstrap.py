@@ -9,7 +9,7 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel, format_datetime
 from flask_migrate import Migrate
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 
 def set_logging(
