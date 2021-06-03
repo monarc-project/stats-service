@@ -39,7 +39,8 @@ extensions = [
 # Patterns
 # smv_tag_whitelist = r"^refs/tags/v\d+\.\d+\.\d+$|latest"
 smv_released_pattern = r"^refs/tags/v\d+\.\d+\.\d+$"
-smv_branch_whitelist = r'master$'
+#smv_branch_whitelist = r'master$'
+smv_branch_whitelist = r'^.*$'
 smv_remote_whitelist = None
 
 
