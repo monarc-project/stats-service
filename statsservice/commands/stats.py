@@ -3,12 +3,16 @@ import logging
 import click
 import requests
 import sqlalchemy.exc
+from itertools import groupby
+from operator import attrgetter
+from sqlalchemy import func
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from urllib.parse import urljoin
 from statsservice.bootstrap import application, db
 from statsservice.models import Stats, Client
+from statsservice.lib.utils import dict_hash
 
 
 logger = logging.getLogger(__name__)
@@ -54,16 +58,51 @@ def stats_purge(nb_month):
 
 
 @application.cli.command("stats_remove_duplicate")
-@click.option(
-    "--client-uuid", default="", help="UUID of the lclient related to the stats."
-)
-def stats_remove_duplicate(client_uuid):
+@click.option("--nb-month", default=0, help="Age (in months) of the stats.")
+def stats_remove_duplicate(nb_month):
     """Delete the stats older than the number of months specified in parameter."""
-    print("Deleting duplicate stats for {}...".format(client_uuid))
-    # query = Stats.query.filter(Stats.date <= date_to)
+    # elems = Stats.query(Stats.anr, func.count(Stats.anr)).filter(Stats.type=='vulnerability') \
+    #     .with_entities(Stats.anr, Stats.uuid, Stats.type) \
+    #     .group_by(Stats.anr) \
+    #     .count()
+    query = db.session \
+        .query(Stats.anr) \
+        .filter(Stats.type=='vulnerability')
+
+    if nb_month:
+        date_to = (date.today() - relativedelta(months=nb_month)).strftime("%Y-%m-%d")
+        query = query.filter((Stats.date <= date_to))
+
+    query = query.with_entities(Stats.anr, Stats.uuid, Stats.type, Stats.data, Stats.date) \
+        .order_by(Stats.anr)
+
+    elems = query.all()
+    elems_per_anr = [list(g) for k, g in groupby(elems, attrgetter('anr'))]
+    #print(elems_per_anr)
+    for elems in elems_per_anr:
+        previous_date = None
+        previous_data = None
+        sorted_elems = sorted(elems, key=lambda x: x[4])
+        for *b, data, date in sorted_elems:
+            print(b, end=" "), print(date)
+            if previous_date and date == previous_date:
+                print('Duplicate stats for this date and stats type.')
+                # delete the duplicate
+                # continue
+            previous_date = date
+
+            if previous_data:
+                if dict_hash(data) == dict_hash(previous_data):
+                    print('same content')
+
+            previous_data = data
+
+
+        print(" ")
     try:
-        Stats.query.filter(Stats.client.has(uuid=client_uuid))  # .delete()
-        db.session.commit()
+        #Stats.query.filter(Stats.client.has(uuid=client_uuid))  # .delete()
+        #db.session.commit()
+        pass
     except Exception as e:
         print(e)
 
