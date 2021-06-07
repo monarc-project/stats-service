@@ -58,6 +58,7 @@ def stats_purge(nb_month):
 
 
 @application.cli.command("stats_remove_duplicate")
+@click.option("--type", required=True, help="Type of the stats (vulnerability, threat or risk).")
 @click.option("--nb-month", default=0, help="Minimym age (in months) of the stats.")
 @click.option(
     "-y",
@@ -65,11 +66,11 @@ def stats_purge(nb_month):
     is_flag=True,
     help="Automatically reply yes to the deletion confirmation message.",
 )
-def stats_remove_duplicate(nb_month, yes):
+def stats_remove_duplicate(type, nb_month, yes):
     """Delete duplicate stats that are older than the number of months specified in parameter."""
     to_delete = []
 
-    query = db.session.query(Stats.anr).filter(Stats.type == "vulnerability")
+    query = db.session.query(Stats.anr).filter(Stats.type == type)
 
     if nb_month:
         date_to = (date.today() - relativedelta(months=nb_month)).strftime("%Y-%m-%d")
