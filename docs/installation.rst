@@ -329,7 +329,7 @@ with a content similar to:
             ServerAdmin webmaster@localhost
             DocumentRoot /home/monarc/stats-service
 
-            WSGIDaemonProcess statsservice user=www-data group=www-data threads=5 python-home=/home/monarc/.local/share/virtualenvs/statsservice-_tH16p6s/ python-path=/home/monarc/stats-service
+            WSGIDaemonProcess statsservice user=www-data group=www-data threads=5 python-home=/home/ansible/.cache/pypoetry/virtualenvs/statsservice-KKeyDYL6-py3.8 python-path=/var/lib/monarc/stats-service/
             WSGIScriptAlias / /home/monarc/stats-service/webserver.wsgi
 
             <Directory /home/monarc/stats-service>
@@ -351,13 +351,6 @@ with a content similar to:
             #LogLevel info ssl:warn
             CustomLog /var/log/apache2/stats-service/access.log combined
             ErrorLog /var/log/apache2/stats-service/error.log
-
-            # For most configuration files from conf-available/, which are
-            # enabled or disabled at a global level, it is possible to
-            # include a line for only one particular virtual host. For example the
-            # following line enables the CGI configuration for this host only
-            # after it has been globally disabled with "a2disconf".
-            #Include conf-available/serve-cgi-bin.conf
     </VirtualHost>
 
 
@@ -369,7 +362,7 @@ And a file:
     $ cat stats-service/webserver.wsgi
     #! /usr/bin/env python
 
-    python_home = '/home/monarc/.local/share/virtualenvs/statsservice-_tH16p6s'
+    python_home = '/home/ansible/.cache/pypoetry/virtualenvs/statsservice-KKeyDYL6-py3.8'
 
     activate_this = python_home + '/bin/activate_this.py'
     with open(activate_this) as file_:

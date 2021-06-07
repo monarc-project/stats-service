@@ -44,8 +44,8 @@ jobs:
       env:
         testing: actions
 
-    - name: Type check
-      run: |
-        poetry run mypy statsservice
-      env:
-        testing: actions
+#    - name: Type check
+#      run: |
+#        poetry run mypy statsservice
+#      env:
+#        testing: actions
