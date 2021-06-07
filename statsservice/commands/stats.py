@@ -103,13 +103,14 @@ def stats_remove_duplicate(nb_month):
 
         print(" ")
 
-    print("Removing {} duplicate stats...".format(len(to_delete)))
-    try:
-        # Stats.query.filter(Stats.client.has(uuid=client_uuid))  # .delete()
-        # db.session.commit()
-        pass
-    except Exception as e:
-        print(e)
+    if click.confirm("Do you want to delete {} duplicate stats?".format(len(to_delete))):
+        print("Removing the duplicate stats...")
+        try:
+            deleted_objects = Stats.__table__.delete().where(Stats.uuid.in_(to_delete))
+            session.execute(deleted_objects)
+            db.session.commit()
+        except Exception as e:
+            print(e)
 
 
 @application.cli.command("stats_push")
