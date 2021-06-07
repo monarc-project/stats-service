@@ -107,7 +107,7 @@ def stats_remove_duplicate(nb_month):
         print("Removing the duplicate stats...")
         try:
             deleted_objects = Stats.__table__.delete().where(Stats.uuid.in_(to_delete))
-            session.execute(deleted_objects)
+            db.session.execute(deleted_objects)
             db.session.commit()
         except Exception as e:
             print(e)
