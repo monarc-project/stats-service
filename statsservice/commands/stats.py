@@ -83,13 +83,13 @@ def stats_remove_duplicate(nb_month):
         previous_date = None
         previous_data = None
         sorted_elems = sorted(elems, key=lambda x: x[4])
-        for *b, data, date in sorted_elems:
-            print(b, end=" "), print(date)
-            if previous_date and date == previous_date:
+        for *b, data, stat_date in sorted_elems:
+            print(b, end=" "), print(stat_date)
+            if previous_date and stat_date == previous_date:
                 print('Duplicate stats for this date and stats type.')
                 # delete the duplicate
                 # continue
-            previous_date = date
+            previous_date = stat_date
 
             if previous_data:
                 if dict_hash(data) == dict_hash(previous_data):
