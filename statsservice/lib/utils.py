@@ -11,7 +11,6 @@ from collections import defaultdict
 from typing import Dict, Any
 
 
-
 def mean_gen():
     """Yields the accumulated mean of sent values.
 
