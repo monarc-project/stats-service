@@ -59,7 +59,13 @@ def stats_purge(nb_month):
 
 @application.cli.command("stats_remove_duplicate")
 @click.option("--nb-month", default=0, help="Minimym age (in months) of the stats.")
-def stats_remove_duplicate(nb_month):
+@click.option(
+    "-y",
+    "--yes",
+    is_flag=True,
+    help="Automatically reply yes to the deletion confirmation message.",
+)
+def stats_remove_duplicate(nb_month, yes):
     """Delete duplicate stats that are older than the number of months specified in parameter."""
     to_delete = []
 
@@ -103,7 +109,7 @@ def stats_remove_duplicate(nb_month):
 
         print(" ")
 
-    if click.confirm("Do you want to delete {} duplicate stats?".format(len(to_delete))):
+    if yes or click.confirm("Do you want to delete {} duplicate stats?".format(len(to_delete))):
         print("Removing the duplicate stats...")
         try:
             deleted_objects = Stats.__table__.delete().where(Stats.uuid.in_(to_delete))
