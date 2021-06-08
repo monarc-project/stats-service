@@ -36,7 +36,7 @@ def setup_api(application):
             "swagger-ui.html",
             title=api.title,
             specs_url="{}/api/v1/swagger.json".format(
-                application.config["INSTANCE_URL"]
+                application.config["SERVER_NAME"]
             ),
         )
 

@@ -7,7 +7,7 @@ class Config(object):
     PORT = 5000
     DEBUG = False
     TESTING = False
-    INSTANCE_URL = "http://127.0.0.1:5000"
+    SERVER_NAME = "http://127.0.0.1:5000"
     FIX_PROXY = False
 
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"

@@ -67,7 +67,7 @@ HOST = '$STATS_HOST'
 PORT = $STATS_PORT
 DEBUG = False
 TESTING = False
-INSTANCE_URL = 'http://127.0.0.1:$STATS_PORT'
+SERVER_NAME = 'http://127.0.0.1:$STATS_PORT'
 
 ADMIN_EMAIL = 'info@cases.lu'
 ADMIN_URL = 'https://www.cases.lu'
