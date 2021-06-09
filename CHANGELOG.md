@@ -1140,7 +1140,7 @@ Changes
   Bonhomme]
 - [api]. The type is now a required parameter. The choices are provided
   by the OpenAPI Specification. [Cédric Bonhomme]
-- [deployment] Added missing SERVER_NAME configuration variable.
+- [deployment] Added missing INSTANCE_URL configuration variable.
   [Cédric Bonhomme]
 - [deployment] Tell Poetry to also include the instance package. [Cédric
   Bonhomme]

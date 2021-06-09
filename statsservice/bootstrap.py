@@ -60,7 +60,7 @@ if TESTING:
 elif ON_HEROKU:
     # if the application is running on Heroku
     application.config.from_pyfile("heroku.py", silent=False)
-    application.config["SERVER_NAME"] = os.environ.get("SERVER_NAME", "")
+    application.config["INSTANCE_URL"] = os.environ.get("INSTANCE_URL", "")
 elif os.environ.get("STATS_CONFIG", ""):
     # if a specific configuration is provided by the user
     # this does not works with mod_wsgi

@@ -26,7 +26,7 @@ function drawEvolutionChart() {
   }
 
   // fetch stats for threats (averages per threats per date)  and display the chart
-  fetch(SITE_ROOT + "stats/threats.json?processor=threat_average_on_date&days=180", {
+  fetch(SITE_ROOT + "/stats/threats.json?processor=threat_average_on_date&days=180", {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ function drawEvolutionChart() {
   };
 
   // fetch stats for vulnerabilities (averages per vulnerabilities per date)  and display the chart
-  fetch(SITE_ROOT + "stats/vulnerabilities.json?processor=vulnerability_average_on_date&days=180", {
+  fetch(SITE_ROOT + "/stats/vulnerabilities.json?processor=vulnerability_average_on_date&days=180", {
     method: "GET",
     headers: {
       'Content-Type': 'application/json',

@@ -91,7 +91,7 @@
   </div>
 </div>
 <script>
-    SITE_ROOT = "{{ url_for('root_bp.home', _external=True) }}";
+    SITE_ROOT = "{{ config['INSTANCE_URL'] }}";
     drawEvolutionChart();
 </script>
 {% endblock %}

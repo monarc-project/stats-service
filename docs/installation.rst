@@ -110,7 +110,7 @@ or via command line:
     $ heroku buildpacks:add --index 1 heroku/python
     $ heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-nodejs
     $ heroku config:set HEROKU=1
-    $ heroku config:set SERVER_NAME=https://<name-of-your-instance>.herokuapp.com
+    $ heroku config:set INSTANCE_URL=https://<name-of-your-instance>.herokuapp.com
     $ heroku config:set FLASK_APP='runserver.py'
     $ heroku config:set FLASK_ENV='development'
     $ git push heroku master
