@@ -3,7 +3,7 @@ HOST = "0.0.0.0"
 PORT = 5000
 DEBUG = True
 TESTING = False
-SERVER_NAME = "http://127.0.0.1:5000"
+SERVER_NAME = "127.0.0.1:5000"
 FIX_PROXY = False
 
 ADMIN_EMAIL = "info@cases.lu"

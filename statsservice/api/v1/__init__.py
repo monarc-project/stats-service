@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, url_for
 from flask_restx import Api
 
 from statsservice.bootstrap import application
@@ -36,7 +36,7 @@ def setup_api(application):
             "swagger-ui.html",
             title=api.title,
             specs_url="{}/api/v1/swagger.json".format(
-                application.config["SERVER_NAME"]
+                url_for('root_bp.home', _external=True)
             ),
         )
 

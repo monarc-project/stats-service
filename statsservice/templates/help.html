@@ -5,6 +5,7 @@
     <div class="col-md-6">
       <h1>{{ _('Help') }}</h1>
       <ul>
+        <li>{{ _('the source code of this instance is available') }} <a href="https://github.com/monarc-project/stats-service" target="_blank" rel="noopener noreferrer">{{ _('here') }}</a></li>
         <li>{{ _('a documentation is available') }} <a href="https://www.monarc.lu/documentation/stats-service/" target="_blank" rel="noopener noreferrer">{{ _('here') }}</a></li>
         <li><a href="{{ url_for('api.doc') }}">{{ _('OpenAPI Specification') }}</a> {{ _('of the API') }}</li>
         <li>{{ _('contact the admin of this Stats Service instance at the address:') }} <a href="mailto:{{ config.ADMIN_EMAIL }}?subject=Stats Service">{{ config.ADMIN_EMAIL }}</a></li>
@@ -75,6 +76,15 @@
       <a href="{{ config['MOSP_URL'] }}" target="_blank" rel="noopener noreferrer" title="MONARC Objects Sharing Platform">{{ _('MONARC Objects Sharing Platform') }}</a>
       {{ _('(MOSP) which is providing an API in order to create and share JSON objects. MOSP can be
       connected to a MONARC instance.') }}</p>
+    </div>
+  </div>
+
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 id="test-monarc-stats-service">{{ _('How to test MONARC and Stats Service ?') }}</h2>
+      <p>{{ _('You can download the test Virtual machine of MONARC <a href="https://my.monarc.lu/static/vm/">here</a>.') }}
+      {{ _('A local instance of Stats Service is configured.') }}</p>
     </div>
   </div>
 
