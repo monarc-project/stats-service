@@ -58,7 +58,9 @@ def stats_purge(nb_month):
 
 
 @application.cli.command("stats_remove_duplicate")
-@click.option("--type", required=True, help="Type of the stats (vulnerability, threat or risk).")
+@click.option(
+    "--type", required=True, help="Type of the stats (vulnerability, threat or risk)."
+)
 @click.option("--nb-month", default=0, help="Minimym age (in months) of the stats.")
 @click.option(
     "-y",
@@ -110,7 +112,9 @@ def stats_remove_duplicate(type, nb_month, yes):
 
         print(" ")
 
-    if yes or click.confirm("Do you want to delete {} duplicate stats?".format(len(to_delete))):
+    if yes or click.confirm(
+        "Do you want to delete {} duplicate stats?".format(len(to_delete))
+    ):
         print("Removing the duplicate stats...")
         try:
             deleted_objects = Stats.__table__.delete().where(Stats.uuid.in_(to_delete))
