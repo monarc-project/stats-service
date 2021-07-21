@@ -61,7 +61,7 @@ def stats_purge(nb_month):
 @click.option(
     "--type", required=True, help="Type of the stats (vulnerability, threat or risk)."
 )
-@click.option("--nb-month", default=0, help="Minimym age (in months) of the stats.")
+@click.option("--nb-month", default=0, help="Minimum age (in months) of the stats.")
 @click.option(
     "-y",
     "--yes",
