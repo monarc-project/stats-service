@@ -132,7 +132,7 @@ def stats_remove_duplicate(type, nb_month, yes):
     "--date-from",
     type=click.DateTime(formats=["%Y-%m-%d"]),
     default=str(date.today() + relativedelta(months=-3)),
-    help="Only stats more recent than this date will be pushed. Default value is 3 months before today.",
+    help="Only stats more recent than this date will be pushed. Default value is 1 month before the current day.",
 )
 @click.option(
     "--date-to",
@@ -140,7 +140,7 @@ def stats_remove_duplicate(type, nb_month, yes):
     default=str(date.today()),
     help="Only stats older than this date will be pushed. Default value is today.",
 )
-def stats_push(date_from, date_to):
+def stats_push(client_uuid, date_from, date_to):
     """Pushes the clients stats to the global stats server."""
 
     if date_from > date_to:
@@ -152,7 +152,9 @@ def stats_push(date_from, date_to):
     }
     payload = []
 
-    clients = Client.query.filter(Client.is_sharing_enabled == True)
+    clients = Client.query.filter(Client.is_sharing_enabled == True)  # noqa
+    if client_uuid:
+        clients = clients.filter(Client.uuid == client_uuid)
     for client in clients:
         stats = Stats.query.filter(
             Stats.client_id == client.id, Stats.date >= date_from, Stats.date <= date_to
