@@ -5,7 +5,6 @@ import requests
 import sqlalchemy.exc
 from itertools import groupby
 from operator import attrgetter
-from sqlalchemy import func
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -204,3 +203,4 @@ def stats_pull(client_uuid, token, stats_type):
         except (sqlalchemy.exc.IntegrityError, sqlalchemy.exc.InvalidRequestError) as e:
             logger.error("Duplicate stats {}".format(stat["uuid"]))
             db.session.rollback()
+            print(e)

@@ -104,7 +104,7 @@ def client_coordinates_unset(uuid):
 @click.option("--uuid", required=True, help="UUID of the client.")
 def client_sharing_activate(uuid):
     """Set the is_sharing_enabled attribute of a local client, specified with its UUID, to True."""
-    cl = Client.query.filter(Client.uuid == uuid, Client.local == True).first()
+    cl = Client.query.filter(Client.uuid == uuid, Client.local == True).first()  # noqa
     if not cl:
         print("No such client.", file=sys.stderr)
         return
@@ -117,7 +117,7 @@ def client_sharing_activate(uuid):
 @click.option("--uuid", required=True, help="UUID of the client.")
 def client_sharing_deactivate(uuid):
     """Set the is_sharing_enabled attribute of a local client, specified with its UUID, to False."""
-    cl = Client.query.filter(Client.uuid == uuid, Client.local == True).first()
+    cl = Client.query.filter(Client.uuid == uuid, Client.local == True).first()  # noqa
     if not cl:
         print("No such client.", file=sys.stderr)
         return
