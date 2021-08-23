@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime, timedelta
-from flask import Blueprint, render_template, request, jsonify, abort
+from flask import Blueprint, request, jsonify, abort
 
 import statsservice.lib.processors
 from statsservice.models import Stats

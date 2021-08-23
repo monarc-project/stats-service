@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import operator
-from flask import Blueprint, render_template, request, jsonify, abort
+from flask import Blueprint, render_template, jsonify
 
 import statsservice.lib.processors
 from statsservice.models import Client, Stats
@@ -20,7 +20,7 @@ def index():
 @map_bp.route("/clients.json", methods=["GET"])
 def clients():
     clients = Client.query.filter(
-        Client.latitude != None, Client.longitude != None
+        Client.latitude != None, Client.longitude != None  # noqa
     ).all()
 
     result = []
@@ -33,11 +33,15 @@ def clients():
         threats = getattr(statsservice.lib.processors, "threat_average_on_date")(
             query.all()
         )
+        try:
+            max_threat = max(
+                [(threat["averages"]["count"], threat["object"]) for threat in threats],
+                key=operator.itemgetter(0),
+            )
+        except ValueError:
+            # ValueError: max() arg is an empty sequence
+            max_threat = ("", "")
 
-        max_threat = max(
-            [(threat["averages"]["count"], threat["object"]) for threat in threats],
-            key=operator.itemgetter(0),
-        )
 
         query = Stats.query.filter(
             Stats.type == "vulnerability", Stats.client_id == client.id
@@ -48,13 +52,17 @@ def clients():
         vulnerabilities = getattr(
             statsservice.lib.processors, "vulnerability_average_on_date"
         )(query.all())
-        max_vulnerability = max(
-            [
-                (vulnerability["averages"]["count"], vulnerability["object"])
-                for vulnerability in vulnerabilities
-            ],
-            key=operator.itemgetter(0),
-        )
+        try:
+            max_vulnerability = max(
+                [
+                    (vulnerability["averages"]["count"], vulnerability["object"])
+                    for vulnerability in vulnerabilities
+                ],
+                key=operator.itemgetter(0),
+            )
+        except ValueError:
+            # ValueError: max() arg is an empty sequence
+            max_vulnerability = ("", "")
 
         result.append(
             {
