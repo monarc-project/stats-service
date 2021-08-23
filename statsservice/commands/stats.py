@@ -125,8 +125,9 @@ def stats_remove_duplicate(type, nb_month, yes):
 
 @application.cli.command("stats_push")
 @click.option(
-    "--client-uuid", default="", help="UUID of the client related to the stats."
+    "--local-client-uuid", default="", help="UUID of the client related to the stats."
 )
+@click.option("--remote-token", default="", help="Client token on remote side.")
 @click.option(
     "--date-from",
     type=click.DateTime(formats=["%Y-%m-%d"]),
@@ -139,21 +140,30 @@ def stats_remove_duplicate(type, nb_month, yes):
     default=str(date.today()),
     help="Only stats older than this date will be pushed. Default value is today.",
 )
-def stats_push(client_uuid, date_from, date_to):
-    """Pushes the clients stats to the global stats server."""
+def stats_push(local_client_uuid, remote_token, date_from, date_to):
+    """Pushes the clients stats to the global stats server.
+
+    Only the stats of the clients with the flag `is_sharing_enabled` set to true will be
+    pushed.
+    If you specify the UUID of a client only the stats of this client will be pushed.
+    The `remote_token` is used for the authentication to the remote stats service and to
+    'identify' the client on the remote side.
+    """
 
     if date_from > date_to:
         print("Error: --date-from option must be before --date-to.")
 
     headers = {
-        "X-API-KEY": application.config["REMOTE_STATS_TOKEN"],
+        "X-API-KEY": remote_token
+        if remote_token
+        else application.config["REMOTE_STATS_TOKEN"],
         "content-type": "application/json",
     }
     payload = []
 
     clients = Client.query.filter(Client.is_sharing_enabled == True)  # noqa
-    if client_uuid:
-        clients = clients.filter(Client.uuid == client_uuid)
+    if local_client_uuid:
+        clients = clients.filter(Client.uuid == local_client_uuid)
     for client in clients:
         stats = Stats.query.filter(
             Stats.client_id == client.id, Stats.date >= date_from, Stats.date <= date_to
