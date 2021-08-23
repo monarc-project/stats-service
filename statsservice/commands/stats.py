@@ -25,7 +25,7 @@ STATS_API_ENDPOINT = urljoin(
 
 @application.cli.command("stats_delete")
 @click.option(
-    "--client-uuid", default="", help="UUID of the lclient related to the stats."
+    "--client-uuid", default="", help="UUID of the client related to the stats."
 )
 @click.option(
     "-y",
@@ -125,6 +125,9 @@ def stats_remove_duplicate(type, nb_month, yes):
 
 
 @application.cli.command("stats_push")
+@click.option(
+    "--client-uuid", default="", help="UUID of the client related to the stats."
+)
 @click.option(
     "--date-from",
     type=click.DateTime(formats=["%Y-%m-%d"]),
