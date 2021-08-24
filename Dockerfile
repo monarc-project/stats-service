@@ -1,11 +1,10 @@
 FROM ubuntu:focal
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
-ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt-get -y install python-dev python3-setuptools python3-virtualenv git npm wget
+RUN apt-get -y install python3-dev python3-venv python3-pip git npm wget
 RUN pip3 install poetry
 
 WORKDIR statsservice
