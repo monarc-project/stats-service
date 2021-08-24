@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt-get -y install wget python3-dev git python3-venv python3-pip npm
+RUN apt-get -y install wget python-dev git python-venv python-pip npm
 RUN pip3 install poetry
 
 WORKDIR statsservice
