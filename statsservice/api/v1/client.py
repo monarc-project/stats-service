@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from flask import request
-from flask_restx import Namespace, Resource, fields, abort
+from flask_restx import Namespace, Resource, abort
 from flask_login import current_user
 
 from statsservice.bootstrap import db
@@ -70,7 +69,7 @@ class GetClient(Resource):
                     "is_sharing_enabled"
                 ]
                 db.session.commit()
-            except:
+            except Exception:
                 logger.error("Client patch error.")
                 return current_user, 500
 

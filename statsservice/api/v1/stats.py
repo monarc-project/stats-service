@@ -4,16 +4,14 @@
 import logging
 import sqlalchemy.exc
 from typing import Dict, Any
-from flask import request
 from flask_login import current_user
 from flask_restx import Namespace, Resource, fields, reqparse, abort
 from flask_restx.inputs import date_from_iso8601, boolean
 from datetime import date
 from dateutil.relativedelta import relativedelta
-from sqlalchemy.sql.expression import desc
 
 from statsservice.bootstrap import db
-from statsservice.models import Stats, Client
+from statsservice.models import Stats
 from statsservice.api.v1.common import (
     auth_func,
     uuid_type,
@@ -127,7 +125,7 @@ class StatsList(Resource):
         limit = args.get("limit", 0)
         offset = args.get("offset", 0)
         type = args.get("type")
-        group_by_anr = args.get("group_by_anr")
+        # group_by_anr = args.get("group_by_anr")
         anrs = args.get("anrs")
         get_last = args.get("get_last")
         date_from = args.get("date_from")
@@ -246,6 +244,6 @@ class StatsItem(Resource):
             Stats.query.filter(Stats.anr == anr).delete()
             db.session.commit()
             return "", 204
-        except:
+        except Exception:
             db.session.rollback()
             abort(500, Error="Impossible to delete the stats.")
