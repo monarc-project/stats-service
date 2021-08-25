@@ -214,7 +214,7 @@ class StatsList(Resource):
             except (
                 sqlalchemy.exc.IntegrityError,
                 sqlalchemy.exc.InvalidRequestError,
-            ) as e:
+            ):
                 logger.error("Duplicate stats {}".format(stats["uuid"]))
                 errors.append(stats["uuid"])
                 db.session.rollback()
