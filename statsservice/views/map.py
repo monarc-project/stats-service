@@ -42,7 +42,6 @@ def clients():
             # ValueError: max() arg is an empty sequence
             max_threat = ("", "")
 
-
         query = Stats.query.filter(
             Stats.type == "vulnerability", Stats.client_id == client.id
         )

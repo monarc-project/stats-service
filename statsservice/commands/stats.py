@@ -183,7 +183,10 @@ def stats_push(local_client_uuid, remote_token, date_from, date_to):
         print("Pushing stats for client {}".format(client.name))
         r = requests.post(STATS_API_ENDPOINT, data=json.dumps(payload), headers=headers)
         if r.status_code not in [200, 204]:
-            print("Impossible to push some stats.")
+            logger.error(
+                "Impossible to push some stats (possible duplicates on remote side)."
+            )
+            print("Impossible to push some stats (possible duplicates on remote side).")
     except Exception as e:
         print(e)
 
