@@ -36,7 +36,7 @@ def threats():
 
     try:
         result = getattr(statsservice.lib.processors, processor)(query.all())
-    except AttributeError as e:
+    except AttributeError:
         abort(
             500,
             description="There is no such processor: '{}'.".format(processor),

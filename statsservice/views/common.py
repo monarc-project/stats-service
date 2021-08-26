@@ -1,8 +1,4 @@
-import json
-from datetime import datetime
-from functools import wraps
-
-from flask import g, current_app, request
+from flask import g, current_app
 from flask.sessions import SecureCookieSessionInterface
 from flask_login import login_user, current_user, user_loaded_from_header
 from flask_login import LoginManager as OriginalLoginManager

@@ -93,6 +93,7 @@ migrate = Migrate(application, db)
 # Internationalization
 babel = Babel(application)
 
+
 @babel.localeselector
 def get_locale():
     # if a user is logged in, use the locale from the user settings
