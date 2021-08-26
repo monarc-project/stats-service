@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
+import uuid
 import logging
 import io
 from typing import Any
@@ -10,6 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel, format_datetime
 from flask_migrate import Migrate
 from werkzeug.middleware.proxy_fix import ProxyFix
+from werkzeug.routing import BaseConverter, ValidationError
 
 
 def set_logging(
@@ -82,14 +85,13 @@ if application.config.get("FIX_PROXY", False):
 
 set_logging(application.config.get("LOG_PATH", None))
 
+
 db = SQLAlchemy(application)
 migrate = Migrate(application, db)
 
+
 # Internationalization
 babel = Babel(application)
-
-application.jinja_env.filters["datetime"] = format_datetime
-
 
 @babel.localeselector
 def get_locale():
@@ -101,3 +103,34 @@ def get_locale():
     # header the browser transmits.  We support de/fr/en in this
     # example.  The best match wins.
     return request.accept_languages.best_match(["fr", "en"])
+
+
+application.jinja_env.filters["datetime"] = format_datetime
+
+
+# URL Converters: UUID type
+UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+
+
+class UUIDConverter(BaseConverter):
+    """
+    UUID converter for the Werkzeug routing system.
+    """
+
+    def __init__(self, map, strict=True):
+        super(UUIDConverter, self).__init__(map)
+        self.strict = strict
+
+    def to_python(self, value):
+        if self.strict and not UUID_RE.match(value):
+            raise ValidationError()
+        try:
+            return uuid.UUID(value)
+        except ValueError:
+            raise ValidationError()
+
+    def to_url(self, value):
+        return str(value)
+
+
+application.url_map.converters["uuid"] = UUIDConverter

@@ -22,7 +22,7 @@ def restrict_bp_to_admins():
     pass
 
 
-@admin_bp.route("/client_sharing_activate.json/<client_uuid>", methods=["GET"])
+@admin_bp.route("/client_sharing_activate.json/<uuid:client_uuid>", methods=["GET"])
 def client_sharing_activate(client_uuid):
     """Enable the sharing of stats for a client."""
     env = os.environ.copy()
@@ -48,7 +48,7 @@ def client_sharing_activate(client_uuid):
     return jsonify({"result": result, "stderr": str(stderr)}), http_code
 
 
-@admin_bp.route("/client_sharing_deactivate.json/<client_uuid>", methods=["GET"])
+@admin_bp.route("/client_sharing_deactivate.json/<uuid:client_uuid>", methods=["GET"])
 def client_sharing_deactivate(client_uuid):
     """Disable the sharing of stats for a client."""
     env = os.environ.copy()
