@@ -48,7 +48,7 @@ def check_client_user_agent(meth):
     if "MONARC/" in user_agent:
         try:
             monarc_version = user_agent.split("/")[1]
-        except:
+        except Exception:
             # failed to extract the version of MONARC, cancels the check
             return meth
         if version.parse(monarc_version) < version.parse("2.10.2"):
