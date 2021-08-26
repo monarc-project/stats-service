@@ -5,7 +5,7 @@ import logging
 from flask_restx import Namespace, Resource, abort
 from flask_login import current_user
 
-from statsservice.bootstrap import db
+from statsservice.bootstrap import db, application
 from statsservice.models import Client
 from statsservice.api.v1.common import (
     auth_func,
@@ -35,15 +35,23 @@ class ClientsList(Resource):
     @auth_func
     def post(self):
         """Create a new client."""
-        try:
-            with admin_permission.require():
-                new_client = Client(**client_ns.payload)
-                db.session.add(new_client)
-                db.session.commit()
-                return new_client, 201
-        except Exception:
-            logger.error("Only admin can create new client.")
-            return abort(403)
+        def create_client():
+            new_client = Client(**client_ns.payload)
+            db.session.add(new_client)
+            db.session.commit()
+            return new_client
+
+        if application.config.get("CLIENT_REGISTRATION_OPEN", False):
+            new_client = create_client()
+        else:
+            try:
+                with admin_permission.require():
+                    new_client = create_client()
+            except Exception:
+                logger.error("Only admin can create new client.")
+                return abort(403)
+
+        return new_client, 201
 
 
 @client_ns.route("/me")

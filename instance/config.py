@@ -18,6 +18,8 @@ class Config(object):
     REMOTE_STATS_SERVER = "https://dashboard.monarc.lu"
     REMOTE_STATS_TOKEN = ""
 
+    CLIENT_REGISTRATION_OPEN = False
+
     SECRET_KEY = "LCx3BchmHRxFzkEv4BqQJyeXRLXenf"
 
     LOG_PATH = "./var/stats.log"

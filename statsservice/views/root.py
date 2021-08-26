@@ -21,7 +21,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
-from flask import Blueprint, redirect, url_for, render_template, jsonify
+from flask import Blueprint, url_for, render_template, jsonify
 from statsservice import __version__
 from statsservice.bootstrap import application
 from statsservice.models import Client, Stats

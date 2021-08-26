@@ -164,9 +164,7 @@ def stats_push(local_client_uuid, remote_token, date_from, date_to):
     }
 
     if not headers["X-API-KEY"]:
-        logger.error(
-            "Authentication token not set."
-        )
+        logger.error("Authentication token not set.")
         return
 
     payload = []
