@@ -5,7 +5,7 @@ import os
 import sys
 import subprocess
 from flask import Blueprint, jsonify
-from flask_login import current_user, login_required
+from flask_login import login_required
 from statsservice.views.common import admin_permission
 from statsservice.bootstrap import application
 
