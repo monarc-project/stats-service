@@ -143,11 +143,14 @@ def stats_remove_duplicate(type, nb_month, yes):
 def stats_push(local_client_uuid, remote_token, date_from, date_to):
     """Pushes the clients stats to the global stats server.
 
-    Only the stats of the clients with the flag `is_sharing_enabled` set to true will be
-    pushed.
-    If you specify the UUID of a client only the stats of this client will be pushed.
-    The `remote_token` is used for the authentication to the remote stats service and to
-    'identify' the client on the remote side.
+    Only the stats of the clients with the flag `is_sharing_enabled` set to True
+    will be pushed.
+
+    If you specify the UUID of a client only the stats of this client will be
+    pushed (and if `is_sharing_enabled` is set to True for this client).
+
+    The parameter `remote_token` is used for the authentication to the remote
+    stats service and to 'identify' the client on the remote side.
     """
 
     if date_from > date_to:
@@ -156,9 +159,16 @@ def stats_push(local_client_uuid, remote_token, date_from, date_to):
     headers = {
         "X-API-KEY": remote_token
         if remote_token
-        else application.config["REMOTE_STATS_TOKEN"],
+        else application.config.get("REMOTE_STATS_TOKEN", ""),
         "content-type": "application/json",
     }
+
+    if not headers["X-API-KEY"]:
+        logger.error(
+            "Authentication token not set."
+        )
+        return
+
     payload = []
 
     clients = Client.query.filter(Client.is_sharing_enabled == True)  # noqa
