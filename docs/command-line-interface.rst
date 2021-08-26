@@ -216,16 +216,28 @@ Pushing data to a central stats server.
     $ flask stats_push --help
     Usage: flask stats_push [OPTIONS]
 
-      Pushes the clients stats to the global stats server.
+    Pushes the clients stats to the global stats server.
+
+    Only the stats of the clients with the flag `is_sharing_enabled` set to
+    True will be pushed.
+
+    If you specify the UUID of a client only the stats of this client will be
+    pushed (and if `is_sharing_enabled` is set to True for this client).
+
+    The parameter `remote_token` is used for the authentication to the remote
+    stats service and to 'identify' the client on the remote side.
 
     Options:
-      --date-from [%Y-%m-%d]  Only stats more recent than this date will be
-                              pushed. Default value is 3 months before today.
+    --local-client-uuid TEXT  UUID of the client related to the stats.
+    --remote-token TEXT       Client token on remote side.
+    --date-from [%Y-%m-%d]    Only stats more recent than this date will be
+                            pushed. Default value is 1 month before the
+                            current day.
 
-      --date-to [%Y-%m-%d]    Only stats older than this date will be pushed.
-                              Default value is today.
+    --date-to [%Y-%m-%d]      Only stats older than this date will be pushed.
+                            Default value is today.
 
-      --help                  Show this message and exit.
+    --help                    Show this message and exit.
 
 
 This command can be executed for example with cron.
