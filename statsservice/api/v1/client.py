@@ -35,6 +35,7 @@ class ClientsList(Resource):
     @auth_func
     def post(self):
         """Create a new client."""
+
         def create_client():
             new_client = Client(**client_ns.payload)
             db.session.add(new_client)
