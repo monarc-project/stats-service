@@ -37,7 +37,7 @@ packages = [
 monarc-stats-service = "runserver:run"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8,<3.11"
 Flask = "^2.0.2"
 requests = "^2.25.1"
 flask_restx = "^0.5.1"
