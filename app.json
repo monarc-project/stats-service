@@ -27,11 +27,6 @@
     },
     "env": {
         "HEROKU": "1",
-        "FLASK_APP": "runserver.py",
-        "APPLICATION_SETTINGS": {
-            "description": "Configuration file for Heroku",
-            "required": true,
-            "value": "heroku.py"
-        }
+        "FLASK_APP": "runserver.py"
     }
 }

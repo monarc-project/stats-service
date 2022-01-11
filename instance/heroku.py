@@ -22,4 +22,4 @@ SECRET_KEY = "LCx3BchmHRxFzkEv4BqQJyeXRLXenf"
 LOG_PATH = ""
 
 # Connection with MOSP
-MOSP_URL = "https://objects.monarc.lu"
+MOSP_URL = os.environ.get("MOSP_URL", "https://objects.monarc.lu")
