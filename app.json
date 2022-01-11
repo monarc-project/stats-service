@@ -23,12 +23,11 @@
         }
     ],
     "scripts": {
-        "postdeploy": "flask db_init"
+        "postdeploy": "pybabel compile -d statsservice/translations && flask db_init"
     },
     "env": {
         "HEROKU": "1",
         "FLASK_APP": "runserver.py",
-        "FLASK_ENV": "development",
         "APPLICATION_SETTINGS": {
             "description": "Configuration file for Heroku",
             "required": true,

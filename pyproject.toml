@@ -52,6 +52,11 @@ Flask-Migrate = "^2.7.0"
 pymosp = "^0.4.2"
 packaging = "^20.9"
 python-dateutil = "^2.8.2"
+mypy = "^0.931"
+typing-extensions = "^4.0.1"
+types-setuptools = "^57.4.7"
+types-requests = "^2.27.5"
+types-python-dateutil = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 sphinx = "^3.0.3"
@@ -59,9 +64,25 @@ sphinx-book-theme = "^0.1.0"
 flake8 = "^3.9.1"
 pytest = "^6.2.3"
 gitchangelog = "^3.0.4"
-mypy = "^0.812"
 sphinx-multiversion = "^0.2.4"
 
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+ignore_errors = false
+ignore_missing_imports = true
+strict_optional = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unreachable = true
+
+show_error_context = true
+pretty = true
+
+exclude = "migrations|docs|statsservice/commands"

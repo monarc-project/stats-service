@@ -9,7 +9,7 @@ FIX_PROXY = False
 ADMIN_EMAIL = "info@cases.lu"
 ADMIN_URL = "https://www.cases.lu"
 
-REMOTE_STATS_SERVER = 'https://dashboard.monarc.lu'
+REMOTE_STATS_SERVER = "https://dashboard.monarc.lu"
 REMOTE_STATS_TOKEN = ""
 
 CLIENT_REGISTRATION_OPEN = False
@@ -27,7 +27,7 @@ SQLALCHEMY_DATABASE_URI = "postgresql://{user}:{password}@{host}:{port}/{name}".
 )
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-SECRET_KEY = 'LCx3BchmHRxFzkEv4BqQJyeXRLXenf'
+SECRET_KEY = "LCx3BchmHRxFzkEv4BqQJyeXRLXenf"
 
 LOG_PATH = "./var/stats.log"
 

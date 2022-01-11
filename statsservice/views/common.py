@@ -76,7 +76,7 @@ def load_user(client_id):
     return Client.query.filter(Client.id == client_id).first()
 
 
-@identity_loaded.connect_via(current_app._get_current_object())
+@identity_loaded.connect_via(current_app._get_current_object())  # type: ignore
 def on_identity_loaded(sender, identity):
     # Set the identity user object
     identity.user = current_user

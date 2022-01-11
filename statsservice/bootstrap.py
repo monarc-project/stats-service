@@ -81,7 +81,7 @@ if not application.config.get("SECRET_KEY", False):
     application.config["SECRET_KEY"] = os.urandom(24)
 
 if application.config.get("FIX_PROXY", False):
-    application.wsgi_app = ProxyFix(application.wsgi_app, x_host=1, x_prefix=1)
+    application.wsgi_app = ProxyFix(application.wsgi_app, x_host=1, x_prefix=1)  # type: ignore
 
 set_logging(application.config.get("LOG_PATH", None))
 

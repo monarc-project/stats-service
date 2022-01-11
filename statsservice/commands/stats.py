@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Dict, Any
 import json
 import logging
 import click
@@ -68,7 +68,7 @@ def stats_purge(nb_month):
     is_flag=True,
     help="Automatically reply yes to the deletion confirmation message.",
 )
-def stats_remove_duplicate(type, nb_month, yes) -> int:
+def stats_remove_duplicate(type, nb_month, yes) -> None:
     """Delete duplicate stats that are older than the number of months specified in
     parameter."""
     to_delete = []
@@ -89,7 +89,7 @@ def stats_remove_duplicate(type, nb_month, yes) -> int:
 
     for elems in elems_per_anr:
         previous_date: Optional[date] = None
-        previous_data: Optional[date] = None
+        previous_data: Optional[Dict[str, Any]] = None
         sorted_elems = sorted(elems, key=lambda x: x[4])
         for *b, data, stat_date in sorted_elems:
             print(b, end=" "), print(stat_date)
