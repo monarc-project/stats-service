@@ -1,18 +1,23 @@
-from typing import Optional, Dict, Any
 import json
 import logging
+from datetime import date
+from itertools import groupby
+from operator import attrgetter
+from typing import Any
+from typing import Dict
+from typing import Optional
+from urllib.parse import urljoin
+
 import click
 import requests
 import sqlalchemy.exc
-from itertools import groupby
-from operator import attrgetter
-
-from datetime import date
 from dateutil.relativedelta import relativedelta
-from urllib.parse import urljoin
-from statsservice.bootstrap import application, db
-from statsservice.models import Stats, Client
+
+from statsservice.bootstrap import application
+from statsservice.bootstrap import db
 from statsservice.lib.utils import dict_hash
+from statsservice.models import Client
+from statsservice.models import Stats
 
 
 logger = logging.getLogger(__name__)
@@ -47,7 +52,7 @@ def stats_delete(client_uuid, yes):
 @click.option("--nb-month", default=36, help="Age (in months) of the stats to purge.")
 def stats_purge(nb_month):
     """Delete the stats older than the number of months specified in parameter."""
-    print("Deleting stats older than {} months...".format(nb_month))
+    print(f"Deleting stats older than {nb_month} months...")
     date_to = (date.today() - relativedelta(months=nb_month)).strftime("%Y-%m-%d")
     # query = Stats.query.filter(Stats.date <= date_to)
     try:
@@ -77,7 +82,7 @@ def stats_remove_duplicate(type, nb_month, yes) -> None:
 
     if nb_month:
         date_to = (date.today() - relativedelta(months=nb_month)).strftime("%Y-%m-%d")
-        query = query.filter((Stats.date <= date_to))
+        query = query.filter(Stats.date <= date_to)
 
     print("Searching for duplicate stats...")
     query = query.with_entities(
@@ -113,9 +118,7 @@ def stats_remove_duplicate(type, nb_month, yes) -> None:
 
         print(" ")
 
-    if yes or click.confirm(
-        "Do you want to delete {} duplicate stats?".format(len(to_delete))
-    ):
+    if yes or click.confirm(f"Do you want to delete {len(to_delete)} duplicate stats?"):
         print("Removing the duplicate stats...")
         try:
             deleted_objects = Stats.__table__.delete().where(Stats.uuid.in_(to_delete))
@@ -190,7 +193,7 @@ def stats_push(local_client_uuid, remote_token, date_from, date_to):
             )
 
     try:
-        print("Pushing stats for client {}".format(client.name))
+        print(f"Pushing stats for client {client.name}")
         r = requests.post(STATS_API_ENDPOINT, data=json.dumps(payload), headers=headers)
         if r.status_code not in [200, 204]:
             logger.error(

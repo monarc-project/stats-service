@@ -1,24 +1,27 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import logging
-import sqlalchemy.exc
-from typing import Dict, Any
-from flask_login import current_user
-from flask_restx import Namespace, Resource, fields, reqparse, abort
-from flask_restx.inputs import date_from_iso8601, boolean
 from datetime import date
-from dateutil.relativedelta import relativedelta
+from typing import Any
+from typing import Dict
 
+import sqlalchemy.exc
+from dateutil.relativedelta import relativedelta
+from flask_login import current_user
+from flask_restx import abort
+from flask_restx import fields
+from flask_restx import Namespace
+from flask_restx import reqparse
+from flask_restx import Resource
+from flask_restx.inputs import boolean
+from flask_restx.inputs import date_from_iso8601
+
+from statsservice.api.v1.common import auth_func
+from statsservice.api.v1.common import check_client_user_agent
+from statsservice.api.v1.common import metada_params_model
+from statsservice.api.v1.common import stats_params_model
+from statsservice.api.v1.common import uuid_type
 from statsservice.bootstrap import db
 from statsservice.models import Stats
-from statsservice.api.v1.common import (
-    auth_func,
-    uuid_type,
-    metada_params_model,
-    stats_params_model,
-    check_client_user_agent,
-)
 
 
 logger = logging.getLogger(__name__)

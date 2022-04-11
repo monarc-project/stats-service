@@ -1,14 +1,12 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 #
 # Utilities.
 #
 import hashlib
 import json
-
 from collections import defaultdict
-from typing import Dict, Any
+from typing import Any
+from typing import Dict
 
 
 def mean_gen():

@@ -1,8 +1,7 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import os
 import subprocess
+
 import pkg_resources
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))

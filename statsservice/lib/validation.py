@@ -1,12 +1,10 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 #
 # Utilities to validate incoming stats data.
 #
+from typing import Any
 
 import jsonschema
-from typing import Any
 
 
 def validate_data(data={}, type: str = ""):

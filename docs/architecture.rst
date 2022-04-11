@@ -1,7 +1,7 @@
 Architecture
 ============
 
-High level architecture 
+High level architecture
 -----------------------
 
 .. image:: _static/architecture-stats-organization-level.png
@@ -113,7 +113,7 @@ Scenario 2
 
 The Stats Service is installed on a dedicated server.
 
-     
+
 Scenario 3
 ''''''''''
 
@@ -138,9 +138,9 @@ Important notes
     `General Settings / Sharing statistics  <https://www.monarc.lu/documentation/user-guide/#global-dashboard>`_
     view of your MONARC instance
     (`see here <https://www.monarc.lu/documentation/user-guide/images/GlobalDashboardGlobalSetting.png>`_).
-    
+
     However, stats must always be collected in your local Stats Service instance.
-    This is required for the proper functioning of the global dashboard of your MONARC instance. 
+    This is required for the proper functioning of the global dashboard of your MONARC instance.
 
 
 .. note::

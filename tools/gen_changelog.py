@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-
 # Sanitize the gitchangelog output
-
 import shutil
 
 inputFile = "./CHANGELOG.md"
@@ -11,7 +9,7 @@ previousLine = ""
 
 output_file = open(outputFile, "w")
 
-for line in open(inputFile, "r"):
+for line in open(inputFile):
     if line == previousLine:
         previousLine = line
         continue

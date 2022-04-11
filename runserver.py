@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Stats service API for MONARC
 # Copyright (C) 2020-2021 Cédric Bonhomme - https://www.cedricbonhomme.org
 # Copyright (C) 2020-2021 SMILE gie securitymadein.lu
@@ -19,25 +17,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
 from statsservice.bootstrap import application
-from statsservice.commands import (
-    db_empty,
-    db_create,
-    db_init,
-    client_create,
-    client_list,
-    client_delete,
-    client_coordinates_set,
-    client_coordinates_unset,
-    client_sharing_activate,
-    client_sharing_deactivate,
-    stats_delete,
-    stats_pull,
-    stats_push,
-    mosp_is_object_published,
-)
+from statsservice.commands import client_coordinates_set
+from statsservice.commands import client_coordinates_unset
+from statsservice.commands import client_create
+from statsservice.commands import client_delete
+from statsservice.commands import client_list
+from statsservice.commands import client_sharing_activate
+from statsservice.commands import client_sharing_deactivate
+from statsservice.commands import db_create
+from statsservice.commands import db_empty
+from statsservice.commands import db_init
+from statsservice.commands import mosp_is_object_published
+from statsservice.commands import stats_delete
+from statsservice.commands import stats_pull
+from statsservice.commands import stats_push
 
 
 def register_commands(app):

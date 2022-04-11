@@ -1,6 +1,8 @@
 import uuid
 from datetime import datetime
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.dialects.postgresql import UUID
 
 from statsservice.bootstrap import db
 

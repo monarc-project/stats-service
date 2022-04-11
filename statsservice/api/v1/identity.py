@@ -1,23 +1,25 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from flask import request, current_app
 from datetime import datetime
-from flask_login import LoginManager, login_user, current_user
-from flask_principal import (
-    Principal,
-    Identity,
-    Permission,
-    UserNeed,
-    RoleNeed,
-    session_identity_loader,
-    identity_changed,
-    identity_loaded,
-)
 
-from statsservice.models.client import ROLE_USER, ROLE_ADMIN
-from statsservice.bootstrap import application, db
+from flask import current_app
+from flask import request
+from flask_login import current_user
+from flask_login import login_user
+from flask_login import LoginManager
+from flask_principal import Identity
+from flask_principal import identity_changed
+from flask_principal import identity_loaded
+from flask_principal import Permission
+from flask_principal import Principal
+from flask_principal import RoleNeed
+from flask_principal import session_identity_loader
+from flask_principal import UserNeed
+
+from statsservice.bootstrap import application
+from statsservice.bootstrap import db
 from statsservice.models import Client
+from statsservice.models.client import ROLE_ADMIN
+from statsservice.models.client import ROLE_USER
 
 
 Principal(current_app)

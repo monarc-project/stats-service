@@ -310,7 +310,7 @@ Connect to the session:
             183221.statsservice      (02/25/21 10:56:59)     (Detached)
     1 Socket in /var/run/screen/S-cedric.
     $ screen -xS 183221.statsservice
-    $ 
+    $
 
 
 

@@ -268,7 +268,7 @@ Pulling data from a central stats server.
                          threat).  [required]
 
       --help             Show this message and exit.
-  
+
 
 Delete stats
 ~~~~~~~~~~~~

@@ -1,6 +1,7 @@
-import uuid
 import secrets
+import uuid
 from datetime import datetime
+
 from flask_login import UserMixin
 from sqlalchemy.dialects.postgresql import UUID
 

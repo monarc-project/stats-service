@@ -1,16 +1,14 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 #
 # Bridge with a MOSP platform. By default: https://objects.monarc.lu
 #
-
-import os
 import json
-import requests
+import os
 from urllib.parse import urljoin
 
 import pymosp
+import requests
+
 from statsservice.bootstrap import application
 
 

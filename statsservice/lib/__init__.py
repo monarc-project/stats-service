@@ -1,7 +1,6 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from inspect import getmembers, isfunction
+from inspect import getmembers
+from inspect import isfunction
 
 from statsservice.lib import processors
 

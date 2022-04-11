@@ -1,7 +1,7 @@
 import pytest
 
-from statsservice.bootstrap import db as _db
 from statsservice.bootstrap import application
+from statsservice.bootstrap import db as _db
 
 
 @pytest.fixture(scope="session")

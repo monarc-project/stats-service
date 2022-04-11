@@ -1,13 +1,14 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import os
-import sys
 import subprocess
-from flask import Blueprint, jsonify
+import sys
+
+from flask import Blueprint
+from flask import jsonify
 from flask_login import login_required
-from statsservice.views.common import admin_permission
+
 from statsservice.bootstrap import application
+from statsservice.views.common import admin_permission
 
 
 # stats_bp: blueprint for

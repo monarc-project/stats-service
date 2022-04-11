@@ -1,11 +1,13 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import operator
-from flask import Blueprint, render_template, jsonify
+
+from flask import Blueprint
+from flask import jsonify
+from flask import render_template
 
 import statsservice.lib.processors
-from statsservice.models import Client, Stats
+from statsservice.models import Client
+from statsservice.models import Stats
 
 
 # stats_bp: blueprint for public only routes which returns different kind of statistics
@@ -35,7 +37,7 @@ def clients():
         )
         try:
             max_threat = max(
-                [(threat["averages"]["count"], threat["object"]) for threat in threats],
+                ((threat["averages"]["count"], threat["object"]) for threat in threats),
                 key=operator.itemgetter(0),
             )
         except ValueError:
@@ -53,10 +55,10 @@ def clients():
         )(query.all())
         try:
             max_vulnerability = max(
-                [
+                (
                     (vulnerability["averages"]["count"], vulnerability["object"])
                     for vulnerability in vulnerabilities
-                ],
+                ),
                 key=operator.itemgetter(0),
             )
         except ValueError:

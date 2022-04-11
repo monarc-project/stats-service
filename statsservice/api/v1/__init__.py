@@ -1,4 +1,7 @@
-from flask import Blueprint, request, render_template, url_for
+from flask import Blueprint
+from flask import render_template
+from flask import request
+from flask import url_for
 from flask_restx import Api
 
 from statsservice.bootstrap import application

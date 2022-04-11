@@ -371,4 +371,3 @@ msgstr ""
 #: statsservice/templates/map.html:15
 msgid "share statistics"
 msgstr ""
-

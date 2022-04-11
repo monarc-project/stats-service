@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 #
 # Utilities to process data for the different kind of stats (threat, risk, etc.).
 #
@@ -10,9 +8,11 @@
 # aggregation processors are automatically listed in statsservice.lib.AVAILABLE_PROCESSORS
 # this variable is for example used in statsservice.api.v1.stats
 #
-
 from typing import Any
-from statsservice.lib.utils import tree, mean_gen, dict_recursive_walk
+
+from statsservice.lib.utils import dict_recursive_walk
+from statsservice.lib.utils import mean_gen
+from statsservice.lib.utils import tree
 
 #
 # Processors for threats

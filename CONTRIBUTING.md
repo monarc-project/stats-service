@@ -1,6 +1,15 @@
 You are welcome to contribute to the MONARC Stats Service project.
 There are many ways to contribute and participate.
 
+Before starting to contribute please install the Git hook scripts:
+
+```bash
+$ git clone https://github.com/monarc-project/stats-service
+$ cd stats-service/
+$ poetry install
+$ pre-commit install
+```
+
 Feel free to fork the code, play with it, make some patches and send us the pull
 requests.
 

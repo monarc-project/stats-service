@@ -1,14 +1,18 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import logging
 from datetime import datetime
-from flask_restx import Namespace, Resource, fields, abort, reqparse
+
+from flask_restx import abort
+from flask_restx import fields
+from flask_restx import Namespace
+from flask_restx import reqparse
+from flask_restx import Resource
 from flask_restx.inputs import date_from_iso8601
 
 import statsservice.lib.processors
-from statsservice.lib import AVAILABLE_PROCESSORS, AVAILABLE_PROCESSORS_FUNC
 from statsservice.api.v1.common import auth_func
+from statsservice.lib import AVAILABLE_PROCESSORS
+from statsservice.lib import AVAILABLE_PROCESSORS_FUNC
 from statsservice.models import Stats
 
 logger = logging.getLogger(__name__)
@@ -152,7 +156,7 @@ class ProcessingList(Resource):
             except AttributeError:
                 abort(
                     500,
-                    description="There is no such processor: '{}'.".format(processor),
+                    description=f"There is no such processor: '{processor}'.",
                 )
 
         return result, 200

@@ -1,7 +1,8 @@
 import click
 
 from statsservice import models
-from statsservice.bootstrap import application, db
+from statsservice.bootstrap import application
+from statsservice.bootstrap import db
 
 
 @application.cli.command("db_empty")

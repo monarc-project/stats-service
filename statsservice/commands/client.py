@@ -1,8 +1,10 @@
-import sys
-import click
 import secrets
+import sys
 
-from statsservice.bootstrap import application, db
+import click
+
+from statsservice.bootstrap import application
+from statsservice.bootstrap import db
 from statsservice.models import Client
 
 

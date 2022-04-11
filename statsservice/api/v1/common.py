@@ -1,13 +1,13 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import uuid
-from packaging import version
-from flask import request
-from flask_restx import abort, fields
 
-from statsservice.models import Client
+from flask import request
+from flask_restx import abort
+from flask_restx import fields
+from packaging import version
+
 from statsservice.api.v1.identity import login_user_bundle
+from statsservice.models import Client
 
 
 def uuid_type(value):

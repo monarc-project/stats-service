@@ -1,18 +1,18 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import logging
-from flask_restx import Namespace, Resource, abort
-from flask_login import current_user
 
-from statsservice.bootstrap import db, application
-from statsservice.models import Client
-from statsservice.api.v1.common import (
-    auth_func,
-    clients_params_model,
-    check_client_user_agent,
-)
+from flask_login import current_user
+from flask_restx import abort
+from flask_restx import Namespace
+from flask_restx import Resource
+
+from statsservice.api.v1.common import auth_func
+from statsservice.api.v1.common import check_client_user_agent
+from statsservice.api.v1.common import clients_params_model
 from statsservice.api.v1.identity import admin_permission
+from statsservice.bootstrap import application
+from statsservice.bootstrap import db
+from statsservice.models import Client
 
 
 logger = logging.getLogger(__name__)

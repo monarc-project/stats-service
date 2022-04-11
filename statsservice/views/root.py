@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Stats service API for MONARC
 # Copyright (C) 2020-2021 Cédric Bonhomme - https://www.cedricbonhomme.org
 # Copyright (C) 2020-2021 SMILE gie securitymadein.lu
@@ -19,12 +17,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import sys
-from flask import Blueprint, url_for, render_template, jsonify
+
+from flask import Blueprint
+from flask import jsonify
+from flask import render_template
+from flask import url_for
+
 from statsservice import __version__
 from statsservice.bootstrap import application
-from statsservice.models import Client, Stats
+from statsservice.models import Client
+from statsservice.models import Stats
 
 
 # root_bp: blueprint of higher level routes
@@ -69,7 +72,7 @@ def about_more():
             )
         )
     else:
-        stats_service_version = "{} - {}".format(version[0], version[2][1:])
+        stats_service_version = f"{version[0]} - {version[2][1:]}"
         version_url = (
             "https://github.com/monarc-project/stats-service/commits/{}".format(
                 version[2][1:]
@@ -97,7 +100,7 @@ def about_json():
             )
         )
     else:
-        stats_version = "{} - {}".format(version[0], version[2][1:])
+        stats_version = f"{version[0]} - {version[2][1:]}"
         version_url = (
             "https://github.com/monarc-project/stats-service/commits/{}".format(
                 version[2][1:]

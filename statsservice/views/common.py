@@ -1,19 +1,22 @@
-from flask import g, current_app
+from flask import current_app
+from flask import g
 from flask.sessions import SecureCookieSessionInterface
-from flask_login import login_user, current_user, user_loaded_from_header
+from flask_login import current_user
+from flask_login import login_user
 from flask_login import LoginManager as OriginalLoginManager
-from flask_principal import (
-    Principal,
-    Identity,
-    UserNeed,
-    RoleNeed,
-    Permission,
-    identity_changed,
-    identity_loaded,
-)
-from statsservice.models.client import ROLE_USER, ROLE_ADMIN
-from statsservice.models import Client
+from flask_login import user_loaded_from_header
+from flask_principal import Identity
+from flask_principal import identity_changed
+from flask_principal import identity_loaded
+from flask_principal import Permission
+from flask_principal import Principal
+from flask_principal import RoleNeed
+from flask_principal import UserNeed
+
 from statsservice.bootstrap import application
+from statsservice.models import Client
+from statsservice.models.client import ROLE_ADMIN
+from statsservice.models.client import ROLE_USER
 
 
 principals = Principal(current_app)
@@ -38,7 +41,7 @@ class CustomSessionInterface(SecureCookieSessionInterface):
     def save_session(self, *args, **kwargs):
         if g.get("login_via_header"):
             return
-        return super(CustomSessionInterface, self).save_session(*args, **kwargs)
+        return super().save_session(*args, **kwargs)
 
 
 application.session_interface = CustomSessionInterface()

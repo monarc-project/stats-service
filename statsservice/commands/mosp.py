@@ -1,8 +1,9 @@
 import json
+
 import click
 
-from statsservice.lib import mosp
 from statsservice.bootstrap import application
+from statsservice.lib import mosp
 
 
 @application.cli.command("mosp_is_object_published")

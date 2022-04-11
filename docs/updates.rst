@@ -6,7 +6,7 @@ script:
 
 .. code-block:: bash
 
-    $ ./contrib/update.sh 
+    $ ./contrib/update.sh
     From github.com:monarc-project/stats-service
       * branch            master     -> FETCH_HEAD
     Already up to date.

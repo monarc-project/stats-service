@@ -1,8 +1,11 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
+from datetime import datetime
+from datetime import timedelta
 
-from datetime import datetime, timedelta
-from flask import Blueprint, request, jsonify, abort
+from flask import abort
+from flask import Blueprint
+from flask import jsonify
+from flask import request
 
 import statsservice.lib.processors
 from statsservice.models import Stats
@@ -39,7 +42,7 @@ def threats():
     except AttributeError:
         abort(
             500,
-            description="There is no such processor: '{}'.".format(processor),
+            description=f"There is no such processor: '{processor}'.",
         )
 
     return jsonify(result)
@@ -69,7 +72,7 @@ def risks():
     except AttributeError:
         abort(
             500,
-            description="There is no such processor: '{}'.".format(processor),
+            description=f"There is no such processor: '{processor}'.",
         )
 
     return jsonify(result)
@@ -99,7 +102,7 @@ def vulnerabilities():
     except AttributeError:
         abort(
             500,
-            description="There is no such processor: '{}'.".format(processor),
+            description=f"There is no such processor: '{processor}'.",
         )
 
     return jsonify(result)
