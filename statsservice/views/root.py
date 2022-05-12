@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # Stats service API for MONARC
-# Copyright (C) 2020-2021 Cédric Bonhomme - https://www.cedricbonhomme.org
-# Copyright (C) 2020-2021 SMILE gie securitymadein.lu
+# Copyright (C) 2020-2022 Cédric Bonhomme - https://www.cedricbonhomme.org
+# Copyright (C) 2020-2022 SMILE gie securitymadein.lu
 #
 # For more information: https://github.com/monarc-project/stats-api/
 #
