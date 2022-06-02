@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 import logging
+import sqlalchemy
 
 from flask_login import current_user
 from flask_restx import abort
@@ -42,15 +43,15 @@ class ClientsList(Resource):
             db.session.commit()
             return new_client
 
-        if application.config.get("CLIENT_REGISTRATION_OPEN", False):
-            new_client = create_client()
-        else:
-            try:
+        try:
+            if application.config.get("CLIENT_REGISTRATION_OPEN", False):
+                new_client = create_client()
+            else:
                 with admin_permission.require():
                     new_client = create_client()
-            except Exception:
-                logger.error("Only admin can create new client.")
-                return abort(403)
+        except sqlalchemy.exc.IntegrityError:
+            db.session.rollback()
+            return "", 304
 
         return new_client, 201
 
