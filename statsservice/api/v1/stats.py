@@ -77,7 +77,8 @@ parser.add_argument(
     type=boolean,
     required=False,
     location="json",
-    help="Specify that result should compose only the last records in the results set for each anr. Dates filters are ignored in this case.",
+    help="Specify that result should compose only the last records in the "
+    "results set for each anr. Dates filters are ignored in this case.",
 )
 parser.add_argument(
     "offset",

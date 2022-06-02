@@ -7,7 +7,6 @@ import os
 from urllib.parse import urljoin
 
 import pymosp
-import requests
 
 from statsservice.bootstrap import application
 

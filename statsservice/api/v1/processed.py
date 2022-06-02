@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 import logging
-from datetime import datetime
 
 from flask_restx import abort
 from flask_restx import fields
@@ -117,7 +116,6 @@ class ProcessingList(Resource):
         processor = args.get("processor", "")
         processorParams = args.get("processor_params", {})
         anrs = args.get("anrs")
-        now = datetime.today()
 
         if not processor.startswith(stat_type + "_"):
             abort(

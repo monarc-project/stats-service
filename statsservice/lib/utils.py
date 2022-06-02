@@ -31,7 +31,7 @@ def mean_gen():
 def dict_recursive_walk(dictionary, func, *args, **kwargs):
     """Walk recursively in a nested dictionary and apply a function (send()) with
     parameters."""
-    for key, value in dictionary.items():
+    for _key, value in dictionary.items():
         if type(value) is dict:
             dict_recursive_walk(value, func, *args, **kwargs)
         else:
@@ -64,7 +64,7 @@ def groups_threats(threats):
             # groups[threat_stats.anr].append(data)
             try:  # temporary try
                 str_uuid = str(data["uuid"])
-            except:
+            except Exception:
                 continue
             if str_uuid not in groups[anr_uuid].keys():
                 groups[anr_uuid][str_uuid] = []
@@ -86,5 +86,5 @@ def groups_vulnerabilities(vulnerabilities):
     return groups_threats(vulnerabilities)
 
 
-def groups_risks(risks):
-    groups = tree()
+# def groups_risks(risks):
+#     groups = tree()
