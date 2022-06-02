@@ -19,7 +19,7 @@ from statsservice.lib.utils import tree
 #
 
 
-def threat_average_on_date(threats_stats, processor_params={}):
+def threat_average_on_date(threats_stats, processor_params=None):
     result = []
 
     averages = tree()
@@ -114,7 +114,7 @@ def threat_average_on_date(threats_stats, processor_params={}):
 #
 
 
-def vulnerability_average_on_date(vulnerabilities_stats, processor_params={}):
+def vulnerability_average_on_date(vulnerabilities_stats, processor_params=None):
     """Aggregation and average of vulnerabilities per date for each vulnerability
     (accross all risk analysis).
     """
@@ -128,7 +128,7 @@ def vulnerability_average_on_date(vulnerabilities_stats, processor_params={}):
 #
 
 
-def risk_averages(risks_stats, processor_params={}):
+def risk_averages(risks_stats, processor_params=None):
     """Evaluates the averages for the risks. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high)."""
     assert processor_params is not None, "processor_params parameters can not be None."
@@ -212,7 +212,7 @@ def risk_averages(risks_stats, processor_params={}):
     return result
 
 
-def risk_averages_on_date(risks_stats, processor_params={}):
+def risk_averages_on_date(risks_stats, processor_params=None):
     """Evaluates the averages for the risks per date. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high).
     Supported parameters:

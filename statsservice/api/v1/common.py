@@ -20,7 +20,7 @@ def uuid_type(value):
 
 
 # Swagger documentation
-setattr(uuid_type, "__schema__", {"type": "string", "format": "uuid_type"})
+setattr(uuid_type, "__schema__", {"type": "string", "format": "uuid_type"})  # noqa
 
 
 def auth_func(func):
