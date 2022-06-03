@@ -118,7 +118,6 @@ def vulnerability_average_on_date(vulnerabilities_stats, processor_params=None):
     """Aggregation and average of vulnerabilities per date for each vulnerability
     (accross all risk analysis).
     """
-    assert processor_params is not None, "processor_params parameters can not be None."
     # the structure of the stats for the threats and vulnerabilities is the same
     return threat_average_on_date(vulnerabilities_stats)
 
@@ -131,7 +130,6 @@ def vulnerability_average_on_date(vulnerabilities_stats, processor_params=None):
 def risk_averages(risks_stats, processor_params=None):
     """Evaluates the averages for the risks. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high)."""
-    assert processor_params is not None, "processor_params parameters can not be None."
     # Initialization of the structure of the result.
     result = {
         "current": {
@@ -218,7 +216,7 @@ def risk_averages_on_date(risks_stats, processor_params=None):
     Supported parameters:
     - risks_type: informational or operational
     - risks_state: current or residual."""
-    assert processor_params is not None, "processor_params parameters can not be None."
+    processor_params = processor_params if processor_params else {}
     result = {
         "current": {
             "informational": {
