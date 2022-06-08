@@ -29,4 +29,4 @@ for try in 1 2 3 4 5 6; do
 	[ "$try" = "6" ] && exit 1
 done
 
-flask run
+gunicorn --chdir /app --workers 2 --bind 0.0.0.0:5000 runserver:application

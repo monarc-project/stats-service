@@ -18,11 +18,11 @@ ENV DB_HOSTNAME=db
 ENV DB_USERNAME=statsservice
 ENV DB_PASSWORD=statsservice
 
-#RUN pip install gunicorn[gevent]
-
 WORKDIR /app
 
 COPY requirements.txt /app/
+
+RUN pip install gunicorn[gevent]
 RUN pip install -r requirements.txt
 
 COPY statsservice/ /app/statsservice/
