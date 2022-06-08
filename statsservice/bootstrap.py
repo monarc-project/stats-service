@@ -78,6 +78,9 @@ else:
         # default configuration file
         application.config.from_object("instance.config.ProductionConfig")
 
+if not application.config.get("ACTIVE_BLUEPRINTS", False):
+    application.config["ACTIVE_BLUEPRINTS"] = ["stats_bp", "admin_bp"]
+
 # Set SECRET_KEY if it was not defined
 if not application.config.get("SECRET_KEY", False):
     application.config["SECRET_KEY"] = os.urandom(24)

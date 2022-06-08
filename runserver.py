@@ -63,10 +63,9 @@ with application.app_context():
 
     from statsservice import views
 
-    application.register_blueprint(views.root_bp)
-    application.register_blueprint(views.stats_bp)
-    application.register_blueprint(views.map_bp)
-    application.register_blueprint(views.admin_bp)
+    for blueprint in views.__all__:
+        if blueprint in application.config["ACTIVE_BLUEPRINTS"]:
+            application.register_blueprint(getattr(views, blueprint))
 
     register_commands(application)
 

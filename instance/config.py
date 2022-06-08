@@ -14,6 +14,8 @@ class Config:
     ADMIN_EMAIL = "info@cases.lu"
     ADMIN_URL = "https://www.cases.lu"
 
+    ACTIVE_BLUEPRINTS = ["stats_bp", "admin_bp"]
+
     REMOTE_STATS_SERVER = "https://dashboard.monarc.lu"
     REMOTE_STATS_TOKEN = ""
 
