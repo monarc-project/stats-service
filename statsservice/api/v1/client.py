@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 import logging
 
+import flask_principal
 from flask_login import current_user
 from flask_restx import abort
 from flask_restx import Namespace
@@ -35,22 +36,17 @@ class ClientsList(Resource):
     @auth_func
     def post(self):
         """Create a new client."""
-
-        def create_client():
-            new_client = Client(**client_ns.payload)
-            db.session.add(new_client)
-            db.session.commit()
-            return new_client
-
-        if application.config.get("CLIENT_REGISTRATION_OPEN", False):
-            new_client = create_client()
-        else:
-            try:
-                with admin_permission.require():
-                    new_client = create_client()
-            except Exception:
-                logger.error("Only admin can create new client.")
-                return abort(403)
+        try:
+            with admin_permission.require():
+                if application.config.get("CLIENT_REGISTRATION_OPEN", False):
+                    new_client = Client(**client_ns.payload)
+                    db.session.add(new_client)
+                    db.session.commit()
+                else:
+                    return {}, 204
+        except flask_principal.PermissionDenied:
+            logger.error("Only admin can create new client.")
+            abort(403)
 
         return new_client, 201
 

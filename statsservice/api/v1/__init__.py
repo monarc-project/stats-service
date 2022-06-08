@@ -1,8 +1,10 @@
+import sqlalchemy
 from flask import Blueprint
 from flask import render_template
 from flask_restx import Api
 
 from statsservice.bootstrap import application
+from statsservice.bootstrap import db
 
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/v1")
@@ -36,6 +38,12 @@ def setup_api(application):
         contact_email=application.config["ADMIN_EMAIL"],
         contact_url=application.config["ADMIN_URL"],
     )
+
+    @api.errorhandler(sqlalchemy.exc.IntegrityError)
+    def handle_duplicate_object_exception(error):
+        """Return a 304 status code on SQLALchemy IntegrityError."""
+        db.session.rollback()
+        return {"message": "Duplicate object."}, 304
 
     @api.documentation
     def custom_ui():
