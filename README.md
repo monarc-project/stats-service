@@ -80,14 +80,6 @@ $ flask run
 or use the [docker image](https://hub.docker.com/r/caseslu/statsservice).
 
 
-## Deploy to Heroku
-
-Simply with this button:
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/monarc-project/stats-service)
-
-And voilà !
-
 
 ## License
 

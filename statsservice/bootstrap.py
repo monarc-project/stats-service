@@ -55,17 +55,12 @@ def set_logging(
 application = Flask(__name__, instance_relative_config=True)
 
 # Load the appropriate configuration
-ON_HEROKU = int(os.environ.get("HEROKU", 0)) == 1
 TESTING = os.environ.get("testing", "") == "actions"
 if TESTING:
     # Testing on GitHub Actions
     application.config[
         "SQLALCHEMY_DATABASE_URI"
     ] = "postgresql://statsservice:password@localhost:5432/statsservice"
-elif ON_HEROKU:
-    # if the application is running on Heroku
-    application.config.from_pyfile("heroku.py", silent=False)
-    application.config["INSTANCE_URL"] = os.environ.get("INSTANCE_URL", "")
 elif os.environ.get("STATS_CONFIG", ""):
     # if a specific configuration is provided by the user
     # this does not works with mod_wsgi
