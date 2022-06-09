@@ -77,7 +77,7 @@ MONARC Stats Service is licensed under
 
 MONARC Stats Service.
 
-* Copyright (C) 2020-2021 Cédric Bonhomme
+* Copyright (C) 2020-2022 Cédric Bonhomme
 * Copyright (C) 2020-2021 Juan Rocha
 * Copyright (C) 2020-2021 SECURITYMADEIN.LU
 
