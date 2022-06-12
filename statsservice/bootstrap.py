@@ -108,6 +108,8 @@ def get_locale():
 
 application.jinja_env.filters["datetime"] = format_datetime
 
+application.jinja_env.trim_blocks = True
+application.jinja_env.lstrip_blocks = True
 
 # URL Converters: UUID type
 UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
