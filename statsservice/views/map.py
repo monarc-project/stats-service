@@ -32,9 +32,9 @@ def clients():
         query = query.order_by(Stats.date.desc()).limit(40)
         if not query.count():
             continue
-        threats = getattr(statsservice.lib.processors, "threat_average_on_date")(
-            query.all()
-        )
+        threats = getattr(  # noqa
+            statsservice.lib.processors, "threat_average_on_date"
+        )(query.all())
         try:
             max_threat = max(
                 ((threat["averages"]["count"], threat["object"]) for threat in threats),
@@ -50,7 +50,7 @@ def clients():
         query = query.order_by(Stats.date.desc()).limit(40)
         if not query.count():
             continue
-        vulnerabilities = getattr(
+        vulnerabilities = getattr(  # noqa
             statsservice.lib.processors, "vulnerability_average_on_date"
         )(query.all())
         try:

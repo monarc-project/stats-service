@@ -54,9 +54,11 @@
           <li class="nav-item">
             <a class="nav-link {% if active_page == "evolution" %}active{%endif%}" href="{{ url_for('root_bp.evolution') }}">{{_('Evolution')}}</a>
           </li>
+          {% if "map_bp" in config.ACTIVE_BLUEPRINTS %}
           <li class="nav-item">
             <a class="nav-link {% if active_page == "map" %}active{%endif%}" href="{{ url_for('map_bp.index') }}">{{_('Map')}}</a>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link {% if active_page == "about" %}active{%endif%}" href="{{ url_for('root_bp.about') }}">{{_('About')}}</a>
           </li>

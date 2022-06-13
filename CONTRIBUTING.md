@@ -27,3 +27,19 @@ Please, do not open directly a GitHub issue if you think you have found a
 security vulnerability. See our
 [vulnerability disclosure](https://www.monarc.lu/community/vulnerability-disclosure/)
 page.
+
+
+## Building the documentation
+
+Please provide documentation when changing, removing, or adding features.
+Documentation resides in the project's [docs](docs/) folder.
+
+```bash
+$ pip install --upgrade -r requirements-doc.txt
+$ make doc
+```
+
+It will generate several documentations per tags and development branches.
+
+The documentation is available online
+[here](https://www.monarc.lu/documentation/stats-service/).

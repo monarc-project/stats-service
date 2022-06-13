@@ -2,7 +2,6 @@
 from datetime import datetime
 
 from flask import current_app
-from flask import request
 from flask_login import current_user
 from flask_login import login_user
 from flask_login import LoginManager
@@ -34,7 +33,7 @@ admin_permission = Permission(admin_role)
 
 
 def login_user_bundle(client):
-    if client == None:
+    if client is None:
         return
     login_user(client)
     identity_changed.send(current_app, identity=Identity(client.id))
@@ -43,15 +42,16 @@ def login_user_bundle(client):
 
 @login_manager.user_loader
 def load_user(client_id):
-    return Client.query.filter(Client.id == client_id, Client.is_active == True).first()
+    return Client.query.filter(
+        Client.id == client_id, Client.is_active == True  # noqa
+    ).first()
 
 
-@application.after_request
-def after_request(response):
+@application.before_request
+def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
-    return response
 
 
 @identity_loaded.connect_via(current_app._get_current_object())  # type: ignore

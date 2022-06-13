@@ -19,7 +19,7 @@ from statsservice.lib.utils import tree
 #
 
 
-def threat_average_on_date(threats_stats, processor_params={}):
+def threat_average_on_date(threats_stats, processor_params=None):
     result = []
 
     averages = tree()
@@ -114,11 +114,10 @@ def threat_average_on_date(threats_stats, processor_params={}):
 #
 
 
-def vulnerability_average_on_date(vulnerabilities_stats, processor_params={}):
+def vulnerability_average_on_date(vulnerabilities_stats, processor_params=None):
     """Aggregation and average of vulnerabilities per date for each vulnerability
     (accross all risk analysis).
     """
-    assert processor_params is not None, "processor_params parameters can not be None."
     # the structure of the stats for the threats and vulnerabilities is the same
     return threat_average_on_date(vulnerabilities_stats)
 
@@ -128,10 +127,9 @@ def vulnerability_average_on_date(vulnerabilities_stats, processor_params={}):
 #
 
 
-def risk_averages(risks_stats, processor_params={}):
+def risk_averages(risks_stats, processor_params=None):
     """Evaluates the averages for the risks. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high)."""
-    assert processor_params is not None, "processor_params parameters can not be None."
     # Initialization of the structure of the result.
     result = {
         "current": {
@@ -212,13 +210,13 @@ def risk_averages(risks_stats, processor_params={}):
     return result
 
 
-def risk_averages_on_date(risks_stats, processor_params={}):
+def risk_averages_on_date(risks_stats, processor_params=None):
     """Evaluates the averages for the risks per date. Averages are evaluated per categories
     (current/residual, informational/operational, low/medium/high).
     Supported parameters:
     - risks_type: informational or operational
     - risks_state: current or residual."""
-    assert processor_params is not None, "processor_params parameters can not be None."
+    processor_params = processor_params if processor_params else {}
     result = {
         "current": {
             "informational": {

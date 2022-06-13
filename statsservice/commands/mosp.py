@@ -1,5 +1,3 @@
-import json
-
 import click
 
 from statsservice.bootstrap import application

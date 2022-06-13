@@ -2,6 +2,7 @@
 import logging
 import sqlalchemy
 
+import flask_principal
 from flask_login import current_user
 from flask_restx import abort
 from flask_restx import Namespace

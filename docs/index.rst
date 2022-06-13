@@ -37,6 +37,7 @@ The collected statistics can be sent to an other Stats Service instance.
    updates
    command-line-interface
    logging
+   modules
 
 
 .. toctree::
@@ -66,6 +67,12 @@ Please report bugs to:
 https://github.com/monarc-project/stats-service/issues
 
 
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+
 
 
 License
@@ -77,7 +84,7 @@ MONARC Stats Service is licensed under
 
 MONARC Stats Service.
 
-* Copyright (C) 2020-2021 Cédric Bonhomme
+* Copyright (C) 2020-2022 Cédric Bonhomme
 * Copyright (C) 2020-2021 Juan Rocha
 * Copyright (C) 2020-2021 SECURITYMADEIN.LU
 

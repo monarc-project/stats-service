@@ -90,42 +90,6 @@ Install with a script:
     $ curl -sSL https://raw.githubusercontent.com/monarc-project/stats-service/master/contrib/install.sh | bash
 
 
-To Heroku
-~~~~~~~~~
-
-You can use this button:
-
-.. image:: https://www.herokucdn.com/deploy/button.png
-   :target: https://heroku.com/deploy?template=https://github.com/monarc-project/stats-service
-   :alt: Documentation Status
-
-or via command line:
-
-.. code-block:: bash
-
-    $ git clone https://github.com/monarc-project/stats-service
-    $ cd stats-service/
-    $ heroku create --region eu <name-of-your-instance>
-    $ heroku addons:add heroku-postgresql:hobby-dev
-    $ heroku buildpacks:add --index 1 heroku/python
-    $ heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-nodejs
-    $ heroku config:set HEROKU=1
-    $ heroku config:set INSTANCE_URL=https://<name-of-your-instance>.herokuapp.com
-    $ heroku config:set FLASK_APP='runserver.py'
-    $ heroku config:set FLASK_ENV='development'
-    $ git push heroku master
-
-Create a new client:
-
-.. code-block:: bash
-
-    heroku run flask client_create --name <name-of-the-client> --role admin
-
-All commands (:ref:`cli`) are available. Just prefix with ``heroku run``.
-
-A demo instance is available [here](https://monarc-stats-service.herokuapp.com).
-
-
 
 Docker
 ~~~~~~

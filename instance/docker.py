@@ -15,6 +15,7 @@ ADMIN_URL    = os.getenv('ADMIN_URL', 'https://www.cases.lu')
 
 REMOTE_STATS_SERVER = os.getenv('REMOTE_STATS_SERVER', 'https://dashboard.monarc.lu')
 REMOTE_STATS_TOKEN  = os.getenv('REMOTE_STATS_TOKEN', '')
+ACTIVE_BLUEPRINTS = ["stats_bp", "admin_bp"]
 
 CLIENT_REGISTRATION_OPEN = os.getenv('CLIENT_REGISTRATION_OPEN', '0') == '1'
 
