@@ -7,11 +7,12 @@ import pkg_resources
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
-def get_version():
-    """Get the current version of the software. If a .git folder is present
-    it uses Git tags, else it uses pkg_resources module."""
+def get_version() -> str:
+    """Get the current version of the software. First it checks if the environment
+    variable ``STATSSERVICE_VERSION`` is defined. If not, ff a .git folder is present
+    it uses ``Git tags``, else it uses ``pkg_resources`` module."""
     if os.getenv("STATSSERVICE_VERSION"):
-        return os.getenv("STATSSERVICE_VERSION")
+        return os.getenv("STATSSERVICE_VERSION", "")
 
     version = (
         subprocess.run(

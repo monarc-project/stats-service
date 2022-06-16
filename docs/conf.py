@@ -72,7 +72,6 @@ html_theme = "sphinx_book_theme"
 # html_static_path = ['_static']
 
 html_theme_options = {
-    "theme_dev_mode": True,
     "path_to_docs": "docs",
     "repository_url": "https://github.com/monarc-project/stats-service",
     # "repository_branch": "gh-pages",  # For testing
@@ -95,23 +94,23 @@ html_theme_options = {
 # -- Options for LaTeX output -------------------------------------------------
 
 
-latex_engine = "pdflatex"
-
-latex_logo = "../statsservice/static/img/stats-service-logo.png"
-
-latex_documents = [
-    (
-        "index",
-        "MONARC_Stats_Service.tex",
-        "MONARC Stats Service",
-        "CASES Luxembourg",
-        "howto",
-    ),
-]
-
-latex_show_urls = True
-latex_show_pagerefs = True
-
-ADDITIONAL_PREAMBLE = r"""
-\setcounter{tocdepth}{3}
-"""
+# latex_engine = "pdflatex"
+#
+# latex_logo = "../statsservice/static/img/stats-service-logo.png"
+#
+# latex_documents = [
+#     (
+#         "index",
+#         "MONARC_Stats_Service.tex",
+#         "MONARC Stats Service",
+#         "CASES Luxembourg",
+#         "howto",
+#     ),
+# ]
+#
+# latex_show_urls = True
+# latex_show_pagerefs = True
+#
+# ADDITIONAL_PREAMBLE = r"""
+# \setcounter{tocdepth}{3}
+# """

@@ -42,13 +42,13 @@ class Client(db.Model, UserMixin):
         "Stats", backref="client", lazy="dynamic", cascade="all, delete, delete-orphan"
     )
 
-    def get_id(self):
+    def get_id(self) -> int:
         """
         Return the id of the client.
         """
         return self.id
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "UUID: {}\nName: {}\nRole: {}\nToken: {}\nSharing Enabled: {}\nCreated at: {}".format(
             self.uuid,
             self.name,
@@ -58,5 +58,5 @@ class Client(db.Model, UserMixin):
             self.created_at,
         )
 
-    def is_admin(self):
+    def is_admin(self) -> bool:
         return self.role == ROLE_ADMIN

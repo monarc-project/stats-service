@@ -14,7 +14,7 @@ from statsservice.bootstrap import application
 MOSP_API_ENDPOINT = urljoin(application.config["MOSP_URL"], "/api/v2/")
 
 
-def is_object_published(uuid: str, verbose: bool = False):
+def is_object_published(uuid: str, verbose: bool = False) -> bool:
     """Check if an object has been published on MOSP."""
     mosp = pymosp.PyMOSP(MOSP_API_ENDPOINT, os.getenv("MOSP-TOKEN", ""))
     params = {"uuid": uuid}

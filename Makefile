@@ -41,4 +41,8 @@ clean:
 
 doc:
 	rm -Rf docs/_build
+	sphinx-build docs/ docs/_build/html
+
+multidoc:
+	rm -Rf docs/_build
 	sphinx-multiversion docs/ docs/_build/html

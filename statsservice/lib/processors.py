@@ -19,7 +19,7 @@ from statsservice.lib.utils import tree
 #
 
 
-def threat_average_on_date(threats_stats, processor_params=None):
+def threat_average_on_date(threats_stats, processor_params=None) -> list:
     result = []
 
     averages = tree()
@@ -114,7 +114,7 @@ def threat_average_on_date(threats_stats, processor_params=None):
 #
 
 
-def vulnerability_average_on_date(vulnerabilities_stats, processor_params=None):
+def vulnerability_average_on_date(vulnerabilities_stats, processor_params=None) -> list:
     """Aggregation and average of vulnerabilities per date for each vulnerability
     (accross all risk analysis).
     """
