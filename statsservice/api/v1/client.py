@@ -65,7 +65,7 @@ class ClientsList(Resource):
         args = parser.parse_args(strict=True)
         try:
             with admin_permission.require():
-                if application.config.get("CLIENT_REGISTRATION_OPEN", False):
+                if application.config.get("CLIENT_REGISTRATION_OPEN", True):
                     new_client = Client(
                         name=args.get("name"),
                         is_sharing_enabled=args.get("is_sharing_enabled"),
