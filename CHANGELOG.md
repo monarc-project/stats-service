@@ -2,6 +2,261 @@ Changelog
 =========
 
 
+v0.5.1 (2022-06-21)
+-------------------
+
+Changes
+~~~~~~~
+- [dependenvies] Updated Python dependencies. [Cédric Bonhomme]
+
+
+v0.5.0 (2022-06-20)
+-------------------
+
+New
+~~~
+- [core] added possibility to deactivate blueprints. [Cédric Bonhomme]
+- [workflows] added pre-commit.yaml. [Cédric Bonhomme]
+- [API] Add the possibility to create new client without authentication.
+  [Cédric Bonhomme]
+- [core] Added UUID converter for the Werkzeug routing system. [Cédric
+  Bonhomme]
+- [contrib] check availability of new release. [Cédric Bonhomme]
+- [commands] added a new command in order to check for the presence of
+  duplicate data. [Cédric Bonhomme]
+- [admin] added stats service update endpoint. [Cédric Bonhomme]
+- [documentation] added documentation related to the admin blueprint.
+  [Cédric Bonhomme]
+- [admin_bp] creation of the admin_bp which will provide admin functions
+  (update the software, access to Flask commands, etc.) [Cédric
+  Bonhomme]
+
+Changes
+~~~~~~~
+- [documentation] Updated documentation. [Cédric Bonhomme]
+- [API] CLIENT_REGISTRATION_OPEN is now set to True by default. [Cédric
+  Bonhomme]
+- [docker] removed old docker push to ghcr.io. [Cédric Bonhomme]
+- [docker] Removed docker for Alpine configuration file. [Cédric
+  Bonhomme]
+- [templates] Uses jinja_env.trim_blocks and jinja_env.lstrip_blocks.
+  [Cédric Bonhomme]
+- [documentation] Updated documentation related to the modules. [Cédric
+  Bonhomme]
+- [documentation] Updated documentation. [Cédric Bonhomme]
+- [docker] Restored requirements.txt for Docker (previously used for
+  Heroku). [Cédric Bonhomme]
+- [deployment] Removed Herolu deployment alternative. [Cédric Bonhomme]
+- [API] Handle SQLALchemy IntegrityError trieggered in the API. [Cédric
+  Bonhomme]
+- [deployment] Updated requirements.txt and runtime for Heroku. [Cédric
+  Bonhomme]
+- [dependencies] Updated JavaScript dependencies. [Cédric Bonhomme]
+- [dependencies] Updated Python dependencies. [Cédric Bonhomme]
+- [dependencies] Updated JavaScript dependencies. [Cédric Bonhomme]
+- [mypy] Updated requests stub. [Cédric Bonhomme]
+- [deployment] updated Python runtime and requirement.txt file. [Cédric
+  Bonhomme]
+- Added .pre-commit-config.yaml. [Cédric Bonhomme]
+- [dependencies] Bumped pymosp to 0.4.3. [Cédric Bonhomme]
+- [core ]updated dependencies, runtime and fixed minor errors. [Cédric
+  Bonhomme]
+- [dependencies] Updated dependencies and Python runtime. [Cédric
+  Bonhomme]
+- [dependencies] Updated werkzeug, sqlalchemy and other minor
+  dependencies. [Cédric Bonhomme]
+- [documentation] Updated documentation related to the push of the
+  stats. [Cédric Bonhomme]
+- [commands] Check if the authentication token is set when pushing
+  stats. Updated command description. [Cédric Bonhomme]
+- [admin_bp] removed useless import. [Cédric Bonhomme]
+- [commands] log errors of duplicate remotes stats when pushing data.
+  [Cédric Bonhomme]
+- [commands] specify the remote client token via config file or option
+  line of the stats command. [Cédric Bonhomme]
+- [commands] updated filters on clients UUID when pushing stats to a
+  remote stats service. [Cédric Bonhomme]
+- [API v1] imporved documentation of the OpenSpecification page. [Cédric
+  Bonhomme]
+- [templates] minor improvement to the about templage. [Cédric Bonhomme]
+- [routing] imporved management of INSTANCE_URL of the running instance.
+  [Cédric Bonhomme]
+- [configuration ]added the possibility to define a SERVER_NAME via the
+  configuration file. [Cédric Bonhomme]
+- [templates] evaluate the root of the site in order to get an addrex
+  relative to the HTTP prefix when behing a reverse proxy. [Cédric
+  Bonhomme]
+- [commands] add a way to specify the type of the stats to delete.
+  [Cédric Bonhomme]
+- [commands] add a way to automatically answer yes for the deletion of
+  the duplicate stats. [Cédric Bonhomme]
+- Fix undefined session name. [Cédric Bonhomme]
+- [commands] testing batch deletion. [Cédric Bonhomme]
+- [commands] when detecting duplicate stats it is now possible to ignore
+  duplicates between two months. [Cédric Bonhomme]
+- [documentation] updated sphinx-multiversion settings. [Cédric
+  Bonhomme]
+- [documentation] typo. [Cédric Bonhomme]
+- [documentation] error in path of picture. [Cédric Bonhomme]
+- [documentation] typo. [Cédric Bonhomme]
+- [documentation] rephrasing. [Cédric Bonhomme]
+- [documentation] updated information about X-Forwarded-Prefix when
+  using behind a reverse proxy. [Cédric Bonhomme]
+- [dependencies] bump urllib3 from 1.26.4 to 1.26.5. related to
+  CVE-2021-33503. [Cédric Bonhomme]
+- [commands] improved handling of commands errors returned on stderr and
+  the admin blueprint for the http return codes and messages. [Cédric
+  Bonhomme]
+- [dependencies] prepare upgrade to Flask 2. [Cédric Bonhomme]
+- [documentation] added example on how to activate the sharing for a
+  client. [Cédric Bonhomme]
+- [admin_bp] added a decorator to restrict the blueprint to users with
+  admin permissions. [Cédric Bonhomme]
+- [documentation] typo. [Cédric Bonhomme]
+- [documentation] describred the new routes of the admin blueprint.
+  [Cédric Bonhomme]
+- [authentication] cosmethic changes. [Cédric Bonhomme]
+- [documentation] cosmethic change. [Cédric Bonhomme]
+- [documentation] update some old links to the documentation. [Cédric
+  Bonhomme]
+- [authentication] load the user from header with its permissions and do
+  not set a cookie. [Cédric Bonhomme]
+- [translations] updated documentation related translations strings.
+  [Cédric Bonhomme]
+- [templates] updated links to the documentation. [Cédric Bonhomme]
+- [documentation] added sphinx-multiversion to the documentation.
+  [Cédric Bonhomme]
+- [documentation] Updated release nulber in Sphinx configuration.
+  [Cédric Bonhomme]
+- [GitHub] updated bug_report template. [Cédric Bonhomme]
+- [GitHub] updated bug_report template. [Cédric Bonhomme]
+- Deleted feature request GitHub template. [Cédric Bonhomme]
+
+Fix
+~~~
+- [security] prevent the creation of new admin users (even by an admin).
+  [Cédric Bonhomme]
+- [processors] fixed an issue  when a processor is called with None as
+  param. [Cédric Bonhomme]
+- Replaced after_request by before_request for the API. [Cédric
+  Bonhomme]
+- [dependencies] Set Werkzeug version to 2.0.3 (python-restx/flask-
+  restx#426). [Cédric Bonhomme]
+- [security] Updated moment.js. [Cédric Bonhomme]
+- [commands] fixed types in remove_duplicate function. [Cédric Bonhomme]
+- Python version 3.10 is not available with arch x64, but 3.10.0 is.
+  [Cédric Bonhomme]
+- [core] login_manager.request_loader was using a wrong parameter
+  (redifinition of flask.request). [Cédric Bonhomme]
+- [map_bp] handle cases when the list of threats or vulnerabilities is
+  empty. [Cédric Bonhomme]
+- Typo. [Cédric Bonhomme]
+- [commands] typo in option help string. [Cédric Bonhomme]
+- [routes] fixed issues with SERVER_NAME and loading of the OpenAPI spec
+  page. [Cédric Bonhomme]
+- [commands] F823 local variable date defined in enclosing scope on line
+  10 referenced before assignment. [Cédric Bonhomme]
+- [mypy] fixed mypy errors. [Cédric Bonhomme]
+
+Other
+~~~~~
+- Ch: [docker] Removed wait-for-postgres.sh. [Cédric Bonhomme]
+- Ch: [docker] Removed docker-compose.yml. [Cédric Bonhomme]
+- Fixed pre-commit errors and use the new
+  handle_duplicate_object_exception decorator. [Cédric Bonhomme]
+- Merge pull request #15 from remil1000/ci-releases. [Cedric]
+
+  Ci releases
+- Prepare pull-request with correct branch. [Rémi Laurent]
+- Merge remote-tracking branch 'upstream/master' into ci-releases. [Rémi
+  Laurent]
+- Fixed flake warnings. [Cédric Bonhomme]
+- Fixed flake warnings. [Cédric Bonhomme]
+- Cleaning extra whitespace. [Rémi Laurent]
+- Attempt with gunicorn to support SCRIPT_NAME env var. [Rémi Laurent]
+- Dockerfile and build pipeline. [Rémi Laurent]
+
+  * implement config via env variables
+  * add admin_token support in init
+  * github actions & ghcr push
+  * reworked dockerfile
+- Small codebase fix for container image. [Rémi Laurent]
+
+  * do not rely on git binary and .git for version
+  * implement a fix for "idempotent" client creation
+    via API
+- Updated dependencies. [Cédric Bonhomme]
+- Added Python version 3.10 in the pythonapp.ml workflow. [Cédric
+  Bonhomme]
+- Updated dependencies. [Cédric Bonhomme]
+- Merge pull request #13 from monarc-project/dependabot/pip/flask-
+  restx-0.5.1. [Cedric]
+
+  build(deps): bump flask-restx from 0.3.0 to 0.5.1
+- Build(deps): bump flask-restx from 0.3.0 to 0.5.1. [dependabot[bot]]
+
+  Bumps [flask-restx](https://github.com/python-restx/flask-restx) from 0.3.0 to 0.5.1.
+  - [Release notes](https://github.com/python-restx/flask-restx/releases)
+  - [Changelog](https://github.com/python-restx/flask-restx/blob/master/CHANGELOG.rst)
+  - [Commits](https://github.com/python-restx/flask-restx/compare/0.3.0...0.5.1)
+
+  ---
+  updated-dependencies:
+  - dependency-name: flask-restx
+    dependency-type: direct:production
+  ...
+- Do not use bare exception. [Cédric Bonhomme]
+- GitHub action workflow stuck at "Configuring tzdata". [Cédric
+  Bonhomme]
+- Fixed pycodestyles issues. [Cédric Bonhomme]
+- Rebuild docker container on GitHub. [Cédric Bonhomme]
+- Updated Python dependencies. [Cédric Bonhomme]
+- Added missing contributor from the Git repository. [Cédric Bonhomme]
+- Install python3-dev with Dockerfile. [Cédric Bonhomme]
+- Replaced python-virtualenv by python3-virtualenv. [Cédric Bonhomme]
+- Added python3-setuptools in Dockerfile. [Cédric Bonhomme]
+- Replace python3 by python in DOckerfile. [Cédric Bonhomme]
+- Improved style with black. [Cédric Bonhomme]
+- Solved pyflakes warnings. [Cédric Bonhomme]
+- Merge branch 'master' into admin-endpoint. [Cédric Bonhomme]
+- Remove mypy from the GitHub workflow. [Cédric Bonhomme]
+- Check if FIX_PROXY is defined. [Cédric Bonhomme]
+- Update dependencies. [Cédric Bonhomme]
+- Replace contric by middleware. [Cédric Bonhomme]
+- Removed old proxy-fix. [Cédric Bonhomme]
+- Added falsk-reverse-rpoxy-fix. [Cédric Bonhomme]
+- Rever poetry.lock. [Cédric Bonhomme]
+- Merge branch 'master' of github.com:monarc-project/stats-service into
+  admin-endpoint. [Cédric Bonhomme]
+- Merge pull request #12 from monarc-
+  project/dependabot/pip/urllib3-1.26.5. [Cedric]
+
+  build(deps): bump urllib3 from 1.26.4 to 1.26.5
+- Build(deps): bump urllib3 from 1.26.4 to 1.26.5. [dependabot[bot]]
+
+  Bumps [urllib3](https://github.com/urllib3/urllib3) from 1.26.4 to 1.26.5.
+  - [Release notes](https://github.com/urllib3/urllib3/releases)
+  - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+  - [Commits](https://github.com/urllib3/urllib3/compare/1.26.4...1.26.5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: urllib3
+    dependency-type: indirect
+  ...
+- Merge branch 'master' of github.com:monarc-project/stats-service.
+  [Cédric Bonhomme]
+- Merge branch 'admin-endpoint' of github.com:monarc-project/stats-
+  service into admin-endpoint. [Cédric Bonhomme]
+- Merge branch 'master' into admin-endpoint. [Cédric Bonhomme]
+- Merge branch 'master' into admin-endpoint. [Cédric Bonhomme]
+- Merge branch 'master' into admin-endpoint. [Cédric Bonhomme]
+- Added return code to the update script. [Cédric Bonhomme]
+- Various fixes. [Cédric Bonhomme]
+- Merge branch 'master' of github.com:monarc-project/stats-service.
+  [Cédric Bonhomme]
+
+
 v0.4.0 (2021-05-11)
 -------------------
 
@@ -48,6 +303,7 @@ New
 
 Changes
 ~~~~~~~
+- [release] updated project for the version 0.4.0. [Cédric Bonhomme]
 - [documentation] Improved explanations about the architecture. [Cédric
   Bonhomme]
 - [documentation] Improved explanations about the architecture. [Cédric
