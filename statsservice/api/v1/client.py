@@ -94,18 +94,18 @@ class GetClient(Resource):
     def get(self):
         return current_user, 200
 
-    # @client_ns.doc("client_patch")
-    # @client_ns.expect(parser)
-    # @client_ns.marshal_with(clients, code=201)
-    # @auth_func
-    # def patch(self):
-    #     args = parser.parse_args(strict=True)
-    #     if current_user.is_sharing_enabled != args.get("is_sharing_enabled"):
-    #         try:
-    #             current_user.is_sharing_enabled = args.get("is_sharing_enabled")
-    #             db.session.commit()
-    #         except Exception:
-    #             logger.error("Client patch error.")
-    #             return current_user, 500
-    #
-    #     return current_user, 201
+    @client_ns.doc("client_patch")
+    @client_ns.expect(parser)
+    @client_ns.marshal_with(clients, code=201)
+    @auth_func
+    def patch(self):
+        args = parser.parse_args(strict=True)
+        if current_user.is_sharing_enabled != args.get("is_sharing_enabled"):
+            try:
+                current_user.is_sharing_enabled = args.get("is_sharing_enabled")
+                db.session.commit()
+            except Exception:
+                logger.error("Client patch error.")
+                return current_user, 500
+
+        return current_user, 201
