@@ -34,11 +34,9 @@ viewed online [here](https://www.monarc.lu/documentation/stats-service/).
 
 Several
 [installation](https://www.monarc.lu/documentation/stats-service/master/installation.html)
-ways are described.
-
-The
-[update procedure](https://www.monarc.lu/documentation/stats-service/master/updates.html)
-is also described.
+ways and the
+[update](https://www.monarc.lu/documentation/stats-service/master/updates.html)
+procedure are described.
 
 
 ## Quick deployment
