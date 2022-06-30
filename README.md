@@ -43,42 +43,18 @@ is also described.
 
 ## Quick deployment
 
-The following assumes you have already installed ``git``, ``poetry``,  and
-``Python >= 3.8``.
-
 ```bash
-$ sudo apt install postgresql
 $ git clone https://github.com/monarc-project/stats-service
 $ cd stats-service/
-$ npm install
-$ cp instance/production.py.cfg instance/production.py
-$ poetry install --no-dev
-$ poetry shell
-$ pybabel compile -d statsservice/translations
-$ export FLASK_APP=runserver.py
-$ export FLASK_ENV=development
-$ export STATS_CONFIG=production.py
-$ flask db_create
-$ flask db_init
-$ flask db upgrade
-
-$ flask client_create --name CASES
-Name: CASES
-Token: SylsDTZTBk2zAkg016vW_aCuO1XQDXPsxrLuI1TG7z5sYvUfRlVf5R4g6kDnLI_o-c5iqrswrWzPANDKXmtV7Q
-Created at: 2020-06-16 14:25:32.947745
-
-$ flask run
- * Serving Flask app "runserver.py" (lazy loading)
- * Environment: development
- * Debug mode: on
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 268-178-811
+$ docker-compose up -d
 ```
 
-or use the [docker image](https://hub.docker.com/r/caseslu/statsservice).
+Stats Service will be available at:
+http://127.0.0.1:5000/api/v1
 
+More information in the
+[installation section](https://www.monarc.lu/documentation/stats-service/master/installation.html)
+of the documentation.
 
 
 ## License

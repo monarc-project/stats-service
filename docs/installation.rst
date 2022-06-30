@@ -17,6 +17,20 @@ Additionally:
 - A cron daemon: running scheduled tasks for pushing or pulling stats data.
 
 
+
+Deployment
+----------
+
+The service can be deployed via several ways:
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+From the source
+~~~~~~~~~~~~~~~
+
 Creation of a PostgreSQL user:
 
 .. code-block:: bash
@@ -32,34 +46,18 @@ Creation of a PostgreSQL user:
     postgres-# \q
 
 The user name and password chosen must be specified later in the configuration file.
-
-
-
-Deployment
-----------
-
-The service can be deployed via several ways:
-
-.. contents::
-    :local:
-    :depth: 1
-
-
-From the source
-~~~~~~~~~~~~~~~
+Get the source code and install the software:
 
 .. code-block:: bash
 
     $ sudo apt install python3-pip python3-venv
-    $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
-    $ echo  'export PATH="$PATH:$HOME/.poetry/bin"' >> ~/.bashrc
-    $ . ~/.bashrc
+    $ curl -sSL https://install.python-poetry.org | python3 -
 
     $ git clone https://github.com/monarc-project/stats-service
     $ cd stats-service/
     $ npm install
     $ cp instance/production.py.cfg instance/production.py  # configure appropriately
-    $ poetry install # install the application
+    $ poetry install --no-dev # install the application
     $ export STATS_CONFIG=production.py
     $ FLASK_APP=runserver.py poetry run flask db_create # database creation
     $ FLASK_APP=runserver.py poetry run flask db_init # database initialization
@@ -77,9 +75,10 @@ Check the version:
 
     $ curl http://127.0.0.1:5000/about.json
     {
-      "api_v1_root": "/api/v1/",
-      "version": "v0.1.9 - 05abfe1",
-      "version_url": "https://github.com/monarc-project/stats-service/commits/05abfe1"
+        "api_v1_root":"/api/v1/",
+        "contact":"info@cases.lu",
+        "version":"latest",
+        "version_url":"https://github.com/monarc-project/stats-service/releases/tag/latest"
     }
 
 
@@ -94,21 +93,20 @@ Install with a script:
 Docker
 ~~~~~~
 
-Deployment with Docker is well suited for development purposes.
-
 Depending on how you installed Docker on your system, you might have to use ``sudo``,
 which is discouraged.
 
-From the repository (currently the recommended way with Docker)
-```````````````````````````````````````````````````````````````
+From the repository
+```````````````````
 
 .. code-block:: bash
 
     $ git clone https://github.com/monarc-project/stats-service
+    $ cd stats-service/
     $ docker-compose up -d
 
 Stats Service will be available at:
-http://127.0.0.1:5000
+http://127.0.0.1:5000/api/v1
 
 A client should be already created, check:
 
@@ -116,17 +114,13 @@ A client should be already created, check:
 
     $ docker exec -it statsservice_web /bin/bash
 
-    root@3fa0646b50da:/statsservice# poetry shell
-    Spawning shell within /root/.cache/pypoetry/virtualenvs/statsservice-B5Jj2TVj-py3.8
-    root@3fa0646b50da:/statsservice# . /root/.cache/pypoetry/virtualenvs/statsservice-B5Jj2TVj-py3.8/bin/activate
-
-    (statsservice-B5Jj2TVj-py3.8) root@3fa0646b50da:/statsservice# flask client_list
-    UUID: b4c6f28a-1819-49e6-bf06-8691b29afbc5
-    Name: user
-    Role: 1
-    Token: nV3gH6uE2yBcKRjpjBbtUacnVrhpRNiBHgcvtirj5v4wAvlipAHiq5iG-lKu_1wxKD4Ta1q-G7GJFo__voDo5A
+    root@f31ef9cad854:/statsservice# flask client_list
+    UUID: 014ad826-3608-42c2-94d3-4c14cd0702d3
+    Name: admin
+    Role: 2
+    Token: c3ff95aa569afa36f5395317fb77dc300507fe3c
     Sharing Enabled: True
-    Created at: 2021-03-04 10:23:59.000847
+    Created at: 2022-06-30 10:44:17.118606
 
 
 From the Docker Hub
@@ -137,22 +131,74 @@ From the Docker Hub
     $ docker pull caseslu/statsservice:latest
     $ docker run --name statsservice -d -p 5000:5000 --rm caseslu/statsservice
 
-If you have issues with the database hostname resolution, try:
-
-.. code-block:: bash
-
-    $ docker run --name statsservice -d -p 5000:5000 --add-host db:127.0.0.1 --rm caseslu/statsservice
-
 
 From the GitHub registry
 ````````````````````````
 
 .. code-block:: bash
 
-    $ echo $YOUR-GITHUB-TOKEN | docker login https://docker.pkg.github.com -u <your-github-username> --password-stdin
-    $ docker pull docker.pkg.github.com/monarc-project/stats-service/statsservice:master
+    $ docker pull ghcr.io/monarc-project/stats-service:master
     $ docker run --name statsservice -d -p 5000:5000 --rm docker.pkg.github.com/monarc-project/stats-service/statsservice:master
 
+
+Ansible with Docker
+```````````````````
+
+.. code-block:: yaml
+
+    - name: create statsservice docker network
+      docker_network:
+        name: "statsservice"
+        ipam_config:
+        - subnet: "{{ monarc_statsservice_network }}"
+      become: True
+      tags: stats
+
+    - name: start statsservice database
+      docker_container:
+        hostname: "statsservice-db"
+        name: "statsservice-db"
+        image: "postgres:14"
+        env:
+          POSTGRES_USER: "statsservice"
+          POSTGRES_PASSWORD: "statsservice"
+          POSTGRES_DB: "statsservice"
+        networks:
+          - name: "statsservice"
+        volumes:
+          - "/var/lib/monarc/statsservice-db:/var/lib/postgresql/data"
+        state: started
+        purge_networks: yes
+        restart_policy: always
+      become: True
+      tags: stats
+
+    - name: start statsservice container
+      docker_container:
+        hostname: "statsservice"
+        name: "statsservice"
+        image: "{{ monarc_statsservice_image }}"
+        env:
+          DB_HOSTNAME: "statsservice-db"
+          ADMIN_EMAIL: "{{ emailFrom }}"
+          ARMIN_URL: "https://{{ publicHost }}"
+          SECRET_KEY: "{{ monarc_statsservice_secret_key }}"
+          ADMIN_TOKEN: "{{ monarc_statsservice_admin_token | default(omit) }}"
+          DEBUG: "0"
+          ENVIRONMENT: "production"
+          INSTANCE_URL: "{{ monarc_statsservice_url }}"
+          SCRIPT_NAME: "{{ monarc_statsservice_url | urlsplit('path') }}"
+        networks:
+          - name: "statsservice"
+        ports:
+          - "0.0.0.0:{{ monarc_statsservice_port }}:5000"
+        volumes:
+          - "/var/lib/monarc/statsservice-var:/app/var"
+        state: started
+        purge_networks: yes
+        restart_policy: always
+      become: True
+      tags: stats
 
 
 From the Python Package Index

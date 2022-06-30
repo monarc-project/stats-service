@@ -2,7 +2,7 @@ Updates
 =======
 
 If you have installed Stats Service from the sources you can simply use the provided
-script:
+command:
 
 .. code-block:: bash
 
