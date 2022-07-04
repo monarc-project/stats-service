@@ -2,6 +2,25 @@ Changelog
 =========
 
 
+v0.5.2 (2022-07-04)
+-------------------
+
+Changes
+~~~~~~~
+- [API] patch on client now expects again a model from Namespace
+  (client_ns). [Cédric Bonhomme]
+- Updated Python dependencies. [Cédric Bonhomme]
+- [documentation] Updated links to documentation. [Cédric Bonhomme]
+- [documentation] Updated information about installation. [Cédric
+  Bonhomme]
+- [deployment] added docker-compose.yml file. [Cédric Bonhomme]
+
+Fix
+~~~
+- [API] enable patch method for enabling/disabling stats sharing.
+  [Cédric Bonhomme]
+
+
 v0.5.1 (2022-06-21)
 -------------------
 
