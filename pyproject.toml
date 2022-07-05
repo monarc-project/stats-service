@@ -35,6 +35,8 @@ packages = [
 
 [tool.poetry.scripts]
 monarc-stats-service = "runserver:run"
+monarc-stats-service-client-create = "statsservice.commands.client:client_create"
+monarc-stats-service-client-list = "statsservice.commands.client:client_list"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"

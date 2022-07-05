@@ -2,6 +2,7 @@ import secrets
 import sys
 
 import click
+from sqlalchemy.exc import IntegrityError
 
 from statsservice.bootstrap import application
 from statsservice.bootstrap import db
@@ -38,8 +39,12 @@ def client_create(name, uuid, token, role):
         db.session.add(new_client)
         db.session.commit()
         print(new_client)
+    except IntegrityError:
+        print("Client already registered.")
+        db.session.rollback()
     except Exception as e:
         print(e)
+        db.session.rollback()
 
 
 @application.cli.command("client_list")
