@@ -188,6 +188,7 @@ Ansible with Docker
           ENVIRONMENT: "production"
           INSTANCE_URL: "{{ monarc_statsservice_url }}"
           SCRIPT_NAME: "{{ monarc_statsservice_url | urlsplit('path') }}"
+          CLIENT_REGISTRATION_OPEN: "1"
         networks:
           - name: "statsservice"
         ports:
