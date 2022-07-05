@@ -17,7 +17,7 @@ services:
 
   statsservice:
     build: .
-    container_name: statsservice_web
+    container_name: statsservice
     working_dir: /statsservice
     tty: true
     environment:

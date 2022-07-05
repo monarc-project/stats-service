@@ -33,3 +33,12 @@ command:
     Stats Service updated. You can now restart the service. Examples:
         sudo systemctl restart statsservice.service
         sudo systemctl restart apache2.service
+
+
+If you have installed Stats Service with ``docker-compose``:
+
+.. code-block:: bash
+
+    $ git pull origin master
+    $ docker-compose up --force-recreate --build -d
+    $ docker image prune -f

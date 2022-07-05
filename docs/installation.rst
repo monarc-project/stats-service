@@ -112,7 +112,7 @@ A client should be already created, check:
 
 .. code-block:: bash
 
-    $ docker exec -it statsservice_web /bin/bash
+    $ docker exec -it statsservice /bin/bash
 
     root@f31ef9cad854:/statsservice# flask client_list
     UUID: 014ad826-3608-42c2-94d3-4c14cd0702d3
@@ -251,9 +251,8 @@ Several solutions are available:
 Daemon
 ~~~~~~
 
-In the case you have installed Stats Service from sources.
-
-Create a file ``/etc/systemd/system/statsservice.service`` with the following contents:
+In the case you have installed Stats Service from sources,
+create a file ``/etc/systemd/system/statsservice.service`` with the following contents:
 
 .. code-block:: ini
 
@@ -273,7 +272,30 @@ Create a file ``/etc/systemd/system/statsservice.service`` with the following co
     [Install]
     WantedBy=multi-user.target
 
-You may need to adjust it a bit (for example if you want to use Gunicorn). After adding
+
+In the case you have installed Stats Service from the Docker registry,
+create a file ``/etc/systemd/system/statsservice.service`` with the following contents:
+
+.. code-block:: ini
+
+    [Unit]
+    Description=MONARC Stats service
+    Requires=docker.service
+    After=docker.service
+
+    [Service]
+    Type=oneshot
+    RemainAfterExit=yes
+    WorkingDirectory=/home/monarc/stats-service
+    ExecStart=/usr/bin/docker-compose up -d
+    ExecStop=/usr/bin/docker-compose down
+    TimeoutStartSec=0
+
+    [Install]
+    WantedBy=multi-user.target
+
+
+You may need to adjust your systemd service file. After adding
 this file to your system, you can start the new systemd service with these commands:
 
 .. code-block:: bash
@@ -282,6 +304,22 @@ this file to your system, you can start the new systemd service with these comma
     $ sudo systemctl enable statsservice.service
     $ sudo systemctl start statsservice
     $ systemctl status statsservice.service
+
+
+Later, if you want to connect in the container you can do:
+
+.. code-block:: bash
+
+    $ docker exec -it statsservice /bin/bash
+
+    root@f31ef9cad854:/statsservice# flask client_list
+    UUID: 014ad826-3608-42c2-94d3-4c14cd0702d3
+    Name: admin
+    Role: 2
+    Token: c3ff95aa569afa36f5395317fb77dc300507fe3c
+    Sharing Enabled: True
+    Created at: 2022-06-30 10:44:17.118606
+
 
 Accessing logs
 ``````````````
