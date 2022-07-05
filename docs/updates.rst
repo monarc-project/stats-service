@@ -42,3 +42,11 @@ If you have installed Stats Service with ``docker-compose``:
     $ git pull origin master
     $ docker-compose up --force-recreate --build -d
     $ docker image prune -f
+
+
+If you have installed Stats Service from the Python Package Index:
+
+.. code-block:: bash
+
+    $ pipx upgrade statsservice
+    statsservice is already at latest version 0.5.2 (location: /home/cedric/.local/pipx/venvs/statsservice)

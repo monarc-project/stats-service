@@ -205,9 +205,6 @@ Ansible with Docker
 From the Python Package Index
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you use this method not all functionalities will be working (some web assets
-won't be available), for the moment.
-
 .. only:: html
 
     .. image:: https://img.shields.io/pypi/v/statsservice.svg?style=flat-square
@@ -215,7 +212,7 @@ won't be available), for the moment.
        :alt: PyPi version
 
 MONARC Stats service is available on `PyPI <https://pypi.org/project/statsservice>`_.
-
+You can install it with ``pip`` or ``pipx``:
 
 .. code-block:: bash
 
@@ -235,6 +232,25 @@ If you want to use a custom configuration file:
     $ export STATS_CONFIG=~/production.py
 
 
+Commands available directly from your shell:
+
+.. code-block:: bash
+
+    $ monarc-stats-service-client-list
+    UUID: 27de7a61-4337-470d-a84d-e763ca5df634
+    Name: test2
+    Role: 1
+    Token: engY0Y9uaky9itxG3WZ14gOmKQx6Ggiv2_k9Yp_cPvo02jBRk8LnJbAw_MMTVSeICNMHT9qIPIpqwMFZ8A6NXQ
+    Sharing Enabled: True
+    Created at: 2021-08-26 12:29:56.773914
+
+    $ monarc-stats-service-client-create --name company-name
+    UUID: c4acaf14-335e-43a4-8418-abbc2e97cba8
+    Name: company-name
+    Role: 1
+    Token: qESjcgSSnizue6XkYTexrGOvWQ3kudJgCyEG1ok5MP9KG6bv47RIMnJIjCJbLXuQJWXlFsECvtUUlJCE4FVlbw
+    Sharing Enabled: True
+    Created at: 2022-07-05 09:08:06.683513
 
 
 .. _service-management:
