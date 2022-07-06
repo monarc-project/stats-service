@@ -1,5 +1,5 @@
-Blueprints
-==========
+Available blueprints
+====================
 
 The views of application are structured in several blueprints.
 
@@ -15,7 +15,7 @@ The blueprint dedicated to the API can not be disabled.
 
 
 .. toctree::
-   :caption: Blueprints
+   :caption: Available blueprints
    :maxdepth: 3
    :hidden:
 

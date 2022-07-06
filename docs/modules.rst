@@ -1,11 +1,20 @@
 Module index
 ============
 
-.. toctree::
-   :maxdepth: 4
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+
+
+
+statsservice
+------------
 
 .. automodule:: statsservice
     :members:
+
 
 Models
 ------
@@ -15,6 +24,7 @@ Models
 
 .. autoclass:: statsservice.models.stats.Stats
     :members:
+
 
 Lib
 ---
@@ -30,6 +40,7 @@ Lib
 
 .. automodule:: statsservice.lib.validation
     :members:
+
 
 Commands
 --------

@@ -64,13 +64,6 @@ Please report bugs to:
 https://github.com/monarc-project/stats-service/issues
 
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-
-
 
 License
 =======
