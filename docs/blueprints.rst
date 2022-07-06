@@ -1,7 +1,7 @@
 Available blueprints
 ====================
 
-The views of application are structured in several blueprints.
+The views of the application are structured in several blueprints.
 
 Blueprints can be enabled or disabled via the configuration variable ``ACTIVE_BLUEPRINTS``.
 Example:
