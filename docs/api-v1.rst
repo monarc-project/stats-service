@@ -1,8 +1,8 @@
 API v1
 ======
 
-Blueprint dedicated to the main API. It is composed of two namespaces, *client* and
-*stats*, that are used for the endpoints ``api/v1/stats`` and ``api/v1/client``.
+Blueprint dedicated to the main API. It is composed of three namespaces, *client*,
+*stats* and *processed*.
 
 New namespaces are easily plugable via the file: ``api/v1/__init__.py``.
 

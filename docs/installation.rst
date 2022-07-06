@@ -229,6 +229,7 @@ If you want to use a custom configuration file:
 .. code-block:: bash
 
     $ curl https://raw.githubusercontent.com/monarc-project/stats-service/master/instance/production.py.cfg -o production.py
+    $ vim production.py  # edit this file accordingly to your needs
     $ export STATS_CONFIG=~/production.py
 
 

@@ -53,10 +53,7 @@ The collected statistics can be sent to an other Stats Service instance.
    :maxdepth: 3
    :hidden:
 
-   api-v1
-   root
-   stats
-   admin
+   blueprints
 
 
 Bugs
