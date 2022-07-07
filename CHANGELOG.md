@@ -2,6 +2,50 @@ Changelog
 =========
 
 
+v0.5.3 (2022-07-07)
+-------------------
+
+New
+~~~
+- [documenation] aaded informations related to the API namespace and
+  updated the swagger file. [Cédric Bonhomme]
+
+Changes
+~~~~~~~
+- [deployment] Removed DB mapping for PostgreSQL in Docker container.
+  [Cédric Bonhomme]
+- [dependencies] Sync requirements.txt with poetry.lock file. [Cédric
+  Bonhomme]
+- [documentation] Restructured module index of the documentation.
+  [Cédric Bonhomme]
+- [documentation] added more details in section related to installation
+  from the Python Package Index. [Cédric Bonhomme]
+- [commands] Improved management of exception in client_create commands
+  and added two new poetry scripts commands. [Cédric Bonhomme]
+- [documentation] added CLIENT_REGISTRATION_OPEN environment variable in
+  statsservice docker task. [Cédric Bonhomme]
+- [documentation] Updaed installation instructions. [Cédric Bonhomme]
+
+Other
+~~~~~
+- Merge pull request #16 from monarc-
+  project/dependabot/npm_and_yarn/moment-2.29.4. [Cedric]
+
+  build(deps): bump moment from 2.29.3 to 2.29.4
+- Build(deps): bump moment from 2.29.3 to 2.29.4. [dependabot[bot]]
+
+  Bumps [moment](https://github.com/moment/moment) from 2.29.3 to 2.29.4.
+  - [Release notes](https://github.com/moment/moment/releases)
+  - [Changelog](https://github.com/moment/moment/blob/develop/CHANGELOG.md)
+  - [Commits](https://github.com/moment/moment/compare/2.29.3...2.29.4)
+
+  ---
+  updated-dependencies:
+  - dependency-name: moment
+    dependency-type: direct:production
+  ...
+
+
 v0.5.2 (2022-07-04)
 -------------------
 
