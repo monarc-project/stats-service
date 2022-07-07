@@ -10,8 +10,6 @@ services:
       - POSTGRES_USER=statsservice
       - POSTGRES_PASSWORD=statsservice
       - POSTGRES_DB=statsservice
-    ports:
-      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
