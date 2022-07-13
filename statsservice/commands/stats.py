@@ -28,6 +28,14 @@ STATS_API_ENDPOINT = urljoin(
 )
 
 
+@application.cli.command("stats_list_last")
+def stats_list_last():
+    """Return the last 10 stats (only the date client name and stats type)."""
+    last_stats = Stats.query.order_by(Stats.date.desc()).limit(10)
+    for stat in last_stats:
+        print(f"{stat.date} {stat.client.name} {stat.type}")
+
+
 @application.cli.command("stats_delete")
 @click.option(
     "--client-uuid", default="", help="UUID of the client related to the stats."
