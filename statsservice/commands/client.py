@@ -107,8 +107,19 @@ def client_coordinates_unset(uuid):
     db.session.commit()
 
 
+@application.cli.command("client_is_sharing_enabled")
+def client_is_sharing_enabled():
+    """List the local clients with the sharing enabled."""
+    clients = Client.query.filter(
+        Client.local == True, Client.is_sharing_enabled == True  # noqa
+    ).all()
+    for client in clients:
+        print(client)
+        print("-" * 80)
+
+
 @application.cli.command("client_sharing_activate")
-@click.option("--uuid", required=True, help="UUID of the client.")
+@click.option("--uuid", default="", help="UUID of the client.")
 def client_sharing_activate(uuid):
     """Set the is_sharing_enabled attribute of a local client, specified with its UUID, to True."""
     cl = Client.query.filter(Client.uuid == uuid, Client.local == True).first()  # noqa
