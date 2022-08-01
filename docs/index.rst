@@ -14,7 +14,7 @@ software which is providing:
   `MONARC <https://github.com/monarc-project/MonarcAppFO>`_ instances and to **return**
   these statistics with different filters and aggregation methods;
 * a dashboard that summarizes the **current cybersecurity landscape**. The charts are
-  based on the statistics collected.
+  based on the collected statistics.
 
 This software can be deployed just next to a MONARC instance or on a
 dedicated server.
@@ -75,7 +75,7 @@ MONARC Stats Service is licensed under
 MONARC Stats Service.
 
 * Copyright (C) 2020-2022 Cédric Bonhomme
-* Copyright (C) 2020-2021 Juan Rocha
+* Copyright (C) 2020-2022 Juan Rocha
 * Copyright (C) 2020-2021 SECURITYMADEIN.LU
 
 For more information: https://github.com/monarc-project/stats-service
