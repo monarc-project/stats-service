@@ -3,7 +3,7 @@
 # Copyright (C) 2020-2022 Cédric Bonhomme - https://www.cedricbonhomme.org
 # Copyright (C) 2020-2022 SMILE gie securitymadein.lu
 #
-# For more information: https://github.com/monarc-project/stats-api/
+# For more information: https://github.com/monarc-project/stats-service
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
