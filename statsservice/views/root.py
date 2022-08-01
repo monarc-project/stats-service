@@ -119,3 +119,9 @@ def about_json():
 def human():
     """Human dot txt page."""
     return render_template("human.txt"), 200, {"Content-Type": "text/plain"}
+
+
+@root_bp.route("robots.txt", methods=["GET"])
+def robots():
+    """Robots dot txt page."""
+    return render_template("robots.txt"), 200, {"Content-Type": "text/plain"}
