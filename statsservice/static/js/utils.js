@@ -383,7 +383,7 @@ function updateEvolutionCharts (allData, sortParams, chart, ctx, config){
             if (charts[chart].canvas) {
               charts[chart].canvas.config.data.datasets = datasets;
               charts[chart].canvas.update();
-            }else {
+            } else {
               document.getElementById("spinner-" + chart).remove();
               document.getElementById(`inverse${chart}Selection`).style.display = 'inline-block';
               config.data.datasets = datasets;

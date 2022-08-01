@@ -35,6 +35,9 @@ function drawEvolutionChart() {
   .then((resp) => resp.json())
   .then(function(resp_json) {
     allThreats = resp_json;
+    if (allThreats.length == 0) {
+      document.getElementById("spinner-threatsEvolution").innerText = "No data to display.";
+    }
     updateEvolutionCharts(allThreats,sortParams_threats,'threatsEvolution',ctx_threats,config_threats);
   }).catch((error) => {
     console.error('Error:', error);
@@ -89,6 +92,9 @@ function drawEvolutionChart() {
   .then((resp) => resp.json())
   .then(function(resp_json) {
     allVulnerabilities = resp_json;
+    if (allVulnerabilities.length == 0) {
+      document.getElementById("spinner-vulnerabilitiesEvolution").innerText = "No data to display.";
+    }
     updateEvolutionCharts(allVulnerabilities,sortParams_vulnerabilities,'vulnerabilitiesEvolution',ctx_vulnerabilities,config_vulnerabilities);
   }).catch((error) => {
     console.error('Error:', error);
