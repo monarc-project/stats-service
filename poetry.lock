@@ -982,7 +982,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-requests"
-version = "2.28.6"
+version = "2.28.7"
 description = "Typing stubs for requests"
 category = "main"
 optional = false
@@ -1001,7 +1001,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-urllib3"
-version = "1.26.19"
+version = "1.26.20"
 description = "Typing stubs for urllib3"
 category = "main"
 optional = false
