@@ -16,6 +16,10 @@ def secret_token():
 
 
 class Client(db.Model, UserMixin):
+    """Represent a client.
+    A client can be used to represent one or several MONARC clients/instances and
+    all stats are linked to a client."""
+
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(
         UUID(as_uuid=True),

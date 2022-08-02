@@ -8,6 +8,11 @@ from statsservice.bootstrap import db
 
 
 class Stats(db.Model):
+    """Represent a single stats from a MONARC instance.
+    The type can be one value from the folowing:
+    "risk", "vulnerability", "threat", "cartography", "compliance".
+    """
+
     uuid = db.Column(
         UUID(as_uuid=True),
         primary_key=True,
