@@ -339,7 +339,7 @@ docs = ["sphinx"]
 
 [[package]]
 name = "identify"
-version = "2.5.2"
+version = "2.5.3"
 description = "File identification library for Python"
 category = "dev"
 optional = false
@@ -1001,7 +1001,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-urllib3"
-version = "1.26.20"
+version = "1.26.21"
 description = "Typing stubs for urllib3"
 category = "main"
 optional = false
