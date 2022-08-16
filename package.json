@@ -13,10 +13,10 @@
   ],
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@popperjs/core": "^2.11.5",
+    "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",
-    "chart.js": "^3.8.2",
+    "chart.js": "^3.9.1",
     "chartjs-adapter-moment": "^1.0.0",
     "d3-scale-chromatic": "^3.0.0",
     "leaflet": "^1.8.0",
