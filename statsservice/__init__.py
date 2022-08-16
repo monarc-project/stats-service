@@ -4,7 +4,9 @@ import subprocess
 
 import pkg_resources
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+from statsservice.bootstrap import application
+
+BASE_DIR = os.path.dirname(application.instance_path)
 
 
 def get_version() -> str:
