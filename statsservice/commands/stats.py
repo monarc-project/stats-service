@@ -104,29 +104,33 @@ def stats_remove_duplicate(type, nb_month, yes) -> None:
         previous_date: Optional[date] = None
         previous_data: Optional[Dict[str, Any]] = None
         sorted_elems = sorted(elems, key=lambda x: x[4])
-        for *b, data, stat_date in sorted_elems:
-            print(b, end=" "), print(stat_date)
+        for *b, data, stats_date in sorted_elems:
+            # print(b, end=" "), print(stats_date)
             if previous_date:
-                if previous_date.month < stat_date.month:
-                    previous_date = stat_date
+                if previous_date.month < stats_date.month:
+                    previous_date = stats_date
                     continue
 
-                if stat_date == previous_date:
-                    print("Duplicate stats for this date and stats type.")
+                if stats_date == previous_date:
+                    print("Duplicate ANR stats for this date and stats type.")
                     to_delete.append(b[1])
                     continue  # no need to check the content (Stats.data)
-            previous_date = stat_date
+            previous_date = stats_date
 
             if previous_data:
                 if dict_hash(data) == dict_hash(previous_data):
-                    print("same content")
+                    print("Same content.")
                     to_delete.append(b[1])
 
             previous_data = data
 
-        print(" ")
+        # print(" ")
 
-    if yes or click.confirm(f"Do you want to delete {len(to_delete)} duplicate stats?"):
+    if len(to_delete) == 0:
+        print("Nothing to delete.")
+    elif yes or click.confirm(
+        f"Do you want to delete {len(to_delete)} duplicate stats?"
+    ):
         print("Removing the duplicate stats...")
         try:
             deleted_objects = Stats.__table__.delete().where(Stats.uuid.in_(to_delete))
