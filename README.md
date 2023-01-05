@@ -23,7 +23,7 @@ This software can be deployed just next to a MONARC instance or on a dedicated s
 
 The collected statistics can be sent to an other Stats Service instance.
 
-The public official instance operated by [CASES](https://www.cases.lu) is
+The public official instance operated by [NC3-LU](https://www.nc3.lu) is
 available at [https://dashboard.monarc.lu](https://dashboard.monarc.lu).
 
 
