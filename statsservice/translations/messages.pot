@@ -20,7 +20,7 @@ msgstr ""
 #: statsservice/templates/about.html:8
 msgid ""
 "This software is released under AGPLv3 license and is maintained by\n"
-"        <a href=\"https://www.cases.lu/\" target=\"_blank\" "
+"        <a href=\"https://www.nc3.lu/\" target=\"_blank\" "
 "rel=\"noopener noreferrer\">NC3 Luxembourg</a>."
 msgstr ""
 

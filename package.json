@@ -8,8 +8,8 @@
   },
   "author": "Cédric Bonhomme <cedric@cedricbonhomme.org> (https://cedricbonhomme.org)",
   "contributors": [
-    "Juan Rocha <juan.rocha@securitymadein.lu>",
-    "Ruslan Baidan <ruslan.baidan@securitymadein.lu>"
+    "Juan Rocha <juan.rocha@nc3.lu>",
+    "Ruslan Baidan <ruslan.baidan@nc3.lu>"
   ],
   "license": "AGPL-3.0-or-later",
   "dependencies": {

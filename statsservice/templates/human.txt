@@ -1,6 +1,6 @@
 # Contributors
 
 Cedric Bonhomme - https://www.cedricbonhomme.org
-Ruslan Baidan <ruslan.baidan@securitymadein.lu>
-Juan Rocha <juan.rocha@securitymadein.lu>
+Ruslan Baidan <ruslan.baidan@nc3.lu>
+Juan Rocha <juan.rocha@nc3.lu>
 Remi Laurent - https://github.com/remil1000

@@ -21,7 +21,7 @@ master stable branch.
 
 If your contribution require some documentation changes, a pull-request in order
 to update the documentation is strongly recommended. A compiled version of the
-documentation is available [here](https://monarc-stats-service.readthedocs.io/).
+documentation is available [here](https://www.monarc.lu/documentation/stats-service/).
 
 Please, do not open directly a GitHub issue if you think you have found a
 security vulnerability. See our
