@@ -26,7 +26,7 @@ from the local Stats Service to, for example, dashboard.monarc.lu.
 
     The sharing of stats can be disabled per client.
 
-The service behind dashboard.monarc.lu is operated by CASES Luxembourg and aims to
+The service behind dashboard.monarc.lu is operated by NC3 Luxembourg and aims to
 provide relevant data about the current cybersecurity trends, focused in the Luxembourg area.
 
 
@@ -67,7 +67,7 @@ However, if you want to expose this internal component, this can be done by sett
 
     <VirtualHost *:80>
         ServerName dashboard.my.monarc.lu
-        ServerAdmin info@cases.lu
+        ServerAdmin info@nc3.lu
 
         DocumentRoot /var/lib/monarc/stats-service
         WSGIDaemonProcess statsservice user=www-data group=www-data threads=5 python-home=/home/ansible/.cache/pypoetry/virtualenvs/statsservice-KKeyDYL6-py3.8 python-path=/var/lib/monarc/stats-service/

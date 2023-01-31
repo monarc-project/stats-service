@@ -76,7 +76,7 @@ Check the version:
     $ curl http://127.0.0.1:5000/about.json
     {
         "api_v1_root":"/api/v1/",
-        "contact":"info@cases.lu",
+        "contact":"info@nc3.lu",
         "version":"latest",
         "version_url":"https://github.com/monarc-project/stats-service/releases/tag/latest"
     }
@@ -121,15 +121,6 @@ A client should be already created, check:
     Token: c3ff95aa569afa36f5395317fb77dc300507fe3c
     Sharing Enabled: True
     Created at: 2022-06-30 10:44:17.118606
-
-
-From the Docker Hub
-```````````````````
-
-.. code-block:: bash
-
-    $ docker pull caseslu/statsservice:latest
-    $ docker run --name statsservice -d -p 5000:5000 --rm caseslu/statsservice
 
 
 From the GitHub registry

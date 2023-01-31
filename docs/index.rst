@@ -23,7 +23,7 @@ The collected statistics can be sent to an other Stats Service instance.
 
 .. note::
 
-    The public official instance operated by `CASES <https://www.cases.lu>`_ is
+    The public official instance operated by `NC3 <https://www.nc3.lu>`_ is
     available at `dashboard.monarc.lu <https://dashboard.monarc.lu>`_.
 
 
@@ -76,7 +76,7 @@ MONARC Stats Service.
 
 * Copyright (C) 2020-2022 Cédric Bonhomme
 * Copyright (C) 2020-2022 Juan Rocha
-* Copyright (C) 2020-2021 SECURITYMADEIN.LU
+* Copyright (C) 2020-2021 NC3
 
 For more information: https://github.com/monarc-project/stats-service
 

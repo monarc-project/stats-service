@@ -14,7 +14,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "MONARC Stats Service"
-copyright = "SECURITYMADEIN.LU <info@cases.lu>"
+copyright = "NC3 <info@nc3.lu>"
 author = "Cédric Bonhomme <cedric@cedricbonhomme.org>"
 
 # The full version, including alpha/beta/rc tags
@@ -103,7 +103,7 @@ html_theme_options = {
 #         "index",
 #         "MONARC_Stats_Service.tex",
 #         "MONARC Stats Service",
-#         "CASES Luxembourg",
+#         "NC3 Luxembourg",
 #         "howto",
 #     ),
 # ]

@@ -87,9 +87,9 @@ Example:
 
 .. code-block:: bash
 
-    $ flask client_create --name CASES
+    $ flask client_create --name NC3
     UUID: fb9b4d21-4082-445c-a6e6-5d42a1cd9202
-    Name: CASES
+    Name: NC3
     Role: 1
     Token: fB5odBNDwzgia7SRm_Q-7tuiLtvIVHBZ2yOc9MopNMWzzoxdrF9K2cBo8rgS4eP_0Xsr0E0QCA_jsQyjhXGaaQ
     Created at: 2020-07-15 09:27:51.701245
@@ -114,7 +114,7 @@ List all clients
     Created at: 2020-07-23 07:57:47.658965
 
     UUID: f490f727-9a1a-404b-bb91-ae36f643c6fe
-    Name: CASES
+    Name: NC3
     Role: 1
     Token: RFXhRd4fDN7jQifaoBe3wF6TdGts6GSic2ec8qH0dft8Z2k-Q4ulZBoa_50CrrUC6rLYSAEwJZsGySpuuuounw
     Created at: 2020-07-17 12:48:05.192735

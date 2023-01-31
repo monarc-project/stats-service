@@ -24,11 +24,11 @@ msgstr ""
 msgid ""
 "This software is released under AGPLv3 license and is maintained by\n"
 "        <a href=\"https://www.cases.lu/\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">CASES Luxembourg</a>."
+"noreferrer\">NC3 Luxembourg</a>."
 msgstr ""
 "Ce logiciel est publié sous licence AGPLv3 et est maintenu par\n"
 "        <a href=\"https://www.cases.lu/\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">CASES Luxembourg</a>."
+"noreferrer\">NC3 Luxembourg</a>."
 
 #: statsservice/templates/about.html:11
 msgid ""
