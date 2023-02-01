@@ -2,6 +2,7 @@
 import importlib
 import os
 import subprocess
+from importlib.metadata import PackageNotFoundError
 
 from statsservice.bootstrap import application
 
@@ -27,7 +28,7 @@ def get_version() -> str:
     if not version:
         try:
             version = "v" + importlib.metadata.version("statsservice")
-        except importlib.metadata.PackageNotFoundError:
+        except PackageNotFoundError:
             version = ""
     return version
 
