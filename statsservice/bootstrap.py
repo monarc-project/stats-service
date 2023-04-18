@@ -60,7 +60,7 @@ if TESTING:
     # Testing on GitHub Actions
     application.config[
         "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql://statsservice:password@localhost:5432/statsservice"
+    ] = "postgresql://statsservice:password@localhost:5432/statsservice1"
 elif os.environ.get("STATS_CONFIG", ""):
     # if a specific configuration is provided by the user
     # this does not works with mod_wsgi
