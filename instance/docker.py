@@ -9,8 +9,8 @@ TESTING = os.getenv("TESTING", "0") == "1"
 INSTANCE_URL = os.getenv("INSTANCE_URL", f"http://localhost:{PORT}")
 FIX_PROXY = os.getenv("FIX_PROXY", "0") == "1"
 
-ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "info@cases.lu")
-ADMIN_URL = os.getenv("ADMIN_URL", "https://www.cases.lu")
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "opensource@nc3.lu")
+ADMIN_URL = os.getenv("ADMIN_URL", "https://www.nc3.lu")
 
 REMOTE_STATS_SERVER = os.getenv("REMOTE_STATS_SERVER", "https://dashboard.monarc.lu")
 REMOTE_STATS_TOKEN = os.getenv("REMOTE_STATS_TOKEN", "")

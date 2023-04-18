@@ -11,8 +11,8 @@ class Config:
 
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
 
-    ADMIN_EMAIL = "info@cases.lu"
-    ADMIN_URL = "https://www.cases.lu"
+    ADMIN_EMAIL = "opensource@nc3.lu"
+    ADMIN_URL = "https://www.nc3.lu"
 
     ACTIVE_BLUEPRINTS = ["stats_bp", "admin_bp"]
 
