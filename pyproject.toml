@@ -39,7 +39,7 @@ monarc-stats-service-client-create = "statsservice.commands.client:client_create
 monarc-stats-service-client-list = "statsservice.commands.client:client_list"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.11"
+python = ">=3.8,<3.12"
 Flask = "^2.0.2"
 werkzeug = "2.2.3"
 requests = "^2.25.1"
