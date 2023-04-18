@@ -69,8 +69,8 @@ DEBUG = False
 TESTING = False
 INSTANCE_URL = 'http://127.0.0.1:$STATS_PORT'
 
-ADMIN_EMAIL = 'info@cases.lu'
-ADMIN_URL = 'https://www.cases.lu'
+ADMIN_EMAIL = 'opensource@nc3.lu'
+ADMIN_URL = 'https://www.nc3.lu'
 
 REMOTE_STATS_SERVER = 'https://dashboard.monarc.lu'
 
