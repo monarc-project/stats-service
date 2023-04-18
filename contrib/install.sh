@@ -114,7 +114,7 @@ User=$ME
 Environment=LANG=en_US.UTF-8
 Environment=LC_ALL=en_US.UTF-8
 Environment=FLASK_APP=runserver.py
-Environment=FLASK_ENV=production
+Environment=FLASK_DEBUG=0
 Environment=STATS_CONFIG=production.py
 Environment=FLASK_RUN_HOST=$STATS_HOST
 Environment=FLASK_RUN_PORT=$STATS_PORT
