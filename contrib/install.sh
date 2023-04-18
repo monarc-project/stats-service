@@ -54,7 +54,7 @@ source $HOME/.poetry/env
 git clone https://github.com/monarc-project/stats-service $STATS_PATH
 cd $STATS_PATH
 npm install
-poetry install --no-dev
+poetry install --only main
 
 echo  'export FLASK_APP=runserver.py' >> ~/.bashrc
 echo  'export STATS_CONFIG=production.py' >> ~/.bashrc

@@ -57,7 +57,7 @@ Get the source code and install the software:
     $ cd stats-service/
     $ npm install
     $ cp instance/production.py.cfg instance/production.py  # configure appropriately
-    $ poetry install --no-dev # install the application
+    $ poetry install --only main # install the application
     $ export STATS_CONFIG=production.py
     $ FLASK_APP=runserver.py poetry run flask db_create # database creation
     $ FLASK_APP=runserver.py poetry run flask db_init # database initialization

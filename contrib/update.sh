@@ -15,7 +15,7 @@ export FLASK_APP=runserver.py
 
 git pull origin master --tags
 npm ci
-poetry install --no-dev
+poetry install --only main
 poetry run pybabel compile -d statsservice/translations
 poetry run flask db upgrade
 
