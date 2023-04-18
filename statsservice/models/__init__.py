@@ -53,15 +53,8 @@ def db_create(db, db_config_dict, database_name):
     db_conn_format = "postgresql://{user}:{password}@{host}:{port}/{database}"
     db_conn_uri_default = db_conn_format.format(database="postgres", **db_config_dict)
     engine_default = create_engine(db_conn_uri_default, isolation_level="AUTOCOMMIT")
-    # conn = engine_default.connect()
-    # conn.execute("COMMIT")
-    # conn.execute("CREATE DATABASE %s" % database_name)
-    # conn.close()
-
     with engine_default.connect() as connection:
-        # connection.execute(text("insert into table values ('foo')"))
         connection.execute(text("CREATE DATABASE %s" % database_name))
-        # connection.commit()
         connection.close()
 
 
