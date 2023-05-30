@@ -30,7 +30,7 @@ services:
     command: "./entrypoint.sh"
     volumes:
       - .:/statsservice:rw
-      - statsservice/static
+      - .:/statsservice/static
     ports:
         - "5000:5000"
     expose:
