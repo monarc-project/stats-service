@@ -143,10 +143,10 @@ class StatsList(Resource):
             if date_to is None:
                 date_to = date.today().strftime("%Y-%m-%d")
 
-        result = {
+        result: Dict[str, Any] = {
             "data": [],
             "metadata": {"count": 0, "offset": offset, "limit": limit},
-        }  # type: Dict[str, Any]
+        }
 
         query = Stats.query
 
@@ -201,10 +201,10 @@ class StatsList(Resource):
     @auth_func
     def post(self):
         """Create a new stats"""
-        result = {
+        result: Dict[Any, Any] = {
             "data": [],
             "metadata": {"count": 0, "offset": 0, "limit": 0},
-        }  # type: Dict[Any, Any]
+        }
         errors = []
         for stats in stats_ns.payload:
             try:

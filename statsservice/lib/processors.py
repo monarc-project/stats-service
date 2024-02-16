@@ -217,7 +217,7 @@ def risk_averages_on_date(risks_stats, processor_params=None):
     - risks_type: informational or operational
     - risks_state: current or residual."""
     processor_params = processor_params if processor_params else {}
-    result = {
+    result: dict[Any, Any] = {
         "current": {
             "informational": {
                 "Low risks": {},
@@ -242,7 +242,7 @@ def risk_averages_on_date(risks_stats, processor_params=None):
                 "High risks": {},
             },
         },
-    }  # type: dict[Any, Any]
+    }
 
     generators = {
         "current": {

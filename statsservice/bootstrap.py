@@ -32,7 +32,7 @@ def set_logging(
             "statsservice.api.v1.processed",
             "statsservice.commands.stats",
         )
-    handler = io.BytesIO()  # type: Any
+    handler: Any = io.BytesIO()
     if log_path:
         if not os.path.exists(os.path.dirname(log_path)):
             os.makedirs(os.path.dirname(log_path))

@@ -12,7 +12,7 @@ def validate_data(data=None, type: str = ""):
     Note: an empty JSON object is validated by any schema but we do not accept
     empty stats.
     """
-    schema = {}  # type: dict[Any, Any]
+    schema: dict[Any, Any] = {}
     data = data if data else {}
     try:
         jsonschema.validate(data, schema)
