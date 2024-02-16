@@ -14,7 +14,7 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 7.0.0
     hooks:
       - id: flake8
         additional_dependencies:
@@ -27,8 +27,8 @@ repos:
       - id: fix-byte-order-marker
       - id: trailing-whitespace
       - id: end-of-file-fixer
-  - repo: https://github.com/trailofbits/pip-audit
-    rev: v2.5.6
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.7.1
     hooks:
       -   id: pip-audit
           args: ["--ignore-vuln", "PYSEC-2022-203"]
