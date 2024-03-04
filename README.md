@@ -33,9 +33,9 @@ To be found in the ``docs`` directory of the source code, or
 viewed online [here](https://www.monarc.lu/documentation/stats-service/).
 
 Several
-[installation](https://www.monarc.lu/documentation/stats-service/master/installation.html)
+[installation](https://www.monarc.lu/documentation/stats-service/installation.html)
 ways and the
-[update](https://www.monarc.lu/documentation/stats-service/master/updates.html)
+[update](https://www.monarc.lu/documentation/stats-service/updates.html)
 procedure are described.
 
 
@@ -51,7 +51,7 @@ Stats Service will be available at:
 http://127.0.0.1:5000/api/v1
 
 More information in the
-[installation section](https://www.monarc.lu/documentation/stats-service/master/installation.html)
+[installation section](https://www.monarc.lu/documentation/stats-service/installation.html)
 of the documentation.
 
 
