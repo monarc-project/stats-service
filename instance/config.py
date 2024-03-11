@@ -4,7 +4,6 @@
 class Config:
     HOST = "127.0.0.1"
     PORT = 5000
-    DEBUG = False
     TESTING = False
     INSTANCE_URL = "http://127.0.0.1:5000"
     FIX_PROXY = False

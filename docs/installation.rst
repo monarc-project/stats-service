@@ -62,7 +62,7 @@ Get the source code and install the software:
     $ FLASK_APP=runserver.py poetry run flask db_create # database creation
     $ FLASK_APP=runserver.py poetry run flask db_init # database initialization
 
-    $ FLASK_APP=runserver.py FLASK_DEBUG=1 poetry run flask run
+    $ FLASK_APP=runserver.py poetry run flask run --debug
 
 
 For production you should use `Gunicorn <https://gunicorn.org>`_ or ``mod_wsgi``.
@@ -175,7 +175,6 @@ Ansible with Docker
           ARMIN_URL: "https://{{ publicHost }}"
           SECRET_KEY: "{{ monarc_statsservice_secret_key }}"
           ADMIN_TOKEN: "{{ monarc_statsservice_admin_token | default(omit) }}"
-          DEBUG: "0"
           ENVIRONMENT: "production"
           INSTANCE_URL: "{{ monarc_statsservice_url }}"
           SCRIPT_NAME: "{{ monarc_statsservice_url | urlsplit('path') }}"
@@ -272,7 +271,6 @@ create a file ``/etc/systemd/system/statsservice.service`` with the following co
     [Service]
     User=monarc
     Environment=FLASK_APP=runserver.py
-    Environment=FLASK_DEBUG=0
     Environment=STATS_CONFIG=production.py
     WorkingDirectory=/home/monarc/stats-service
     ExecStart=/home/monarc/.poetry/bin/poetry run flask run

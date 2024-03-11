@@ -4,7 +4,6 @@ import os
 # Webserver
 HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", 5000))
-DEBUG = os.getenv("DEBUG", "0") == "1"
 TESTING = os.getenv("TESTING", "0") == "1"
 INSTANCE_URL = os.getenv("INSTANCE_URL", f"http://localhost:{PORT}")
 FIX_PROXY = os.getenv("FIX_PROXY", "0") == "1"
