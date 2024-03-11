@@ -26,7 +26,7 @@ def set_logging(
     if not modules:
         modules = (
             "root",
-            "runserver",
+            "app",
             "statsservice.api.v1.client",
             "statsservice.api.v1.stats",
             "statsservice.api.v1.processed",

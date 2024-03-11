@@ -349,7 +349,7 @@ You can simply execute Stats Service in a screen session.
 
     $ screen -S statsservice
     $ export STATS_CONFIG=production.py
-    $ poetry run python runserver.py
+    $ poetry run python app.py
     $ CTRL+a d
     [detached from 183221.statsservice]
 
@@ -421,7 +421,7 @@ And a file:
     with open(activate_this) as file_:
         exec(file_.read(), dict(__file__=activate_this))
 
-    from runserver import application
+    from app import application
 
 
 Integration with MONARC and collect of the stats

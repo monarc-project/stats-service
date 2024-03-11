@@ -15,7 +15,7 @@ activate:
 	poetry shell
 
 run:
-	python runserver.py
+	python app.py
 
 migrate:
 	flask db upgrade

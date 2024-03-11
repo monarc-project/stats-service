@@ -33,7 +33,7 @@ COPY --from=node_modules /opt/node_modules/ statsservice/static/npm_components/
 
 RUN pybabel compile -d statsservice/translations
 
-COPY runserver.py .
+COPY app.py .
 COPY entrypoint.sh .
 
 ENV STATSSERVICE_VERSION=latest

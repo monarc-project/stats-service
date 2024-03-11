@@ -25,7 +25,7 @@ classifiers = [
 include = [
     "README.md",
     "COPYING",
-    "runserver.py"
+    "app.py"
 ]
 
 packages = [
@@ -34,7 +34,7 @@ packages = [
 ]
 
 [tool.poetry.scripts]
-monarc-stats-service = "runserver:run"
+monarc-stats-service = "app:run"
 monarc-stats-service-client-create = "statsservice.commands.client:client_create"
 monarc-stats-service-client-list = "statsservice.commands.client:client_list"
 
