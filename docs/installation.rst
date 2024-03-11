@@ -59,10 +59,9 @@ Get the source code and install the software:
     $ cp instance/production.py.cfg instance/production.py  # configure appropriately
     $ poetry install --only main # install the application
     $ export STATS_CONFIG=production.py
-    $ FLASK_APP=runserver.py poetry run flask db_create # database creation
-    $ FLASK_APP=runserver.py poetry run flask db_init # database initialization
-
-    $ FLASK_APP=runserver.py poetry run flask run --debug
+    $ poetry run flask db_create # database creation
+    $ poetry run flask db_init # database initialization
+    $ poetry run flask run --debug
 
 
 For production you should use `Gunicorn <https://gunicorn.org>`_ or ``mod_wsgi``.
@@ -270,7 +269,6 @@ create a file ``/etc/systemd/system/statsservice.service`` with the following co
 
     [Service]
     User=monarc
-    Environment=FLASK_APP=runserver.py
     Environment=STATS_CONFIG=production.py
     WorkingDirectory=/home/monarc/stats-service
     ExecStart=/home/monarc/.poetry/bin/poetry run flask run

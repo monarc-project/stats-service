@@ -56,7 +56,6 @@ cd $STATS_PATH
 npm install
 poetry install --only main
 
-echo  'export FLASK_APP=runserver.py' >> ~/.bashrc
 echo  'export STATS_CONFIG=production.py' >> ~/.bashrc
 source ~/.bashrc
 
@@ -95,12 +94,11 @@ EOF"
 
 
 # Initializes the database
-export FLASK_APP=runserver.py
 export STATS_CONFIG=production.py
 
-FLASK_APP=runserver.py poetry run flask db_create
-FLASK_APP=runserver.py poetry run flask db_init
-FLASK_APP=runserver.py poetry run flask client_create --name ADMIN --role admin
+poetry run flask db_create
+poetry run flask db_init
+poetry run flask client_create --name ADMIN --role admin
 
 
 # Create a systemd service
@@ -113,7 +111,6 @@ After=network.target
 User=$ME
 Environment=LANG=en_US.UTF-8
 Environment=LC_ALL=en_US.UTF-8
-Environment=FLASK_APP=runserver.py
 Environment=FLASK_DEBUG=0
 Environment=STATS_CONFIG=production.py
 Environment=FLASK_RUN_HOST=$STATS_HOST

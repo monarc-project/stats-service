@@ -27,7 +27,6 @@ def restrict_bp_to_admins():
 def client_sharing_activate(client_uuid):
     """Enable the sharing of stats for a client."""
     env = os.environ.copy()
-    env["FLASK_APP"] = "runserver.py"
     cmd = [
         sys.exec_prefix + "/bin/flask",
         "client_sharing_activate",
@@ -53,7 +52,6 @@ def client_sharing_activate(client_uuid):
 def client_sharing_deactivate(client_uuid):
     """Disable the sharing of stats for a client."""
     env = os.environ.copy()
-    env["FLASK_APP"] = "runserver.py"
     cmd = [
         sys.exec_prefix + "/bin/flask",
         "client_sharing_deactivate",

@@ -7,7 +7,6 @@ if [ ! $# -ge 1 ]
     exit 1
 fi
 
-export FLASK_APP=runserver.py
 export STATS_CONFIG=production.py
 
 if [ -z "$2" ]
