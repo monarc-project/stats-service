@@ -14,4 +14,4 @@ jobs:
           pip install pyupgrade
           pip install black
           pip install pip-audit
-      - uses: pre-commit/action@v2.0.3
+      - uses: pre-commit/action@v3.0.1
