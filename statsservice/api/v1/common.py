@@ -27,11 +27,12 @@ def auth_func(func):
     def wrapper(*args, **kwargs):
         if "X-API-KEY" in request.headers:
             token = request.headers.get("X-API-KEY", False)
-            if token:
-                client = Client.query.filter(Client.token == token).first()
-                login_user_bundle(client)
-                if not client:
-                    abort(403, Error="Forbidden - Authentication failed.")
+            if not token:
+                abort(401, Error="Unauthorized - Authentication required.")
+            client = Client.query.filter(Client.token == token).first()
+            if not client:
+                abort(403, Error="Forbidden - Authentication failed.")
+            login_user_bundle(client)
         else:
             abort(401, Error="Unauthorized - Authentication required.")
         return func(*args, **kwargs)
